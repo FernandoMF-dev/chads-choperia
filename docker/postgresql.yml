@@ -6,8 +6,8 @@ services:
     container_name: postgres_container
     image: postgres
     environment:
-      - POSTGRES_USER=sgc
-      - POSTGRES_PASSWORD=sgc
-      - POSTGRES_DB=sgc
+      - POSTGRES_USER=chadschoperia
+      - POSTGRES_PASSWORD=chadschoperia
+      - POSTGRES_DB=chadschoperia
     ports:
       - "5432:5432"
