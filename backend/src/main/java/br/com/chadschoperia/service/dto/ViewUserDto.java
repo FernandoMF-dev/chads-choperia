@@ -13,6 +13,8 @@ public class ViewUserDto implements Serializable {
 
     private String username;
 
+    private String email;
+
     private String roleName;
 
 }
