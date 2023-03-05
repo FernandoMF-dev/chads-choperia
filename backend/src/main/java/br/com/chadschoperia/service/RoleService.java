@@ -27,4 +27,10 @@ public class RoleService {
                 .orElseThrow(() -> new EntityNotFoundException(MessageUtil.ROLE_NOT_FOUND)));
     }
 
+    public void existsById(Long idRole) {
+        if (!roleRepository.existsById(idRole)) {
+            throw new EntityNotFoundException(MessageUtil.ROLE_NOT_FOUND);
+        }
+    }
+
 }

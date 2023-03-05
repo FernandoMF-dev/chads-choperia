@@ -8,5 +8,6 @@
                    http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.1.xsd">
 
     <include file="db/changelog/files/20230304215905_create_table_role.xml"></include>
+    <include file="db/changelog/files/20230304230455_create_table_user.xml"></include>
 
 </databaseChangeLog>
