@@ -9,5 +9,7 @@
 
     <include file="db/changelog/files/20230304215905_create_table_role.xml"></include>
     <include file="db/changelog/files/20230304230455_create_table_user.xml"></include>
+    <include file="db/changelog/files/20230310091522_create_table_product.xml"></include>
+
 
 </databaseChangeLog>

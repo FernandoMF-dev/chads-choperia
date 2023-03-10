@@ -11,7 +11,7 @@
 	<groupId>br.com.chadschoperia</groupId>
 	<artifactId>Chads-Choperia</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Chads-Choperia</name>
+	<name>backend</name>
 	<description>System for the control of a beer hall</description>
 	<properties>
 		<java.version>17</java.version>

@@ -1,8 +1,7 @@
 package br.com.chadschoperia.controller;
 
-import br.com.chadschoperia.service.UserService;
-import br.com.chadschoperia.service.dto.UserDto;
-import br.com.chadschoperia.service.dto.ViewUserDto;
+import br.com.chadschoperia.service.ProductService;
+import br.com.chadschoperia.service.dto.ProductDto;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -20,30 +19,35 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/usuario")
+@RequestMapping("/api/produto")
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RequiredArgsConstructor
-public class UserController {
+public class ProductController {
 
-    private final UserService service;
+    private final ProductService service;
 
     @GetMapping
-    public ResponseEntity<List<ViewUserDto>> findAll() {
+    public ResponseEntity<List<ProductDto>> findAll() {
         return ResponseEntity.ok(service.findAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserDto> findById(@PathVariable Long id) {
+    public ResponseEntity<ProductDto> findById(@PathVariable Long id) {
         return ResponseEntity.ok(service.findById(id));
     }
 
     @PostMapping
-    public ResponseEntity<UserDto> create(@Valid @RequestBody UserDto dto) {
+    public ResponseEntity<ProductDto> create(@Valid @RequestBody ProductDto dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.create(dto));
     }
 
+    @PostMapping("/lista")
+    public ResponseEntity<List<ProductDto>> createBatch(@Valid @RequestBody List<ProductDto> dto) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(service.updateBatch(dto));
+    }
+
     @PutMapping
-    public ResponseEntity<UserDto> update(@Valid @RequestBody UserDto dto) {
+    public ResponseEntity<ProductDto> update(@Valid @RequestBody ProductDto dto) {
         return ResponseEntity.ok(service.update(dto));
     }
 

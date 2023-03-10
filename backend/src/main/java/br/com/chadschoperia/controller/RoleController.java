@@ -25,9 +25,9 @@ public class RoleController {
         return ResponseEntity.ok(roleService.findAll());
     }
 
-    @GetMapping("/{idRole}")
-    public ResponseEntity<DropdownDto> findById(@PathVariable Long idRole) {
-        return ResponseEntity.ok(roleService.findById(idRole));
+    @GetMapping("/{id}")
+    public ResponseEntity<DropdownDto> findById(@PathVariable Long id) {
+        return ResponseEntity.ok(roleService.findById(id));
     }
 
 }
