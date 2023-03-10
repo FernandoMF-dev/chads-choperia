@@ -1,11 +1,9 @@
 package br.com.chadschoperia.service;
 
-import br.com.chadschoperia.repository.UserRepository;
-import br.com.chadschoperia.service.dto.UserDto;
-import br.com.chadschoperia.service.dto.ViewUserDto;
+import br.com.chadschoperia.repository.ProductRepository;
+import br.com.chadschoperia.service.dto.ProductDto;
 import br.com.chadschoperia.service.exception.EntityNotFoundException;
-import br.com.chadschoperia.service.mapper.UserMapper;
-import br.com.chadschoperia.service.mapper.ViewUserMapper;
+import br.com.chadschoperia.service.mapper.ProductMapper;
 import br.com.chadschoperia.util.MessageUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,21 +12,17 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class UserService {
+public class ProductService {
+    
+    private final ProductRepository repository;
 
-    private final RoleService roleService;
-
-    private final UserRepository repository;
-
-    private final UserMapper mapper;
-
-    private final ViewUserMapper viewUserMapper;
-
-    public List<ViewUserDto> findAll() {
-        return viewUserMapper.toDto(repository.findAll());
+    private final ProductMapper mapper;
+    
+    public List<ProductDto> findAll() {
+        return mapper.toDto(repository.findAll());
     }
 
-    public UserDto findById(Long id) {
+    public ProductDto findById(Long id) {
         return mapper.toDto(repository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(MessageUtil.USER_NOT_FOUND)));
     }
@@ -39,14 +33,16 @@ public class UserService {
         }
     }
 
-    public UserDto create(UserDto dto) {
-        roleService.existsById(dto.getIdRole());
+    public ProductDto create(ProductDto dto) {
         return mapper.toDto(repository.save(mapper.toEntity(dto)));
     }
 
-    public UserDto update(UserDto dto) {
+    public List<ProductDto> updateBatch(List<ProductDto>  dtos) {
+        return mapper.toDto(repository.saveAll(mapper.toEntity(dtos)));
+    }
+
+    public ProductDto update(ProductDto dto) {
         existsById(dto.getId());
-        roleService.existsById(dto.getIdRole());
         return mapper.toDto(repository.save(mapper.toEntity(dto)));
     }
 
