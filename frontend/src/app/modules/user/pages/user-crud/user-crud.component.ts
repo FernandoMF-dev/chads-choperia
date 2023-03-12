@@ -1,40 +1,42 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { finalize } from 'rxjs/operators';
 import { Role } from 'src/app/models/role.model';
 import { User } from 'src/app/models/user.model';
 import { RoleService } from 'src/app/services/role.service';
 import { UserService } from 'src/app/services/user.service';
+import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
     templateUrl: './user-crud.component.html',
-    providers: [MessageService]
+    providers: [UtilsService]
 })
 export class UserCrudComponent implements OnInit {
 
     userDialog: boolean = false;
-
     deleteUserDialog: boolean = false;
 
     users: User[] = [];
-
-    roles: Array<Role & { disabled?: boolean }> = [];
+    roles: Role[] = [];
 
     user: User = {};
-
     userForm: FormGroup;
-
-    submitted: boolean = false;
 
     cols: any[] = [];
 
-    statuses: any[] = [];
+    _isLoading = false;
 
-    isLoading = false;
+    get isLoading(): boolean {
+        return this._isLoading;
+    }
 
-    constructor(private userService: UserService, private roleService: RoleService, private messageService: MessageService) {
+    set isLoading(value: boolean) {
+        value ? this.userForm.disable() : this.userForm.enable();
+        this._isLoading = value;
+    }
+
+    constructor(private userService: UserService, private roleService: RoleService, private utilsService: UtilsService) {
         this.userForm = new FormGroup({
             id: new FormControl(null),
             username: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]),
@@ -56,32 +58,45 @@ export class UserCrudComponent implements OnInit {
     }
 
     private fetchUsers(): void {
-        this.userService.getAll().subscribe({
-            next: (users) => {
-                this.users = users
-            },
-            error: () => {
-                this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Erro ao carregar dados', life: 3000 });
-            }
+        this.isLoading = true;
+        this.userService.getAll().pipe(finalize(() => this.isLoading = false)).subscribe({
+            next: (users) => this.updateUsers(users),
+            error: () => this.utilsService.showErrorMessage('Erro ao carregar dados')
         })
     }
 
+    private updateUsers(users: User[]): void {
+        this.users = users
+    }
+
     private fetchRoles(): void {
-        this.roleService.getAll().subscribe({
-            next: (roles) => {
-                this.roles = [{ name: 'Escolha a Função', disabled: true }, ...roles];
-            },
-            error: () => {
-                this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Erro ao carregar dados', life: 3000 });
-            }
+        this.isLoading = true;
+        this.roleService.getAll().pipe(finalize(() => this.isLoading = false)).subscribe({
+            next: (roles) => this.updateRoles(roles),
+            error: () => this.utilsService.showErrorMessage('Erro ao carregar os dados')
         })
+    }
+
+    private updateRoles(roles: Role[]): void {
+        this.roles = roles;
+    }
+
+    private clearUser(): void {
+        this.user = {};
+    }
+
+    private openUserFormDialog() {
+        this.userDialog = true;
+    }
+
+    private closeUserFormDialog() {
+        this.userDialog = false;
     }
 
     openNew() {
         this.userForm.reset();
-        this.user = {};
-        this.submitted = false;
-        this.userDialog = true;
+        this.clearUser();
+        this.openUserFormDialog();
     }
 
     editUser(user: User) {
@@ -93,13 +108,13 @@ export class UserCrudComponent implements OnInit {
                 this.isLoading = false;
             },
             error: () => {
-                this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Erro ao carregar dados', life: 3000 });
-                this.userDialog = false;
+                this.utilsService.showErrorMessage('Erro ao carregar os dados')
+                this.closeUserFormDialog()
                 this.isLoading = false;
             }
         })
 
-        this.userDialog = true;
+        this.openUserFormDialog();
     }
 
     deleteUser(user: User) {
@@ -111,59 +126,57 @@ export class UserCrudComponent implements OnInit {
         this.deleteUserDialog = false;
         this.userService.delete(this.user.id!).pipe(finalize(() => { this.user = {} })).subscribe({
             next: () => {
-                this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Usuário Removido', life: 3000 });
                 this.users = this.users.filter(user => user.id !== this.user.id);
+                this.utilsService.showSuccessMessage('Usuário Removido');
             },
-            error: () => {
-                this.messageService.add({ severity: 'error', summary: 'Erro', detail: 'Erro ao remover o usuário', life: 3000 });
-            }
+            error: () => this.utilsService.showErrorMessage('Erro ao Remover o usuário')
         })
     }
 
     hideDialog() {
-        this.userDialog = false;
-        this.submitted = false;
+        this.closeUserFormDialog()
     }
 
     async saveUser() {
         this.user = this.userForm.value;
-        this.submitted = true;
         this.isLoading = true;
         this.user.id ? await this.updateUser() : await this.registerNewUser();
-        this.userDialog = false;
-        this.user = {};
+
+        this.closeUserFormDialog()
+        this.clearUser();
         this.isLoading = false;
     }
 
     private registerNewUser(): Promise<void> {
         return new Promise((resolve) => {
-            this.userService.create(this.user).pipe(
-                finalize(() => resolve()),
-            ).subscribe({
-                next: (newUser) => {
-                    this.users.push({ ...this.user, id: newUser.id, roleName: this.findRoleById(this.user.idRole!).name });
-                    this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Usuário Criado', life: 3000 });
-                },
-                error: () => {
-                    this.messageService.add({ severity: 'error', summary: 'Erro', detail: 'Erro ao criar o usuário', life: 3000 });
-                }
-            })
+            this.userService.create(this.user)
+                .pipe(finalize(() => resolve()))
+                .subscribe({
+                    next: (newUser) => {
+                        this.users.push({ ...this.user, id: newUser.id, roleName: this.findRoleById(this.user.idRole!).name });
+                        this.utilsService.showSuccessMessage('Usuário Criado');
+                    },
+                    error: () => this.utilsService.showErrorMessage('Erro ao criar o usuário')
+                })
         })
     }
 
     private updateUser(): Promise<void> {
+        const updateUserInUsersList = (updatedUser: User): void => {
+            this.users[this.findIndexById(updatedUser.id!)] = updatedUser;
+        }
+
         return new Promise((resolve) => {
-            this.userService.update(this.user).pipe(
-                finalize(() => resolve()),
-            ).subscribe({
-                next: (updatedUser) => {
-                    this.users[this.findIndexById(updatedUser.id!)] = updatedUser;
-                    this.messageService.add({ severity: 'success', summary: 'Successful', detail: `Usuário ${updatedUser.username} alterado`, life: 3000 });
-                },
-                error: () => {
-                    this.messageService.add({ severity: 'error', summary: 'Erro', detail: 'Erro ao editar o usuário', life: 3000 });
-                }
-            })
+            this.userService
+                .update(this.user)
+                .pipe(finalize(() => resolve()))
+                .subscribe({
+                    next: (updatedUser) => {
+                        updateUserInUsersList(updatedUser);
+                        this.utilsService.showSuccessMessage(`Usuário ${updatedUser.username} alterado`);
+                    },
+                    error: () => this.utilsService.showErrorMessage('Erro ao editar o usuário')
+                })
         })
     }
 
@@ -180,9 +193,10 @@ export class UserCrudComponent implements OnInit {
     }
 
     isFieldValid(fieldName: string): boolean | undefined {
-        return !(
-            (this.userForm.get(fieldName)?.touched || this.userForm.get(fieldName)?.dirty) &&
-            this.userForm.get(fieldName)?.invalid
-        );
+        return this.utilsService.isFieldValid(this.userForm, fieldName);
+    }
+
+    get roleOptions(): Array<Role & { disabled?: boolean }> {
+        return [{ name: 'Escolha a função', disabled: true }, ...this.roles];
     }
 }

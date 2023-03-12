@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { UserRoutingModule } from './user-routing.module';
-import { UserCrudComponent } from './pages/user-crud/user-crud.component';
 import { TableModule } from 'primeng/table';
 import { FileUploadModule } from 'primeng/fileupload';
 import { ButtonModule } from 'primeng/button';
@@ -17,19 +15,26 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { DialogModule } from 'primeng/dialog';
 import { ReactiveFormsModule } from '@angular/forms';
-import { PasswordModule } from 'primeng/password';
-import { UserService } from 'src/app/services/user.service';
-import { RoleService } from 'src/app/services/role.service';
 import { SkeletonModule } from 'primeng/skeleton';
+
+
+import { ProductRoutingModule } from './product-routing.module';
+import { ProductCrudComponent } from './pages/product-crud/product-crud.component';
+import { ProductManageStockComponent } from './pages/product-manage-stock/product-manage-stock.component';
+import { ProductFormModalComponent } from './pages/components/product-form-modal/product-form-modal.component';
+import { ProductService } from 'src/app/services/product.service';
+import { InputMaskModule } from 'primeng/inputmask';
 
 
 @NgModule({
   declarations: [
-    UserCrudComponent
+    ProductCrudComponent,
+    ProductManageStockComponent,
+    ProductFormModalComponent
   ],
   imports: [
     CommonModule,
-    UserRoutingModule,
+    ProductRoutingModule,
     TableModule,
     FileUploadModule,
     ReactiveFormsModule,
@@ -44,9 +49,9 @@ import { SkeletonModule } from 'primeng/skeleton';
     RadioButtonModule,
     InputNumberModule,
     DialogModule,
-    PasswordModule,
-    SkeletonModule
+    SkeletonModule,
+    InputMaskModule
   ],
-  providers: [UserService, RoleService]
+  providers: [ProductService]
 })
-export class UserModule { }
+export class ProductModule { }

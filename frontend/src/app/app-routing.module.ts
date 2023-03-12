@@ -16,6 +16,7 @@ import { AppLayoutComponent } from "./layout/app.layout.component";
                     { path: 'blocks', loadChildren: () => import('./demo/components/primeblocks/primeblocks.module').then(m => m.PrimeBlocksModule) },
                     { path: 'pages', loadChildren: () => import('./demo/components/pages/pages.module').then(m => m.PagesModule) },
                     { path: 'usuario', loadChildren: () => import('./modules/user/user.module').then(m => m.UserModule) },
+                    { path: 'produto', loadChildren: () => import('./modules/product/product.module').then(m => m.ProductModule) },
                 ]
             },
             { path: 'auth', loadChildren: () => import('./demo/components/auth/auth.module').then(m => m.AuthModule) },
