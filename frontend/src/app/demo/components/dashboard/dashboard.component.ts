@@ -4,6 +4,7 @@ import { Product } from '../../api/product';
 import { ProductService } from '../../service/product.service';
 import { Subscription } from 'rxjs';
 import { LayoutService } from 'src/app/layout/service/app.layout.service';
+import { PrinterService } from 'src/app/services/printer.service';
 
 @Component({
     templateUrl: './dashboard.component.html',
@@ -20,13 +21,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
     subscription!: Subscription;
 
-    constructor(private productService: ProductService, public layoutService: LayoutService) {
+    constructor(private productService: ProductService, public layoutService: LayoutService, private printerService: PrinterService) {
         this.subscription = this.layoutService.configUpdate$.subscribe(() => {
             this.initChart();
         });
     }
 
     ngOnInit() {
+        this.printerService.getLocalStoragePrinterPersistence();
         this.initChart();
         this.productService.getProductsSmall().then(data => this.products = data);
 
@@ -99,5 +101,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
         if (this.subscription) {
             this.subscription.unsubscribe();
         }
+    }
+
+    printTest(): void {
+        this.printerService.printHeader();
+    }
+
+    requestUsb(): void {
+        this.printerService.requestUsb();
     }
 }
