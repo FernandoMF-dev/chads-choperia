@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Table } from 'primeng/table';
 import { finalize } from 'rxjs/operators';
 import { Role } from 'src/app/models/role.model';
@@ -7,7 +6,7 @@ import { Product } from 'src/app/models/product.model';
 import { ProductService } from 'src/app/services/product.service';
 import { UtilsService } from 'src/app/services/utils.service';
 
-interface ProductDialogProps {
+export interface ProductDialogProps {
   isOpen: boolean;
   updateMode: boolean;
   productToUpdate: Product;
