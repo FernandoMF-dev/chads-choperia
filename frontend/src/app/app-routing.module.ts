@@ -38,6 +38,10 @@ const routes: Routes = [
 			{
 				path: 'produto',
 				loadChildren: () => import('./modules/product/product.module').then(m => m.ProductModule)
+			},
+			{
+				path: 'self-service',
+				loadChildren: () => import('./modules/selfservice/selfservice.module').then(m => m.SelfserviceModule)
 			}
 		]
 	},
