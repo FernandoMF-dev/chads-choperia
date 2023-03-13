@@ -14,7 +14,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { DialogModule } from 'primeng/dialog';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SkeletonModule } from 'primeng/skeleton';
 
 
@@ -24,7 +24,7 @@ import { ProductManageStockComponent } from './pages/product-manage-stock/produc
 import { ProductFormModalComponent } from './pages/components/product-form-modal/product-form-modal.component';
 import { ProductService } from 'src/app/services/product.service';
 import { InputMaskModule } from 'primeng/inputmask';
-
+import { AutoCompleteModule } from 'primeng/autocomplete';
 
 @NgModule({
   declarations: [
@@ -50,7 +50,9 @@ import { InputMaskModule } from 'primeng/inputmask';
     InputNumberModule,
     DialogModule,
     SkeletonModule,
-    InputMaskModule
+    InputMaskModule,
+    AutoCompleteModule,
+    FormsModule,
   ],
   providers: [ProductService]
 })

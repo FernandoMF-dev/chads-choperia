@@ -1,1 +1,65 @@
-<p>product-manage-stock works!</p>
+<div class="grid">
+  <div class="col-12">
+    <div class="card px-6 py-6">
+      <p-toast></p-toast>
+      <p-toolbar styleClass="mb-4">
+        <form class="grid p-fluid" class="w-full" (ngSubmit)="newProductByBarcode()">
+          <div class="col-12">
+            <span>Código de Barras</span>
+            <div class="p-inputgroup w-full">
+              <p-inputMask [(ngModel)]="productInput" pRipple name="productInput" style="width: 100%;" styleClass="w-full"
+                mask="9 999999 999999" [unmask]="true"></p-inputMask>
+              <button type="button" pButton label="Cadastrar" class="p-button-success" icon="pi pi-plus"
+                (click)="newProductByBarcode()"></button>
+            </div>
+          </div>
+        </form>
+      </p-toolbar>
+
+      <p-table #dt [value]="stockManageQueries" [columns]="cols" responsiveLayout="scroll"
+        [globalFilterFields]="['product.name']" [paginator]="false" [showCurrentPageReport]="true" [rowHover]="true"
+        dataKey="id">
+        <ng-template pTemplate="caption">
+          <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
+            <h5 class="m-0">{{pageHeader}}</h5>
+            <span class="block mt-2 md:mt-0 p-input-icon-left">
+              <i class="pi pi-search"></i>
+              <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Pesquisar"
+                class="w-full sm:w-auto" />
+            </span>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+          <tr>
+            <th pSortableColumn="name">Produto <p-sortIcon field="product.name"></p-sortIcon></th>
+            <th pSortableColumn="amount">Quantidade</th>
+            <th></th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-manageStockQuery>
+          <tr>
+            <td>
+              <span class="p-column-title">Produto</span>
+              {{manageStockQuery.product.name}}
+            </td>
+            <td>
+              <span class="p-column-title">Quantidade</span>
+              <p-inputNumber [showButtons]="true" buttonLayout="horizontal" inputId="horizontal"
+                spinnerMode="horizontal" [step]="1" decrementButtonClass="p-button-danger" [min]="1" suffix="un"
+                [allowEmpty]="false" incrementButtonClass="p-button-success" incrementButtonIcon="pi pi-plus"
+                decrementButtonIcon="pi pi-minus" [(ngModel)]="manageStockQuery.amount"></p-inputNumber>
+            </td>
+            <td>
+              <div class="flex">
+                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"
+                  (click)="deleteStockQuery(manageStockQuery)"></button>
+              </div>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</div>
+
+<app-product-form-modal [dialogState]="dialogState" (productSaved)="newProductSaved($event)"></app-product-form-modal>
