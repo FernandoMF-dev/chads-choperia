@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Table } from 'primeng/table';
 import { finalize } from 'rxjs/operators';
-import { Role } from 'src/app/models/role.model';
-import { User } from 'src/app/models/user.model';
-import { RoleService } from 'src/app/services/role.service';
-import { UserService } from 'src/app/services/user.service';
+import { Role } from 'src/app/modules/user/models/role.model';
+import { User } from 'src/app/modules/user/models/user.model';
+import { RoleService } from 'src/app/modules/user/services/role.service';
+import { UserService } from 'src/app/modules/user/services/user.service';
 import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
@@ -14,8 +14,8 @@ import { UtilsService } from 'src/app/services/utils.service';
 })
 export class UserCrudComponent implements OnInit {
 
-    userDialog: boolean = false;
-    deleteUserDialog: boolean = false;
+	userDialog: boolean = false;
+	deleteUserDialog: boolean = false;
 
     users: User[] = [];
     roles: Role[] = [];

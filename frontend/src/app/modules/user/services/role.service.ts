@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Role } from '../models/role.model';
 
-import { CrudService } from "./crud.service";
+import { CrudService } from '../../../services/crud.service';
+import { Role } from '../models/role.model';
 
 @Injectable()
 export class RoleService extends CrudService<Role> {

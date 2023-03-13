@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { finalize } from 'rxjs/operators';
-import { Product } from 'src/app/models/product.model';
-import { ProductService } from 'src/app/services/product.service';
+import { Product } from 'src/app/modules/product/models/product.model';
+import { ProductService } from 'src/app/modules/product/services/product.service';
 import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
