@@ -1,18 +1,18 @@
-import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { ProductDialogProps } from '../product-crud/product-crud.component';
-import { ManageStockProduct } from 'src/app/models/manage-stock-product.model';
-import { ProductService } from 'src/app/services/product.service';
-import { Product } from 'src/app/models/product.model';
+import { Component, OnInit } from '@angular/core';
+import { Table } from 'primeng/table';
 import { finalize } from 'rxjs/operators';
 import { UtilsService } from 'src/app/services/utils.service';
-import { Table } from 'primeng/table';
+import { ManageStockProduct } from '../../../user/models/manage-stock-product.model';
+import { Product } from '../../models/product.model';
+import { ProductService } from '../../services/product.service';
+import { ProductDialogProps } from '../product-crud/product-crud.component';
 
 @Component({
-  selector: 'app-product-manage-stock',
-  templateUrl: './product-manage-stock.component.html',
-  styleUrls: [],
-  providers: [ProductService, UtilsService]
+	selector: 'app-product-manage-stock',
+	templateUrl: './product-manage-stock.component.html',
+	styleUrls: [],
+	providers: [ProductService, UtilsService]
 })
 export class ProductManageStockComponent implements OnInit {
   currentAction: 'entry' | 'removal' = 'entry';

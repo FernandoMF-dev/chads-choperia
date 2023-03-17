@@ -103,8 +103,8 @@
                             <input pPassword toggleMask id="password" type="password"
                                 [ngClass]="{'ng-invalid ng-dirty': !isFieldValid('password')}"
                                 formControlName="password" />
-                            <small id="email-help" class="p-error block" *ngIf="!isFieldValid('password')">Senha
-                                inválida.</small>
+                            <small id="password-help" class="p-error block" *ngIf="!isFieldValid('password')">Senha
+								inválida.</small>
                         </div>
                     </fieldset>
                 </form>

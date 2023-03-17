@@ -30,4 +30,9 @@ public class NotificationDto implements Serializable {
 
     private Boolean restockedItem;
 
+	public NotificationDto(String replaceItemMessage, LocalDate notificationDate) {
+		this.replaceItemMessage = replaceItemMessage;
+		this.notificationDate = notificationDate;
+		this.restockedItem = Boolean.FALSE;
+	}
 }

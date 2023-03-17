@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Table } from 'primeng/table';
 import { finalize } from 'rxjs/operators';
-import { Role } from 'src/app/models/role.model';
-import { Product } from 'src/app/models/product.model';
-import { ProductService } from 'src/app/services/product.service';
+import { Product } from 'src/app/modules/product/models/product.model';
+import { ProductService } from 'src/app/modules/product/services/product.service';
+import { Role } from 'src/app/modules/user/models/role.model';
 import { UtilsService } from 'src/app/services/utils.service';
 
 export interface ProductDialogProps {
