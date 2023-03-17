@@ -12,6 +12,7 @@ import { NodeService } from './demo/service/node.service';
 import { PhotoService } from './demo/service/photo.service';
 import { ProductService } from './demo/service/product.service';
 import { AppLayoutModule } from './layout/app.layout.module';
+import { UtilsService } from './services/utils.service';
 
 @NgModule({
 	declarations: [
@@ -24,7 +25,7 @@ import { AppLayoutModule } from './layout/app.layout.module';
 	providers: [
 		{ provide: LocationStrategy, useClass: HashLocationStrategy },
 		CountryService, CustomerService, EventService, IconService, NodeService,
-		PhotoService, ProductService, MessageService
+		PhotoService, ProductService, MessageService, UtilsService
 	],
 	bootstrap: [AppComponent]
 })
