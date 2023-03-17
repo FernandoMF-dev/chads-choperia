@@ -6,7 +6,7 @@ import { ProductService } from 'src/app/modules/product/services/product.service
 import { Role } from 'src/app/modules/user/models/role.model';
 import { UtilsService } from 'src/app/services/utils.service';
 
-interface ProductDialogProps {
+export interface ProductDialogProps {
   isOpen: boolean;
   updateMode: boolean;
   productToUpdate: Product;

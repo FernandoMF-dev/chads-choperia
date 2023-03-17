@@ -27,6 +27,18 @@ export class AppMenuComponent implements OnInit {
 					{ label: 'Self Service', icon: 'pi pi-fw pi-download', routerLink: ['/self-service'] }
 				]
             },
+            {
+                label: 'Menu do Cozinheiro',
+                items: [
+                    { label: 'Saída de Estoque', icon: 'pi pi-fw pi-arrow-down-right', routerLink: ['/produto/saida'] },
+                ]
+            },
+            {
+                label: 'Menu do Fiscal de Estoque',
+                items: [
+                    { label: 'Entrada de Estoque', icon: 'pi pi-fw pi-arrow-up-right', routerLink: ['/produto/entrada'] },
+                ]
+            },
         ];
     }
 }
