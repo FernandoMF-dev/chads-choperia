@@ -34,7 +34,9 @@ public class NotificationService {
         }
     }
 
-    public NotificationDto create(NotificationDto notificationDto) {
+    public NotificationDto create(String replaceItemMessage) {
+		NotificationDto notificationDto = new NotificationDto(replaceItemMessage, LocalDate.now());
+
         notificationDto.setNotificationDate(LocalDate.now());
         notificationDto.setRestockedItem(Boolean.FALSE);
         return notificationMapper.toDto(notificationRepository.save(notificationMapper.toEntity(notificationDto)));

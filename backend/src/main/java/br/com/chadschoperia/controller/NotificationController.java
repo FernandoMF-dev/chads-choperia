@@ -2,7 +2,7 @@ package br.com.chadschoperia.controller;
 
 import br.com.chadschoperia.service.NotificationService;
 import br.com.chadschoperia.service.dto.NotificationDto;
-import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/notificacao")
+@RequestMapping("/api/self-service/restock-notification")
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RequiredArgsConstructor
 public class NotificationController {
@@ -36,11 +36,11 @@ public class NotificationController {
     }
 
     @PostMapping
-    public ResponseEntity<NotificationDto> create(@Valid @RequestBody NotificationDto notificationDto) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(notificationService.create(notificationDto));
+    public ResponseEntity<NotificationDto> create(@NotEmpty @RequestBody String replaceItemMessage) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(notificationService.create(replaceItemMessage));
     }
 
-    @PatchMapping("/{idNotification}")
+    @PatchMapping("/replace-stock/{idNotification}")
     public ResponseEntity<Void> replaceItem(@PathVariable Long idNotification) {
         notificationService.replaceItem(idNotification);
         return ResponseEntity.noContent().build();
