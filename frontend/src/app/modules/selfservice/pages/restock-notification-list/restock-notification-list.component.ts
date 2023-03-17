@@ -1,4 +1,5 @@
 import { Component, HostListener, OnInit } from '@angular/core';
+import { interval } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 import { UtilsService } from '../../../../services/utils.service';
 import { RestockNotification } from '../../../user/models/restock-notification.model';
@@ -10,6 +11,11 @@ import { RestockNotificationService } from '../../services/restock-notification.
 	styleUrls: ['./restock-notification-list.component.scss']
 })
 export class RestockNotificationListComponent implements OnInit {
+
+	/**
+	 * Waiting time in milliseconds between each automatic data fetching.
+	 */
+	private static readonly AUTOLOAD_DELAY: number = 5000;
 
 	notifications: RestockNotification[] = [];
 	confirmRestock: number | null = null;
@@ -33,6 +39,7 @@ export class RestockNotificationListComponent implements OnInit {
 		private restockNotificationService: RestockNotificationService,
 		private utilsService: UtilsService
 	) {
+		this.autoFetchNotifications();
 	}
 
 	ngOnInit(): void {
@@ -53,7 +60,7 @@ export class RestockNotificationListComponent implements OnInit {
 		this.restockNotificationService.findAll()
 			.pipe(finalize(() => this.isLoading = false))
 			.subscribe({
-				next: (res) => this.notifications = res,
+				next: (res) => this.afterSuccessfulFetchNotifications(res),
 				error: () => this.utilsService.showErrorMessage('Erro ao carregar dados')
 			});
 	}
@@ -80,5 +87,19 @@ export class RestockNotificationListComponent implements OnInit {
 			this.newRequestCreated = false;
 			this.findAllNotifications();
 		}
+	}
+
+	private autoFetchNotifications() {
+		interval(RestockNotificationListComponent.AUTOLOAD_DELAY)
+			.subscribe(() => {
+				if (!this.viewNotificationForm) {
+					this.restockNotificationService.findAll()
+						.subscribe((res) => this.afterSuccessfulFetchNotifications(res));
+				}
+			});
+	}
+
+	private afterSuccessfulFetchNotifications(res: RestockNotification[]) {
+		this.notifications = res;
 	}
 }
