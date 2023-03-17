@@ -8,4 +8,5 @@ import { FloatLabelDemoComponent } from './floatlabeldemo.component';
 	])],
 	exports: [RouterModule]
 })
-export class FloatlabelDemoRoutingModule { }
+export class FloatlabelDemoRoutingModule {
+}

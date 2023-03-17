@@ -1,19 +1,19 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TableDemoComponent } from './tabledemo.component';
-import { TableDemoRoutingModule } from './tabledemo-routing.module';
-import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
-import { InputTextModule } from 'primeng/inputtext';
-import { ToggleButtonModule } from 'primeng/togglebutton';
-import { RippleModule } from 'primeng/ripple';
-import { MultiSelectModule } from 'primeng/multiselect';
 import { DropdownModule } from 'primeng/dropdown';
+import { InputTextModule } from 'primeng/inputtext';
+import { MultiSelectModule } from 'primeng/multiselect';
 import { ProgressBarModule } from 'primeng/progressbar';
-import { ToastModule } from 'primeng/toast';
-import { SliderModule } from 'primeng/slider';
 import { RatingModule } from 'primeng/rating';
+import { RippleModule } from 'primeng/ripple';
+import { SliderModule } from 'primeng/slider';
+import { TableModule } from 'primeng/table';
+import { ToastModule } from 'primeng/toast';
+import { ToggleButtonModule } from 'primeng/togglebutton';
+import { TableDemoRoutingModule } from './tabledemo-routing.module';
+import { TableDemoComponent } from './tabledemo.component';
 
 @NgModule({
 	imports: [
@@ -34,4 +34,5 @@ import { RatingModule } from 'primeng/rating';
 	],
 	declarations: [TableDemoComponent]
 })
-export class TableDemoModule { }
+export class TableDemoModule {
+}

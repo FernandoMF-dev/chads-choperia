@@ -1,11 +1,11 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MediaDemoComponent } from './mediademo.component';
-import { MediaDemoRoutingModule } from './mediademo-routing.module';
+import { NgModule } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
-import { ImageModule } from 'primeng/image';
-import { GalleriaModule } from 'primeng/galleria';
 import { CarouselModule } from 'primeng/carousel';
+import { GalleriaModule } from 'primeng/galleria';
+import { ImageModule } from 'primeng/image';
+import { MediaDemoRoutingModule } from './mediademo-routing.module';
+import { MediaDemoComponent } from './mediademo.component';
 
 @NgModule({
 	imports: [
@@ -18,4 +18,5 @@ import { CarouselModule } from 'primeng/carousel';
 	],
 	declarations: [MediaDemoComponent]
 })
-export class MediaDemoModule { }
+export class MediaDemoModule {
+}

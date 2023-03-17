@@ -8,4 +8,5 @@ import { InvalidStateDemoComponent } from './invalidstatedemo.component';
 	])],
 	exports: [RouterModule]
 })
-export class InvalidStateDemoRoutingModule { }
+export class InvalidStateDemoRoutingModule {
+}

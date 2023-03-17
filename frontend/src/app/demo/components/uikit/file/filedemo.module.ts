@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { FileUploadModule } from 'primeng/fileupload';
 import { FileDemoRoutingModule } from './filedemo-routing.module';
@@ -13,6 +13,7 @@ import { FileDemoComponent } from './filedemo.component';
 		FileDemoRoutingModule,
 		FileUploadModule
 	],
-	declarations: [FileDemoComponent],
+	declarations: [FileDemoComponent]
 })
-export class FileDemoModule { }
+export class FileDemoModule {
+}

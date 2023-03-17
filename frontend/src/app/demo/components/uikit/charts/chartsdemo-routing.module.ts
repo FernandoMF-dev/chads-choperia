@@ -8,4 +8,5 @@ import { ChartsDemoComponent } from './chartsdemo.component';
 	])],
 	exports: [RouterModule]
 })
-export class ChartsDemoRoutingModule { }
+export class ChartsDemoRoutingModule {
+}

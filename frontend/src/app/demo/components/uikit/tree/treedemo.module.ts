@@ -1,10 +1,10 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TreeDemoComponent } from './treedemo.component';
-import { TreeDemoRoutingModule } from './treedemo-routing.module';
 import { TreeModule } from 'primeng/tree';
 import { TreeTableModule } from 'primeng/treetable';
+import { TreeDemoRoutingModule } from './treedemo-routing.module';
+import { TreeDemoComponent } from './treedemo.component';
 
 @NgModule({
 	imports: [
@@ -14,6 +14,7 @@ import { TreeTableModule } from 'primeng/treetable';
 		TreeModule,
 		TreeTableModule
 	],
-	declarations: [TreeDemoComponent],
+	declarations: [TreeDemoComponent]
 })
-export class TreeDemoModule { }
+export class TreeDemoModule {
+}

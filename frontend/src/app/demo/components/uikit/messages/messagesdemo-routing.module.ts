@@ -8,4 +8,5 @@ import { MessagesDemoComponent } from './messagesdemo.component';
 	])],
 	exports: [RouterModule]
 })
-export class MessagesDemoRoutingModule { }
+export class MessagesDemoRoutingModule {
+}

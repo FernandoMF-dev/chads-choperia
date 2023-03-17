@@ -15,124 +15,126 @@ import { ProductDialogProps } from '../product-crud/product-crud.component';
 	providers: [ProductService, UtilsService]
 })
 export class ProductManageStockComponent implements OnInit {
-  currentAction: 'entry' | 'removal' = 'entry';
+	currentAction: 'entry' | 'removal' = 'entry';
 
-  dialogState: ProductDialogProps = {
-    isOpen: false,
-    updateMode: false,
-    productToUpdate: {}
-  }
+	dialogState: ProductDialogProps = {
+		isOpen: false,
+		updateMode: false,
+		productToUpdate: {}
+	};
 
-  products: Product[] = [];
-  filteredProducts: Product[] = [];
-  stockManageQueries: ManageStockProduct[] = [];
-  cols: any[] = [];
+	products: Product[] = [];
+	filteredProducts: Product[] = [];
+	stockManageQueries: ManageStockProduct[] = [];
+	cols: any[] = [];
 
-  _isLoading = false;
-  get isLoading(): boolean {
-    return this._isLoading;
-  }
-  set isLoading(value: boolean) {
-    this._isLoading = value;
-  }
+	_isLoading = false;
+	get isLoading(): boolean {
+		return this._isLoading;
+	}
 
-  productInput: any = '';
+	set isLoading(value: boolean) {
+		this._isLoading = value;
+	}
 
-  constructor(private productService: ProductService, private location: Location, private utilsService: UtilsService) { }
+	productInput: any = '';
 
-  ngOnInit(): void {
-    this.fetchProducts();
+	constructor(private productService: ProductService, private location: Location, private utilsService: UtilsService) {
+	}
 
-    this.defineCurrentActionByRoute();
-    this.defineColumns();
-  }
+	ngOnInit(): void {
+		this.fetchProducts();
 
-  private fetchProducts(): void {
-    this.isLoading = true;
-    this.productService.getAll().pipe(finalize(() => this.isLoading = false)).subscribe({
-      next: (products) => this.updateProducts(products),
-      error: () => this.utilsService.showErrorMessage('Erro ao carregar dados')
-    })
-  }
+		this.defineCurrentActionByRoute();
+		this.defineColumns();
+	}
 
-  private updateProducts(products: Product[]): void {
-    this.products = products;
-    this.filteredProducts = products;
-  }
+	private fetchProducts(): void {
+		this.isLoading = true;
+		this.productService.getAll().pipe(finalize(() => this.isLoading = false)).subscribe({
+			next: (products) => this.updateProducts(products),
+			error: () => this.utilsService.showErrorMessage('Erro ao carregar dados')
+		});
+	}
 
-  private defineCurrentActionByRoute(): void {
-    const routePaths = this.location.path().split('/');
-    routePaths[routePaths.length - 1] === 'entrada' ? this.currentAction = 'entry' : this.currentAction = 'removal';
-  }
+	private updateProducts(products: Product[]): void {
+		this.products = products;
+		this.filteredProducts = products;
+	}
 
-  private defineColumns(): void {
-    this.cols = [
-      { field: 'product.name', header: 'Produto' },
-      { field: 'amount', header: 'Quantidade' },
-    ];
-  }
+	private defineCurrentActionByRoute(): void {
+		const routePaths = this.location.path().split('/');
+		routePaths[routePaths.length - 1] === 'entrada' ? this.currentAction = 'entry' : this.currentAction = 'removal';
+	}
 
-  filterProducts(event: any): void {
-    this.filteredProducts = this.products.filter(product => {
-      return String(product.barcode).indexOf(event.query) === 0
-    });
-  }
+	private defineColumns(): void {
+		this.cols = [
+			{ field: 'product.name', header: 'Produto' },
+			{ field: 'amount', header: 'Quantidade' }
+		];
+	}
 
-  newStockQuery(product: Product): void {
-    const productIndex = this.stockManageQueries.findIndex(query => {
-      return query.product.id === product?.id
-    })
+	filterProducts(event: any): void {
+		this.filteredProducts = this.products.filter(product => {
+			return String(product.barcode).indexOf(event.query) === 0;
+		});
+	}
 
-    productIndex === -1 ? this.addNewItemToList(product) : this.updateQueryAmount(productIndex);
-    this.productInput = '';
-  }
+	newStockQuery(product: Product): void {
+		const productIndex = this.stockManageQueries.findIndex(query => {
+			return query.product.id === product?.id;
+		});
 
-  private addNewItemToList(product: Product): void {
-    this.stockManageQueries.push({ product: product, amount: 1 })
-  }
+		productIndex === -1 ? this.addNewItemToList(product) : this.updateQueryAmount(productIndex);
+		this.productInput = '';
+	}
 
-  private updateQueryAmount(index: number): void {
-    this.stockManageQueries[index].amount++;
-  }
+	private addNewItemToList(product: Product): void {
+		this.stockManageQueries.push({ product: product, amount: 1 });
+	}
 
-  newProductByBarcode(): void {
-    console.log(this.productInput);
-    const barcode = this.productInput.barcode ? String(this.productInput.barcode) : this.productInput;
+	private updateQueryAmount(index: number): void {
+		this.stockManageQueries[index].amount++;
+	}
 
-    if (this.isBarcodeInvalid(barcode)) {
-      this.utilsService.showErrorMessage('Código de barras inválido');
-      return;
-    }
+	newProductByBarcode(): void {
+		console.log(this.productInput);
+		const barcode = this.productInput.barcode ? String(this.productInput.barcode) : this.productInput;
 
-    const index = this.products.findIndex(product => {
-      return String(product.barcode) === barcode;
-    })
+		if (this.isBarcodeInvalid(barcode)) {
+			this.utilsService.showErrorMessage('Código de barras inválido');
+			return;
+		}
 
-    index === -1 ? this.openProductFormDialog() : this.newStockQuery(this.products[index]);
-  }
+		const index = this.products.findIndex(product => {
+			return String(product.barcode) === barcode;
+		});
 
-  private isBarcodeInvalid(barcode: string): boolean {
-    return barcode.replace(/\D/g, '').length !== 13;
-  }
+		index === -1 ? this.openProductFormDialog() : this.newStockQuery(this.products[index]);
+	}
 
-  deleteStockQuery(manageStockQuery: ManageStockProduct): void {
+	private isBarcodeInvalid(barcode: string): boolean {
+		return barcode.replace(/\D/g, '').length !== 13;
+	}
 
-  }
+	deleteStockQuery(manageStockQuery: ManageStockProduct): void {
 
-  openProductFormDialog(): void {
-    this.dialogState.isOpen = true;
-  }
+	}
 
-  onGlobalFilter(table: Table, event: Event) {
-    table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
-  }
+	openProductFormDialog(): void {
+		this.dialogState.isOpen = true;
+	}
 
-  get pageHeader(): string {
-    return this.currentAction === 'entry' ? 'Entrada de Estoque' : 'Saída de Estoque';
-  }
+	onGlobalFilter(table: Table, event: Event) {
+		table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
+	}
 
-  newProductSaved(product: Product): void {
-    this.products.push(product);
-    this.newStockQuery(product);
-  }
+	get pageHeader(): string {
+		return this.currentAction === 'entry' ? 'Entrada de Estoque' : 'Saída de Estoque';
+	}
+
+	newProductSaved(product: Product): void {
+		this.products.push(product);
+		this.newStockQuery(product);
+	}
 }

@@ -30,23 +30,24 @@ import { UserRoutingModule } from './user-routing.module';
 	imports: [
 		CommonModule,
 		UserRoutingModule,
-    TableModule,
-    FileUploadModule,
-    ReactiveFormsModule,
-    ButtonModule,
-    RippleModule,
-    ToastModule,
-    ToolbarModule,
-    RatingModule,
-    InputTextModule,
-    InputTextareaModule,
-    DropdownModule,
-    RadioButtonModule,
-    InputNumberModule,
-    DialogModule,
-    PasswordModule,
-    SkeletonModule
-  ],
-  providers: [UserService, RoleService]
+		TableModule,
+		FileUploadModule,
+		ReactiveFormsModule,
+		ButtonModule,
+		RippleModule,
+		ToastModule,
+		ToolbarModule,
+		RatingModule,
+		InputTextModule,
+		InputTextareaModule,
+		DropdownModule,
+		RadioButtonModule,
+		InputNumberModule,
+		DialogModule,
+		PasswordModule,
+		SkeletonModule
+	],
+	providers: [UserService, RoleService]
 })
-export class UserModule { }
+export class UserModule {
+}

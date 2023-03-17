@@ -16,43 +16,43 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserService {
 
-    private final RoleService roleService;
+	private final RoleService roleService;
 
-    private final UserRepository repository;
+	private final UserRepository repository;
 
-    private final UserMapper mapper;
+	private final UserMapper mapper;
 
-    private final ViewUserMapper viewUserMapper;
+	private final ViewUserMapper viewUserMapper;
 
-    public List<ViewUserDto> findAll() {
-        return viewUserMapper.toDto(repository.findAll());
-    }
+	public List<ViewUserDto> findAll() {
+		return viewUserMapper.toDto(repository.findAll());
+	}
 
-    public UserDto findById(Long id) {
-        return mapper.toDto(repository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(MessageUtil.USER_NOT_FOUND)));
-    }
+	public UserDto findById(Long id) {
+		return mapper.toDto(repository.findById(id)
+				.orElseThrow(() -> new EntityNotFoundException(MessageUtil.USER_NOT_FOUND)));
+	}
 
-    private void existsById(Long id) {
-        if (!repository.existsById(id)) {
-            throw new EntityNotFoundException(MessageUtil.USER_NOT_FOUND);
-        }
-    }
+	private void existsById(Long id) {
+		if (!repository.existsById(id)) {
+			throw new EntityNotFoundException(MessageUtil.USER_NOT_FOUND);
+		}
+	}
 
-    public UserDto create(UserDto dto) {
-        roleService.existsById(dto.getIdRole());
-        return mapper.toDto(repository.save(mapper.toEntity(dto)));
-    }
+	public UserDto create(UserDto dto) {
+		roleService.existsById(dto.getIdRole());
+		return mapper.toDto(repository.save(mapper.toEntity(dto)));
+	}
 
-    public UserDto update(UserDto dto) {
-        existsById(dto.getId());
-        roleService.existsById(dto.getIdRole());
-        return mapper.toDto(repository.save(mapper.toEntity(dto)));
-    }
+	public UserDto update(UserDto dto) {
+		existsById(dto.getId());
+		roleService.existsById(dto.getIdRole());
+		return mapper.toDto(repository.save(mapper.toEntity(dto)));
+	}
 
-    public void deleteById(Long id) {
-        existsById(id);
-        repository.deleteById(id);
-    }
+	public void deleteById(Long id) {
+		existsById(id);
+		repository.deleteById(id);
+	}
 
 }

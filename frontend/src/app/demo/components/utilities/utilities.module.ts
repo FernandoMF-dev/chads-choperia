@@ -1,15 +1,16 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { InputTextModule } from 'primeng/inputtext';
 import { IconsComponent } from './icons/icons.component';
 import { UtilitiesRoutingModule } from './utilities-routing.module';
-import { InputTextModule } from 'primeng/inputtext';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        UtilitiesRoutingModule,
-        InputTextModule
-    ],
-    declarations: [IconsComponent]
+	imports: [
+		CommonModule,
+		UtilitiesRoutingModule,
+		InputTextModule
+	],
+	declarations: [IconsComponent]
 })
-export class UtilitiesModule { }
+export class UtilitiesModule {
+}

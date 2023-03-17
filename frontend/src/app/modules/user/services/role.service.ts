@@ -6,7 +6,7 @@ import { Role } from '../models/role.model';
 
 @Injectable()
 export class RoleService extends CrudService<Role> {
-  constructor(protected override readonly http: HttpClient){
-    super(http, 'funcao');
-  }
+	constructor(protected override readonly http: HttpClient) {
+		super(http, 'funcao');
+	}
 }

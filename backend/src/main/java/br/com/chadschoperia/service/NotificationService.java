@@ -15,38 +15,38 @@ import java.util.List;
 @RequiredArgsConstructor
 public class NotificationService {
 
-    private final NotificationRepository notificationRepository;
+	private final NotificationRepository notificationRepository;
 
-    private final NotificationMapper notificationMapper;
+	private final NotificationMapper notificationMapper;
 
-    public List<NotificationDto> findAllByCurrentDateAndItemsNotReplaced() {
-        return notificationMapper.toDto(notificationRepository.findAllByCurrentDateAndItemsNotReplaced());
-    }
+	public List<NotificationDto> findAllByCurrentDateAndItemsNotReplaced() {
+		return notificationMapper.toDto(notificationRepository.findAllByCurrentDateAndItemsNotReplaced());
+	}
 
-    public NotificationDto findById(Long idNotification) {
-        return notificationMapper.toDto(notificationRepository.findById(idNotification)
-                .orElseThrow(() -> new EntityNotFoundException(MessageUtil.NOTIFICATION_NOT_FOUND)));
-    }
+	public NotificationDto findById(Long idNotification) {
+		return notificationMapper.toDto(notificationRepository.findById(idNotification)
+				.orElseThrow(() -> new EntityNotFoundException(MessageUtil.NOTIFICATION_NOT_FOUND)));
+	}
 
-    private void existsById(Long idNotification) {
-        if (!notificationRepository.existsById(idNotification)) {
-            throw new EntityNotFoundException(MessageUtil.NOTIFICATION_NOT_FOUND);
-        }
-    }
+	private void existsById(Long idNotification) {
+		if (!notificationRepository.existsById(idNotification)) {
+			throw new EntityNotFoundException(MessageUtil.NOTIFICATION_NOT_FOUND);
+		}
+	}
 
-    public NotificationDto create(String replaceItemMessage) {
+	public NotificationDto create(String replaceItemMessage) {
 		NotificationDto notificationDto = new NotificationDto(replaceItemMessage, LocalDate.now());
 
-        notificationDto.setNotificationDate(LocalDate.now());
-        notificationDto.setRestockedItem(Boolean.FALSE);
-        return notificationMapper.toDto(notificationRepository.save(notificationMapper.toEntity(notificationDto)));
-    }
+		notificationDto.setNotificationDate(LocalDate.now());
+		notificationDto.setRestockedItem(Boolean.FALSE);
+		return notificationMapper.toDto(notificationRepository.save(notificationMapper.toEntity(notificationDto)));
+	}
 
-    public void replaceItem(Long idNotification) {
-        existsById(idNotification);
-        NotificationDto notificationDto = findById(idNotification);
-        notificationDto.setRestockedItem(Boolean.TRUE);
-        notificationRepository.save(notificationMapper.toEntity(notificationDto));
-    }
+	public void replaceItem(Long idNotification) {
+		existsById(idNotification);
+		NotificationDto notificationDto = findById(idNotification);
+		notificationDto.setRestockedItem(Boolean.TRUE);
+		notificationRepository.save(notificationMapper.toEntity(notificationDto));
+	}
 
 }

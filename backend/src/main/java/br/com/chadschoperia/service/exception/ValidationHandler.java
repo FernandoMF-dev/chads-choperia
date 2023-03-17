@@ -23,47 +23,47 @@ import java.util.stream.Collectors;
 @ControllerAdvice
 public class ValidationHandler extends ResponseEntityExceptionHandler {
 
-    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
-                                                                  HttpHeaders headers,
-                                                                  HttpStatus status,
-                                                                  WebRequest request) {
-        Map<String, String> errors = new HashMap<>();
+	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
+																  HttpHeaders headers,
+																  HttpStatus status,
+																  WebRequest request) {
+		Map<String, String> errors = new HashMap<>();
 
-        ex.getBindingResult().getAllErrors().forEach((error) -> {
-            String fieldName = ((FieldError) error).getField();
-            String message = error.getDefaultMessage();
-            errors.put(fieldName, message);
-        });
+		ex.getBindingResult().getAllErrors().forEach((error) -> {
+			String fieldName = ((FieldError) error).getField();
+			String message = error.getDefaultMessage();
+			errors.put(fieldName, message);
+		});
 
-        return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
-    }
+		return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
+	}
 
-    @ExceptionHandler({ConstraintViolationException.class})
-    public ResponseEntity<Object> handleConstraintViolation(ConstraintViolationException exception, WebRequest request) {
-        List<String> validationErrors = exception.getConstraintViolations().stream()
-                .map(violation -> violation.getPropertyPath() + ": " + violation.getMessage())
-                .collect(Collectors.toList());
-        return getExceptionResponseEntity(HttpStatus.BAD_REQUEST, request, validationErrors);
-    }
+	@ExceptionHandler({ConstraintViolationException.class})
+	public ResponseEntity<Object> handleConstraintViolation(ConstraintViolationException exception, WebRequest request) {
+		List<String> validationErrors = exception.getConstraintViolations().stream()
+				.map(violation -> violation.getPropertyPath() + ": " + violation.getMessage())
+				.collect(Collectors.toList());
+		return getExceptionResponseEntity(HttpStatus.BAD_REQUEST, request, validationErrors);
+	}
 
-    private ResponseEntity<Object> getExceptionResponseEntity(final HttpStatus status, WebRequest request, List<String> errors) {
-        final Map<String, Object> body = new LinkedHashMap<>();
-        final String errorsMessage = getErrorsMessage(status, errors);
-        final String path = request.getDescription(false);
-        body.put("TIMESTAMP", Instant.now());
-        body.put("STATUS", status.value());
-        body.put("ERRORS", errorsMessage);
-        body.put("PATH", path);
-        body.put("MESSAGE", status.getReasonPhrase());
-        return new ResponseEntity<>(body, status);
-    }
+	private ResponseEntity<Object> getExceptionResponseEntity(final HttpStatus status, WebRequest request, List<String> errors) {
+		final Map<String, Object> body = new LinkedHashMap<>();
+		final String errorsMessage = getErrorsMessage(status, errors);
+		final String path = request.getDescription(false);
+		body.put("TIMESTAMP", Instant.now());
+		body.put("STATUS", status.value());
+		body.put("ERRORS", errorsMessage);
+		body.put("PATH", path);
+		body.put("MESSAGE", status.getReasonPhrase());
+		return new ResponseEntity<>(body, status);
+	}
 
-    private String getErrorsMessage(HttpStatus status, List<String> errors) {
-        if (CollectionUtils.isNotEmpty(errors)) {
-            return errors.stream().filter(StringUtils::isNotEmpty).collect(Collectors.joining(","));
-        }
+	private String getErrorsMessage(HttpStatus status, List<String> errors) {
+		if (CollectionUtils.isNotEmpty(errors)) {
+			return errors.stream().filter(StringUtils::isNotEmpty).collect(Collectors.joining(","));
+		}
 
-        return status.getReasonPhrase();
-    }
+		return status.getReasonPhrase();
+	}
 
 }

@@ -19,20 +19,21 @@ import { UtilsService } from './services/utils.service';
 registerLocaleData(localePt);
 
 @NgModule({
-    declarations: [
-        AppComponent, NotfoundComponent
-    ],
-    imports: [
-        AppRoutingModule,
-        AppLayoutModule,
-        ThermalPrintModule
-    ],
-    providers: [
+	declarations: [
+		AppComponent, NotfoundComponent
+	],
+	imports: [
+		AppRoutingModule,
+		AppLayoutModule,
+		ThermalPrintModule
+	],
+	providers: [
 		{ provide: LocationStrategy, useClass: HashLocationStrategy },
 		CountryService, CustomerService, EventService, IconService, NodeService,
 		PhotoService, ProductService, MessageService, DatePipe, UtilsService,
 		{ provide: LOCALE_ID, useValue: 'pt-BR' }
 	],
-    bootstrap: [AppComponent]
+	bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

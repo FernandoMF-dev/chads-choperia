@@ -27,33 +27,34 @@ import { ProductRoutingModule } from './product-routing.module';
 import { ProductService } from './services/product.service';
 
 @NgModule({
-  declarations: [
-    ProductCrudComponent,
-    ProductManageStockComponent,
-    ProductFormModalComponent
-  ],
-  imports: [
-    CommonModule,
-    ProductRoutingModule,
-    TableModule,
-    FileUploadModule,
-    ReactiveFormsModule,
-    ButtonModule,
-    RippleModule,
-    ToastModule,
-    ToolbarModule,
-    RatingModule,
-    InputTextModule,
-    InputTextareaModule,
-    DropdownModule,
-    RadioButtonModule,
-    InputNumberModule,
-    DialogModule,
-    SkeletonModule,
-    InputMaskModule,
-    AutoCompleteModule,
-    FormsModule,
-  ],
-  providers: [ProductService]
+	declarations: [
+		ProductCrudComponent,
+		ProductManageStockComponent,
+		ProductFormModalComponent
+	],
+	imports: [
+		CommonModule,
+		ProductRoutingModule,
+		TableModule,
+		FileUploadModule,
+		ReactiveFormsModule,
+		ButtonModule,
+		RippleModule,
+		ToastModule,
+		ToolbarModule,
+		RatingModule,
+		InputTextModule,
+		InputTextareaModule,
+		DropdownModule,
+		RadioButtonModule,
+		InputNumberModule,
+		DialogModule,
+		SkeletonModule,
+		InputMaskModule,
+		AutoCompleteModule,
+		FormsModule
+	],
+	providers: [ProductService]
 })
-export class ProductModule { }
+export class ProductModule {
+}

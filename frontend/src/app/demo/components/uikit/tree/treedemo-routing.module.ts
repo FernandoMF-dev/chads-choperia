@@ -8,4 +8,5 @@ import { TreeDemoComponent } from './treedemo.component';
 	])],
 	exports: [RouterModule]
 })
-export class TreeDemoRoutingModule { }
+export class TreeDemoRoutingModule {
+}

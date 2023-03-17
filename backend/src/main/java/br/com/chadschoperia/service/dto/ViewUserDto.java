@@ -9,12 +9,12 @@ import java.io.Serializable;
 @Setter
 public class ViewUserDto implements Serializable {
 
-    private Long id;
+	private Long id;
 
-    private String username;
+	private String username;
 
-    private String email;
+	private String email;
 
-    private String roleName;
+	private String roleName;
 
 }

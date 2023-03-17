@@ -24,37 +24,37 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProductController {
 
-    private final ProductService service;
+	private final ProductService service;
 
-    @GetMapping
-    public ResponseEntity<List<ProductDto>> findAll() {
-        return ResponseEntity.ok(service.findAll());
-    }
+	@GetMapping
+	public ResponseEntity<List<ProductDto>> findAll() {
+		return ResponseEntity.ok(service.findAll());
+	}
 
-    @GetMapping("/{id}")
-    public ResponseEntity<ProductDto> findById(@PathVariable Long id) {
-        return ResponseEntity.ok(service.findById(id));
-    }
+	@GetMapping("/{id}")
+	public ResponseEntity<ProductDto> findById(@PathVariable Long id) {
+		return ResponseEntity.ok(service.findById(id));
+	}
 
-    @PostMapping
-    public ResponseEntity<ProductDto> create(@Valid @RequestBody ProductDto dto) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(service.create(dto));
-    }
+	@PostMapping
+	public ResponseEntity<ProductDto> create(@Valid @RequestBody ProductDto dto) {
+		return ResponseEntity.status(HttpStatus.CREATED).body(service.create(dto));
+	}
 
-    @PostMapping("/lista")
-    public ResponseEntity<List<ProductDto>> createBatch(@Valid @RequestBody List<ProductDto> dto) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(service.updateBatch(dto));
-    }
+	@PostMapping("/lista")
+	public ResponseEntity<List<ProductDto>> createBatch(@Valid @RequestBody List<ProductDto> dto) {
+		return ResponseEntity.status(HttpStatus.CREATED).body(service.updateBatch(dto));
+	}
 
-    @PutMapping
-    public ResponseEntity<ProductDto> update(@Valid @RequestBody ProductDto dto) {
-        return ResponseEntity.ok(service.update(dto));
-    }
+	@PutMapping
+	public ResponseEntity<ProductDto> update(@Valid @RequestBody ProductDto dto) {
+		return ResponseEntity.ok(service.update(dto));
+	}
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteById(@PathVariable Long id) {
-        service.deleteById(id);
-        return ResponseEntity.noContent().build();
-    }
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Void> deleteById(@PathVariable Long id) {
+		service.deleteById(id);
+		return ResponseEntity.noContent().build();
+	}
 
 }

@@ -1,19 +1,20 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { OverlaysDemoComponent } from './overlaysdemo.component';
-import { OverlaysDemoRoutingModule } from './overlaysdemo-routing.module';
-import { ToastModule } from 'primeng/toast';
-import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
-import { OverlayPanelModule } from 'primeng/overlaypanel';
-import { TableModule } from 'primeng/table';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { SidebarModule } from 'primeng/sidebar';
-import { RippleModule } from 'primeng/ripple';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
-import { TooltipModule } from 'primeng/tooltip';
+import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { RippleModule } from 'primeng/ripple';
+import { SidebarModule } from 'primeng/sidebar';
+import { TableModule } from 'primeng/table';
+import { ToastModule } from 'primeng/toast';
+import { TooltipModule } from 'primeng/tooltip';
+import { OverlaysDemoRoutingModule } from './overlaysdemo-routing.module';
+import { OverlaysDemoComponent } from './overlaysdemo.component';
+
 @NgModule({
 	imports: [
 		CommonModule,
@@ -33,4 +34,5 @@ import { InputTextModule } from 'primeng/inputtext';
 	],
 	declarations: [OverlaysDemoComponent]
 })
-export class OverlaysDemoModule { }
+export class OverlaysDemoModule {
+}

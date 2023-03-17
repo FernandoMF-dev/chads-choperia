@@ -8,4 +8,5 @@ import { TableDemoComponent } from './tabledemo.component';
 	])],
 	exports: [RouterModule]
 })
-export class TableDemoRoutingModule { }
+export class TableDemoRoutingModule {
+}

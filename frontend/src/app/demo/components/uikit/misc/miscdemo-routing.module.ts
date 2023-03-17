@@ -8,4 +8,5 @@ import { MiscDemoComponent } from './miscdemo.component';
 	])],
 	exports: [RouterModule]
 })
-export class MiscDemoRoutingModule { }
+export class MiscDemoRoutingModule {
+}

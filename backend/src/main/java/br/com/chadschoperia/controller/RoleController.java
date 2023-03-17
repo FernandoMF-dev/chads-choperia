@@ -18,16 +18,16 @@ import java.util.List;
 @RequiredArgsConstructor
 public class RoleController {
 
-    private final RoleService roleService;
+	private final RoleService roleService;
 
-    @GetMapping
-    public ResponseEntity<List<DropdownDto>> findAll() {
-        return ResponseEntity.ok(roleService.findAll());
-    }
+	@GetMapping
+	public ResponseEntity<List<DropdownDto>> findAll() {
+		return ResponseEntity.ok(roleService.findAll());
+	}
 
-    @GetMapping("/{id}")
-    public ResponseEntity<DropdownDto> findById(@PathVariable Long id) {
-        return ResponseEntity.ok(roleService.findById(id));
-    }
+	@GetMapping("/{id}")
+	public ResponseEntity<DropdownDto> findById(@PathVariable Long id) {
+		return ResponseEntity.ok(roleService.findById(id));
+	}
 
 }

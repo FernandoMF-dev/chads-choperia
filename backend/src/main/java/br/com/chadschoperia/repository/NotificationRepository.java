@@ -8,12 +8,12 @@ import java.util.List;
 
 public interface NotificationRepository extends JpaRepository<NotificationModel, Long> {
 
-    @Query("SELECT N " +
-            " FROM " +
-            " NotificationModel N " +
-            " WHERE " +
-            " N.notificationDate = CURRENT_DATE AND " +
-            " N.restockedItem = FALSE ")
-    List<NotificationModel> findAllByCurrentDateAndItemsNotReplaced();
+	@Query("SELECT N " +
+			" FROM " +
+			" NotificationModel N " +
+			" WHERE " +
+			" N.notificationDate = CURRENT_DATE AND " +
+			" N.restockedItem = FALSE ")
+	List<NotificationModel> findAllByCurrentDateAndItemsNotReplaced();
 
 }

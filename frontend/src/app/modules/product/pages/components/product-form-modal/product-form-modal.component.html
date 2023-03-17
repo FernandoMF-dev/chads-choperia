@@ -1,46 +1,46 @@
 <p-dialog [(visible)]="dialogState.isOpen" [style]="{width: '450px'}" header="Formulário de Produto" [modal]="true"
-  class="p-fluid" (onShow)="formOpenned()">
-  <ng-template pTemplate="content">
-    <form [formGroup]="productForm">
-      <fieldset class="p-fluid p-formgrid grid">
-        <div class="field col-12">
-          <label htmlFor="name">Nome</label>
-          <input pInputText id="name" type="text" aria-describedby="name-help" required autofocus
-            [ngClass]="{'ng-invalid ng-dirty': !isFieldValid('name')}" formControlName="name" />
-          <small id="name-help" class="p-error block" *ngIf="!isFieldValid('name')">Nome inválido.</small>
-        </div>
-        <div class="field col-12">
-          <label htmlFor="stock">Estoque Atual</label>
-          <p-inputNumber id="stock" [showButtons]="true" buttonLayout="horizontal" spinnerMode="horizontal" [step]="1"
-            decrementButtonClass="p-button-danger" incrementButtonClass="p-button-success" [min]="0"
-            incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus" formControlName="stock"
-            [ngClass]="{'ng-invalid ng-dirty': !isFieldValid('stock')}"></p-inputNumber>
-          <small id="stock-help" class="p-error block" *ngIf="!isFieldValid('stock')">Valor obrigatório.</small>
-        </div>
-        <div class="field col-12">
-          <label htmlFor="restockThreshold">Ponto de Encomenda</label>
-          <p-inputNumber id="restockThreshold" [showButtons]="true" buttonLayout="horizontal" spinnerMode="horizontal"
-            [step]="1" decrementButtonClass="p-button-danger" incrementButtonClass="p-button-success" [min]="0"
-            incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus" formControlName="restockThreshold"
-            [ngClass]="{'ng-invalid ng-dirty': !isFieldValid('restockThreshold')}"></p-inputNumber>
-          <small id="restockThreshold-help" class="p-error block" *ngIf="!isFieldValid('restockThreshold')">Valor
-            obrigatório.</small>
-        </div>
-        <div class="field col-12">
-          <label htmlFor="barcode">Código de barras</label>
-          <p-inputMask formControlName="barcode" mask="9 999999 999999" [unmask]="true"
-            [ngClass]="{'ng-invalid ng-dirty': !isFieldValid('barcode')}"></p-inputMask>
-          <small id="barcode-help" class="p-error block" *ngIf="!isFieldValid('barcode')">O código de barras deve ter 13
-            números.</small>
-        </div>
-      </fieldset>
-    </form>
-  </ng-template>
+		  class="p-fluid" (onShow)="formOpenned()">
+	<ng-template pTemplate="content">
+		<form [formGroup]="productForm">
+			<fieldset class="p-fluid p-formgrid grid">
+				<div class="field col-12">
+					<label htmlFor="name">Nome</label>
+					<input pInputText id="name" type="text" aria-describedby="name-help" required autofocus
+						   [ngClass]="{'ng-invalid ng-dirty': !isFieldValid('name')}" formControlName="name"/>
+					<small id="name-help" class="p-error block" *ngIf="!isFieldValid('name')">Nome inválido.</small>
+				</div>
+				<div class="field col-12">
+					<label htmlFor="stock">Estoque Atual</label>
+					<p-inputNumber id="stock" [showButtons]="true" buttonLayout="horizontal" spinnerMode="horizontal" [step]="1"
+								   decrementButtonClass="p-button-danger" incrementButtonClass="p-button-success" [min]="0"
+								   incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus" formControlName="stock"
+								   [ngClass]="{'ng-invalid ng-dirty': !isFieldValid('stock')}"></p-inputNumber>
+					<small id="stock-help" class="p-error block" *ngIf="!isFieldValid('stock')">Valor obrigatório.</small>
+				</div>
+				<div class="field col-12">
+					<label htmlFor="restockThreshold">Ponto de Encomenda</label>
+					<p-inputNumber id="restockThreshold" [showButtons]="true" buttonLayout="horizontal" spinnerMode="horizontal"
+								   [step]="1" decrementButtonClass="p-button-danger" incrementButtonClass="p-button-success" [min]="0"
+								   incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus" formControlName="restockThreshold"
+								   [ngClass]="{'ng-invalid ng-dirty': !isFieldValid('restockThreshold')}"></p-inputNumber>
+					<small id="restockThreshold-help" class="p-error block" *ngIf="!isFieldValid('restockThreshold')">Valor
+						obrigatório.</small>
+				</div>
+				<div class="field col-12">
+					<label htmlFor="barcode">Código de barras</label>
+					<p-inputMask formControlName="barcode" mask="9 999999 999999" [unmask]="true"
+								 [ngClass]="{'ng-invalid ng-dirty': !isFieldValid('barcode')}"></p-inputMask>
+					<small id="barcode-help" class="p-error block" *ngIf="!isFieldValid('barcode')">O código de barras deve ter 13
+						números.</small>
+				</div>
+			</fieldset>
+		</form>
+	</ng-template>
 
-  <ng-template pTemplate="footer">
-    <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text" (click)="closeDialog()"></button>
-    <button pButton pRipple label="Salvar" icon="pi pi-check" class="p-button-text" [disabled]="productForm.invalid"
-      (click)="saveProduct()">
-    </button>
-  </ng-template>
+	<ng-template pTemplate="footer">
+		<button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text" (click)="closeDialog()"></button>
+		<button pButton pRipple label="Salvar" icon="pi pi-check" class="p-button-text" [disabled]="productForm.invalid"
+				(click)="saveProduct()">
+		</button>
+	</ng-template>
 </p-dialog>

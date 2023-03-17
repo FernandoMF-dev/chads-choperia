@@ -8,4 +8,5 @@ import { ListDemoComponent } from './listdemo.component';
 	])],
 	exports: [RouterModule]
 })
-export class ListDemoRoutingModule { }
+export class ListDemoRoutingModule {
+}

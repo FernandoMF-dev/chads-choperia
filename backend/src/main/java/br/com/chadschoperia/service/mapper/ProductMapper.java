@@ -1,8 +1,6 @@
 package br.com.chadschoperia.service.mapper;
 
 import br.com.chadschoperia.model.ProductModel;
-import br.com.chadschoperia.model.RoleModel;
-import br.com.chadschoperia.service.dto.DropdownDto;
 import br.com.chadschoperia.service.dto.ProductDto;
 import org.mapstruct.Mapper;
 

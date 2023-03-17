@@ -15,11 +15,11 @@ import java.io.Serializable;
 @Setter
 public class RoleModel implements Serializable {
 
-    @Id
-    @Column(name = "id", nullable = false)
-    private Long id;
+	@Id
+	@Column(name = "id", nullable = false)
+	private Long id;
 
-    @Column(name = "name", nullable = false)
-    private String name;
+	@Column(name = "name", nullable = false)
+	private String name;
 
 }

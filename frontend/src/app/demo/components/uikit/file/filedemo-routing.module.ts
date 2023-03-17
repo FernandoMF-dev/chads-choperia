@@ -8,4 +8,5 @@ import { FileDemoComponent } from './filedemo.component';
 	])],
 	exports: [RouterModule]
 })
-export class FileDemoRoutingModule { }
+export class FileDemoRoutingModule {
+}

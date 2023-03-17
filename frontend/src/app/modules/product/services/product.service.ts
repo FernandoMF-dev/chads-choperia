@@ -6,7 +6,7 @@ import { Product } from '../models/product.model';
 
 @Injectable()
 export class ProductService extends CrudService<Product> {
-  constructor(protected override readonly http: HttpClient){
-    super(http, 'produto');
-  }
+	constructor(protected override readonly http: HttpClient) {
+		super(http, 'produto');
+	}
 }

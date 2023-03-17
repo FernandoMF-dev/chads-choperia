@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { UIkitRoutingModule } from './uikit-routing.module';
 
 @NgModule({
@@ -8,4 +8,5 @@ import { UIkitRoutingModule } from './uikit-routing.module';
 		UIkitRoutingModule
 	]
 })
-export class UIkitModule { }
+export class UIkitModule {
+}

@@ -4,13 +4,14 @@ import { ProductCrudComponent } from './pages/product-crud/product-crud.componen
 import { ProductManageStockComponent } from './pages/product-manage-stock/product-manage-stock.component';
 
 const routes: Routes = [
-  {path: '', component: ProductCrudComponent},
-  {path: 'entrada', component: ProductManageStockComponent},
-  {path: 'saida', component: ProductManageStockComponent},
+	{ path: '', component: ProductCrudComponent },
+	{ path: 'entrada', component: ProductManageStockComponent },
+	{ path: 'saida', component: ProductManageStockComponent }
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+	imports: [RouterModule.forChild(routes)],
+	exports: [RouterModule]
 })
-export class ProductRoutingModule { }
+export class ProductRoutingModule {
+}

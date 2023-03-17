@@ -21,23 +21,23 @@ import java.io.Serializable;
 @Setter
 public class UserModel implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence_user")
-    @SequenceGenerator(name = "sequence_user", sequenceName = "sequence_user", allocationSize = 1)
-    @Column(name = "id", nullable = false)
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence_user")
+	@SequenceGenerator(name = "sequence_user", sequenceName = "sequence_user", allocationSize = 1)
+	@Column(name = "id", nullable = false)
+	private Long id;
 
-    @Column(name = "username", nullable = false)
-    private String username;
+	@Column(name = "username", nullable = false)
+	private String username;
 
-    @Column(name = "password", nullable = false)
-    private String password;
+	@Column(name = "password", nullable = false)
+	private String password;
 
-    @Column(name = "email", nullable = false)
-    private String email;
+	@Column(name = "email", nullable = false)
+	private String email;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_role", referencedColumnName = "id")
-    private RoleModel role;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_role", referencedColumnName = "id")
+	private RoleModel role;
 
 }

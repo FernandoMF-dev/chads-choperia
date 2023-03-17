@@ -1,20 +1,20 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { PanelsDemoComponent } from './panelsdemo.component';
-import { PanelsDemoRoutingModule } from './panelsdemo-routing.module';
-import { ToolbarModule } from 'primeng/toolbar';
+import { AccordionModule } from 'primeng/accordion';
 import { ButtonModule } from 'primeng/button';
+import { DividerModule } from 'primeng/divider';
+import { FieldsetModule } from 'primeng/fieldset';
+import { InputTextModule } from 'primeng/inputtext';
+import { MenuModule } from 'primeng/menu';
+import { PanelModule } from 'primeng/panel';
 import { RippleModule } from 'primeng/ripple';
 import { SplitButtonModule } from 'primeng/splitbutton';
-import { AccordionModule } from 'primeng/accordion';
-import { TabViewModule } from 'primeng/tabview';
-import { FieldsetModule } from 'primeng/fieldset';
-import { MenuModule } from 'primeng/menu';
-import { InputTextModule } from 'primeng/inputtext';
-import { DividerModule } from 'primeng/divider';
 import { SplitterModule } from 'primeng/splitter';
-import { PanelModule } from 'primeng/panel';
+import { TabViewModule } from 'primeng/tabview';
+import { ToolbarModule } from 'primeng/toolbar';
+import { PanelsDemoRoutingModule } from './panelsdemo-routing.module';
+import { PanelsDemoComponent } from './panelsdemo.component';
 
 @NgModule({
 	imports: [
@@ -36,4 +36,5 @@ import { PanelModule } from 'primeng/panel';
 	],
 	declarations: [PanelsDemoComponent]
 })
-export class PanelsDemoModule { }
+export class PanelsDemoModule {
+}

@@ -18,17 +18,17 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class NotificationDto implements Serializable {
 
-    private Long id;
+	private Long id;
 
-    @NotNull(message = MessageUtil.VALIDATION_NOTIFICATION_REPLACE_ITEM_MESSAGE_NOT_NULL)
-    @NotEmpty(message = MessageUtil.VALIDATION_NOTIFICATION_REPLACE_ITEM_MESSAGE_NOT_EMPTY)
-    @Size(min = 3, message = MessageUtil.VALIDATION_NOTIFICATION_REPLACE_ITEM_MESSAGE_MINIMUM_SIZE)
-    @Size(max = 50, message = MessageUtil.VALIDATION_NOTIFICATION_REPLACE_ITEM_MESSAGE_MAXIMUM_SIZE)
-    private String replaceItemMessage;
+	@NotNull(message = MessageUtil.VALIDATION_NOTIFICATION_REPLACE_ITEM_MESSAGE_NOT_NULL)
+	@NotEmpty(message = MessageUtil.VALIDATION_NOTIFICATION_REPLACE_ITEM_MESSAGE_NOT_EMPTY)
+	@Size(min = 3, message = MessageUtil.VALIDATION_NOTIFICATION_REPLACE_ITEM_MESSAGE_MINIMUM_SIZE)
+	@Size(max = 50, message = MessageUtil.VALIDATION_NOTIFICATION_REPLACE_ITEM_MESSAGE_MAXIMUM_SIZE)
+	private String replaceItemMessage;
 
-    private LocalDate notificationDate;
+	private LocalDate notificationDate;
 
-    private Boolean restockedItem;
+	private Boolean restockedItem;
 
 	public NotificationDto(String replaceItemMessage, LocalDate notificationDate) {
 		this.replaceItemMessage = replaceItemMessage;

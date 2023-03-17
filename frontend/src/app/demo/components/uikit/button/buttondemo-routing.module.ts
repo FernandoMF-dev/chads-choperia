@@ -8,4 +8,5 @@ import { ButtonDemoComponent } from './buttondemo.component';
 	])],
 	exports: [RouterModule]
 })
-export class ButtonDemoRoutingModule { }
+export class ButtonDemoRoutingModule {
+}

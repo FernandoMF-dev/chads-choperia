@@ -8,12 +8,12 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface ViewUserMapper extends EntityMapper<ViewUserDto, UserModel> {
 
-    @Override
-    @Mapping(source = "role.name", target = "roleName")
-    ViewUserDto toDto(UserModel entity);
+	@Override
+	@Mapping(source = "role.name", target = "roleName")
+	ViewUserDto toDto(UserModel entity);
 
-    @Override
-    @Mapping(source = "roleName", target = "role.name")
-    UserModel toEntity(ViewUserDto dto);
+	@Override
+	@Mapping(source = "roleName", target = "role.name")
+	UserModel toEntity(ViewUserDto dto);
 
 }

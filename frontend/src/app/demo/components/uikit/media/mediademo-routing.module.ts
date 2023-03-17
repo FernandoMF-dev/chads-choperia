@@ -8,4 +8,5 @@ import { MediaDemoComponent } from './mediademo.component';
 	])],
 	exports: [RouterModule]
 })
-export class MediaDemoRoutingModule { }
+export class MediaDemoRoutingModule {
+}

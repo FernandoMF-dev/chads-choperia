@@ -1,7 +1,7 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { ChartModule } from 'primeng/chart';
 import { ChartsDemoRoutingModule } from './chartsdemo-routing.module';
-import { ChartModule } from 'primeng/chart'
 import { ChartsDemoComponent } from './chartsdemo.component';
 
 @NgModule({
@@ -12,4 +12,5 @@ import { ChartsDemoComponent } from './chartsdemo.component';
 	],
 	declarations: [ChartsDemoComponent]
 })
-export class ChartsDemoModule { }
+export class ChartsDemoModule {
+}

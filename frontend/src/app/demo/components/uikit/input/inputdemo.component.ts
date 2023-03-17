@@ -3,78 +3,79 @@ import { SelectItem } from 'primeng/api';
 import { CountryService } from 'src/app/demo/service/country.service';
 
 @Component({
-    templateUrl: './inputdemo.component.html'
+	templateUrl: './inputdemo.component.html'
 })
 export class InputDemoComponent implements OnInit {
-    
-    countries: any[] = [];
 
-    filteredCountries: any[] = [];
+	countries: any[] = [];
 
-    selectedCountryAdvanced: any[] = [];
+	filteredCountries: any[] = [];
 
-    valSlider = 50;
+	selectedCountryAdvanced: any[] = [];
 
-    valColor = '#424242';
+	valSlider = 50;
 
-    valRadio: string = '';
+	valColor = '#424242';
 
-    valCheck: string[] = [];
+	valRadio: string = '';
 
-    valCheck2: boolean = false;
+	valCheck: string[] = [];
 
-    valSwitch: boolean = false;
+	valCheck2: boolean = false;
 
-    cities: SelectItem[] = [];
+	valSwitch: boolean = false;
 
-    selectedList: SelectItem = { value: '' };
+	cities: SelectItem[] = [];
 
-    selectedDrop: SelectItem = { value: '' };
+	selectedList: SelectItem = { value: '' };
 
-    selectedMulti: any[] = [];
+	selectedDrop: SelectItem = { value: '' };
 
-    valToggle = false;
+	selectedMulti: any[] = [];
 
-    paymentOptions: any[] = [];
+	valToggle = false;
 
-    valSelect1: string = "";
+	paymentOptions: any[] = [];
 
-    valSelect2: string = "";
+	valSelect1: string = '';
 
-    valueKnob = 20;
+	valSelect2: string = '';
 
-    constructor(private countryService: CountryService) { }
+	valueKnob = 20;
 
-    ngOnInit() {
-        this.countryService.getCountries().then(countries => {
-            this.countries = countries;
-        });
+	constructor(private countryService: CountryService) {
+	}
 
-        this.cities = [
-            { label: 'New York', value: { id: 1, name: 'New York', code: 'NY' } },
-            { label: 'Rome', value: { id: 2, name: 'Rome', code: 'RM' } },
-            { label: 'London', value: { id: 3, name: 'London', code: 'LDN' } },
-            { label: 'Istanbul', value: { id: 4, name: 'Istanbul', code: 'IST' } },
-            { label: 'Paris', value: { id: 5, name: 'Paris', code: 'PRS' } }
-        ];
+	ngOnInit() {
+		this.countryService.getCountries().then(countries => {
+			this.countries = countries;
+		});
 
-        this.paymentOptions = [
-            { name: 'Option 1', value: 1 },
-            { name: 'Option 2', value: 2 },
-            { name: 'Option 3', value: 3 }
-        ];
-    }
+		this.cities = [
+			{ label: 'New York', value: { id: 1, name: 'New York', code: 'NY' } },
+			{ label: 'Rome', value: { id: 2, name: 'Rome', code: 'RM' } },
+			{ label: 'London', value: { id: 3, name: 'London', code: 'LDN' } },
+			{ label: 'Istanbul', value: { id: 4, name: 'Istanbul', code: 'IST' } },
+			{ label: 'Paris', value: { id: 5, name: 'Paris', code: 'PRS' } }
+		];
 
-    filterCountry(event: any) {
-        const filtered: any[] = [];
-        const query = event.query;
-        for (let i = 0; i < this.countries.length; i++) {
-            const country = this.countries[i];
-            if (country.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
-                filtered.push(country);
-            }
-        }
+		this.paymentOptions = [
+			{ name: 'Option 1', value: 1 },
+			{ name: 'Option 2', value: 2 },
+			{ name: 'Option 3', value: 3 }
+		];
+	}
 
-        this.filteredCountries = filtered;
-    }
+	filterCountry(event: any) {
+		const filtered: any[] = [];
+		const query = event.query;
+		for (let i = 0; i < this.countries.length; i++) {
+			const country = this.countries[i];
+			if (country.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+				filtered.push(country);
+			}
+		}
+
+		this.filteredCountries = filtered;
+	}
 }

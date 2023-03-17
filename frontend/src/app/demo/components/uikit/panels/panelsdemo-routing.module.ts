@@ -8,4 +8,5 @@ import { PanelsDemoComponent } from './panelsdemo.component';
 	])],
 	exports: [RouterModule]
 })
-export class PanelsDemoRoutingModule { }
+export class PanelsDemoRoutingModule {
+}

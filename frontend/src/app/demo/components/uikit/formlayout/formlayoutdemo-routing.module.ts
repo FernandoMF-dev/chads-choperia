@@ -8,4 +8,5 @@ import { FormLayoutDemoComponent } from './formlayoutdemo.component';
 	])],
 	exports: [RouterModule]
 })
-export class FormLayoutDemoRoutingModule { }
+export class FormLayoutDemoRoutingModule {
+}

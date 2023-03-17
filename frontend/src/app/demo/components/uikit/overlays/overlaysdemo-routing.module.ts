@@ -8,4 +8,5 @@ import { OverlaysDemoComponent } from './overlaysdemo.component';
 	])],
 	exports: [RouterModule]
 })
-export class OverlaysDemoRoutingModule { }
+export class OverlaysDemoRoutingModule {
+}

@@ -8,4 +8,5 @@ import { InputDemoComponent } from './inputdemo.component';
 	])],
 	exports: [RouterModule]
 })
-export class InputDemoRoutingModule { }
+export class InputDemoRoutingModule {
+}

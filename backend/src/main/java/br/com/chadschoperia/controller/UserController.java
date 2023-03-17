@@ -25,32 +25,32 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserController {
 
-    private final UserService service;
+	private final UserService service;
 
-    @GetMapping
-    public ResponseEntity<List<ViewUserDto>> findAll() {
-        return ResponseEntity.ok(service.findAll());
-    }
+	@GetMapping
+	public ResponseEntity<List<ViewUserDto>> findAll() {
+		return ResponseEntity.ok(service.findAll());
+	}
 
-    @GetMapping("/{id}")
-    public ResponseEntity<UserDto> findById(@PathVariable Long id) {
-        return ResponseEntity.ok(service.findById(id));
-    }
+	@GetMapping("/{id}")
+	public ResponseEntity<UserDto> findById(@PathVariable Long id) {
+		return ResponseEntity.ok(service.findById(id));
+	}
 
-    @PostMapping
-    public ResponseEntity<UserDto> create(@Valid @RequestBody UserDto dto) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(service.create(dto));
-    }
+	@PostMapping
+	public ResponseEntity<UserDto> create(@Valid @RequestBody UserDto dto) {
+		return ResponseEntity.status(HttpStatus.CREATED).body(service.create(dto));
+	}
 
-    @PutMapping
-    public ResponseEntity<UserDto> update(@Valid @RequestBody UserDto dto) {
-        return ResponseEntity.ok(service.update(dto));
-    }
+	@PutMapping
+	public ResponseEntity<UserDto> update(@Valid @RequestBody UserDto dto) {
+		return ResponseEntity.ok(service.update(dto));
+	}
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteById(@PathVariable Long id) {
-        service.deleteById(id);
-        return ResponseEntity.noContent().build();
-    }
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Void> deleteById(@PathVariable Long id) {
+		service.deleteById(id);
+		return ResponseEntity.noContent().build();
+	}
 
 }

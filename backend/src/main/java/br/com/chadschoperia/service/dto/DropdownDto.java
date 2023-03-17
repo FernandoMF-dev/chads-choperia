@@ -9,8 +9,8 @@ import java.io.Serializable;
 @Setter
 public class DropdownDto implements Serializable {
 
-    private Long id;
+	private Long id;
 
-    private String name;
+	private String name;
 
 }
