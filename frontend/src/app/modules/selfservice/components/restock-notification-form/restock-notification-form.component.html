@@ -1,1 +1,21 @@
-<p>restock-notification-form works!</p>
+<form [formGroup]="restockForm" (submit)="sendNotification()">
+	<p-dialog [(visible)]="visible" header="Formulário de Produto" [modal]="true"
+			  class="p-fluid" [closable]="true" (onShow)="showDialog.emit()" (onHide)="hideDialog.emit()">
+		<ng-template pTemplate="content">
+			<fieldset class="p-fluid p-formgrid grid">
+				<div class="field col-9">
+					<label htmlFor="name">Item para reposição</label>
+					<input pInputText id="replaceItemMessage" type="text" aria-describedby="name-help" required autofocus
+						   [ngClass]="{'ng-invalid ng-dirty': !isFieldValid('replaceItemMessage')}" formControlName="replaceItemMessage"/>
+					<small id="name-help" class="p-error block" *ngIf="!isFieldValid('replaceItemMessage')">Item Inválido</small>
+				</div>
+
+				<div class="field col-3">
+					<label htmlFor="name">&nbsp;</label>
+					<button pButton pRipple type="submit" label="Enviar" [disabled]="restockForm.invalid || isLoading"
+							icon="pi {{isLoading ? 'pi-spin pi-spinner' : 'pi-send'}}" class="p-button-outlined"></button>
+				</div>
+			</fieldset>
+		</ng-template>
+	</p-dialog>
+</form>

@@ -15,8 +15,11 @@ export class RestockNotificationListComponent implements OnInit {
 	confirmRestock: number | null = null;
 	stopListenerDocumentClick: boolean = false;
 
+	viewNotificationForm: boolean = false;
+	newRequestCreated: boolean = false;
 
-	_isLoading = false;
+
+	private _isLoading = false;
 
 	get isLoading(): boolean {
 		return this._isLoading;
@@ -70,5 +73,12 @@ export class RestockNotificationListComponent implements OnInit {
 				next: () => this.notifications = this.notifications.filter(value => value.id !== notificationId),
 				error: () => this.utilsService.showErrorMessage()
 			});
+	}
+
+	onHideForm(): void {
+		if (this.newRequestCreated) {
+			this.newRequestCreated = false;
+			this.findAllNotifications();
+		}
 	}
 }
