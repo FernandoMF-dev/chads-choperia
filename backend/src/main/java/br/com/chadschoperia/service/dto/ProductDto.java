@@ -22,7 +22,6 @@ public class ProductDto implements Serializable {
 	private String name;
 
 	@NotNull(message = MessageUtil.VALIDATION_PRODUCT_THRESHOLD_NOT_NULL)
-	@NotEmpty(message = MessageUtil.VALIDATION_PRODUCT_THRESHOLD_NOT_EMPTY)
 	private Long restockThreshold;
 
 	@NotNull(message = MessageUtil.VALIDATION_PRODUCT_STOCK_NOT_NULL)
