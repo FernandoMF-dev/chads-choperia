@@ -2,6 +2,7 @@ package br.com.chadschoperia.controller;
 
 import br.com.chadschoperia.service.ProductService;
 import br.com.chadschoperia.service.dto.ProductDto;
+import br.com.chadschoperia.service.dto.ProductStockDto;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -41,9 +42,9 @@ public class ProductController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(service.create(dto));
 	}
 
-	@PostMapping("/lista")
-	public ResponseEntity<List<ProductDto>> createBatch(@Valid @RequestBody List<ProductDto> dto) {
-		return ResponseEntity.status(HttpStatus.CREATED).body(service.updateBatch(dto));
+	@PostMapping("/restock")
+	public ResponseEntity<List<ProductDto>> restock(@RequestBody List<ProductStockDto> dto) {
+		return ResponseEntity.status(HttpStatus.CREATED).body(service.restock(dto));
 	}
 
 	@PutMapping
