@@ -98,7 +98,6 @@ export class ProductManageStockComponent implements OnInit {
 	}
 
 	newProductByBarcode(): void {
-		console.log(this.productInput);
 		const barcode = this.productInput.barcode ? String(this.productInput.barcode) : this.productInput;
 
 		if (this.isBarcodeInvalid(barcode)) {
@@ -118,11 +117,16 @@ export class ProductManageStockComponent implements OnInit {
 	}
 
 	deleteStockQuery(manageStockQuery: ManageStockProduct): void {
-
+		console.log(manageStockQuery)
+		this.stockManageQueries = this.stockManageQueries.filter(query => {
+			return query.product.id !== manageStockQuery.product.id;
+		});
 	}
 
 	openProductFormDialog(): void {
+		this.dialogState.barcodeInput = this.productInput;
 		this.dialogState.isOpen = true;
+		this.productInput = '';
 	}
 
 	onGlobalFilter(table: Table, event: Event) {
@@ -136,5 +140,29 @@ export class ProductManageStockComponent implements OnInit {
 	newProductSaved(product: Product): void {
 		this.products.push(product);
 		this.newStockQuery(product);
+	}
+
+	handleSubmitData(): void {
+		this.productService.restockProducts(this.buildDataToSave()).subscribe({
+			next: () => {
+				this.utilsService.showSuccessMessage('Movimentações cadastradas com sucesso');
+				this.stockManageQueries = [];
+			},
+			error: () => {
+				this.utilsService.showErrorMessage('Erro ao cadastrar as movimentações');
+			}
+		})
+	}
+
+	private buildDataToSave(): ManageStockProduct[] {
+		return this.stockManageQueries.map(query => {
+			query.productId = query.product.id;
+
+			if (this.currentAction === 'removal') {
+				query.amount = query.amount * -1;
+			}
+
+			return query;
+		})
 	}
 }

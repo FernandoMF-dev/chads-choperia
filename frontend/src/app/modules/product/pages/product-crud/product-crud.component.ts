@@ -10,6 +10,7 @@ export interface ProductDialogProps {
 	isOpen: boolean;
 	updateMode: boolean;
 	productToUpdate: Product;
+	barcodeInput?: string;
 }
 
 @Component({

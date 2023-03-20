@@ -4,6 +4,7 @@ import { finalize } from 'rxjs/operators';
 import { Product } from 'src/app/modules/product/models/product.model';
 import { ProductService } from 'src/app/modules/product/services/product.service';
 import { UtilsService } from 'src/app/services/utils.service';
+import { ProductDialogProps } from '../../product-crud/product-crud.component';
 
 @Component({
 	selector: 'app-product-form-modal',
@@ -12,10 +13,10 @@ import { UtilsService } from 'src/app/services/utils.service';
 	providers: [UtilsService]
 })
 export class ProductFormModalComponent {
-	@Input() dialogState = {
+	@Input() dialogState: ProductDialogProps = {
 		isOpen: false,
 		updateMode: false,
-		productToUpdate: {}
+		productToUpdate: {},
 	};
 	@Output() productSaved = new EventEmitter<Product>();
 
@@ -48,7 +49,16 @@ export class ProductFormModalComponent {
 
 	formOpenned(): void {
 		this.productForm.reset();
+		this.checkBarcodeInput();
 		this.checkUpdateProductMode();
+	}
+
+	private checkBarcodeInput(): void {
+		if (this.dialogState.barcodeInput) {
+			this.productForm.patchValue({ barcode: this.dialogState.barcodeInput });
+		}
+
+		this.dialogState.barcodeInput = undefined;
 	}
 
 	private checkUpdateProductMode(): void {
@@ -98,7 +108,7 @@ export class ProductFormModalComponent {
 				.subscribe({
 					next: (updatedProduct) => {
 						this.productSaved.emit(updatedProduct);
-						this.utilsService.showSuccessMessage(`Produto ${ updatedProduct.name } alterado`);
+						this.utilsService.showSuccessMessage(`Produto ${updatedProduct.name} alterado`);
 					},
 					error: () => this.utilsService.showErrorMessage('Erro ao editar o produto')
 				});

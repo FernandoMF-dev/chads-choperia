@@ -81,7 +81,7 @@
 		<p-dialog [(visible)]="userDialog" [style]="{width: '450px'}" header="Formulário de Usuário" [modal]="true"
 				  class="p-fluid">
 			<ng-template pTemplate="content">
-				<form [formGroup]="userForm">
+				<form [formGroup]="userForm" autocomplete="off">
 					<fieldset class="p-fluid p-formgrid grid">
 						<div class="field col-12 md:col-6">
 							<label htmlFor="username">Nome</label>

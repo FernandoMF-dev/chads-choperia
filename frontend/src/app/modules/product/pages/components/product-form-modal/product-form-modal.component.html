@@ -1,7 +1,7 @@
 <p-dialog [(visible)]="dialogState.isOpen" [style]="{width: '450px'}" header="Formulário de Produto" [modal]="true"
 		  class="p-fluid" (onShow)="formOpenned()">
 	<ng-template pTemplate="content">
-		<form [formGroup]="productForm">
+		<form [formGroup]="productForm" autocomplete="off">
 			<fieldset class="p-fluid p-formgrid grid">
 				<div class="field col-12">
 					<label htmlFor="name">Nome</label>
