@@ -7,6 +7,8 @@
 					<div class="my-2">
 						<button pButton pRipple label="Novo" icon="pi pi-plus" class="p-button-success mr-2"
 								(click)="openProductFormDialog()"></button>
+						<button pButton pRipple label="Imprimir Selecionados" icon="pi pi-print" class="p-button-info"
+								(click)="handlePrintBarcodes()" [disabled]="selectedProducts.length <= 0"></button>
 					</div>
 				</ng-template>
 
@@ -18,6 +20,7 @@
 
 			<p-table #dt [value]="products" [columns]="cols" responsiveLayout="scroll"
 					 [globalFilterFields]="['name','barcode']" [rows]="10" [paginator]="false"
+					 [(selection)]="selectedProducts"
 					 [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true"
 					 currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} registros" [rowHover]="true"
 					 dataKey="id">
@@ -33,6 +36,9 @@
 				</ng-template>
 				<ng-template pTemplate="header">
 					<tr>
+						<th style="width: 4rem">
+                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+            </th>
 						<th pSortableColumn="name">Nome
 							<p-sortIcon field="name"></p-sortIcon>
 						</th>
@@ -50,6 +56,13 @@
 				</ng-template>
 				<ng-template pTemplate="body" let-product>
 					<tr *ngIf="!isLoading">
+						<td>
+                <p-tableCheckbox [value]="product"></p-tableCheckbox>
+								<div class="field mt-2" *ngIf="isInSelectedProducts(product)">
+									<p-inputNumber [(ngModel)]="product.amount" [showButtons]="true" [inputId]="'inputProductAmount' + product.id">
+									</p-inputNumber>
+							</div>
+            </td>
 						<td>
 							<span class="p-column-title">Nome</span>
 							{{product.name}}
