@@ -1,60 +1,45 @@
 import { AbstractControl } from '@angular/forms';
 
 export class CustomValidators {
-	static cpf(control: AbstractControl) {
+	static cpf(control: AbstractControl): any {
 		const cpf = control.value;
+		const regex = new RegExp('[0-9]{11}');
+		const blackList = ['00000000000', '11111111111', '22222222222', '33333333333', '44444444444', '55555555555', '66666666666', '77777777777', '88888888888', '99999999999'];
 
 		let sum: number = 0;
 		let remainder: number;
-		let valid: boolean;
 
-		const regex = new RegExp('[0-9]{11}');
+		const cpfResult: (valid: boolean) => any = (valid: boolean) => valid ? null : { invalidCpf: true };
 
-		if (
-			cpf == '00000000000' ||
-			cpf == '11111111111' ||
-			cpf == '22222222222' ||
-			cpf == '33333333333' ||
-			cpf == '44444444444' ||
-			cpf == '55555555555' ||
-			cpf == '66666666666' ||
-			cpf == '77777777777' ||
-			cpf == '88888888888' ||
-			cpf == '99999999999' ||
-			!regex.test(cpf)
-		) {
-			valid = false;
-		} else {
-			for (let i = 1; i <= 9; i++) {
-				sum = sum + parseInt(cpf.substring(i - 1, i)) * (11 - i);
-			}
-			remainder = (sum * 10) % 11;
-
-			if (remainder == 10 || remainder == 11) {
-				remainder = 0;
-			}
-			if (remainder != parseInt(cpf.substring(9, 10))) {
-				valid = false;
-			}
-
-			sum = 0;
-			for (let i = 1; i <= 10; i++) {
-				sum = sum + parseInt(cpf.substring(i - 1, i)) * (12 - i);
-			}
-			remainder = (sum * 10) % 11;
-
-			if (remainder == 10 || remainder == 11) {
-				remainder = 0;
-			}
-			if (remainder != parseInt(cpf.substring(10, 11))) {
-				valid = false;
-			}
-			valid = true;
+		if (blackList.some(value => value === cpf) || !regex.test(cpf)) {
+			return cpfResult(false);
 		}
 
-		if (valid) {
-			return null;
+		for (let i = 1; i <= 9; i++) {
+			sum = sum + parseInt(cpf.substring(i - 1, i)) * (11 - i);
 		}
-		return { invalidCpf: true };
+		remainder = (sum * 10) % 11;
+
+		if (remainder == 10 || remainder == 11) {
+			remainder = 0;
+		}
+		if (remainder != parseInt(cpf.substring(9, 10))) {
+			return cpfResult(false);
+		}
+
+		sum = 0;
+		for (let i = 1; i <= 10; i++) {
+			sum = sum + parseInt(cpf.substring(i - 1, i)) * (12 - i);
+		}
+		remainder = (sum * 10) % 11;
+
+		if (remainder == 10 || remainder == 11) {
+			remainder = 0;
+		}
+		if (remainder != parseInt(cpf.substring(10, 11))) {
+			return cpfResult(false);
+		}
+		return cpfResult(true);
+
 	}
 }

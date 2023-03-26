@@ -3,7 +3,7 @@ import localePt from '@angular/common/locales/pt';
 import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ThermalPrintModule } from 'ng-thermal-print';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { RippleModule } from 'primeng/ripple';
 import { AppRoutingModule } from './app-routing.module';
@@ -35,9 +35,18 @@ registerLocaleData(localePt);
 	],
 	providers: [
 		{ provide: LocationStrategy, useClass: HashLocationStrategy },
-		CountryService, CustomerService, EventService, IconService, NodeService,
-		PhotoService, ProductService, MessageService, DatePipe, UtilsService,
-		{ provide: LOCALE_ID, useValue: 'pt-BR' }
+		{ provide: LOCALE_ID, useValue: 'pt-BR' },
+		CountryService,
+		CustomerService,
+		EventService,
+		IconService,
+		NodeService,
+		PhotoService,
+		ProductService,
+		MessageService,
+		DatePipe,
+		UtilsService,
+		ConfirmationService
 	],
 	bootstrap: [AppComponent]
 })
