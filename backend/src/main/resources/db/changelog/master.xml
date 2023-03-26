@@ -8,5 +8,6 @@
 	<include file="db/changelog/files/20230304230455_create_table_user.xml"></include>
 	<include file="db/changelog/files/20230310091522_create_table_product.xml"></include>
 	<include file="db/changelog/files/20230312132205_create_table_notification.xml"></include>
+	<include file="db/changelog/files/20230326105855_create_table_client.xml"></include>
 
 </databaseChangeLog>
