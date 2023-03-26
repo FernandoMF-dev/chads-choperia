@@ -5,14 +5,14 @@
 			<p-toolbar styleClass="mb-4">
 				<div class="p-toolbar-group-start">
 					<div class="my-2">
-						<button pButton pRipple label="Novo" icon="pi pi-plus" class="p-button-success mr-2"
-								(click)="insertClient()"></button>
+						<button pButton pRipple label="Novo" icon="pi pi-plus" (click)="insertClient()"
+								class="p-button-raised p-button-success mr-2"></button>
 					</div>
 				</div>
 
 				<div class="p-toolbar-group-end">
-					<button pButton pRipple label="Exportar em CSV" icon="pi pi-upload" class="p-button-help"
-							(click)="dt.exportCSV()"></button>
+					<button pButton pRipple label="Exportar CSV" icon="pi pi-upload" (click)="dt.exportCSV()"
+							class="p-button-raised p-button-help"></button>
 				</div>
 			</p-toolbar>
 
@@ -65,10 +65,10 @@
 						<td>
 							<div class="flex">
 								<button pButton pRipple icon="pi pi-pencil" (click)="editClient(client)"
-										class="p-button-rounded p-button-outlined p-button-icon-only p-button-success mr-2"></button>
+										class="p-button-raised p-button-rounded p-button-icon-only p-button-success mr-2"></button>
 
 								<button pButton pRipple icon="pi pi-trash" (click)="confirmDeleteClient(client)" pTooltip="Excluir"
-										class="p-button-rounded p-button-outlined p-button-icon-only p-button-danger"></button>
+										class="p-button-raised p-button-rounded p-button-icon-only p-button-danger"></button>
 							</div>
 						</td>
 					</tr>

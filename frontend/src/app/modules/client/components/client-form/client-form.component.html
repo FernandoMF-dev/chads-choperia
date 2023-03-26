@@ -53,9 +53,9 @@
 
 		<ng-template pTemplate="footer">
 			<button pButton pRipple type="button" (click)="onCancel()" label="Cancelar" icon="pi pi-times"
-					class="p-button-outlined p-button-danger"></button>
+					class="p-button-raised p-button-danger"></button>
 
-			<button pButton pRipple type="submit" label="Salvar" icon="pi pi-save" class="p-button-outlined p-button-success"
+			<button pButton pRipple type="submit" label="Salvar" icon="pi pi-save" class="p-button-raised p-button-success"
 					[disabled]="userForm.invalid || isLoading"></button>
 		</ng-template>
 	</p-dialog>

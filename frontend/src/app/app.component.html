@@ -4,10 +4,10 @@
 	<ng-template pTemplate="footer">
 		<button pButton pRipple type="button" [label]="confirmDialog.confirmation.rejectLabel!" icon="pi pi-times"
 				*ngIf="confirmDialog?.confirmation?.rejectVisible || confirmDialog?.confirmation?.rejectLabel"
-				(click)="confirmDialog.reject()" class="p-button-outlined p-button-danger"></button>
+				(click)="confirmDialog.reject()" class="p-button-raised p-button-danger"></button>
 
 		<button pButton pRipple type="button" [label]="confirmDialog.confirmation.acceptLabel!" icon="pi pi-check"
 				*ngIf="confirmDialog?.confirmation?.acceptVisible || confirmDialog?.confirmation?.acceptLabel"
-				(click)="confirmDialog.accept()" class="p-button-outlined p-button-success"></button>
+				(click)="confirmDialog.accept()" class="p-button-raised p-button-success"></button>
 	</ng-template>
 </p-confirmDialog>

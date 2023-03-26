@@ -3,17 +3,17 @@
 		<div class="card px-6 py-6">
 			<p-toast></p-toast>
 			<p-toolbar styleClass="mb-4">
-				<ng-template pTemplate="left">
+				<div class="p-toolbar-group-start">
 					<div class="my-2">
-						<button pButton pRipple label="Novo" icon="pi pi-plus" class="p-button-success mr-2"
+						<button pButton pRipple label="Novo" icon="pi pi-plus" class="p-button-raised p-button-success mr-2"
 								(click)="openNew()"></button>
 					</div>
-				</ng-template>
+				</div>
 
-				<ng-template pTemplate="right">
-					<button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help"
+				<div class="p-toolbar-group-end">
+					<button pButton pRipple label="Exportar CSV" icon="pi pi-upload" class="p-button-raised p-button-help"
 							(click)="dt.exportCSV()"></button>
-				</ng-template>
+				</div>
 			</p-toolbar>
 
 			<p-table #dt [value]="users" [columns]="cols" responsiveLayout="scroll"
@@ -117,9 +117,9 @@
 			</ng-template>
 
 			<ng-template pTemplate="footer">
-				<button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text"
+				<button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-raised p-button-danger"
 						(click)="hideDialog()"></button>
-				<button pButton pRipple label="Salvar" icon="pi pi-check" class="p-button-text"
+				<button pButton pRipple label="Salvar" icon="pi pi-check" class="p-button-raised p-button-success"
 						[disabled]="userForm.invalid" (click)="saveUser()"></button>
 			</ng-template>
 		</p-dialog>
@@ -130,9 +130,9 @@
 				<span *ngIf="user">Tem certeza que deseja deletar <b>{{user.username}}</b>?</span>
 			</div>
 			<ng-template pTemplate="footer">
-				<button pButton pRipple icon="pi pi-times" class="p-button-text" label="No"
+				<button pButton pRipple icon="pi pi-times" class="p-button-raised p-button-danger" label="Não"
 						(click)="deleteUserDialog = false"></button>
-				<button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes"
+				<button pButton pRipple icon="pi pi-check" class="p-button-raised p-button-success" label="Sim"
 						(click)="confirmDelete()"></button>
 			</ng-template>
 		</p-dialog>
