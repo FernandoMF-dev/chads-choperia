@@ -2,7 +2,7 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { interval } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 import { UtilsService } from '../../../../services/utils.service';
-import { RestockNotification } from '../../../user/models/restock-notification.model';
+import { RestockNotification } from '../../models/restock-notification.model';
 import { RestockNotificationService } from '../../services/restock-notification.service';
 
 @Component({

@@ -1,4 +1,4 @@
-import { Product } from '../../product/models/product.model';
+import { Product } from './product.model';
 
 export interface ManageStockProduct {
 	product: Product;

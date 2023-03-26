@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Table } from 'primeng/table';
 import { finalize } from 'rxjs/operators';
 import { UtilsService } from 'src/app/services/utils.service';
-import { ManageStockProduct } from '../../../user/models/manage-stock-product.model';
+import { ManageStockProduct } from '../../models/manage-stock-product.model';
 import { Product } from '../../models/product.model';
 import { ProductService } from '../../services/product.service';
 import { ProductDialogProps } from '../product-crud/product-crud.component';
