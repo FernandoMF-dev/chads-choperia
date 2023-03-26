@@ -13,6 +13,9 @@ import { ClientService } from '../../services/client.service';
 export class ClientListComponent implements OnInit {
 
 	clients: Client[] = [];
+	selectedClient?: Client;
+
+	viewClientForm: boolean = false;
 
 	_isLoading = false;
 
@@ -34,8 +37,9 @@ export class ClientListComponent implements OnInit {
 		this.fetchClients();
 	}
 
-	private fetchClients(): void {
+	fetchClients(): void {
 		this.isLoading = true;
+		this.selectedClient = undefined;
 		this.clientService.getAll()
 			.pipe(finalize(() => this.isLoading = false))
 			.subscribe({
@@ -53,14 +57,33 @@ export class ClientListComponent implements OnInit {
 	}
 
 	insertClient(): void {
-		// TODO Implement method
+		this.selectedClient = undefined;
+		this.viewClientForm = true;
 	}
 
 	editClient(client: Client): void {
-		// TODO Implement method
+		this.selectedClient = client;
+		this.viewClientForm = true;
 	}
 
-	deleteClient(client: Client): void {
-		// TODO Implement method
+	confirmDeleteClient(client: Client): void {
+		this.selectedClient = client;
+
+		this.utilsService.displayConfirmationMessage(
+			'Excluir cliente',
+			`Tem certeza que quer excluir o cliente <strong>${ this.selectedClient!.name }</strong>?`,
+			this,
+			() => this.deleteClient()
+		);
+	}
+
+	private deleteClient(): void {
+		this.isLoading = true;
+		this.clientService.delete(this.selectedClient!.id!)
+			.pipe(finalize(() => this.isLoading = false))
+			.subscribe({
+				next: () => this.fetchClients(),
+				error: () => this.utilsService.showErrorMessage('Erro ao excluir registro')
+			});
 	}
 }

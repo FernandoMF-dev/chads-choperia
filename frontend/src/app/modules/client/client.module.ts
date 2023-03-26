@@ -10,6 +10,7 @@ import { SkeletonModule } from 'primeng/skeleton';
 import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
+import { TooltipModule } from 'primeng/tooltip';
 
 import { ClientRoutingModule } from './client-routing.module';
 import { ClientFormComponent } from './components/client-form/client-form.component';
@@ -34,7 +35,8 @@ import { ClientService } from './services/client.service';
 		InputTextModule,
 		ReactiveFormsModule,
 		DialogModule,
-		InputMaskModule
+		InputMaskModule,
+		TooltipModule
 	],
 	providers: [
 		ClientService

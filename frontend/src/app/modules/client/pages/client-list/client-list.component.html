@@ -51,20 +51,24 @@
 							<span class="p-column-title">Nome</span>
 							{{client.name}}
 						</td>
+
 						<td>
 							<span class="p-column-title">Telefone</span>
 							{{client.telephone}}
 						</td>
+
 						<td>
 							<span class="p-column-title">Email</span>
 							{{client.email}}
 						</td>
+
 						<td>
 							<div class="flex">
-								<button pButton pRipple icon="pi pi-pencil"
-										class="p-button-rounded p-button-success mr-2" (click)="editClient(client)"></button>
-								<button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"
-										(click)="deleteClient(client)"></button>
+								<button pButton pRipple icon="pi pi-pencil" (click)="editClient(client)"
+										class="p-button-rounded p-button-outlined p-button-icon-only p-button-success mr-2"></button>
+
+								<button pButton pRipple icon="pi pi-trash" (click)="confirmDeleteClient(client)" pTooltip="Excluir"
+										class="p-button-rounded p-button-outlined p-button-icon-only p-button-danger"></button>
 							</div>
 						</td>
 					</tr>
@@ -79,3 +83,6 @@
 		</div>
 	</div>
 </div>
+
+<app-client-form *ngIf="viewClientForm" [(visible)]="viewClientForm" [idClient]="selectedClient?.id"
+				 (save)="fetchClients()"></app-client-form>
