@@ -13,6 +13,6 @@ export class ProductService extends CrudService<Product> {
 	}
 
 	public restockProducts(queries: ManageStockProduct[]): Observable<ManageStockProduct[]> {
-		return this.http.post<ManageStockProduct[]>(`${this.apiUrl}/restock`, queries);
+		return this.http.post<ManageStockProduct[]>(`${ this.apiUrl }/restock`, queries);
 	}
 }

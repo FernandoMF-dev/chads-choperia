@@ -117,7 +117,6 @@ export class ProductManageStockComponent implements OnInit {
 	}
 
 	deleteStockQuery(manageStockQuery: ManageStockProduct): void {
-		console.log(manageStockQuery)
 		this.stockManageQueries = this.stockManageQueries.filter(query => {
 			return query.product.id !== manageStockQuery.product.id;
 		});
@@ -151,7 +150,7 @@ export class ProductManageStockComponent implements OnInit {
 			error: () => {
 				this.utilsService.showErrorMessage('Erro ao cadastrar as movimentações');
 			}
-		})
+		});
 	}
 
 	private buildDataToSave(): ManageStockProduct[] {
@@ -163,6 +162,6 @@ export class ProductManageStockComponent implements OnInit {
 			}
 
 			return query;
-		})
+		});
 	}
 }

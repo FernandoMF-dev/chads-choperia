@@ -16,7 +16,7 @@ export class ProductFormModalComponent {
 	@Input() dialogState: ProductDialogProps = {
 		isOpen: false,
 		updateMode: false,
-		productToUpdate: {},
+		productToUpdate: {}
 	};
 	@Output() productSaved = new EventEmitter<Product>();
 
@@ -108,7 +108,7 @@ export class ProductFormModalComponent {
 				.subscribe({
 					next: (updatedProduct) => {
 						this.productSaved.emit(updatedProduct);
-						this.utilsService.showSuccessMessage(`Produto ${updatedProduct.name} alterado`);
+						this.utilsService.showSuccessMessage(`Produto ${ updatedProduct.name } alterado`);
 					},
 					error: () => this.utilsService.showErrorMessage('Erro ao editar o produto')
 				});
