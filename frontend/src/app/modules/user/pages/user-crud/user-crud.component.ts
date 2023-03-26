@@ -59,10 +59,12 @@ export class UserCrudComponent implements OnInit {
 
 	private fetchUsers(): void {
 		this.isLoading = true;
-		this.userService.getAll().pipe(finalize(() => this.isLoading = false)).subscribe({
-			next: (users) => this.updateUsers(users),
-			error: () => this.utilsService.showErrorMessage('Erro ao carregar dados')
-		});
+		this.userService.getAll()
+			.pipe(finalize(() => this.isLoading = false))
+			.subscribe({
+				next: (users) => this.updateUsers(users),
+				error: (err) => this.utilsService.showErrorMessage(err.error.detail)
+			});
 	}
 
 	private updateUsers(users: User[]): void {
@@ -71,10 +73,12 @@ export class UserCrudComponent implements OnInit {
 
 	private fetchRoles(): void {
 		this.isLoading = true;
-		this.roleService.getAll().pipe(finalize(() => this.isLoading = false)).subscribe({
-			next: (roles) => this.updateRoles(roles),
-			error: () => this.utilsService.showErrorMessage('Erro ao carregar os dados')
-		});
+		this.roleService.getAll()
+			.pipe(finalize(() => this.isLoading = false))
+			.subscribe({
+				next: (roles) => this.updateRoles(roles),
+				error: (err) => this.utilsService.showErrorMessage(err.error.detail)
+			});
 	}
 
 	private updateRoles(roles: Role[]): void {
@@ -107,8 +111,8 @@ export class UserCrudComponent implements OnInit {
 				this.userForm.patchValue(user);
 				this.isLoading = false;
 			},
-			error: () => {
-				this.utilsService.showErrorMessage('Erro ao carregar os dados');
+			error: (err) => {
+				this.utilsService.showErrorMessage(err.error.detail);
 				this.closeUserFormDialog();
 				this.isLoading = false;
 			}
@@ -124,15 +128,15 @@ export class UserCrudComponent implements OnInit {
 
 	confirmDelete() {
 		this.deleteUserDialog = false;
-		this.userService.delete(this.user.id!).pipe(finalize(() => {
-			this.user = {};
-		})).subscribe({
-			next: () => {
-				this.users = this.users.filter(user => user.id !== this.user.id);
-				this.utilsService.showSuccessMessage('Usuário Removido');
-			},
-			error: () => this.utilsService.showErrorMessage('Erro ao Remover o usuário')
-		});
+		this.userService.delete(this.user.id!)
+			.pipe(finalize(() => this.user = {}))
+			.subscribe({
+				next: () => {
+					this.users = this.users.filter(user => user.id !== this.user.id);
+					this.utilsService.showSuccessMessage('Usuário Removido');
+				},
+				error: (err) => this.utilsService.showErrorMessage(err.error.detail)
+			});
 	}
 
 	hideDialog() {
@@ -158,7 +162,7 @@ export class UserCrudComponent implements OnInit {
 						this.users.push({ ...this.user, id: newUser.id, roleName: this.findRoleById(this.user.idRole!).name });
 						this.utilsService.showSuccessMessage('Usuário Criado');
 					},
-					error: () => this.utilsService.showErrorMessage('Erro ao criar o usuário')
+					error: (err) => this.utilsService.showErrorMessage(err.error.detail)
 				});
 		});
 	}
@@ -177,7 +181,7 @@ export class UserCrudComponent implements OnInit {
 						updateUserInUsersList(updatedUser);
 						this.utilsService.showSuccessMessage(`Usuário ${ updatedUser.username } alterado`);
 					},
-					error: () => this.utilsService.showErrorMessage('Erro ao editar o usuário')
+					error: (err) => this.utilsService.showErrorMessage(err.error.detail)
 				});
 		});
 	}

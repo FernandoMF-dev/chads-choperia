@@ -24,14 +24,20 @@ export class AppMenuComponent implements OnInit {
 				label: 'Registros Administrativos',
 				items: [
 					{ label: 'Usuários', icon: 'pi pi-fw pi-user', routerLink: ['/usuario'] },
-					{ label: 'Produtos', icon: 'pi pi-fw pi-box', routerLink: ['/produto'] },
-					{ label: 'Self Service', icon: 'pi pi-fw pi-download', routerLink: ['/self-service'] }
+					{ label: 'Produtos', icon: 'pi pi-fw pi-box', routerLink: ['/produto'] }
+				]
+			},
+			{
+				label: 'Menu do Fiscal de Entrada',
+				items: [
+					{ label: 'Clientes', icon: 'pi pi-fw pi-id-card', routerLink: ['/cliente'] }
 				]
 			},
 			{
 				label: 'Menu do Cozinheiro',
 				items: [
-					{ label: 'Saída de Estoque', icon: 'pi pi-fw pi-arrow-down-right', routerLink: ['/produto/saida'] }
+					{ label: 'Saída de Estoque', icon: 'pi pi-fw pi-arrow-down-right', routerLink: ['/produto/saida'] },
+					{ label: 'Self Service', icon: 'pi pi-fw pi-download', routerLink: ['/self-service'] }
 				]
 			},
 			{

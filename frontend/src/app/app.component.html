@@ -1,1 +1,13 @@
 <router-outlet></router-outlet>
+
+<p-confirmDialog #confirmDialog [header]="confirmDialog?.confirmation?.header!" [icon]="confirmDialog?.confirmation?.icon!">
+	<ng-template pTemplate="footer">
+		<button pButton pRipple type="button" [label]="confirmDialog.confirmation.rejectLabel!" icon="pi pi-times"
+				*ngIf="confirmDialog?.confirmation?.rejectVisible || confirmDialog?.confirmation?.rejectLabel"
+				(click)="confirmDialog.reject()" class="p-button-outlined p-button-danger"></button>
+
+		<button pButton pRipple type="button" [label]="confirmDialog.confirmation.acceptLabel!" icon="pi pi-check"
+				*ngIf="confirmDialog?.confirmation?.acceptVisible || confirmDialog?.confirmation?.acceptLabel"
+				(click)="confirmDialog.accept()" class="p-button-outlined p-button-success"></button>
+	</ng-template>
+</p-confirmDialog>

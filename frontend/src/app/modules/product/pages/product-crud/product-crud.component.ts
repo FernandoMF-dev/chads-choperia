@@ -68,10 +68,12 @@ export class ProductCrudComponent implements OnInit {
 
 	private fetchProducts(): void {
 		this.isLoading = true;
-		this.productService.getAll().pipe(finalize(() => this.isLoading = false)).subscribe({
-			next: (products) => this.updateProducts(products),
-			error: () => this.utilsService.showErrorMessage('Erro ao carregar dados')
-		});
+		this.productService.getAll()
+			.pipe(finalize(() => this.isLoading = false))
+			.subscribe({
+				next: (products) => this.updateProducts(products),
+				error: (err) => this.utilsService.showErrorMessage(err.error.detail)
+			});
 	}
 
 	private updateProducts(products: Product[]): void {
@@ -95,15 +97,15 @@ export class ProductCrudComponent implements OnInit {
 
 	confirmDelete() {
 		this.deleteProductDialog = false;
-		this.productService.delete(this.product.id!).pipe(finalize(() => {
-			this.product = {};
-		})).subscribe({
-			next: () => {
-				this.products = this.products.filter(product => product.id !== this.product.id);
-				this.utilsService.showSuccessMessage('Produto Removido');
-			},
-			error: () => this.utilsService.showErrorMessage('Erro ao Remover o produto')
-		});
+		this.productService.delete(this.product.id!)
+			.pipe(finalize(() => this.product = {}))
+			.subscribe({
+				next: () => {
+					this.products = this.products.filter(product => product.id !== this.product.id);
+					this.utilsService.showSuccessMessage('Produto Removido');
+				},
+				error: (err) => this.utilsService.showErrorMessage(err.error.detail)
+			});
 	}
 
 	hideDialog() {
