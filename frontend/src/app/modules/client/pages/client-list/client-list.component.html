@@ -11,12 +11,12 @@
 				</div>
 
 				<div class="p-toolbar-group-end">
-					<button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help"
+					<button pButton pRipple label="Exportar em CSV" icon="pi pi-upload" class="p-button-help"
 							(click)="dt.exportCSV()"></button>
 				</div>
 			</p-toolbar>
 
-			<p-table #dt [value]="clients" responsiveLayout="scroll"
+			<p-table #dt [value]="clients" responsiveLayout="scroll" [columns]="cols"
 					 [globalFilterFields]="['name', 'telephone','email']" [rowHover]="true" dataKey="id">
 				<ng-template pTemplate="caption">
 					<div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
@@ -39,7 +39,7 @@
 							<p-sortIcon field="telephone"></p-sortIcon>
 						</th>
 						<th pSortableColumn="email">
-							Email
+							E-mail
 							<p-sortIcon field="email"></p-sortIcon>
 						</th>
 						<th></th>
@@ -58,7 +58,7 @@
 						</td>
 
 						<td>
-							<span class="p-column-title">Email</span>
+							<span class="p-column-title">E-mail</span>
 							{{client.email}}
 						</td>
 

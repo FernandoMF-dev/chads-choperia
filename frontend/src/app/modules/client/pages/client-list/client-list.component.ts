@@ -14,6 +14,7 @@ export class ClientListComponent implements OnInit {
 
 	clients: Client[] = [];
 	selectedClient?: Client;
+	cols: any[];
 
 	viewClientForm: boolean = false;
 
@@ -31,6 +32,7 @@ export class ClientListComponent implements OnInit {
 		private clientService: ClientService,
 		private utilsService: UtilsService
 	) {
+		this.cols = this.initializeCols();
 	}
 
 	ngOnInit() {
@@ -44,12 +46,20 @@ export class ClientListComponent implements OnInit {
 			.pipe(finalize(() => this.isLoading = false))
 			.subscribe({
 				next: (res) => this.updateClients(res),
-				error: () => this.utilsService.showErrorMessage('Erro ao carregar dados')
+				error: (err) => this.utilsService.showErrorMessage(err.error.detail)
 			});
 	}
 
 	private updateClients(clients: Client[]): void {
 		this.clients = clients;
+	}
+
+	private initializeCols(): any[] {
+		return [
+			{ field: 'name', header: 'Nome' },
+			{ field: 'telephone', header: 'Telefone' },
+			{ field: 'email', header: 'E-mail' }
+		];
 	}
 
 	onGlobalFilter(table: Table, event: Event) {
@@ -83,7 +93,7 @@ export class ClientListComponent implements OnInit {
 			.pipe(finalize(() => this.isLoading = false))
 			.subscribe({
 				next: () => this.fetchClients(),
-				error: () => this.utilsService.showErrorMessage('Erro ao excluir registro')
+				error: (err) => this.utilsService.showErrorMessage(err.error.detail)
 			});
 	}
 }

@@ -61,7 +61,7 @@ export class RestockNotificationListComponent implements OnInit {
 			.pipe(finalize(() => this.isLoading = false))
 			.subscribe({
 				next: (res) => this.afterSuccessfulFetchNotifications(res),
-				error: () => this.utilsService.showErrorMessage('Erro ao carregar dados')
+				error: (err) => this.utilsService.showErrorMessage(err.error.detail)
 			});
 	}
 
@@ -78,7 +78,7 @@ export class RestockNotificationListComponent implements OnInit {
 			.pipe(finalize(() => this.isLoading = false))
 			.subscribe({
 				next: () => this.notifications = this.notifications.filter(value => value.id !== notificationId),
-				error: () => this.utilsService.showErrorMessage()
+				error: (err) => this.utilsService.showErrorMessage(err.error.detail)
 			});
 	}
 

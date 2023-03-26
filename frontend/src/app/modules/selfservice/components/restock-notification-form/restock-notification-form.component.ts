@@ -67,7 +67,7 @@ export class RestockNotificationFormComponent {
 			}))
 			.subscribe({
 				next: (res) => this.create.emit(res),
-				error: () => this.utilsService.showErrorMessage('Erro ao carregar dados')
+				error: (err) => this.utilsService.showErrorMessage(err.error.detail)
 			});
 	}
 

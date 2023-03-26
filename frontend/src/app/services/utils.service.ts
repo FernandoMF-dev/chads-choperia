@@ -46,7 +46,7 @@ export class UtilsService {
 		return {
 			message: message,
 			header: title,
-			icon: 'pi pi-exclamation-triangle icon-warning',
+			icon: 'pi pi-exclamation-triangle',
 			acceptLabel: 'Ok',
 			rejectVisible: false,
 			acceptVisible: true

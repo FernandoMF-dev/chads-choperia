@@ -55,7 +55,7 @@ export class ClientFormComponent implements OnInit {
 		return new FormGroup({
 			id: new FormControl(null, []),
 			name: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]),
-			telephone: new FormControl('', [Validators.required, Validators.minLength(8)]),
+			telephone: new FormControl('', [Validators.required, Validators.minLength(11), Validators.maxLength(11)]),
 			email: new FormControl('', [Validators.required, Validators.email]),
 			cpf: new FormControl('', [Validators.required, CustomValidators.cpf])
 		});
@@ -85,14 +85,34 @@ export class ClientFormComponent implements OnInit {
 
 		const entity: Client = this.userForm.value;
 
+		if (this.idClient) {
+			this.update(entity);
+		} else {
+			this.create(entity);
+		}
+	}
+
+	private create(entity: Client): void {
 		this.clientService.create(entity)
-			.pipe(finalize(() => {
-				this.isLoading = false;
-				this.visible = false;
-			}))
+			.pipe(finalize(() => this.isLoading = false))
 			.subscribe({
-				next: (res) => this.save.emit(res),
-				error: () => this.utilsService.showErrorMessage('Erro ao salvar mudanças')
+				next: (res) => {
+					this.save.emit(res);
+					this.visible = false;
+				},
+				error: (err) => this.utilsService.showErrorMessage(err.error.detail)
+			});
+	}
+
+	private update(entity: Client): void {
+		this.clientService.update(entity)
+			.pipe(finalize(() => this.isLoading = false))
+			.subscribe({
+				next: (res) => {
+					this.save.emit(res);
+					this.visible = false;
+				},
+				error: (err) => this.utilsService.showErrorMessage(err.error.detail)
 			});
 	}
 
@@ -103,7 +123,7 @@ export class ClientFormComponent implements OnInit {
 			.pipe(finalize(() => this.isLoading = false))
 			.subscribe({
 				next: (res) => this.userForm.reset(res),
-				error: () => this.utilsService.showErrorMessage('Erro ao recuperar dados')
+				error: (err) => this.utilsService.showErrorMessage(err.error.detail)
 			});
 	}
 }

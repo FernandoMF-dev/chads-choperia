@@ -51,10 +51,12 @@ export class ProductManageStockComponent implements OnInit {
 
 	private fetchProducts(): void {
 		this.isLoading = true;
-		this.productService.getAll().pipe(finalize(() => this.isLoading = false)).subscribe({
-			next: (products) => this.updateProducts(products),
-			error: () => this.utilsService.showErrorMessage('Erro ao carregar dados')
-		});
+		this.productService.getAll()
+			.pipe(finalize(() => this.isLoading = false))
+			.subscribe({
+				next: (products) => this.updateProducts(products),
+				error: (err) => this.utilsService.showErrorMessage(err.error.detail)
+			});
 	}
 
 	private updateProducts(products: Product[]): void {
@@ -142,15 +144,14 @@ export class ProductManageStockComponent implements OnInit {
 	}
 
 	handleSubmitData(): void {
-		this.productService.restockProducts(this.buildDataToSave()).subscribe({
-			next: () => {
-				this.utilsService.showSuccessMessage('Movimentações cadastradas com sucesso');
-				this.stockManageQueries = [];
-			},
-			error: () => {
-				this.utilsService.showErrorMessage('Erro ao cadastrar as movimentações');
-			}
-		});
+		this.productService.restockProducts(this.buildDataToSave())
+			.subscribe({
+				next: () => {
+					this.utilsService.showSuccessMessage('Movimentações cadastradas com sucesso');
+					this.stockManageQueries = [];
+				},
+				error: (err) => this.utilsService.showErrorMessage(err.error.detail)
+			});
 	}
 
 	private buildDataToSave(): ManageStockProduct[] {

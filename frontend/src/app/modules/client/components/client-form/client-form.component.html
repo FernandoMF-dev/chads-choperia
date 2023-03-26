@@ -3,7 +3,7 @@
 			  class="p-fluid" (onShow)="showDialog.emit()" (onHide)="hideDialog.emit()">
 		<ng-template pTemplate="content">
 			<fieldset class="p-fluid p-formgrid grid">
-				<div class="field col-12 md:col-6">
+				<div class="field col-12">
 					<label htmlFor="name">Nome</label>
 
 					<input pInputText id="name" type="text" required [disabled]="isLoading"
@@ -11,14 +11,16 @@
 						   formControlName="name"/>
 
 					<small id="name-help" class="p-error block" *ngIf="!isFieldValid('name')">
-						Nome inválido.</small>
+						Nome inválido.
+					</small>
 				</div>
 
 				<div class="field col-12">
 					<label htmlFor="telephone">Telefone</label>
 
-					<input pInputText id="telephone" type="tel" formControlName="telephone" [disabled]="isLoading"
-						   [ngClass]="{'ng-invalid ng-dirty': !isFieldValid('telephone')}"/>
+					<p-inputMask id="telephone" mask="(99) 99999-9999" type="tel" formControlName="telephone" [disabled]="isLoading"
+								 [unmask]="true"
+								 [ngClass]="{'ng-invalid ng-dirty': !isFieldValid('telephone')}"></p-inputMask>
 
 					<small id="telephone-help" class="p-error block" *ngIf="!isFieldValid('telephone')">
 						Telefone inválido.
@@ -26,13 +28,13 @@
 				</div>
 
 				<div class="field col-12">
-					<label htmlFor="email">Email</label>
+					<label htmlFor="email">E-mail</label>
 
 					<input pInputText id="email" type="email" formControlName="email" [disabled]="isLoading"
 						   [ngClass]="{'ng-invalid ng-dirty': !isFieldValid('email')}"/>
 
 					<small id="email-help" class="p-error block" *ngIf="!isFieldValid('email')">
-						Email inválido.
+						E-mail inválido.
 					</small>
 				</div>
 
