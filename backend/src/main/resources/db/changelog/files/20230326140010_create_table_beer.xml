@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+				   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+
+	<changeSet id="20230326140055-1" author="Mateus Padovan Pereira">
+		<createTable tableName="beer">
+			<column name="id" type="bigint">
+				<constraints nullable="false"></constraints>
+			</column>
+			<column name="name" type="varchar(50)">
+				<constraints nullable="false"></constraints>
+			</column>
+			<column name="purchase_price" type="double precision">
+				<constraints nullable="false"></constraints>
+			</column>
+			<column name="value_per_mug" type="double precision">
+				<constraints nullable="false"></constraints>
+			</column>
+			<column name="stock" type="bigint">
+				<constraints nullable="false"></constraints>
+			</column>
+		</createTable>
+	</changeSet>
+
+	<changeSet id="20230326140735-2" author="Mateus Padovan Pereira">
+		<createSequence sequenceName="sequence_beer"
+						dataType="bigint"
+						startValue="1"
+						incrementBy="1"></createSequence>
+	</changeSet>
+
+</databaseChangeLog>
