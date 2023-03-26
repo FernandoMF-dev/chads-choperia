@@ -7,9 +7,13 @@ public class MessageUtil {
 	public static final String USER_NOT_FOUND = "Usuário não encontrado!";
 	public static final String NOTIFICATION_NOT_FOUND = "Notificação não encontrada!";
 	public static final String CLIENT_NOT_FOUND = "Cliente não encontrado!";
+	public static final String BEER_NOT_FOUND = "Chop não encontrado!";
 
 	/* Messages for business exception */
 	public static final String BUSINESS_EXCEPTION_CPF_ALREADY_REGISTERED = "O CPF informado já se encontra cadastrado!";
+	public static final String BUSINESS_EXCEPTION_PURCHASE_VALUE_EQUAL_TO_OR_LESS_THAN_ZERO = "O valor de compra não pode ser igual ou inferior a R$ 0,00";
+	public static final String BUSINESS_EXCEPTION_MUG_VALUE_EQUAL_TO_OR_LESS_THAN_ZERO = "O valor da caneca não pode ser igual ou inferior a R$ 0,00";
+	public static final String BUSINESS_EXCEPTION_MUG_VALUE_LESS_THAN_PURCHASE_PRICE = "O valor da caneca não pode ser inferior ao valor de compra!";
 
 	/* Messages for validation in dto */
 	public static final String VALIDATION_USER_USERNAME_NOT_NULL = "O campo usuário não pode ser nulo!";
@@ -52,5 +56,12 @@ public class MessageUtil {
 	public static final String VALIDATION_CLIENT_EMAIL_VALID = "O campo e-mail deve possuir um registro válido!";
 	public static final String VALIDATION_CLIENT_CPF_NOT_NULL = "O campo CPF não pode ser nulo!";
 	public static final String VALIDATION_CLIENT_CPF_VALID = "O campo CPF deve possuir um registro válido!";
+
+	public static final String VALIDATION_BEER_NAME_NOT_NULL = "O campo nome não pode ser nulo!";
+	public static final String VALIDATION_BEER_NAME_NOT_EMPTY = "O campo nome não pode ser vazio!";
+	public static final String VALIDATION_BEER_NAME_MINIMUM_SIZE = "O campo nome deve possuir no mínimo 3 caracteres!";
+	public static final String VALIDATION_BEER_NAME_MAXIMUM_SIZE = "O campo nome deve possuir no máximo 50 caracteres!";
+	public static final String VALIDATION_BEER_PURCHASE_PRICE_NOT_NULL = "O campo valor de compra não pode ser nulo!";
+	public static final String VALIDATION_BEER_VALUE_PER_MUG = "O campo valor por caneca não pode ser nulo!";
 
 }
