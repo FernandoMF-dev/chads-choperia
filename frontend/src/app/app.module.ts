@@ -1,8 +1,11 @@
 import { DatePipe, HashLocationStrategy, LocationStrategy, registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
 import { LOCALE_ID, NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 import { ThermalPrintModule } from 'ng-thermal-print';
 import { MessageService } from 'primeng/api';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { RippleModule } from 'primeng/ripple';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NotfoundComponent } from './demo/components/notfound/notfound.component';
@@ -25,7 +28,10 @@ registerLocaleData(localePt);
 	imports: [
 		AppRoutingModule,
 		AppLayoutModule,
-		ThermalPrintModule
+		BrowserModule,
+		ThermalPrintModule,
+		ConfirmDialogModule,
+		RippleModule
 	],
 	providers: [
 		{ provide: LocationStrategy, useClass: HashLocationStrategy },

@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { finalize } from 'rxjs/operators';
 import { UtilsService } from '../../../../services/utils.service';
-import { CustomValidators } from '../../../../shared/utils/custom-validators.utils';
+import { CustomValidators } from '../../../../utils/custom-validators.utils';
 import { Client } from '../../models/client.model';
 import { ClientService } from '../../services/client.service';
 
