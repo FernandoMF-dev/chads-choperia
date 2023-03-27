@@ -3,6 +3,7 @@ package br.com.chadschoperia.service.dto;
 import br.com.chadschoperia.util.MessageUtil;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,9 +23,11 @@ public class BeerDto implements Serializable {
 	private String name;
 
 	@NotNull(message = MessageUtil.VALIDATION_BEER_PURCHASE_PRICE_NOT_NULL)
+	@Positive(message = MessageUtil.BUSINESS_EXCEPTION_PURCHASE_VALUE_EQUAL_TO_OR_LESS_THAN_ZERO)
 	private Double purchasePrice;
 
 	@NotNull(message = MessageUtil.VALIDATION_BEER_VALUE_PER_MUG)
+	@Positive(message = MessageUtil.BUSINESS_EXCEPTION_PURCHASE_VALUE_EQUAL_TO_OR_LESS_THAN_ZERO)
 	private Double valuePerMug;
 
 	private Long stock;

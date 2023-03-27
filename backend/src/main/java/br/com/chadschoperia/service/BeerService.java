@@ -39,14 +39,6 @@ public class BeerService {
 	}
 
 	private void validatePrices(BeerDto beerDto) {
-		if (beerDto.getPurchasePrice() <= 0L) {
-			throw new BusinessException(MessageUtil.BUSINESS_EXCEPTION_PURCHASE_VALUE_EQUAL_TO_OR_LESS_THAN_ZERO);
-		}
-
-		if (beerDto.getValuePerMug() <= 0L) {
-			throw new BusinessException(MessageUtil.BUSINESS_EXCEPTION_MUG_VALUE_EQUAL_TO_OR_LESS_THAN_ZERO);
-		}
-
 		if (beerDto.getValuePerMug() < beerDto.getPurchasePrice()) {
 			throw new BusinessException(MessageUtil.BUSINESS_EXCEPTION_MUG_VALUE_LESS_THAN_PURCHASE_PRICE);
 		}
