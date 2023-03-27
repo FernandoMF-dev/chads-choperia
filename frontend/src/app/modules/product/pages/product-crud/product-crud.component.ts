@@ -15,7 +15,7 @@ export interface ProductDialogProps {
 }
 
 interface productBarcodePrint extends Product {
-	amount: number;
+	amount?: number;
 }
 
 @Component({
@@ -31,8 +31,6 @@ export class ProductCrudComponent implements OnInit {
 		productToUpdate: {}
 	};
 
-	deleteProductDialog: boolean = false;
-
 	products: Product[] = [];
 
 	selectedProducts: productBarcodePrint[] = [];
@@ -41,6 +39,7 @@ export class ProductCrudComponent implements OnInit {
 
 	cols: any[] = [];
 
+	printingBarcodeMode = false;
 	_isLoading = false;
 
 	get isLoading(): boolean {
@@ -76,6 +75,7 @@ export class ProductCrudComponent implements OnInit {
 
 	private fetchProducts(): void {
 		this.isLoading = true;
+		this.selectedProducts = [];
 		this.productService.getAll()
 			.pipe(finalize(() => this.isLoading = false))
 			.subscribe({
@@ -97,13 +97,17 @@ export class ProductCrudComponent implements OnInit {
 		this.openProductFormDialog(true);
 	}
 
-	deleteProduct(product: Product) {
-		this.deleteProductDialog = true;
+	confirmDeleteProduct(product: Product) {
 		this.product = { ...product };
+		this.utilsService.displayConfirmationMessage(
+			'Excluir produto',
+			`Tem certeza que deseja deletar <strong>${ this.product.name }</strong>?`,
+			this,
+			() => this.deleteProduct()
+		);
 	}
 
-	confirmDelete() {
-		this.deleteProductDialog = false;
+	deleteProduct() {
 		this.productService.delete(this.product.id!)
 			.pipe(finalize(() => this.product = {}))
 			.subscribe({
@@ -143,9 +147,13 @@ export class ProductCrudComponent implements OnInit {
 		let positionBuffer = spacingBetweenTickets;
 
 		this.selectedProducts.forEach((product) => {
+			if (!product.barcode) {
+				return;
+			}
 			if (!product.amount) {
 				product.amount = 1;
 			}
+
 			for (let i = 0; i < product.amount; i++) {
 				if (positionBuffer >= 110) {
 					pdf.addPage();
@@ -162,7 +170,9 @@ export class ProductCrudComponent implements OnInit {
 		pdf.output('dataurlnewwindow');
 	}
 
-	isInSelectedProducts(product: productBarcodePrint): boolean {
-		return this.selectedProducts.findIndex(item => item.id === product.id) !== -1;
+	togglePrintingBarcodeMode(): void {
+		this.selectedProducts = [];
+		this.products.forEach(value => (value as productBarcodePrint).amount = undefined);
+		this.printingBarcodeMode = !this.printingBarcodeMode;
 	}
 }

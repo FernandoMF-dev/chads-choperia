@@ -5,26 +5,27 @@
 			<p-toolbar styleClass="mb-4">
 				<div class="p-toolbar-group-start">
 					<div class="my-2">
-						<button pButton pRipple label="Novo" icon="pi pi-plus" (click)="openProductFormDialog()"
-								class="p-button-raised p-button-success mr-2"></button>
+						<button pButton pRipple label="Novo" icon="pi pi-plus" *ngIf="!printingBarcodeMode"
+								(click)="openProductFormDialog()" class="p-button-raised p-button-success mr-2"></button>
 
-						<button pButton pRipple label="Imprimir Selecionados" icon="pi pi-print" class="p-button-raised p-button-info"
-								(click)="handlePrintBarcodes()" [disabled]="selectedProducts.length <= 0"></button>
+						<button pButton pRipple label="Imprimir Selecionados" icon="pi pi-print" *ngIf="printingBarcodeMode"
+								class="p-button-raised p-button-success mr-2" (click)="handlePrintBarcodes()"
+								[disabled]="selectedProducts.length <= 0"></button>
+
+						<button pButton pRipple icon="pi pi-print" class="p-button-raised p-button-info"
+								[label]="printingBarcodeMode ? 'Cancelar impressão': 'Imprimir Códigos de Barra'"
+								(click)="togglePrintingBarcodeMode()"></button>
 					</div>
 				</div>
 
 				<div class="p-toolbar-group-end">
-					<button pButton pRipple label="Exportar CSV" icon="pi pi-upload" (click)="dt.exportCSV()"
-							class="p-button-raised p-button-help"></button>
+					<button pButton pRipple label="Exportar CSV" icon="pi pi-upload" *ngIf="!printingBarcodeMode"
+							(click)="dt.exportCSV()" class="p-button-raised p-button-help"></button>
 				</div>
 			</p-toolbar>
 
-			<p-table #dt [value]="products" [columns]="cols" responsiveLayout="scroll"
-					 [globalFilterFields]="['name','barcode']" [rows]="10" [paginator]="false"
-					 [(selection)]="selectedProducts"
-					 [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true"
-					 currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} registros" [rowHover]="true"
-					 dataKey="id">
+			<p-table #dt [value]="products" [columns]="cols" responsiveLayout="scroll" [globalFilterFields]="['name','barcode']"
+					 [(selection)]="selectedProducts" [rowHover]="true" dataKey="id">
 				<ng-template pTemplate="caption">
 					<div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
 						<h5 class="m-0">Gerenciar Produtos</h5>
@@ -35,57 +36,70 @@
 						</span>
 					</div>
 				</ng-template>
+
 				<ng-template pTemplate="header">
 					<tr>
-						<th style="width: 4rem">
+						<th style="width: 4rem" *ngIf="printingBarcodeMode">
 							<p-tableHeaderCheckbox></p-tableHeaderCheckbox>
 						</th>
-						<th pSortableColumn="name">Nome
+						<th pSortableColumn="name">
+							Nome
 							<p-sortIcon field="name"></p-sortIcon>
 						</th>
-						<th pSortableColumn="stock">Quantidade em Estoque
+						<th pSortableColumn="stock" *ngIf="!printingBarcodeMode">
+							Quantidade em Estoque
 							<p-sortIcon field="stock"></p-sortIcon>
 						</th>
-						<th pSortableColumn="restockThreshold">Ponto de Encomenda
+						<th pSortableColumn="restockThreshold" *ngIf="!printingBarcodeMode">
+							Ponto de Encomenda
 							<p-sortIcon field="restockThreshold"></p-sortIcon>
 						</th>
-						<th pSortableColumn="barcode">Código de Barras
+						<th pSortableColumn="barcode">
+							Código de Barras
 							<p-sortIcon field="barcode"></p-sortIcon>
 						</th>
-						<th></th>
+						<th pSortableColumn="barcode" *ngIf="printingBarcodeMode">
+							Cópias
+						</th>
+						<th *ngIf="!printingBarcodeMode"></th>
 					</tr>
 				</ng-template>
 				<ng-template pTemplate="body" let-product>
 					<tr *ngIf="!isLoading">
-						<td>
+						<td *ngIf="printingBarcodeMode">
 							<p-tableCheckbox [value]="product"></p-tableCheckbox>
-							<div class="field mt-2" *ngIf="isInSelectedProducts(product)">
-								<p-inputNumber [(ngModel)]="product.amount" [showButtons]="true"
-											   [inputId]="'inputProductAmount' + product.id">
-								</p-inputNumber>
-							</div>
 						</td>
+
 						<td>
 							<span class="p-column-title">Nome</span>
 							{{product.name}}
 						</td>
-						<td>
+
+						<td *ngIf="!printingBarcodeMode">
 							<span class="p-column-title">Quantidade em Estoque</span>
 							{{product.stock}}un
 						</td>
-						<td>
+
+						<td *ngIf="!printingBarcodeMode">
 							<span class="p-column-title">Ponto de Encomenda</span>
 							{{product.restockThreshold}}un
 						</td>
+
 						<td>
 							<span class="p-column-title">Código de Barras</span>
 							{{product.barcode}}
 						</td>
-						<td>
+
+						<td *ngIf="printingBarcodeMode">
+							<p-inputNumber [(ngModel)]="product.amount" [showButtons]="true" [min]="0" [maxFractionDigits]="0"
+										   [inputId]="'inputProductAmount' + product.id"></p-inputNumber>
+						</td>
+
+						<td *ngIf="!printingBarcodeMode">
 							<div class="flex">
 								<button pButton pRipple icon="pi pi-pencil" (click)="editProduct(product)"
 										class="p-button-raised p-button-rounded p-button-success p-button-icon-only mr-2"></button>
-								<button pButton pRipple icon="pi pi-trash" (click)="deleteProduct(product)"
+								<button pButton pRipple icon="pi pi-trash" (click)="confirmDeleteProduct(product)"
 										class="p-button-raised p-button-rounded p-button-danger p-button-icon-only"></button>
 							</div>
 						</td>
@@ -99,19 +113,6 @@
 				<p-skeleton height="4rem"></p-skeleton>
 			</div>
 		</div>
-
-		<p-dialog [(visible)]="deleteProductDialog" header="Confirm" [modal]="true" [style]="{width:'450px'}">
-			<div class="flex align-items-center justify-content-center">
-				<i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
-				<span *ngIf="product">Tem certeza que deseja deletar <b>{{product.name}}</b>?</span>
-			</div>
-			<ng-template pTemplate="footer">
-				<button pButton pRipple icon="pi pi-times" class="p-button-text" label="No"
-						(click)="deleteProductDialog = false"></button>
-				<button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes"
-						(click)="confirmDelete()"></button>
-			</ng-template>
-		</p-dialog>
 	</div>
 </div>
 
