@@ -5,7 +5,7 @@
 			<p-toolbar styleClass="mb-4">
 				<div class="p-toolbar-group-start">
 					<div class="my-2">
-						<button pButton pRipple label="Novo" icon="pi pi-plus" (click)="insertClient()"
+						<button pButton pRipple label="Novo" icon="pi pi-plus" (click)="insertBeer()"
 								class="p-button-raised p-button-success mr-2"></button>
 					</div>
 				</div>
@@ -16,11 +16,11 @@
 				</div>
 			</p-toolbar>
 
-			<p-table #dt [value]="clients" responsiveLayout="scroll" [columns]="cols"
-					 [globalFilterFields]="['name', 'telephone','email']" [rowHover]="true" dataKey="id">
+			<p-table #dt [value]="beers" responsiveLayout="scroll" [columns]="cols"
+					 [globalFilterFields]="['name', 'stock']" [rowHover]="true" dataKey="id">
 				<ng-template pTemplate="caption">
 					<div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
-						<h5 class="m-0">Gerenciar Clientes</h5>
+						<h5 class="m-0">Gerenciar Chopps</h5>
 						<span class="block mt-2 md:mt-0 p-input-icon-left">
 							<i class="pi pi-search"></i>
 							<input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Pesquisar"
@@ -34,40 +34,31 @@
 							Nome
 							<p-sortIcon field="name"></p-sortIcon>
 						</th>
-						<th pSortableColumn="telephone">
-							Telefone
-							<p-sortIcon field="telephone"></p-sortIcon>
-						</th>
-						<th pSortableColumn="email">
-							E-mail
-							<p-sortIcon field="email"></p-sortIcon>
+						<th pSortableColumn="stock">
+							Estoque
+							<p-sortIcon field="stock"></p-sortIcon>
 						</th>
 						<th></th>
 					</tr>
 				</ng-template>
-				<ng-template pTemplate="body" let-client>
+				<ng-template pTemplate="body" let-beer>
 					<tr *ngIf="!isLoading">
 						<td>
 							<span class="p-column-title">Nome</span>
-							{{client.name}}
+							{{ beer.name }}
 						</td>
 
 						<td>
-							<span class="p-column-title">Telefone</span>
-							{{client.telephone}}
-						</td>
-
-						<td>
-							<span class="p-column-title">E-mail</span>
-							{{client.email}}
+							<span class="p-column-title">Estoque</span>
+							{{ beer.stock }}
 						</td>
 
 						<td>
 							<div class="flex">
-								<button pButton pRipple icon="pi pi-pencil" (click)="editClient(client)"
+								<button pButton pRipple icon="pi pi-pencil" (click)="editBeer(beer)"
 										class="p-button-raised p-button-rounded p-button-icon-only p-button-success mr-2"></button>
 
-								<button pButton pRipple icon="pi pi-trash" (click)="confirmDeleteClient(client)" pTooltip="Excluir"
+								<button pButton pRipple icon="pi pi-trash" (click)="confirmDeleteBeer(beer)" pTooltip="Excluir"
 										class="p-button-raised p-button-rounded p-button-icon-only p-button-danger"></button>
 							</div>
 						</td>
@@ -84,5 +75,5 @@
 	</div>
 </div>
 
-<app-client-form *ngIf="viewClientForm" [(visible)]="viewClientForm" [idClient]="selectedClient?.id"
-				 (save)="fetchClients()"></app-client-form>
+<app-beer-form *ngIf="viewBeerForm" [(visible)]="viewBeerForm" [idBeer]="selectedBeer?.id"
+			   (save)="fetchBeers()"></app-beer-form>

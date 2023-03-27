@@ -1,0 +1,29 @@
+/*
+Material Symbols (Outlined) - Google
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+*/
+
+.material-symbols-outlined {
+	font-variation-settings: 'FILL' 0,
+	'wght' 250,
+	'GRAD' 0,
+	'opsz' 48
+}
+
+.material-symbols-outlined {
+	font-family: 'Material Symbols Outlined';
+	font-weight: normal;
+	font-style: normal;
+	font-size: 24px; /* Preferred icon size */
+	display: inline-block;
+	line-height: 1;
+	text-transform: none;
+	letter-spacing: normal;
+	word-wrap: normal;
+	white-space: nowrap;
+	direction: ltr;
+}
+
+.material-symbols-outlined.on-data-content::before {
+	content: attr(data-material);
+}

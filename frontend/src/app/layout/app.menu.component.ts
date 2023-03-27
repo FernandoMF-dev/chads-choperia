@@ -24,7 +24,8 @@ export class AppMenuComponent implements OnInit {
 				label: 'Registros Administrativos',
 				items: [
 					{ label: 'Usuários', icon: 'pi pi-fw pi-user', routerLink: ['/usuario'] },
-					{ label: 'Produtos', icon: 'pi pi-fw pi-box', routerLink: ['/produto'] }
+					{ label: 'Produtos', icon: 'pi pi-fw pi-box', routerLink: ['/produto'] },
+					{ label: 'Chopps', material: 'sports_bar', routerLink: ['/chopp'] }
 				]
 			},
 			{

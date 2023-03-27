@@ -3,17 +3,18 @@
 		<div class="card px-6 py-6">
 			<p-toast></p-toast>
 			<p-toolbar styleClass="mb-4">
-				<ng-template pTemplate="left">
+				<div class="p-toolbar-group-start">
 					<div class="my-2">
-						<button pButton pRipple label="Novo" icon="pi pi-plus" class="p-button-success mr-2"
-								(click)="openProductFormDialog()"></button>
+						<button pButton pRipple label="Novo" icon="pi pi-plus" (click)="openProductFormDialog()"
+								class="p-button-raised p-button-success mr-2"></button>
 					</div>
-				</ng-template>
+				</div>
+				>
 
-				<ng-template pTemplate="right">
-					<button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help"
-							(click)="dt.exportCSV()"></button>
-				</ng-template>
+				<div class="p-toolbar-group-end">
+					<button pButton pRipple label="Exportar CSV" icon="pi pi-upload" (click)="dt.exportCSV()"
+							class="p-button-raised p-button-help"></button>
+				</div>
 			</p-toolbar>
 
 			<p-table #dt [value]="products" [columns]="cols" responsiveLayout="scroll"
@@ -68,10 +69,10 @@
 						</td>
 						<td>
 							<div class="flex">
-								<button pButton pRipple icon="pi pi-pencil"
-										class="p-button-rounded p-button-success mr-2" (click)="editProduct(product)"></button>
-								<button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"
-										(click)="deleteProduct(product)"></button>
+								<button pButton pRipple icon="pi pi-pencil" (click)="editProduct(product)"
+										class="p-button-raised p-button-rounded p-button-success p-button-icon-only mr-2"></button>
+								<button pButton pRipple icon="pi pi-trash" (click)="deleteProduct(product)"
+										class="p-button-raised p-button-rounded p-button-danger p-button-icon-only"></button>
 							</div>
 						</td>
 					</tr>
