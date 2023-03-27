@@ -16,7 +16,7 @@ export class ProductFormModalComponent {
 	@Input() dialogState: ProductDialogProps = {
 		isOpen: false,
 		updateMode: false,
-		productToUpdate: {},
+		productToUpdate: {}
 	};
 	@Output() productSaved = new EventEmitter<Product>();
 
@@ -95,7 +95,7 @@ export class ProductFormModalComponent {
 						this.productSaved.emit(newProduct);
 						this.utilsService.showSuccessMessage('Produto Criado');
 					},
-					error: () => this.utilsService.showErrorMessage('Erro ao criar o produto')
+					error: (err) => this.utilsService.showErrorMessage(err.error.detail)
 				});
 		});
 	}
@@ -108,9 +108,9 @@ export class ProductFormModalComponent {
 				.subscribe({
 					next: (updatedProduct) => {
 						this.productSaved.emit(updatedProduct);
-						this.utilsService.showSuccessMessage(`Produto ${updatedProduct.name} alterado`);
+						this.utilsService.showSuccessMessage(`Produto ${ updatedProduct.name } alterado`);
 					},
-					error: () => this.utilsService.showErrorMessage('Erro ao editar o produto')
+					error: (err) => this.utilsService.showErrorMessage(err.error.detail)
 				});
 		});
 	}

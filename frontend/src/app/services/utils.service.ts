@@ -1,10 +1,13 @@
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { MessageService } from 'primeng/api';
+import { Confirmation, ConfirmationService, MessageService } from 'primeng/api';
 
 @Injectable()
 export class UtilsService {
-	constructor(private messageService: MessageService) {
+	constructor(
+		private messageService: MessageService,
+		private confirmationService: ConfirmationService
+	) {
 	}
 
 	showSuccessMessage(message?: string): void {
@@ -20,5 +23,33 @@ export class UtilsService {
 			((form.get(fieldName)?.dirty)) &&
 			form.get(fieldName)?.invalid
 		);
+	}
+
+	displayConfirmationMessage(title: string, message: string, component?: Object, accept?: (...args: any) => void, reject?: (...args: any) => void): void {
+		const confirmation: Confirmation = this.buildConfirmationMessage(title, message);
+
+		if (accept) {
+			confirmation.acceptLabel = 'Confirmar';
+			confirmation.rejectLabel = 'Cancelar';
+			confirmation.rejectVisible = true;
+			confirmation.accept = () => accept.bind(component)();
+
+			if (reject) {
+				confirmation.reject = () => reject.bind(component)();
+			}
+		}
+
+		this.confirmationService.confirm(confirmation);
+	}
+
+	private buildConfirmationMessage(title: string, message: string): Confirmation {
+		return {
+			message: message,
+			header: title,
+			icon: 'pi pi-exclamation-triangle',
+			acceptLabel: 'Ok',
+			rejectVisible: false,
+			acceptVisible: true
+		};
 	}
 }

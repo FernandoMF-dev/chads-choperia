@@ -3,9 +3,11 @@
 		<div class="card px-6 py-6">
 			<p-toast></p-toast>
 			<p-toolbar styleClass="mb-4">
-				<div class="my-2">
-					<button pButton pRipple label="Notificar Falta" icon="pi pi-plus" class="p-button-success mr-2"
-							(click)="viewNotificationForm = true"></button>
+				<div class="p-toolbar-group-start">
+					<div class="my-2">
+						<button pButton pRipple label="Notificar Falta" icon="pi pi-plus" (click)="viewNotificationForm = true"
+								class="p-button-raised p-button-success mr-2"></button>
+					</div>
 				</div>
 			</p-toolbar>
 
@@ -37,11 +39,11 @@
 
 							<button pButton *ngIf="confirmRestock !== notification.id" (click)="onRestockClick(notification.id)"
 									icon="pi pi-fw pi-check" type="button" label="Confirmar Preparo"
-									class="p-button-raised p-button-text"></button>
+									class="p-button-raised p-button-info"></button>
 
 							<button pButton *ngIf="confirmRestock === notification.id" (click)="onConfirmRestock()"
 									icon="pi pi-fw pi-exclamation-triangle" type="button" label="Clique para Confirmar"
-									class="p-button-raised p-button-text p-button-warning"></button>
+									class="p-button-raised p-button-warning"></button>
 						</td>
 					</tr>
 				</ng-template>

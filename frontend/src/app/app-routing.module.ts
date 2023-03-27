@@ -42,6 +42,14 @@ const routes: Routes = [
 			{
 				path: 'self-service',
 				loadChildren: () => import('./modules/selfservice/selfservice.module').then(m => m.SelfserviceModule)
+			},
+			{
+				path: 'cliente',
+				loadChildren: () => import('./modules/client/client.module').then(m => m.ClientModule)
+			},
+			{
+				path: 'chopp',
+				loadChildren: () => import('./modules/beer/beer.module').then(m => m.BeerModule)
 			}
 		]
 	},

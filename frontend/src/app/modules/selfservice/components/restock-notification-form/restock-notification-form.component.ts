@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { finalize } from 'rxjs/operators';
 import { UtilsService } from '../../../../services/utils.service';
-import { RestockNotification } from '../../../user/models/restock-notification.model';
+import { RestockNotification } from '../../models/restock-notification.model';
 import { RestockNotificationService } from '../../services/restock-notification.service';
 
 @Component({
@@ -67,7 +67,7 @@ export class RestockNotificationFormComponent {
 			}))
 			.subscribe({
 				next: (res) => this.create.emit(res),
-				error: () => this.utilsService.showErrorMessage('Erro ao carregar dados')
+				error: (err) => this.utilsService.showErrorMessage(err.error.detail)
 			});
 	}
 

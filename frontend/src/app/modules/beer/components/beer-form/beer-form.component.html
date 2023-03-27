@@ -1,0 +1,48 @@
+<form [formGroup]="userForm" (submit)="onSubmit()" autocomplete="off">
+	<p-dialog [(visible)]="visible" [style]="{width: '450px'}" header="Formulário de Chopp" [modal]="true"
+			  class="p-fluid" (onShow)="showDialog.emit()" (onHide)="hideDialog.emit()">
+		<ng-template pTemplate="content">
+			<fieldset class="p-fluid p-formgrid grid">
+				<div class="field col-12">
+					<label htmlFor="name">Nome</label>
+
+					<input pInputText id="name" type="text" required [disabled]="isLoading"
+						   autofocus [ngClass]="{'ng-invalid ng-dirty': !isFieldValid('name')}"
+						   formControlName="name"/>
+
+					<small id="name-help" class="p-error block" *ngIf="!isFieldValid('name')">
+						Nome inválido.
+					</small>
+				</div>
+
+				<div class="field col-12">
+					<label htmlFor="purchase-price">Preço de Compra</label>
+					<p-inputNumber id="purchase-price" [showButtons]="true" [min]="0" [step]="0.25" [disabled]="isLoading"
+								   mode="currency" currency="BRL" locale="pt-BR" [minFractionDigits]=2 [maxFractionDigits]=2
+								   decrementButtonClass="p-button-danger" incrementButtonClass="p-button-success" buttonLayout="horizontal"
+								   incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus" formControlName="purchasePrice"
+								   [ngClass]="{'ng-invalid ng-dirty': !isFieldValid('stock')}"></p-inputNumber>
+					<small id="purchase-price-help" class="p-error block" *ngIf="!isFieldValid('stock')">Valor obrigatório.</small>
+				</div>
+
+				<div class="field col-12">
+					<label htmlFor="value-per-mug">Preço por Caneca</label>
+					<p-inputNumber id="value-per-mug" [showButtons]="true" [min]="0" [step]="0.25" [disabled]="isLoading"
+								   mode="currency" currency="BRL" locale="pt-BR" [minFractionDigits]=2 [maxFractionDigits]=2
+								   decrementButtonClass="p-button-danger" incrementButtonClass="p-button-success" buttonLayout="horizontal"
+								   incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus" formControlName="valuePerMug"
+								   [ngClass]="{'ng-invalid ng-dirty': !isFieldValid('stock')}"></p-inputNumber>
+					<small id="value-per-mug-help" class="p-error block" *ngIf="!isFieldValid('stock')">Valor obrigatório.</small>
+				</div>
+			</fieldset>
+		</ng-template>
+
+		<ng-template pTemplate="footer">
+			<button pButton pRipple type="button" (click)="onCancel()" label="Cancelar" icon="pi pi-times"
+					class="p-button-raised p-button-danger"></button>
+
+			<button pButton pRipple type="submit" label="Salvar" icon="pi pi-save" class="p-button-raised p-button-success"
+					[disabled]="userForm.invalid || isLoading"></button>
+		</ng-template>
+	</p-dialog>
+</form>
