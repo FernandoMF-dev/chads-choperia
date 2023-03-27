@@ -1,6 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
+import { DialogModule } from 'primeng/dialog';
+import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
 import { RippleModule } from 'primeng/ripple';
 import { SkeletonModule } from 'primeng/skeleton';
@@ -10,13 +13,15 @@ import { ToolbarModule } from 'primeng/toolbar';
 import { TooltipModule } from 'primeng/tooltip';
 
 import { BeerRoutingModule } from './beer-routing.module';
+import { BeerFormComponent } from './components/beer-form/beer-form.component';
 import { BeerListComponent } from './pages/beer-list/beer-list.component';
 import { BeerService } from './services/beer.service';
 
 
 @NgModule({
 	declarations: [
-		BeerListComponent
+		BeerListComponent,
+		BeerFormComponent
 	],
 	imports: [
 		CommonModule,
@@ -28,7 +33,10 @@ import { BeerService } from './services/beer.service';
 		ToolbarModule,
 		SkeletonModule,
 		InputTextModule,
-		TooltipModule
+		TooltipModule,
+		DialogModule,
+		ReactiveFormsModule,
+		InputNumberModule
 	],
 	providers: [
 		BeerService

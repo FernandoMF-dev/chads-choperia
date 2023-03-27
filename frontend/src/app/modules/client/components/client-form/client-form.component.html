@@ -1,5 +1,5 @@
 <form [formGroup]="userForm" (submit)="onSubmit()" autocomplete="off">
-	<p-dialog [(visible)]="visible" [style]="{width: '450px'}" header="Formulário de Client" [modal]="true"
+	<p-dialog [(visible)]="visible" [style]="{width: '450px'}" header="Formulário de Cliente" [modal]="true"
 			  class="p-fluid" (onShow)="showDialog.emit()" (onHide)="hideDialog.emit()">
 		<ng-template pTemplate="content">
 			<fieldset class="p-fluid p-formgrid grid">
@@ -19,8 +19,7 @@
 					<label htmlFor="telephone">Telefone</label>
 
 					<p-inputMask id="telephone" mask="(99) 99999-9999" type="tel" formControlName="telephone" [disabled]="isLoading"
-								 [unmask]="true"
-								 [ngClass]="{'ng-invalid ng-dirty': !isFieldValid('telephone')}"></p-inputMask>
+								 [unmask]="true" [ngClass]="{'ng-invalid ng-dirty': !isFieldValid('telephone')}"></p-inputMask>
 
 					<small id="telephone-help" class="p-error block" *ngIf="!isFieldValid('telephone')">
 						Telefone inválido.

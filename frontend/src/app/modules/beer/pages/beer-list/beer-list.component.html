@@ -17,7 +17,7 @@
 			</p-toolbar>
 
 			<p-table #dt [value]="beers" responsiveLayout="scroll" [columns]="cols"
-					 [globalFilterFields]="['name', 'purchasePrice', 'valuePerMug', 'stock']" [rowHover]="true" dataKey="id">
+					 [globalFilterFields]="['name', 'stock']" [rowHover]="true" dataKey="id">
 				<ng-template pTemplate="caption">
 					<div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
 						<h5 class="m-0">Gerenciar Chopps</h5>
@@ -34,14 +34,6 @@
 							Nome
 							<p-sortIcon field="name"></p-sortIcon>
 						</th>
-						<th pSortableColumn="purchasePrice">
-							Telefone
-							<p-sortIcon field="purchasePrice"></p-sortIcon>
-						</th>
-						<th pSortableColumn="valuePerMug">
-							E-mail
-							<p-sortIcon field="valuePerMug"></p-sortIcon>
-						</th>
 						<th pSortableColumn="stock">
 							Estoque
 							<p-sortIcon field="stock"></p-sortIcon>
@@ -54,16 +46,6 @@
 						<td>
 							<span class="p-column-title">Nome</span>
 							{{ beer.name }}
-						</td>
-
-						<td>
-							<span class="p-column-title">Preço de Compra</span>
-							R${{ beer.purchasePrice | currency:'BRL':'symbol-narrow':'4.2-2' }}
-						</td>
-
-						<td>
-							<span class="p-column-title">Preço por Caneca</span>
-							R${{ beer.valuePerMug | currency:'BRL':'symbol-narrow':'4.2-2' }}
 						</td>
 
 						<td>
@@ -92,3 +74,6 @@
 		</div>
 	</div>
 </div>
+
+<app-beer-form *ngIf="viewBeerForm" [(visible)]="viewBeerForm" [idBeer]="selectedBeer?.id"
+			   (save)="fetchBeers()"></app-beer-form>

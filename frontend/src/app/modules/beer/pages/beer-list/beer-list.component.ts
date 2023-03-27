@@ -57,8 +57,6 @@ export class BeerListComponent implements OnInit {
 	private initializeCols(): any[] {
 		return [
 			{ field: 'name', header: 'Nome' },
-			{ field: 'purchasePrice', header: 'Preço de compra (R$)' },
-			{ field: 'valuePerMug', header: 'Preço por caneca (R$)' },
 			{ field: 'stock', header: 'Estoque (L)' }
 		];
 	}
