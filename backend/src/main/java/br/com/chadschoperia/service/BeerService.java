@@ -7,7 +7,6 @@ import br.com.chadschoperia.service.exception.BusinessException;
 import br.com.chadschoperia.service.exception.EntityNotFoundException;
 import br.com.chadschoperia.service.mapper.BeerMapper;
 import br.com.chadschoperia.service.mapper.ViewBeerMapper;
-import br.com.chadschoperia.util.MessageUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -29,18 +28,18 @@ public class BeerService {
 
 	public BeerDto findById(Long idBeer) {
 		return beerMapper.toDto(beerRepository.findById(idBeer)
-				.orElseThrow(() -> new EntityNotFoundException(MessageUtil.BEER_NOT_FOUND)));
+				.orElseThrow(() -> new EntityNotFoundException("beer.not_found")));
 	}
 
 	private void existsById(Long idBeer) {
 		if (!beerRepository.existsById(idBeer)) {
-			throw new EntityNotFoundException(MessageUtil.BEER_NOT_FOUND);
+			throw new EntityNotFoundException("beer.not_found");
 		}
 	}
 
 	private void validatePrices(BeerDto beerDto) {
 		if (beerDto.getValuePerMug() < beerDto.getPurchasePrice()) {
-			throw new BusinessException(MessageUtil.BUSINESS_EXCEPTION_MUG_VALUE_LESS_THAN_PURCHASE_PRICE);
+			throw new BusinessException("beer.mug.less_than.purchase_price");
 		}
 	}
 

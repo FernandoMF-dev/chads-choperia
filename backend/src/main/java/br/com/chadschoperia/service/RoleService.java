@@ -4,7 +4,6 @@ import br.com.chadschoperia.repository.RoleRepository;
 import br.com.chadschoperia.service.dto.DropdownDto;
 import br.com.chadschoperia.service.exception.EntityNotFoundException;
 import br.com.chadschoperia.service.mapper.RoleMapper;
-import br.com.chadschoperia.util.MessageUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -24,12 +23,12 @@ public class RoleService {
 
 	public DropdownDto findById(Long id) {
 		return roleMapper.toDto(repository.findById(id)
-				.orElseThrow(() -> new EntityNotFoundException(MessageUtil.ROLE_NOT_FOUND)));
+				.orElseThrow(() -> new EntityNotFoundException("role.not_found")));
 	}
 
 	public void existsById(Long id) {
 		if (!repository.existsById(id)) {
-			throw new EntityNotFoundException(MessageUtil.ROLE_NOT_FOUND);
+			throw new EntityNotFoundException("role.not_found");
 		}
 	}
 
