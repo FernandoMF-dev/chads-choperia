@@ -6,7 +6,6 @@ import br.com.chadschoperia.service.dto.ViewUserDto;
 import br.com.chadschoperia.service.exception.EntityNotFoundException;
 import br.com.chadschoperia.service.mapper.UserMapper;
 import br.com.chadschoperia.service.mapper.ViewUserMapper;
-import br.com.chadschoperia.util.MessageUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -30,12 +29,12 @@ public class UserService {
 
 	public UserDto findById(Long id) {
 		return mapper.toDto(repository.findById(id)
-				.orElseThrow(() -> new EntityNotFoundException(MessageUtil.USER_NOT_FOUND)));
+				.orElseThrow(() -> new EntityNotFoundException("user.not_found")));
 	}
 
 	private void existsById(Long id) {
 		if (!repository.existsById(id)) {
-			throw new EntityNotFoundException(MessageUtil.USER_NOT_FOUND);
+			throw new EntityNotFoundException("user.not_found");
 		}
 	}
 

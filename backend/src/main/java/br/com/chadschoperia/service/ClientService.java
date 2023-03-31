@@ -7,7 +7,6 @@ import br.com.chadschoperia.service.exception.BusinessException;
 import br.com.chadschoperia.service.exception.EntityNotFoundException;
 import br.com.chadschoperia.service.mapper.ClientMapper;
 import br.com.chadschoperia.service.mapper.ViewClientMapper;
-import br.com.chadschoperia.util.MessageUtil;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
@@ -30,18 +29,18 @@ public class ClientService {
 
 	public ClientDto findById(Long idClient) {
 		return clientMapper.toDto(clientRepository.findById(idClient)
-				.orElseThrow(() -> new EntityNotFoundException(MessageUtil.CLIENT_NOT_FOUND)));
+				.orElseThrow(() -> new EntityNotFoundException("client.not_found")));
 	}
 
 	private void existsById(Long idClient) {
 		if (!clientRepository.existsById(idClient)) {
-			throw new EntityNotFoundException(MessageUtil.CLIENT_NOT_FOUND);
+			throw new EntityNotFoundException("client.not_found");
 		}
 	}
 
 	private void existsByCpf(String cpf) {
 		if (clientRepository.existsByCpf(cpf)) {
-			throw new BusinessException(MessageUtil.BUSINESS_EXCEPTION_CPF_ALREADY_REGISTERED);
+			throw new BusinessException("user.cpf.unique");
 		}
 	}
 
