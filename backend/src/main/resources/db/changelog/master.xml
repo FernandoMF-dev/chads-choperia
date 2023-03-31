@@ -4,11 +4,12 @@
 				   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
 
-	<include file="db/changelog/files/20230304215905_create_table_role.xml"></include>
-	<include file="db/changelog/files/20230304230455_create_table_user.xml"></include>
-	<include file="db/changelog/files/20230310091522_create_table_product.xml"></include>
-	<include file="db/changelog/files/20230312132205_create_table_notification.xml"></include>
-	<include file="db/changelog/files/20230326105855_create_table_client.xml"></include>
-	<include file="db/changelog/files/20230326140010_create_table_beer.xml"></include>
+	<include file="db/changelog/files/20230304215905_create_table_role.xml"/>
+	<include file="db/changelog/files/20230304230455_create_table_user.xml"/>
+	<include file="db/changelog/files/20230310091522_create_table_product.xml"/>
+	<include file="db/changelog/files/20230312132205_create_table_notification.xml"/>
+	<include file="db/changelog/files/20230326105855_create_table_client.xml"/>
+	<include file="db/changelog/files/20230326140010_create_table_beer.xml"/>
+	<include file="db/changelog/files/20230331081200_create_table_client_card.xml"/>
 
 </databaseChangeLog>

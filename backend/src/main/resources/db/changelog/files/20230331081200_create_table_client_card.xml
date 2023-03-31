@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+		xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.17.xsd">
+
+	<changeSet id="20230326140055-1" author="Fernando Martins Ferreira">
+		<createTable tableName="client_card">
+			<column name="id" type="bigint">
+				<constraints nullable="false"/>
+			</column>
+
+			<column name="id_client" type="bigint">
+				<constraints nullable="false"/>
+			</column>
+
+			<column name="rfid" type="bigint">
+				<constraints nullable="false"/>
+			</column>
+
+			<column name="payment" type="double" defaultValueNumeric="0.0">
+				<constraints nullable="false"/>
+			</column>
+
+			<column name="payment_method" type="varchar"/>
+
+			<column name="check_in" type="datetime"/>
+
+			<column name="check_out" type="datetime"/>
+		</createTable>
+
+		<rollback>
+			<dropTable tableName="client_card"/>
+		</rollback>
+	</changeSet>
+
+	<changeSet id="20230326140055-2" author="Fernando Martins Ferreira">
+		<addPrimaryKey tableName="client_card" columnNames="id" constraintName="pk_client_card"/>
+
+		<rollback>
+			<dropPrimaryKey tableName="client_card" constraintName="pk_client_card"/>
+		</rollback>
+	</changeSet>
+
+	<changeSet id="20230326140055-3" author="Fernando Martins Ferreira">
+		<addForeignKeyConstraint baseTableName="client_card" baseColumnNames="id_client"
+								 referencedTableName="client" referencedColumnNames="id"
+								 constraintName="fk_client_card_client"/>
+
+		<rollback>
+			<dropAllForeignKeyConstraints baseTableName="client_card"/>
+		</rollback>
+	</changeSet>
+
+	<changeSet id="20230326140055-4" author="Fernando Martins Ferreira">
+		<createSequence sequenceName="sequence_client_card" dataType="bigint" startValue="1" incrementBy="1"/>
+
+		<rollback>
+			<dropSequence sequenceName="sequence_client_card"/>
+		</rollback>
+	</changeSet>
+
+</databaseChangeLog>
