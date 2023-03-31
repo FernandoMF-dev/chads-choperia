@@ -4,7 +4,6 @@ import br.com.chadschoperia.repository.NotificationRepository;
 import br.com.chadschoperia.service.dto.NotificationDto;
 import br.com.chadschoperia.service.exception.EntityNotFoundException;
 import br.com.chadschoperia.service.mapper.NotificationMapper;
-import br.com.chadschoperia.util.MessageUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -25,12 +24,12 @@ public class NotificationService {
 
 	public NotificationDto findById(Long idNotification) {
 		return notificationMapper.toDto(notificationRepository.findById(idNotification)
-				.orElseThrow(() -> new EntityNotFoundException(MessageUtil.NOTIFICATION_NOT_FOUND)));
+				.orElseThrow(() -> new EntityNotFoundException("notification.not_found")));
 	}
 
 	private void existsById(Long idNotification) {
 		if (!notificationRepository.existsById(idNotification)) {
-			throw new EntityNotFoundException(MessageUtil.NOTIFICATION_NOT_FOUND);
+			throw new EntityNotFoundException("notification.not_found");
 		}
 	}
 

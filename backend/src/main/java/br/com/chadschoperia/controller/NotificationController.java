@@ -2,7 +2,6 @@ package br.com.chadschoperia.controller;
 
 import br.com.chadschoperia.service.NotificationService;
 import br.com.chadschoperia.service.dto.NotificationDto;
-import br.com.chadschoperia.util.MessageUtil;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.RequiredArgsConstructor;
@@ -38,9 +37,9 @@ public class NotificationController {
 	}
 
 	@PostMapping
-	public ResponseEntity<NotificationDto> create(@NotEmpty(message = MessageUtil.VALIDATION_NOTIFICATION_REPLACE_ITEM_MESSAGE_NOT_EMPTY)
-												  @Size(min = 3, message = MessageUtil.VALIDATION_NOTIFICATION_REPLACE_ITEM_MESSAGE_MINIMUM_SIZE)
-												  @Size(max = 50, message = MessageUtil.VALIDATION_NOTIFICATION_REPLACE_ITEM_MESSAGE_MAXIMUM_SIZE)
+	public ResponseEntity<NotificationDto> create(@NotEmpty(message = "notification.item.not_empty")
+												  @Size(min = 3, message = "notification.item.min_size")
+												  @Size(max = 50, message = "notification.item.max_size")
 												  @RequestBody String replaceItemMessage) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(notificationService.create(replaceItemMessage));
 	}
