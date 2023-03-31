@@ -74,7 +74,7 @@ public class ValidationHandler extends ResponseEntityExceptionHandler {
 	private ResponseEntity<Object> getExceptionResponseEntity(final HttpStatus status, WebRequest request, List<String> errors) {
 		final Map<String, Object> body = new LinkedHashMap<>();
 		final List<String> errorsMessage = errors.stream().map(this::getMessageSourceIfAvailable).collect(Collectors.toList());
-		final String message = getErrorsMessage(status, errorsMessage);
+		final String detail = getErrorsMessage(status, errorsMessage);
 		final String path = request.getDescription(false);
 
 		body.put("timestamp", Instant.now());
@@ -82,7 +82,7 @@ public class ValidationHandler extends ResponseEntityExceptionHandler {
 		body.put("statusName", status.getReasonPhrase());
 		body.put("path", path);
 		body.put("erros", errorsMessage);
-		body.put("message", message);
+		body.put("detail", detail);
 
 		return new ResponseEntity<>(body, status);
 	}
