@@ -1,5 +1,6 @@
 package br.com.chadschoperia.domain.entities;
 
+import br.com.chadschoperia.domain.enums.ClientCardStatusEnum;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -14,6 +15,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Entity
 @Table(name = "client_card")
@@ -44,4 +46,8 @@ public class ClientCard {
 
 	@Column(name = "check_out")
 	private LocalDateTime checkOut;
+
+	public ClientCardStatusEnum getCardStatus() {
+		return Objects.isNull(this.getCheckOut()) ? ClientCardStatusEnum.OPEN : ClientCardStatusEnum.CLOSED;
+	}
 }
