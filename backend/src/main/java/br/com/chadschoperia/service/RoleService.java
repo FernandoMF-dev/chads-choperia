@@ -4,12 +4,14 @@ import br.com.chadschoperia.repository.RoleRepository;
 import br.com.chadschoperia.service.dto.DropdownDto;
 import br.com.chadschoperia.service.exception.EntityNotFoundException;
 import br.com.chadschoperia.service.mapper.RoleMapper;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class RoleService {
 

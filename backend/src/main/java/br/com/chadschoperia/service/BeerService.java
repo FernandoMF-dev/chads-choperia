@@ -7,12 +7,14 @@ import br.com.chadschoperia.service.exception.BusinessException;
 import br.com.chadschoperia.service.exception.EntityNotFoundException;
 import br.com.chadschoperia.service.mapper.BeerMapper;
 import br.com.chadschoperia.service.mapper.ViewBeerMapper;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class BeerService {
 
