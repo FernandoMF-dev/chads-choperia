@@ -1,4 +1,4 @@
-package br.com.chadschoperia.model;
+package br.com.chadschoperia.domain.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -16,7 +16,7 @@ import java.io.Serializable;
 @Table(name = "products")
 @Getter
 @Setter
-public class ProductModel implements Serializable {
+public class Product implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence_product")

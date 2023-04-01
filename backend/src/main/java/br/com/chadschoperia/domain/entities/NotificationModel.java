@@ -1,4 +1,4 @@
-package br.com.chadschoperia.model;
+package br.com.chadschoperia.domain.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

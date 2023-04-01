@@ -1,6 +1,6 @@
 package br.com.chadschoperia.service;
 
-import br.com.chadschoperia.model.ProductModel;
+import br.com.chadschoperia.domain.entities.Product;
 import br.com.chadschoperia.repository.ProductRepository;
 import br.com.chadschoperia.service.dto.ProductDto;
 import br.com.chadschoperia.service.dto.ProductStockDto;
@@ -40,7 +40,7 @@ public class ProductService {
 	}
 
 	public List<ProductDto> restock(List<ProductStockDto> dtos) {
-		List<ProductModel> products = repository.findAllById(dtos.stream().map(ProductStockDto::getProductId).collect(Collectors.toList()));
+		List<Product> products = repository.findAllById(dtos.stream().map(ProductStockDto::getProductId).collect(Collectors.toList()));
 		products.forEach(product -> {
 			product.setStock(product.getStock() + dtos.stream()
 					.filter(dto -> dto.getProductId().equals(product.getId())).findAny().orElse(null).getAmount());

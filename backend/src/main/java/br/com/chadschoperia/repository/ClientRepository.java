@@ -1,17 +1,17 @@
 package br.com.chadschoperia.repository;
 
-import br.com.chadschoperia.model.ClientModel;
+import br.com.chadschoperia.domain.entities.Client;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-public interface ClientRepository extends JpaRepository<ClientModel, Long> {
+public interface ClientRepository extends JpaRepository<Client, Long> {
 
 	boolean existsByCpf(String cpf);
 
 	@Query("SELECT c.cpf " +
 			" FROM " +
-			" ClientModel c " +
+			" Client c " +
 			" WHERE " +
 			" c.id = :idClient ")
 	String findCpfById(@Param("idClient") Long idClient);
