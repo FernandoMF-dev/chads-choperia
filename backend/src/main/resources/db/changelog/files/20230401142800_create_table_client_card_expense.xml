@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+		xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.17.xsd">
+
+	<changeSet id="20230401142800-1" author="Fernando Martins Ferreira">
+		<createTable tableName="client_card_expense">
+			<column name="id" type="bigint">
+				<constraints nullable="false"/>
+			</column>
+
+			<column name="id_client_card" type="bigint">
+				<constraints nullable="false"/>
+			</column>
+
+			<column name="description" type="varchar">
+				<constraints nullable="false"/>
+			</column>
+
+			<column name="value" type="double">
+				<constraints nullable="false"/>
+			</column>
+
+			<column name="date_time" type="datetime">
+				<constraints nullable="false"/>
+			</column>
+		</createTable>
+
+		<rollback>
+			<dropTable tableName="client_card_expense"/>
+		</rollback>
+	</changeSet>
+
+	<changeSet id="20230401142800-2" author="Fernando Martins Ferreira">
+		<addPrimaryKey tableName="client_card_expense" columnNames="id" constraintName="pk_client_card_expense"/>
+
+		<rollback>
+			<dropPrimaryKey tableName="client_card_expense" constraintName="pk_client_card_expense"/>
+		</rollback>
+	</changeSet>
+
+	<changeSet id="20230401142800-3" author="Fernando Martins Ferreira">
+		<addForeignKeyConstraint baseTableName="client_card_expense" baseColumnNames="id_client_card"
+								 referencedTableName="client_card" referencedColumnNames="id"
+								 constraintName="fk_client_card_expense_client_card"/>
+
+		<rollback>
+			<dropAllForeignKeyConstraints baseTableName="client_card_expense"/>
+		</rollback>
+	</changeSet>
+
+	<changeSet id="20230401142800-4" author="Fernando Martins Ferreira">
+		<createSequence sequenceName="sequence_client_card_expense" dataType="bigint" startValue="1" incrementBy="1"/>
+
+		<rollback>
+			<dropSequence sequenceName="sequence_client_card_expense"/>
+		</rollback>
+	</changeSet>
+</databaseChangeLog>
