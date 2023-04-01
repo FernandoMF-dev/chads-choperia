@@ -1,4 +1,4 @@
-package br.com.chadschoperia.model;
+package br.com.chadschoperia.domain.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
 @Table(name = "client_card")
 @Getter
 @Setter
-public class ClientCardModel {
+public class ClientCard {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence_client_card")
 	@SequenceGenerator(name = "sequence_client_card", sequenceName = "sequence_client_card", allocationSize = 1)
@@ -28,7 +28,7 @@ public class ClientCardModel {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_client", referencedColumnName = "id")
-	private ClientModel client;
+	private Client client;
 
 	@Column(name = "rfid", nullable = false)
 	private Long rfid;

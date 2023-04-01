@@ -1,4 +1,4 @@
-package br.com.chadschoperia.model;
+package br.com.chadschoperia.domain.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -13,7 +13,7 @@ import java.io.Serializable;
 @Table(name = "role")
 @Getter
 @Setter
-public class RoleModel implements Serializable {
+public class UserRole implements Serializable {
 
 	@Id
 	@Column(name = "id", nullable = false)

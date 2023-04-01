@@ -1,6 +1,6 @@
 package br.com.chadschoperia.repository;
 
-import br.com.chadschoperia.model.NotificationModel;
+import br.com.chadschoperia.domain.entities.NotificationModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
