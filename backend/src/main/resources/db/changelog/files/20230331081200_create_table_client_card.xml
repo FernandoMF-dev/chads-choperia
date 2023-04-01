@@ -28,6 +28,10 @@
 			<column name="check_in" type="datetime"/>
 
 			<column name="check_out" type="datetime"/>
+
+			<column name="status" type="varchar(50)" defaultValue="OPEN">
+				<constraints nullable="false"/>
+			</column>
 		</createTable>
 
 		<rollback>
