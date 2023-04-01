@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @Setter
 public class ClientCardExpenseDto {
 	private Long id;
-	private ClientCardDto card;
+	private Long idCard;
 	private Double value = 0.0;
 	private String description;
 	private LocalDateTime dateTime;
