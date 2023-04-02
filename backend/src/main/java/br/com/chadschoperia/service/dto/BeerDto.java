@@ -29,6 +29,6 @@ public class BeerDto implements Serializable {
 	@Positive(message = "beer.mug.positive")
 	private Double valuePerMug;
 
-	private Long stock;
+	private Double stock;
 
 }

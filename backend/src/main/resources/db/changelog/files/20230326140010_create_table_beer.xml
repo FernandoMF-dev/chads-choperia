@@ -30,4 +30,8 @@
 						incrementBy="1"></createSequence>
 	</changeSet>
 
+	<changeSet id="20230402140300-3" author="Lucas Boeloni">
+		<modifyDataType tableName="beer" columnName="stock" newDataType="double precision"></modifyDataType>
+	</changeSet>
+
 </databaseChangeLog>

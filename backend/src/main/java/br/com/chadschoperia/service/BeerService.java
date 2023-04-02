@@ -1,7 +1,11 @@
 package br.com.chadschoperia.service;
 
+import br.com.chadschoperia.model.BeerModel;
+import br.com.chadschoperia.model.ProductModel;
 import br.com.chadschoperia.repository.BeerRepository;
 import br.com.chadschoperia.service.dto.BeerDto;
+import br.com.chadschoperia.service.dto.PourBeerDTO;
+import br.com.chadschoperia.service.dto.ProductStockDto;
 import br.com.chadschoperia.service.dto.ViewBeerDto;
 import br.com.chadschoperia.service.exception.BusinessException;
 import br.com.chadschoperia.service.exception.EntityNotFoundException;
@@ -11,11 +15,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class BeerService {
 
+	public static final int MIN_AMOUNT = 100;
+	public static final double POUR_QUANTITY = 0.5;
 	private final BeerRepository beerRepository;
 
 	private final BeerMapper beerMapper;
@@ -45,7 +52,7 @@ public class BeerService {
 
 	public BeerDto create(BeerDto beerDto) {
 		validatePrices(beerDto);
-		beerDto.setStock(0L);
+		beerDto.setStock(0D);
 		return beerMapper.toDto(beerRepository.save(beerMapper.toEntity(beerDto)));
 	}
 
@@ -54,6 +61,24 @@ public class BeerService {
 		validatePrices(beerDto);
 		beerDto.setStock(beerRepository.findStockById(beerDto.getId()));
 		return beerMapper.toDto(beerRepository.save(beerMapper.toEntity(beerDto)));
+	}
+
+	public List<BeerDto> restock(List<ProductStockDto> dtos) {
+		List<BeerModel> beers = beerRepository.findAllById(dtos.stream().map(ProductStockDto::getProductId).collect(Collectors.toList()));
+		beers.forEach(product -> {
+			product.setStock(product.getStock() + (dtos.stream()
+					.filter(dto -> dto.getProductId().equals(product.getId())).findAny().orElse(null).getAmount() * MIN_AMOUNT));
+		});
+
+		return beerMapper.toDto(beerRepository.saveAll(beers));
+	}
+
+
+	public void pour(PourBeerDTO dto) {
+		//TODO : when client_card gets implemented, do handle relation between pour and bill
+		BeerDto beer = findById(dto.getBeer());
+		beer.setStock(beer.getStock() - POUR_QUANTITY);
+		beerRepository.save(beerMapper.toEntity(beer));
 	}
 
 	public void deleteById(Long idBeer) {
