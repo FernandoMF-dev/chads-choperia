@@ -17,7 +17,7 @@ import java.time.LocalDate;
 @Table(name = "notification")
 @Getter
 @Setter
-public class NotificationModel implements Serializable {
+public class Notification implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence_notification")
