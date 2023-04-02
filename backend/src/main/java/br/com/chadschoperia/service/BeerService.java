@@ -1,7 +1,6 @@
 package br.com.chadschoperia.service;
 
-import br.com.chadschoperia.model.BeerModel;
-import br.com.chadschoperia.model.ProductModel;
+import br.com.chadschoperia.domain.entities.Beer;
 import br.com.chadschoperia.repository.BeerRepository;
 import br.com.chadschoperia.service.dto.BeerDto;
 import br.com.chadschoperia.service.dto.PourBeerDTO;
@@ -64,7 +63,7 @@ public class BeerService {
 	}
 
 	public List<BeerDto> restock(List<ProductStockDto> dtos) {
-		List<BeerModel> beers = beerRepository.findAllById(dtos.stream().map(ProductStockDto::getProductId).collect(Collectors.toList()));
+		List<Beer> beers = beerRepository.findAllById(dtos.stream().map(ProductStockDto::getProductId).collect(Collectors.toList()));
 		beers.forEach(product -> {
 			product.setStock(product.getStock() + (dtos.stream()
 					.filter(dto -> dto.getProductId().equals(product.getId())).findAny().orElse(null).getAmount() * MIN_AMOUNT));
