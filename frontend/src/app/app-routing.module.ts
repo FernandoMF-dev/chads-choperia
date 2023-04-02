@@ -48,7 +48,7 @@ const routes: Routes = [
 				loadChildren: () => import('./modules/client/client.module').then(m => m.ClientModule)
 			},
 			{
-				path: 'chopp',
+				path: 'chope',
 				loadChildren: () => import('./modules/beer/beer.module').then(m => m.BeerModule)
 			}
 		]

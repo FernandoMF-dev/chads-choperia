@@ -1,4 +1,4 @@
-package br.com.chadschoperia.model;
+package br.com.chadschoperia.domain.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -19,7 +19,7 @@ import java.io.Serializable;
 @Table(name = "users")
 @Getter
 @Setter
-public class UserModel implements Serializable {
+public class User implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence_user")
@@ -38,6 +38,6 @@ public class UserModel implements Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_role", referencedColumnName = "id")
-	private RoleModel role;
+	private UserRole role;
 
 }
