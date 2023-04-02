@@ -79,8 +79,8 @@ export class BeerListComponent implements OnInit {
 		this.selectedBeer = beer;
 
 		this.utilsService.displayConfirmationMessage(
-			'Excluir Chopp',
-			`Tem certeza que quer remover o chopp <strong>${ this.selectedBeer!.name }</strong>?`,
+			'Excluir Chope',
+			`Tem certeza que quer remover o chope <strong>${ this.selectedBeer!.name }</strong>?`,
 			this,
 			() => this.deleteBeer()
 		);
