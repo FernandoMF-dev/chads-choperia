@@ -35,6 +35,11 @@ public class BeerController {
 		return ResponseEntity.ok(beerService.findAll());
 	}
 
+	@GetMapping("/complete")
+	public ResponseEntity<List<BeerDto>> findAllComplete() {
+		return ResponseEntity.ok(beerService.findAllComplete());
+	}
+
 	@GetMapping("/{idBeer}")
 	public ResponseEntity<BeerDto> findById(@PathVariable Long idBeer) {
 		return ResponseEntity.ok(beerService.findById(idBeer));

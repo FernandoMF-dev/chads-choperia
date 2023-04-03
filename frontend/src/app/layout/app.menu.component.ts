@@ -46,7 +46,13 @@ export class AppMenuComponent implements OnInit {
 				items: [
 					{ label: 'Entrada de Estoque', icon: 'pi pi-fw pi-arrow-up-right', routerLink: ['/produto/entrada'] }
 				]
-			}
+			},
+			{
+				label: 'Área do cliente',
+				items: [
+					{ label: 'Chopes', material: 'sports_bar', routerLink: ['/chope/saida'] }
+				]
+			},
 		];
 	}
 }

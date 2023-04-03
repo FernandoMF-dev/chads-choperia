@@ -32,6 +32,10 @@ public class BeerService {
 		return viewBeerMapper.toDto(beerRepository.findAll());
 	}
 
+	public List<BeerDto> findAllComplete() {
+		return beerMapper.toDto(beerRepository.findAll());
+	}
+
 	public BeerDto findById(Long idBeer) {
 		return beerMapper.toDto(beerRepository.findById(idBeer)
 				.orElseThrow(() -> new EntityNotFoundException("beer.not_found")));
