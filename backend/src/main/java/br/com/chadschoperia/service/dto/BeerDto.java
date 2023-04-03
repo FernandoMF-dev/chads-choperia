@@ -31,4 +31,6 @@ public class BeerDto implements Serializable {
 
 	private Double stock;
 
+	private String rfid;
+
 }

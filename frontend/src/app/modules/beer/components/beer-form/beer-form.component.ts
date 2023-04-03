@@ -55,7 +55,8 @@ export class BeerFormComponent implements OnInit {
 			id: new FormControl(null, []),
 			name: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]),
 			purchasePrice: new FormControl(0, [Validators.required, Validators.min(0)]),
-			valuePerMug: new FormControl(0, [Validators.required, Validators.min(0)])
+			valuePerMug: new FormControl(0, [Validators.required, Validators.min(0)]),
+			rfid: new FormControl('', [Validators.required])
 		});
 	}
 

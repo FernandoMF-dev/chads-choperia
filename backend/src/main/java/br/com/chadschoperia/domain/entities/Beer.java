@@ -36,4 +36,7 @@ public class Beer implements Serializable {
 	@Column(name = "stock", nullable = false)
 	private Double stock;
 
+	@Column(name = "rfid", nullable = false)
+	private String rfid;
+
 }

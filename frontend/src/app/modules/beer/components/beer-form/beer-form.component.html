@@ -34,6 +34,18 @@
 								   [ngClass]="{'ng-invalid ng-dirty': !isFieldValid('stock')}"></p-inputNumber>
 					<small id="value-per-mug-help" class="p-error block" *ngIf="!isFieldValid('stock')">Valor obrigatório.</small>
 				</div>
+
+				<div class="field col-12">
+					<label htmlFor="rfid">Identificador por Radiofrequência</label>
+
+					<input pInputText id="rfid" type="text" required [disabled]="isLoading"
+						   [ngClass]="{'ng-invalid ng-dirty': !isFieldValid('name')}"
+					       formControlName="rfid"/>
+
+					<small id="rfid-help" class="p-error block" *ngIf="!isFieldValid('rfid')">
+						Campo obrigatório.
+					</small>
+				</div>
 			</fieldset>
 		</ng-template>
 

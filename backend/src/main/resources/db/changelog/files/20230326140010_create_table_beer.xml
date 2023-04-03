@@ -20,6 +20,9 @@
 			<column name="stock" type="bigint">
 				<constraints nullable="false"></constraints>
 			</column>
+			<column name="rfid" type="varchar(50)">
+				<constraints nullable="false"></constraints>
+			</column>
 		</createTable>
 	</changeSet>
 
