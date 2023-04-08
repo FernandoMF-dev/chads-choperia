@@ -34,6 +34,6 @@ public class Beer implements Serializable {
 	private Double valuePerMug;
 
 	@Column(name = "stock", nullable = false)
-	private Long stock;
+	private Double stock;
 
 }

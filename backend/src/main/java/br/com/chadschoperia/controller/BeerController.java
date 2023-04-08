@@ -2,6 +2,9 @@ package br.com.chadschoperia.controller;
 
 import br.com.chadschoperia.service.BeerService;
 import br.com.chadschoperia.service.dto.BeerDto;
+import br.com.chadschoperia.service.dto.PourBeerDTO;
+import br.com.chadschoperia.service.dto.ProductDto;
+import br.com.chadschoperia.service.dto.ProductStockDto;
 import br.com.chadschoperia.service.dto.ViewBeerDto;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -32,6 +35,11 @@ public class BeerController {
 		return ResponseEntity.ok(beerService.findAll());
 	}
 
+	@GetMapping("/complete")
+	public ResponseEntity<List<BeerDto>> findAllComplete() {
+		return ResponseEntity.ok(beerService.findAllComplete());
+	}
+
 	@GetMapping("/{idBeer}")
 	public ResponseEntity<BeerDto> findById(@PathVariable Long idBeer) {
 		return ResponseEntity.ok(beerService.findById(idBeer));
@@ -40,6 +48,16 @@ public class BeerController {
 	@PostMapping
 	public ResponseEntity<BeerDto> create(@Valid @RequestBody BeerDto beerDto) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(beerService.create(beerDto));
+	}
+	@PostMapping("/restock")
+	public ResponseEntity<List<BeerDto>> restock(@RequestBody List<ProductStockDto> dto) {
+		return ResponseEntity.status(HttpStatus.OK).body(beerService.restock(dto));
+	}
+
+	@PutMapping("/pour")
+	public ResponseEntity<Void> pour(@RequestBody PourBeerDTO dto) {
+		beerService.pour(dto);
+		return ResponseEntity.status(HttpStatus.OK).build();
 	}
 
 	@PutMapping

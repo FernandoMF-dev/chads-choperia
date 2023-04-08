@@ -14,6 +14,6 @@ public interface BeerRepository extends JpaRepository<Beer, Long> {
 			" Beer b " +
 			" WHERE " +
 			" b.id = :idBeer ")
-	Long findStockById(@Param("idBeer") Long idBeer);
+	Double findStockById(@Param("idBeer") Long idBeer);
 
 }
