@@ -45,7 +45,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 				.map(DefaultMessageSourceResolvable::getDefaultMessage)
 				.collect(Collectors.toList());
 
-		return getExceptionResponseEntity(HttpStatus.resolve(status.value()), request, errors);
+		return getExceptionResponseEntity(Objects.requireNonNull(HttpStatus.resolve(status.value())), request, errors);
 	}
 
 	@Override
@@ -60,9 +60,8 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 			errors = List.of(Objects.requireNonNull(((ResponseStatusException) ex).getReason()));
 		}
 
-		return getExceptionResponseEntity(HttpStatus.resolve(status.value()), request, errors);
+		return getExceptionResponseEntity(Objects.requireNonNull(HttpStatus.resolve(status.value())), request, errors);
 	}
-
 
 	@ExceptionHandler({ConstraintViolationException.class})
 	public ResponseEntity<Object> handleConstraintViolation(ConstraintViolationException exception, WebRequest request) {
