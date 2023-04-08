@@ -7,6 +7,7 @@ import br.com.chadschoperia.service.exception.BusinessException;
 import br.com.chadschoperia.service.exception.EntityNotFoundException;
 import br.com.chadschoperia.service.mapper.ClientMapper;
 import br.com.chadschoperia.service.mapper.ViewClientMapper;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class ClientService {
 
