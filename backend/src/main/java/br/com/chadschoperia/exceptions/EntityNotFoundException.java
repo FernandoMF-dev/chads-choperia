@@ -1,4 +1,4 @@
-package br.com.chadschoperia.service.exception;
+package br.com.chadschoperia.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
