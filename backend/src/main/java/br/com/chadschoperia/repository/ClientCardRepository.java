@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface ClientCardRepository extends JpaRepository<ClientCard, Long> {
 
@@ -14,6 +16,6 @@ public interface ClientCardRepository extends JpaRepository<ClientCard, Long> {
 			" FROM ClientCard cc " +
 			" WHERE cc.rfid = :rfid " +
 			" AND cc.status = :status ")
-	ClientCard findByRfid(@Param("rfid") Long rfid, @Param("status") ClientCardStatusEnum status);
+	Optional<ClientCard> findByRfid(@Param("rfid") Long rfid, @Param("status") ClientCardStatusEnum status);
 
 }
