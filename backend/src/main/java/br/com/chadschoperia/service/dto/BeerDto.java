@@ -31,4 +31,7 @@ public class BeerDto implements Serializable {
 
 	private Double stock;
 
+	public void subtractStock(Double value) {
+		this.setStock(this.getStock() - value);
+	}
 }

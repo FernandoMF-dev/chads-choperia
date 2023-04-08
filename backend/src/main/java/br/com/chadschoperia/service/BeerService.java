@@ -12,18 +12,20 @@ import br.com.chadschoperia.service.mapper.BeerMapper;
 import br.com.chadschoperia.service.mapper.ViewBeerMapper;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 @Transactional
 @RequiredArgsConstructor
 public class BeerService {
-
-	public static final int MIN_AMOUNT = 100;
+	public static final double STOCK_BASE_MULTIPLIER = 100.0;
 	public static final double POUR_QUANTITY = 0.5;
+
 	private final BeerRepository beerRepository;
 
 	private final BeerMapper beerMapper;
@@ -69,20 +71,23 @@ public class BeerService {
 	}
 
 	public List<BeerDto> restock(List<ProductStockDto> dtos) {
-		List<Beer> beers = beerRepository.findAllById(dtos.stream().map(ProductStockDto::getProductId).collect(Collectors.toList()));
+		List<Long> productIds = dtos.stream().map(ProductStockDto::getProductId).collect(Collectors.toList());
+		List<Beer> beers = beerRepository.findAllById(productIds);
 		beers.forEach(product -> {
-			product.setStock(product.getStock() + (dtos.stream()
-					.filter(dto -> dto.getProductId().equals(product.getId())).findAny().orElse(null).getAmount() * MIN_AMOUNT));
+			Optional<ProductStockDto> stockDto = dtos.stream().filter(dto -> dto.getProductId().equals(product.getId())).findAny();
+			if (stockDto.isEmpty()) {
+				throw new EntityNotFoundException(HttpStatus.BAD_REQUEST, "beer.not_found.restock");
+			}
+			product.addStock(stockDto.get().getAmount() * STOCK_BASE_MULTIPLIER);
 		});
 
 		return beerMapper.toDto(beerRepository.saveAll(beers));
 	}
 
-
 	public void pour(PourBeerDTO dto) {
 		//TODO : when client_card gets implemented, do handle relation between pour and bill
 		BeerDto beer = findById(dto.getBeer());
-		beer.setStock(beer.getStock() - POUR_QUANTITY);
+		beer.subtractStock(POUR_QUANTITY);
 		beerRepository.save(beerMapper.toEntity(beer));
 	}
 
