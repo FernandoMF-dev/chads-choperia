@@ -2,9 +2,9 @@ package br.com.chadschoperia.service;
 
 import br.com.chadschoperia.domain.entities.ClientCard;
 import br.com.chadschoperia.domain.enums.ClientCardStatusEnum;
+import br.com.chadschoperia.exceptions.EntityNotFoundException;
 import br.com.chadschoperia.repository.ClientCardRepository;
 import br.com.chadschoperia.service.dto.ClientCardDto;
-import br.com.chadschoperia.exceptions.EntityNotFoundException;
 import br.com.chadschoperia.service.mapper.ClientCardMapper;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;

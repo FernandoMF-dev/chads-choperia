@@ -1,8 +1,8 @@
 package br.com.chadschoperia.service;
 
+import br.com.chadschoperia.exceptions.EntityNotFoundException;
 import br.com.chadschoperia.repository.NotificationRepository;
 import br.com.chadschoperia.service.dto.NotificationDto;
-import br.com.chadschoperia.exceptions.EntityNotFoundException;
 import br.com.chadschoperia.service.mapper.NotificationMapper;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;

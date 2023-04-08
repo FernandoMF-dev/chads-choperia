@@ -3,7 +3,6 @@ package br.com.chadschoperia.controller;
 import br.com.chadschoperia.service.BeerService;
 import br.com.chadschoperia.service.dto.BeerDto;
 import br.com.chadschoperia.service.dto.PourBeerDTO;
-import br.com.chadschoperia.service.dto.ProductDto;
 import br.com.chadschoperia.service.dto.ProductStockDto;
 import br.com.chadschoperia.service.dto.ViewBeerDto;
 import jakarta.validation.Valid;
@@ -49,6 +48,7 @@ public class BeerController {
 	public ResponseEntity<BeerDto> create(@Valid @RequestBody BeerDto beerDto) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(beerService.create(beerDto));
 	}
+
 	@PostMapping("/restock")
 	public ResponseEntity<List<BeerDto>> restock(@RequestBody List<ProductStockDto> dto) {
 		return ResponseEntity.status(HttpStatus.OK).body(beerService.restock(dto));

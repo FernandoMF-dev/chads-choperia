@@ -13,7 +13,7 @@ import { BeerService } from '../../services/beer.service';
 export class BeerPourComponent implements OnInit {
 
 	beers: Select[] = [];
-	selectedBeer?: Select = new Select(new Beer('dsadsad',0,0,0));
+	selectedBeer?: Select = new Select(new Beer('dsadsad', 0, 0, 0));
 
 	viewBeerForm: boolean = false;
 
@@ -51,22 +51,22 @@ export class BeerPourComponent implements OnInit {
 	private updateBeers(beers: Beer[]): void {
 		const beersAux: Select[] = [];
 		beers.forEach(beer => {
-			beersAux.push(new Select(beer))
-		})
+			beersAux.push(new Select(beer));
+		});
 		this.beers = beersAux;
 		this.selectedBeer = this.beers[0];
 	}
 
-	get price (){
+	get price() {
 		console.log(this.selectedBeer);
-		if(!!this.selectedBeer){
+		if (!!this.selectedBeer) {
 			console.log(this.beers.filter(beer => beer.value === this.selectedBeer)[0]);
 			return 'Valor : R$ ' + this.beers.filter(beer => beer.value === this.selectedBeer)[0].price;
 		}
 		return '';
 	}
 
-	set price (value: string){
+	set price(value: string) {
 
 	}
 

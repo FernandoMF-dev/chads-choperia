@@ -52,7 +52,7 @@ export class AppMenuComponent implements OnInit {
 				items: [
 					{ label: 'Chopes', material: 'sports_bar', routerLink: ['/chope/saida'] }
 				]
-			},
+			}
 		];
 	}
 }
