@@ -5,17 +5,22 @@ import br.com.chadschoperia.exceptions.BusinessException;
 import br.com.chadschoperia.exceptions.EntityNotFoundException;
 import br.com.chadschoperia.repository.BeerRepository;
 import br.com.chadschoperia.service.dto.BeerDto;
+import br.com.chadschoperia.service.dto.ClientCardDto;
 import br.com.chadschoperia.service.dto.PourBeerDTO;
 import br.com.chadschoperia.service.dto.ProductStockDto;
 import br.com.chadschoperia.service.dto.ViewBeerDto;
+import br.com.chadschoperia.service.events.AddClientCardExpenseEvent;
 import br.com.chadschoperia.service.mapper.BeerMapper;
 import br.com.chadschoperia.service.mapper.ViewBeerMapper;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -29,8 +34,12 @@ public class BeerService {
 	private final BeerRepository beerRepository;
 
 	private final BeerMapper beerMapper;
-
 	private final ViewBeerMapper viewBeerMapper;
+
+	private final ClientCardService clientCardService;
+
+	private final MessageSource messageSource;
+	private final ApplicationEventPublisher applicationEventPublisher;
 
 	public List<ViewBeerDto> findAll() {
 		return viewBeerMapper.toDto(beerRepository.findAll());
@@ -85,8 +94,8 @@ public class BeerService {
 	}
 
 	public void pour(PourBeerDTO dto) {
-		//TODO : when client_card gets implemented, do handle relation between pour and bill
 		BeerDto beer = findById(dto.getBeer());
+		publishPourExpense(dto, beer);
 		beer.subtractStock(POUR_QUANTITY);
 		beerRepository.save(beerMapper.toEntity(beer));
 	}
@@ -94,6 +103,16 @@ public class BeerService {
 	public void deleteById(Long idBeer) {
 		existsById(idBeer);
 		beerRepository.deleteById(idBeer);
+	}
+
+	private void publishPourExpense(PourBeerDTO dto, BeerDto beer) {
+		try {
+			ClientCardDto card = clientCardService.findOpenByRfid(dto.getCard());
+			String description = messageSource.getMessage("client_card_expense.beer.pour", new String[]{beer.getName()}, Locale.getDefault());
+			applicationEventPublisher.publishEvent(new AddClientCardExpenseEvent(card.getId(), beer.getValuePerMug(), description));
+		} catch (EntityNotFoundException ex) {
+			throw new EntityNotFoundException(HttpStatus.BAD_REQUEST, ex.getReason());
+		}
 	}
 
 }

@@ -18,7 +18,7 @@ public class ClientCardService {
 	private final ClientCardRepository repository;
 	private final ClientCardMapper mapper;
 
-	public ClientCardDto findOpenByRfid(Long rfid) {
+	public ClientCardDto findOpenByRfid(Long rfid) throws EntityNotFoundException {
 		ClientCard entity = repository.findByRfid(rfid, ClientCardStatusEnum.OPEN)
 				.orElseThrow(() -> new EntityNotFoundException("client_card.not_found"));
 		return mapper.toDto(entity);
