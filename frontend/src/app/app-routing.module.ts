@@ -50,6 +50,10 @@ const routes: Routes = [
 			{
 				path: 'chope',
 				loadChildren: () => import('./modules/beer/beer.module').then(m => m.BeerModule)
+			},
+			{
+				path: 'cartao',
+				loadChildren: () => import('./modules/card/card.module').then(m => m.CardModule)
 			}
 		]
 	},
