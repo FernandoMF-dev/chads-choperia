@@ -49,17 +49,17 @@
 					<tr *ngIf="!isLoading">
 						<td>
 							<span class="p-column-title">Nome</span>
-							{{client.name}}
+							{{ client.name }}
 						</td>
 
 						<td>
 							<span class="p-column-title">Telefone</span>
-							{{client.telephone}}
+							{{ formatTelephone(client.telephone) }}
 						</td>
 
 						<td>
 							<span class="p-column-title">E-mail</span>
-							{{client.email}}
+							{{ client.email }}
 						</td>
 
 						<td>
