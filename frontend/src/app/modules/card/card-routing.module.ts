@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ClientCardLinkComponent } from './pages/client-card-link/client-card-link.component';
+import { ClientCardCheckinComponent } from './pages/client-card-checkin/client-card-checkin.component';
 
 const routes: Routes = [
 	{
-		path: 'cliente/vincular',
-		component: ClientCardLinkComponent
+		path: 'cliente/checkin',
+		component: ClientCardCheckinComponent
 	}
 ];
 

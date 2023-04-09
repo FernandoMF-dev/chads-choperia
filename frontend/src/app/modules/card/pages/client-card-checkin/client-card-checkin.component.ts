@@ -9,11 +9,11 @@ import { ClientCardLink } from '../../models/client-card.model';
 import { ClientCardService } from '../../services/client-card.service';
 
 @Component({
-	selector: 'app-client-card-link',
-	templateUrl: './client-card-link.component.html',
-	styleUrls: ['./client-card-link.component.scss']
+	selector: 'app-client-card-checkin',
+	templateUrl: './client-card-checkin.component.html',
+	styleUrls: ['./client-card-checkin.component.scss']
 })
-export class ClientCardLinkComponent implements OnInit {
+export class ClientCardCheckinComponent implements OnInit {
 	form: FormGroup;
 	clientOptions: SelectItem[] = [];
 

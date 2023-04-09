@@ -9,13 +9,13 @@ import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
 
 import { CardRoutingModule } from './card-routing.module';
-import { ClientCardLinkComponent } from './pages/client-card-link/client-card-link.component';
+import { ClientCardCheckinComponent } from './pages/client-card-checkin/client-card-checkin.component';
 import { ClientCardService } from './services/client-card.service';
 
 
 @NgModule({
 	declarations: [
-		ClientCardLinkComponent
+		ClientCardCheckinComponent
 	],
 	imports: [
 		CommonModule,
