@@ -110,9 +110,8 @@ export class BeerManageStockComponent implements OnInit{
 	}
 
 	newBeerByRfid(): void {
-		const rfid = this.beerInput.rfid ? String(this.beerInput.rfid) : this.beerInput;
-
-		if (this.isRfidInvalid(rfid )) {
+		const rfid = this.beerInput.toString();
+		if (this.isRfidInvalid(rfid)) {
 			this.utilsService.showErrorMessage('RFID inválido');
 			return;
 		}
@@ -125,9 +124,7 @@ export class BeerManageStockComponent implements OnInit{
 	}
 
 	private isRfidInvalid(rfid: string): boolean {
-		// return rfid.replace(/\D/g, '').length !== 13;
-		// Validar RFID
-		return false;
+		return !this.beers.some(beer => beer.rfid == rfid);
 	}
 
 	deleteStockQuery(manageStockQuery: ManageStockBeer): void {
@@ -176,6 +173,11 @@ export class BeerManageStockComponent implements OnInit{
 
 			return query;
 		});
+	}
+
+	disableAddButton(): boolean {
+		const rfid: string = this.beerInput.toString();
+		return rfid.length != 6;
 	}
 
 }

@@ -39,7 +39,7 @@
 					<label htmlFor="rfid">Identificador por Radiofrequência</label>
 
 					<input pInputText id="rfid" type="text" required [disabled]="isLoading"
-						   [ngClass]="{'ng-invalid ng-dirty': !isFieldValid('name')}"
+						   [ngClass]="{'ng-invalid ng-dirty': !isFieldValid('rfid')}"
 					       formControlName="rfid"/>
 
 					<small id="rfid-help" class="p-error block" *ngIf="!isFieldValid('rfid')">

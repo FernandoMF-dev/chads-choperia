@@ -10,7 +10,7 @@
 							<p-inputMask [(ngModel)]="beerInput" pRipple name="beerInput" [autoFocus]="true"
 										 styleClass="w-full border-noround-right" mask="999999" [unmask]="true"></p-inputMask>
 							<button type="button" pButton label="Adicionar" class="p-button-info" icon="pi pi-plus"
-									(click)="newBeerByRfid()"></button>
+									(click)="newBeerByRfid()" [disabled]="disableAddButton()"></button>
 						</div>
 					</div>
 				</form>
