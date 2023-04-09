@@ -1,10 +1,40 @@
 <div class="grid">
 	<div class="col-12">
-		<div class="card px-6 py-6">
-			<p-toast></p-toast>
-			<p-toolbar styleClass="mb-4">
-				<div class="p-toolbar-group-start"></div>
-			</p-toolbar>
-		</div>
+		<form [formGroup]="form" (ngSubmit)="onSubmit()">
+			<div class="card px-6 py-6">
+				<p-toast></p-toast>
+				<p-toolbar styleClass="mb-4">
+					<div class="p-toolbar-group-start">
+						<h5 style="margin: 0">Vincular Cartão ao Cliente</h5>
+					</div>
+
+					<div class="p-toolbar-group-end">
+						<button pButton type="submit" label="Vincular Cartão" icon="pi pi-link" [disabled]="loadingLink || !form.valid"
+								class="p-button-success p-button-raised"></button>
+					</div>
+				</p-toolbar>
+
+				<div class="col-12 grid">
+					<div class="col field">
+						<label htmlFor="idClient">
+							Cliente
+							&nbsp;
+							<em *ngIf="loadingClients" class="pi pi-spin pi-spinner"></em>
+						</label>
+						<p-dropdown id="idClient" formControlName="idClient" [options]="clientOptions" [virtualScrollItemSize]="38"
+									emptyMessage="Nenhum registro encontrado" emptyFilterMessage="Nenhum registro encontrado"
+									[filter]="true" [showClear]="true" [virtualScroll]="true"></p-dropdown>
+						<small id="idClient-help" class="p-error block" *ngIf="!isFieldValid('stock')">Valor obrigatório.</small>
+					</div>
+
+					<div class="col field">
+						<label htmlFor="rfid">Cartão</label>
+						<p-inputNumber id="rfid" formControlName="rfid" [showButtons]="false" [min]="1" [maxFractionDigits]="0"
+									   placeholder="0000000000"></p-inputNumber>
+						<small id="rfid-help" class="p-error block" *ngIf="!isFieldValid('stock')">Valor obrigatório.</small>
+					</div>
+				</div>
+			</div>
+		</form>
 	</div>
 </div>

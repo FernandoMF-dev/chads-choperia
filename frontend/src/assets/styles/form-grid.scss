@@ -1,0 +1,17 @@
+.col, .col-1, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-10, .col-11, .col-12 {
+	> p-dropdown {
+		width: 100%;
+
+		> div {
+			width: 100%;
+		}
+	}
+
+	> p-inputnumber {
+		width: 100%;
+
+		> span {
+			width: 100%;
+		}
+	}
+}

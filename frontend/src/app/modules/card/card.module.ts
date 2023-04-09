@@ -1,6 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
+import { DropdownModule } from 'primeng/dropdown';
+import { InputNumberModule } from 'primeng/inputnumber';
 import { RippleModule } from 'primeng/ripple';
 import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
@@ -20,7 +23,10 @@ import { ClientCardService } from './services/client-card.service';
 		ButtonModule,
 		RippleModule,
 		ToastModule,
-		ToolbarModule
+		ToolbarModule,
+		InputNumberModule,
+		ReactiveFormsModule,
+		DropdownModule
 	],
 	providers: [
 		ClientCardService
