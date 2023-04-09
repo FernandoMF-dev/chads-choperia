@@ -1,9 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { CrudService } from '../../../services/crud.service';
 import { Beer } from '../models/beer.model';
-import { Observable } from 'rxjs';
-import { ViewBeer } from '../models/view-beer.model';
 import { ManageStockBeer } from '../models/manage-stock-beer.model';
 
 @Injectable({
@@ -19,4 +18,7 @@ export class BeerService extends CrudService<Beer> {
 		return this.http.post<ManageStockBeer[]>(`${ this.apiUrl }/restock`, queries);
 	}
 
+	public getAllComplete(): Observable<any[]> {
+		return this.http.get<any[]>(this.apiUrl + '/complete');
+	}
 }

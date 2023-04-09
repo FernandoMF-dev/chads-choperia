@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
+import { DropdownModule } from 'primeng/dropdown';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
 import { RippleModule } from 'primeng/ripple';
@@ -17,6 +18,7 @@ import { InputMaskModule } from 'primeng/inputmask';
 import { BeerRoutingModule } from './beer-routing.module';
 import { BeerFormComponent } from './components/beer-form/beer-form.component';
 import { BeerListComponent } from './pages/beer-list/beer-list.component';
+import { BeerPourComponent } from './pages/beer-pour/beer-pour.component';
 import { BeerService } from './services/beer.service';
 import { BeerManageStockComponent } from './pages/beer-manage-stock/beer-manage-stock.component';
 
@@ -25,11 +27,13 @@ import { BeerManageStockComponent } from './pages/beer-manage-stock/beer-manage-
 	declarations: [
 		BeerListComponent,
 		BeerFormComponent,
-  BeerManageStockComponent
+  		BeerManageStockComponent,
+		BeerPourComponent
 	],
 	imports: [
 		CommonModule,
 		BeerRoutingModule,
+		DropdownModule,
 		TableModule,
 		ButtonModule,
 		RippleModule,

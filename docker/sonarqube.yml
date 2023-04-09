@@ -2,9 +2,9 @@ version: '2.2'
 
 services:
 
-    sonarqube:
-        container_name: sonarqube_container
-        image: sonarqube
-        ports:
-            - "9000:9000"
-            - "9092:9092"
+  sonarqube:
+    container_name: sonarqube_container
+    image: sonarqube
+    ports:
+      - "9000:9000"
+      - "9092:9092"

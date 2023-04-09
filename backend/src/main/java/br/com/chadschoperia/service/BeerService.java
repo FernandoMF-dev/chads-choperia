@@ -1,15 +1,16 @@
 package br.com.chadschoperia.service;
 
 import br.com.chadschoperia.domain.entities.Beer;
+import br.com.chadschoperia.exceptions.BusinessException;
+import br.com.chadschoperia.exceptions.EntityNotFoundException;
 import br.com.chadschoperia.repository.BeerRepository;
 import br.com.chadschoperia.service.dto.BeerDto;
 import br.com.chadschoperia.service.dto.PourBeerDTO;
 import br.com.chadschoperia.service.dto.ProductStockDto;
 import br.com.chadschoperia.service.dto.ViewBeerDto;
-import br.com.chadschoperia.service.exception.BusinessException;
-import br.com.chadschoperia.service.exception.EntityNotFoundException;
 import br.com.chadschoperia.service.mapper.BeerMapper;
 import br.com.chadschoperia.service.mapper.ViewBeerMapper;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class BeerService {
 
@@ -30,6 +32,10 @@ public class BeerService {
 
 	public List<ViewBeerDto> findAll() {
 		return viewBeerMapper.toDto(beerRepository.findAll());
+	}
+
+	public List<BeerDto> findAllComplete() {
+		return beerMapper.toDto(beerRepository.findAll());
 	}
 
 	public BeerDto findById(Long idBeer) {

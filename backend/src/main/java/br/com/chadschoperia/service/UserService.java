@@ -1,17 +1,19 @@
 package br.com.chadschoperia.service;
 
+import br.com.chadschoperia.exceptions.EntityNotFoundException;
 import br.com.chadschoperia.repository.UserRepository;
 import br.com.chadschoperia.service.dto.UserDto;
 import br.com.chadschoperia.service.dto.ViewUserDto;
-import br.com.chadschoperia.service.exception.EntityNotFoundException;
 import br.com.chadschoperia.service.mapper.UserMapper;
 import br.com.chadschoperia.service.mapper.ViewUserMapper;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class UserService {
 

@@ -1,4 +1,4 @@
-package br.com.chadschoperia.service.exception;
+package br.com.chadschoperia.controller.handlers;
 
 import jakarta.validation.ConstraintViolationException;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +11,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.Nullable;
 import org.springframework.web.ErrorResponseException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -29,7 +30,7 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @ControllerAdvice
-public class ValidationHandler extends ResponseEntityExceptionHandler {
+public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
 	private final static String DEFAULT_ERROR_MESSAGE = "default.error.bad_request";
 
@@ -44,10 +45,11 @@ public class ValidationHandler extends ResponseEntityExceptionHandler {
 				.map(DefaultMessageSourceResolvable::getDefaultMessage)
 				.collect(Collectors.toList());
 
-		return getExceptionResponseEntity(HttpStatus.resolve(status.value()), request, errors);
+		return getExceptionResponseEntity(Objects.requireNonNull(HttpStatus.resolve(status.value())), request, errors);
 	}
 
 	@Override
+	@Nullable
 	protected ResponseEntity<Object> handleErrorResponseException(ErrorResponseException ex,
 																  HttpHeaders headers,
 																  HttpStatusCode status,
@@ -58,10 +60,8 @@ public class ValidationHandler extends ResponseEntityExceptionHandler {
 			errors = List.of(Objects.requireNonNull(((ResponseStatusException) ex).getReason()));
 		}
 
-		return getExceptionResponseEntity(HttpStatus.resolve(status.value()), request, errors);
+		return getExceptionResponseEntity(Objects.requireNonNull(HttpStatus.resolve(status.value())), request, errors);
 	}
-
-
 
 	@ExceptionHandler({ConstraintViolationException.class})
 	public ResponseEntity<Object> handleConstraintViolation(ConstraintViolationException exception, WebRequest request) {
