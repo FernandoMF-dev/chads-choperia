@@ -5,6 +5,7 @@ import br.com.chadschoperia.exceptions.EntityNotFoundException;
 import br.com.chadschoperia.repository.ClientRepository;
 import br.com.chadschoperia.service.dto.ClientDto;
 import br.com.chadschoperia.service.dto.ViewClientDto;
+import br.com.chadschoperia.service.dto.filters.ViewClientFilterDto;
 import br.com.chadschoperia.service.mapper.ClientMapper;
 import br.com.chadschoperia.service.mapper.ViewClientMapper;
 import jakarta.transaction.Transactional;
@@ -27,6 +28,10 @@ public class ClientService {
 
 	public List<ViewClientDto> findAll() {
 		return viewClientMapper.toDto(clientRepository.findAll());
+	}
+
+	public List<ViewClientDto> findAll(ViewClientFilterDto filter) {
+		return clientRepository.listDtos(filter);
 	}
 
 	public ClientDto findById(Long idClient) {

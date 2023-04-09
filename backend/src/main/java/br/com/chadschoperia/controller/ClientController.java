@@ -3,6 +3,7 @@ package br.com.chadschoperia.controller;
 import br.com.chadschoperia.service.ClientService;
 import br.com.chadschoperia.service.dto.ClientDto;
 import br.com.chadschoperia.service.dto.ViewClientDto;
+import br.com.chadschoperia.service.dto.filters.ViewClientFilterDto;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -28,8 +29,8 @@ public class ClientController {
 	private final ClientService clientService;
 
 	@GetMapping
-	public ResponseEntity<List<ViewClientDto>> findAll() {
-		return ResponseEntity.ok(clientService.findAll());
+	public ResponseEntity<List<ViewClientDto>> findAll(ViewClientFilterDto filter) {
+		return ResponseEntity.ok(clientService.findAll(filter));
 	}
 
 	@GetMapping("/{idClient}")
