@@ -36,6 +36,12 @@ export class AppMenuComponent implements OnInit {
 				]
 			},
 			{
+				label: 'Menu do Caixa',
+				items: [
+					{ label: 'Fechar Conta', material: 'point_of_sale', routerLink: ['/cartao/cliente/checkout'] }
+				]
+			},
+			{
 				label: 'Menu do Cozinheiro',
 				items: [
 					{ label: 'Saída de Estoque', icon: 'pi pi-fw pi-arrow-down-right', routerLink: ['/produto/saida'] },
