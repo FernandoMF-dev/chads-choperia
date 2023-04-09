@@ -25,7 +25,7 @@ public class ClientCardController {
 	private final ClientCardService clientCardService;
 
 	@GetMapping("/rfid/{rfid}")
-	public ResponseEntity<ClientCardDto> findById(@PathVariable Long rfid) {
+	public ResponseEntity<ClientCardDto> findOpenByRfid(@PathVariable Long rfid) {
 		return ResponseEntity.ok(clientCardService.findOpenByRfid(rfid));
 	}
 
@@ -34,7 +34,7 @@ public class ClientCardController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(clientCardService.linkCardToCustomer(link));
 	}
 
-	@PatchMapping("concluir-pagamento")
+	@PatchMapping("/concluir-pagamento")
 	public ResponseEntity<ClientCardDto> completePayment(@RequestBody ClientCardPaymentDto payment) {
 		return ResponseEntity.ok(clientCardService.completePayment(payment));
 	}
