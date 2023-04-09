@@ -78,14 +78,14 @@ public class ClientCardService {
 	private void validadeCardInUse(Long rfid) throws ResourceInUseException {
 		Optional<ClientCard> card = repository.findByRfid(rfid, ClientCardStatusEnum.OPEN);
 		if (card.isPresent()) {
-			throw new ResourceInUseException(messageSource.getMessage("client_card.in_use", new Object[]{card.get().getClient().getName()}, Locale.getDefault()));
+			throw new ResourceInUseException(messageSource.getMessage("client_card.in_use", new Object[]{card.get().getClient().getUniqueName()}, Locale.getDefault()));
 		}
 	}
 
 	private void validadeClientAlreadyWithCard(Long idClient) throws ResourceInUseException {
 		Optional<ClientCard> card = repository.findByClient(idClient, ClientCardStatusEnum.OPEN);
 		if (card.isPresent()) {
-			throw new ResourceInUseException(messageSource.getMessage("client_card.client.already_with_card", new Object[]{card.get().getRfid()}, Locale.getDefault()));
+			throw new ResourceInUseException(messageSource.getMessage("client_card.client.already_with_card", new Object[]{card.get().getRfid().toString()}, Locale.getDefault()));
 		}
 	}
 

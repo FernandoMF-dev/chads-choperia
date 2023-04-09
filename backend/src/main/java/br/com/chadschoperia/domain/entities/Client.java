@@ -1,5 +1,6 @@
 package br.com.chadschoperia.domain.entities;
 
+import br.com.chadschoperia.utils.FormatUtils;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -35,5 +36,9 @@ public class Client implements Serializable {
 
 	@Column(name = "cpf", nullable = false)
 	private String cpf;
+
+	public String getUniqueName() {
+		return String.format("%s - %s", this.getName(), FormatUtils.formatTelephone(this.getTelephone()));
+	}
 
 }
