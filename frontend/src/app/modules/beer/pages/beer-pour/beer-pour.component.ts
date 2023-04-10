@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { finalize } from 'rxjs/operators';
 import { UtilsService } from '../../../../services/utils.service';
 import { Beer } from '../../models/beer.model';
+import { Pour } from '../../models/pour.model';
 import { Select } from '../../models/select.model';
 import { BeerService } from '../../services/beer.service';
 
@@ -18,6 +19,8 @@ export class BeerPourComponent implements OnInit {
 	viewBeerForm: boolean = false;
 
 	_isLoading = false;
+
+	selected: Pour = new Pour();
 
 	get isLoading(): boolean {
 		return this._isLoading;
@@ -39,7 +42,7 @@ export class BeerPourComponent implements OnInit {
 
 	fetchBeers(): void {
 		this.isLoading = true;
-		this.selectedBeer = undefined;
+		this.selected = new Pour();
 		this.beerService.getAllComplete()
 			.pipe(finalize(() => this.isLoading = false))
 			.subscribe({
@@ -54,20 +57,27 @@ export class BeerPourComponent implements OnInit {
 			beersAux.push(new Select(beer));
 		});
 		this.beers = beersAux;
-		this.selectedBeer = this.beers[0];
+		this.selected.beer = this.beers[0].value;
 	}
 
-	get price() {
-		console.log(this.selectedBeer);
-		if (!!this.selectedBeer) {
-			console.log(this.beers.filter(beer => beer.value === this.selectedBeer)[0]);
-			return 'Valor : R$ ' + this.beers.filter(beer => beer.value === this.selectedBeer)[0].price;
+	get price(): number {
+		if (!!this.selected.beer) {
+			return this.beers.filter(beer => beer.value === this.selected.beer)[0].price!;
 		}
-		return '';
+		return 0;
 	}
 
-	set price(value: string) {
+	pourDrink() {
+		this.beerService.pourBeer(this.selected)
+			.pipe(finalize(() => this.selected.card = undefined))
+			.subscribe({
+				next: () => this.utilsService.showSuccessMessage('Bebida debitada com sucesso'),
+				error: (err) => this.utilsService.showErrorMessage(err.error.detail)
+			});
+	}
 
+	handleFocus() {
+		document.getElementById('inputCard')?.focus();
 	}
 
 }

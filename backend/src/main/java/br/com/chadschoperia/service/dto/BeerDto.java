@@ -33,4 +33,7 @@ public class BeerDto implements Serializable {
 
 	private String rfid;
 
+	public void subtractStock(Double value) {
+		this.setStock(this.getStock() - value);
+	}
 }

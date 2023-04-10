@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Table } from 'primeng/table';
 import { finalize } from 'rxjs/operators';
 import { UtilsService } from '../../../../services/utils.service';
+import { FormatUtils } from '../../../../utils/format.utils';
 import { Client } from '../../models/client.model';
 import { ClientService } from '../../services/client.service';
 
@@ -95,5 +96,9 @@ export class ClientListComponent implements OnInit {
 				next: () => this.fetchClients(),
 				error: (err) => this.utilsService.showErrorMessage(err.error.detail)
 			});
+	}
+
+	formatTelephone(telephone: string): string {
+		return FormatUtils.formatTelephone(telephone);
 	}
 }

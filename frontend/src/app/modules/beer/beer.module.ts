@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AutoFocusModule } from 'primeng/autofocus';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
@@ -46,7 +47,8 @@ import { BeerManageStockComponent } from './pages/beer-manage-stock/beer-manage-
 		ReactiveFormsModule,
 		InputNumberModule,
 		InputMaskModule,
-		FormsModule
+		FormsModule,
+		AutoFocusModule
 	],
 	providers: [
 		BeerService

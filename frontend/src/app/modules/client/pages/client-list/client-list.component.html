@@ -49,17 +49,19 @@
 					<tr *ngIf="!isLoading">
 						<td>
 							<span class="p-column-title">Nome</span>
-							{{client.name}}
+							{{ client.name }}
+							<em name="client-card-icon" *ngIf="!!client?.currentCardRfid" class="pi pi-id-card" tooltipPosition="top"
+								pTooltip="Vinculado ao cartão &quot;{{ client.currentCardRfid }}&quot;"></em>
 						</td>
 
 						<td>
 							<span class="p-column-title">Telefone</span>
-							{{client.telephone}}
+							<a href="tel:55{{client.telephone}}">{{ formatTelephone(client.telephone) }}</a>
 						</td>
 
 						<td>
 							<span class="p-column-title">E-mail</span>
-							{{client.email}}
+							<a href="mailto:{{client.email}}">{{ client.email }}</a>
 						</td>
 
 						<td>

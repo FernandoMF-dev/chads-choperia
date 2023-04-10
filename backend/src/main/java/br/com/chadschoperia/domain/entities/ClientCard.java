@@ -1,6 +1,7 @@
 package br.com.chadschoperia.domain.entities;
 
 import br.com.chadschoperia.domain.enums.ClientCardStatusEnum;
+import br.com.chadschoperia.domain.enums.PaymentMethodEnum;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -33,7 +34,7 @@ public class ClientCard {
 	private Long id;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_client", referencedColumnName = "id")
+	@JoinColumn(name = "id_client", referencedColumnName = "id", nullable = false)
 	private Client client;
 
 	@Column(name = "rfid", nullable = false)
@@ -43,7 +44,8 @@ public class ClientCard {
 	private Double payment = 0.0;
 
 	@Column(name = "payment_method")
-	private String paymentMethod;
+	@Enumerated(EnumType.STRING)
+	private PaymentMethodEnum paymentMethod;
 
 	@Column(name = "check_in")
 	private LocalDateTime checkIn;
@@ -51,7 +53,7 @@ public class ClientCard {
 	@Column(name = "check_out")
 	private LocalDateTime checkOut;
 
-	@Column(name = "status")
+	@Column(name = "status", nullable = false)
 	@Enumerated(EnumType.STRING)
 	private ClientCardStatusEnum status = ClientCardStatusEnum.OPEN;
 
