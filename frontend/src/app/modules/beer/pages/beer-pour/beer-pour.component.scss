@@ -1,11 +1,16 @@
-.space-between {
-	justify-content: space-between;
+h5 {
+	margin: 0;
 }
 
-.content-center {
-	justify-content: center;
+input {
+	width: 100%
 }
 
-.div-valor {
-	align-items: center;
+.beer-price {
+	text-align: end;
+	font-size: 1.4em;
+
+	strong {
+		display: block;
+	}
 }

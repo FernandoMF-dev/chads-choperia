@@ -14,7 +14,6 @@ import { BeerService } from '../../services/beer.service';
 export class BeerPourComponent implements OnInit {
 
 	beers: Select[] = [];
-	viewBeerForm: boolean = false;
 
 	_isLoading = false;
 
@@ -58,26 +57,24 @@ export class BeerPourComponent implements OnInit {
 		this.selected.beer = this.beers[0].value;
 	}
 
-	get price() {
+	get price(): number {
 		if (!!this.selected.beer) {
-			return 'Valor : R$ ' + this.beers.filter(beer => beer.value === this.selected.beer)[0].price;
+			return this.beers.filter(beer => beer.value === this.selected.beer)[0].price!;
 		}
-		return '';
+		return 0;
 	}
 
-	set price(value: string) {
-
+	pourDrink() {
+		this.beerService.pourBeer(this.selected)
+			.pipe(finalize(() => this.selected.card = undefined))
+			.subscribe({
+				next: () => this.utilsService.showSuccessMessage('Bebida debitada com sucesso'),
+				error: (err) => this.utilsService.showErrorMessage(err.error.detail)
+			});
 	}
 
-	pourDrink(){
-		this.beerService.pourBeer(this.selected).subscribe({
-			next: () => this.utilsService.showSuccessMessage('Bebida debitada com sucesso'),
-			error: (err) => this.utilsService.showErrorMessage(err.error.detail)
-		});
-	}
-
-	handleFocus(){
-		document.getElementById('inputCard')?.focus()
+	handleFocus() {
+		document.getElementById('inputCard')?.focus();
 	}
 
 }
