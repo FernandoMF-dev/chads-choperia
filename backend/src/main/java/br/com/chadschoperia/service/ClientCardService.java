@@ -1,6 +1,7 @@
 package br.com.chadschoperia.service;
 
 import br.com.chadschoperia.domain.entities.ClientCard;
+import br.com.chadschoperia.domain.entities.ClientCardExpense;
 import br.com.chadschoperia.domain.enums.ClientCardStatusEnum;
 import br.com.chadschoperia.exceptions.BusinessException;
 import br.com.chadschoperia.exceptions.EntityNotFoundException;
@@ -18,6 +19,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.Locale;
 import java.util.Optional;
 
@@ -36,6 +38,7 @@ public class ClientCardService {
 	public ClientCardDto findOpenByRfid(Long rfid) throws EntityNotFoundException {
 		ClientCard entity = repository.findByRfid(rfid, ClientCardStatusEnum.OPEN)
 				.orElseThrow(() -> new EntityNotFoundException("client_card.not_found"));
+		entity.getExpenses().sort(Comparator.comparing(ClientCardExpense::getDateTime).reversed());
 		return mapper.toDto(entity);
 	}
 
@@ -90,7 +93,7 @@ public class ClientCardService {
 	}
 
 	private void validatePayment(ClientCardPaymentDto payment, ClientCardDto dto) throws BusinessException {
-		if (dto.getTotalExpenses() < payment.getPayment()) {
+		if (dto.getTotalExpenses() > payment.getPayment()) {
 			throw new BusinessException("client_card.total_expenses.less_than.payment");
 		}
 	}

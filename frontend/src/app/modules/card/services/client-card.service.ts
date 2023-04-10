@@ -14,7 +14,7 @@ export class ClientCardService {
 	}
 
 	public findOpenByRfid(rfid: number): Observable<ClientCard> {
-		return this.http.get<ClientCard>(`${ this.apiUrl }/${ rfid }`);
+		return this.http.get<ClientCard>(`${ this.apiUrl }/rfid/${ rfid }`);
 	}
 
 	public linkCardToCustomer(link: ClientCardLink): Observable<ClientCard> {

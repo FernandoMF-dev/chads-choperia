@@ -1,6 +1,7 @@
 package br.com.chadschoperia.service.dto;
 
 import br.com.chadschoperia.domain.enums.ClientCardStatusEnum;
+import br.com.chadschoperia.domain.enums.PaymentMethodEnum;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,7 +18,7 @@ public class ClientCardDto {
 	private ClientDto client;
 	private Long rfid;
 	private Double payment = 0.0;
-	private String paymentMethod;
+	private PaymentMethodEnum paymentMethod;
 	private LocalDateTime checkIn;
 	private LocalDateTime checkOut;
 	private ClientCardStatusEnum status;
