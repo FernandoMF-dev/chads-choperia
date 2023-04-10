@@ -30,6 +30,8 @@ public class BeerService {
 
 	private final ViewBeerMapper viewBeerMapper;
 
+	private final ClientCardExpenseService clientCardExpenseService;
+
 	public List<ViewBeerDto> findAll() {
 		return viewBeerMapper.toDto(beerRepository.findAll());
 	}
@@ -80,7 +82,7 @@ public class BeerService {
 
 
 	public void pour(PourBeerDTO dto) {
-		//TODO : when client_card gets implemented, do handle relation between pour and bill
+		clientCardExpenseService.pourBeer(dto);
 		BeerDto beer = findById(dto.getBeer());
 		beer.setStock(beer.getStock() - POUR_QUANTITY);
 		beerRepository.save(beerMapper.toEntity(beer));
