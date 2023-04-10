@@ -15,4 +15,6 @@ public class ViewBeerDto implements Serializable {
 
 	private Long stock;
 
+	private String rfid;
+
 }

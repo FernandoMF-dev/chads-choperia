@@ -36,6 +36,9 @@ public class Beer implements Serializable {
 	@Column(name = "stock", nullable = false)
 	private Double stock;
 
+	@Column(name = "rfid", nullable = false)
+	private String rfid;
+
 	public void addStock(Double value) {
 		this.setStock(this.getStock() + value);
 	}

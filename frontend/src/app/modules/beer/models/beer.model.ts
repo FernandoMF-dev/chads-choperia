@@ -5,7 +5,8 @@ export class Beer {
 		public name: string,
 		public purchasePrice: number,
 		public valuePerMug: number,
-		public stock: number
+		public stock: number,
+		public rfid: string
 	) {
 	}
 }

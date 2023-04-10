@@ -51,7 +51,8 @@ export class AppMenuComponent implements OnInit {
 			{
 				label: 'Menu do Fiscal de Estoque',
 				items: [
-					{ label: 'Entrada de Estoque', icon: 'pi pi-fw pi-arrow-up-right', routerLink: ['/produto/entrada'] }
+					{ label: 'Entrada de Estoque', icon: 'pi pi-fw pi-arrow-up-right', routerLink: ['/produto/entrada'] },
+					{ label: 'Entrada de Chope', icon: 'pi pi-fw pi-arrow-up-right', routerLink: ['/chope/entrada'] }
 				]
 			},
 			{

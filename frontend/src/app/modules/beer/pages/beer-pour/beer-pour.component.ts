@@ -14,6 +14,9 @@ import { BeerService } from '../../services/beer.service';
 export class BeerPourComponent implements OnInit {
 
 	beers: Select[] = [];
+	selectedBeer?: Select = new Select(new Beer('dsadsad', 0, 0, 0, '0'));
+
+	viewBeerForm: boolean = false;
 
 	_isLoading = false;
 
