@@ -1,12 +1,16 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { InputTextModule } from 'primeng/inputtext';
 import { RippleModule } from 'primeng/ripple';
+import { SkeletonModule } from 'primeng/skeleton';
+import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
+import { TooltipModule } from 'primeng/tooltip';
 
 import { CardRoutingModule } from './card-routing.module';
 import { ClientCardCheckinComponent } from './pages/client-card-checkin/client-card-checkin.component';
@@ -28,7 +32,12 @@ import { ClientCardService } from './services/client-card.service';
 		ToolbarModule,
 		InputNumberModule,
 		ReactiveFormsModule,
-		DropdownModule
+		DropdownModule,
+		InputTextModule,
+		TableModule,
+		TooltipModule,
+		SkeletonModule,
+		FormsModule
 	],
 	providers: [
 		ClientCardService
