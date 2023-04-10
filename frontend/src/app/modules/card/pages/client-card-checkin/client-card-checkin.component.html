@@ -17,8 +17,7 @@
 				<div class="col-12 grid">
 					<div class="col field">
 						<label htmlFor="idClient">
-							Cliente
-							&nbsp;
+							Cliente&nbsp;
 							<em *ngIf="loadingClients" class="pi pi-spin pi-spinner"></em>
 						</label>
 						<p-dropdown id="idClient" formControlName="idClient" [options]="clientOptions" [virtualScrollItemSize]="38"
@@ -29,8 +28,8 @@
 
 					<div class="col field">
 						<label htmlFor="rfid">Cartão</label>
-						<p-inputNumber id="rfid" formControlName="rfid" [showButtons]="false" [min]="1" [maxFractionDigits]="0"
-									   placeholder="0000000000" [format]="false"></p-inputNumber>
+						<input id="rfid" type="text" pInputText formControlName="rfid" [minlength]="10" [maxlength]="10"
+							   placeholder="0000000000">
 						<small id="rfid-help" class="p-error block" *ngIf="!isFieldValid('rfid')">Valor obrigatório.</small>
 					</div>
 				</div>

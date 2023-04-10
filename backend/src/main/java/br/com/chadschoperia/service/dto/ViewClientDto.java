@@ -16,9 +16,9 @@ public class ViewClientDto implements Serializable {
 	private String telephone;
 	private String email;
 
-	private Long currentCardRfid;
+	private String currentCardRfid;
 
-	public ViewClientDto(Long id, String name, String telephone, String email, Long currentCardRfid) {
+	public ViewClientDto(Long id, String name, String telephone, String email, String currentCardRfid) {
 		this.id = id;
 		this.name = name;
 		this.telephone = telephone;

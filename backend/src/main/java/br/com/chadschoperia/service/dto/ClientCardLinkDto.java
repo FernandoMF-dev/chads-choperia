@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 public class ClientCardLinkDto {
 	@NotNull(message = "client_card.rfid.not_null")
-	private Long rfid;
+	private String rfid;
 	@NotNull(message = "client_card.client.not_null")
 	private Long idClient;
 }

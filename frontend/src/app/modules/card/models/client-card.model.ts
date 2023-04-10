@@ -6,7 +6,7 @@ import { ClientCardExpense } from './client-card-expense.model';
 export class ClientCard {
 	public id?: number;
 	public client?: Client;
-	public rfid?: number;
+	public rfid?: string;
 	public payment?: number;
 	public paymentMethod?: PaymentMethodEnum;
 	public checkIn?: Date;
@@ -19,12 +19,12 @@ export class ClientCard {
 }
 
 export class ClientCardLink {
-	public rfid?: number;
+	public rfid?: string;
 	public payment?: number;
 	public paymentMethod?: PaymentMethodEnum;
 }
 
 export class ClientCardPayment {
-	public rfid?: number;
+	public rfid?: string;
 	public idClient?: number;
 }

@@ -9,7 +9,7 @@ import java.io.Serializable;
 @Setter
 public class PourBeerDTO implements Serializable {
 
-	private Long card;
+	private String card;
 
 	private Long beer;
 

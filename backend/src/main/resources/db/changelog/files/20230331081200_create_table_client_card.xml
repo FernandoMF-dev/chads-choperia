@@ -15,7 +15,7 @@
 				<constraints nullable="false"/>
 			</column>
 
-			<column name="rfid" type="bigint">
+			<column name="rfid" type="varchar(10)">
 				<constraints nullable="false"/>
 			</column>
 
@@ -23,7 +23,7 @@
 				<constraints nullable="false"/>
 			</column>
 
-			<column name="payment_method" type="varchar"/>
+			<column name="payment_method" type="varchar(50)"/>
 
 			<column name="check_in" type="datetime"/>
 

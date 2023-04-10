@@ -35,7 +35,7 @@ public class ClientCardService {
 
 	private final MessageSource messageSource;
 
-	public ClientCardDto findOpenByRfid(Long rfid) throws EntityNotFoundException {
+	public ClientCardDto findOpenByRfid(String rfid) throws EntityNotFoundException {
 		ClientCard entity = repository.findByRfid(rfid, ClientCardStatusEnum.OPEN)
 				.orElseThrow(() -> new EntityNotFoundException("client_card.not_found"));
 		entity.getExpenses().sort(Comparator.comparing(ClientCardExpense::getDateTime).reversed());
@@ -78,7 +78,7 @@ public class ClientCardService {
 		return mapper.toDto(entity);
 	}
 
-	private void validadeCardInUse(Long rfid) throws ResourceInUseException {
+	private void validadeCardInUse(String rfid) throws ResourceInUseException {
 		Optional<ClientCard> card = repository.findByRfid(rfid, ClientCardStatusEnum.OPEN);
 		if (card.isPresent()) {
 			throw new ResourceInUseException(messageSource.getMessage("client_card.in_use", new Object[]{card.get().getClient().getUniqueName()}, Locale.getDefault()));

@@ -58,7 +58,7 @@ export class ClientCardCheckinComponent implements OnInit {
 
 	private initializeForm(): FormGroup {
 		return this.formBuilder.group({
-			'rfid': [null, [Validators.required, Validators.min(1)]],
+			'rfid': ['', [Validators.required, Validators.min(10), Validators.min(10)]],
 			'idClient': [null, [Validators.required]]
 		});
 	}

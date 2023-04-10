@@ -25,7 +25,7 @@ public class ClientCardController {
 	private final ClientCardService clientCardService;
 
 	@GetMapping("/rfid/{rfid}")
-	public ResponseEntity<ClientCardDto> findOpenByRfid(@PathVariable Long rfid) {
+	public ResponseEntity<ClientCardDto> findOpenByRfid(@PathVariable String rfid) {
 		return ResponseEntity.ok(clientCardService.findOpenByRfid(rfid));
 	}
 

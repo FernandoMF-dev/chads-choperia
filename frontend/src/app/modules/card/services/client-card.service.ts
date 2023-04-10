@@ -13,7 +13,7 @@ export class ClientCardService {
 	constructor(private readonly http: HttpClient) {
 	}
 
-	public findOpenByRfid(rfid: number): Observable<ClientCard> {
+	public findOpenByRfid(rfid: string): Observable<ClientCard> {
 		return this.http.get<ClientCard>(`${ this.apiUrl }/rfid/${ rfid }`);
 	}
 

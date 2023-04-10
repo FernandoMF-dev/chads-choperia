@@ -16,7 +16,7 @@ import java.util.List;
 public class ClientCardDto {
 	private Long id;
 	private ClientDto client;
-	private Long rfid;
+	private String rfid;
 	private Double payment = 0.0;
 	private PaymentMethodEnum paymentMethod;
 	private LocalDateTime checkIn;
@@ -27,7 +27,7 @@ public class ClientCardDto {
 	private Double totalExpenses = 0.0;
 	private Double change = 0.0;
 
-	public ClientCardDto(ClientDto client, Long rfid, LocalDateTime checkIn, ClientCardStatusEnum status) {
+	public ClientCardDto(ClientDto client, String rfid, LocalDateTime checkIn, ClientCardStatusEnum status) {
 		this.client = client;
 		this.rfid = rfid;
 		this.checkIn = checkIn;

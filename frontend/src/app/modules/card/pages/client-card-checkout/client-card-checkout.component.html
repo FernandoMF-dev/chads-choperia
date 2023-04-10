@@ -13,9 +13,8 @@
 					<div class="col-12 grid">
 						<div class="xl:col-3 lg:col-6 sm:col-12 field">
 							<label htmlFor="rfid">Código do Cartão</label>
-							<p-inputNumber formControlName="rfid" [showButtons]="false" [min]="1" [maxFractionDigits]="0"
-										   (onInput)="onRfidInput($event)" [readonly]="!!clientCard" [format]="false"
-										   placeholder="0000000000" autofocus></p-inputNumber>
+							<input type="text" pInputText formControlName="rfid" [maxlength]="10"
+								   (change)="findCardByRfid($event)" [readonly]="!!clientCard" placeholder="0000000000">
 							<small id="rfid-help" class="p-error block" *ngIf="!isFieldValid('rfid')">Valor obrigatório.</small>
 						</div>
 

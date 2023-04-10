@@ -1,7 +1,7 @@
 export class Client {
 	id?: number;
 
-	currentCardRfid?: number;
+	currentCardRfid?: string;
 
 	constructor(
 		public name: string,

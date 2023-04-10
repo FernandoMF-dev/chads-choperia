@@ -37,8 +37,8 @@ public class ClientCard {
 	@JoinColumn(name = "id_client", referencedColumnName = "id", nullable = false)
 	private Client client;
 
-	@Column(name = "rfid", nullable = false)
-	private Long rfid;
+	@Column(name = "rfid", nullable = false, length = 10)
+	private String rfid;
 
 	@Column(name = "payment", nullable = false)
 	private Double payment = 0.0;
