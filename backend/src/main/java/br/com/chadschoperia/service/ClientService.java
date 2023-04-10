@@ -1,10 +1,11 @@
 package br.com.chadschoperia.service;
 
-import br.com.chadschoperia.exceptions.BusinessException;
+import br.com.chadschoperia.exceptions.EntityAlreadyExistsResource;
 import br.com.chadschoperia.exceptions.EntityNotFoundException;
 import br.com.chadschoperia.repository.ClientRepository;
 import br.com.chadschoperia.service.dto.ClientDto;
 import br.com.chadschoperia.service.dto.ViewClientDto;
+import br.com.chadschoperia.service.dto.filters.ViewClientFilterDto;
 import br.com.chadschoperia.service.mapper.ClientMapper;
 import br.com.chadschoperia.service.mapper.ViewClientMapper;
 import jakarta.transaction.Transactional;
@@ -29,6 +30,10 @@ public class ClientService {
 		return viewClientMapper.toDto(clientRepository.findAll());
 	}
 
+	public List<ViewClientDto> findAll(ViewClientFilterDto filter) {
+		return clientRepository.listDtos(filter);
+	}
+
 	public ClientDto findById(Long idClient) {
 		return clientMapper.toDto(clientRepository.findById(idClient)
 				.orElseThrow(() -> new EntityNotFoundException("client.not_found")));
@@ -42,7 +47,7 @@ public class ClientService {
 
 	private void existsByCpf(String cpf) {
 		if (clientRepository.existsByCpf(cpf)) {
-			throw new BusinessException("user.cpf.unique");
+			throw new EntityAlreadyExistsResource("user.cpf.unique");
 		}
 	}
 

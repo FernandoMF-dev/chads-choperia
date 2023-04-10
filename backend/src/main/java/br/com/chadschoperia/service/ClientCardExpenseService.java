@@ -2,11 +2,12 @@ package br.com.chadschoperia.service;
 
 import br.com.chadschoperia.domain.entities.ClientCardExpense;
 import br.com.chadschoperia.repository.ClientCardExpenseRepository;
-import br.com.chadschoperia.service.dto.PourBeerDTO;
+import br.com.chadschoperia.service.dto.ClientCardExpenseDto;
+import br.com.chadschoperia.service.events.AddClientCardExpenseEvent;
 import br.com.chadschoperia.service.mapper.ClientCardExpenseMapper;
-import br.com.chadschoperia.service.mapper.ClientCardMapper;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -18,17 +19,23 @@ public class ClientCardExpenseService {
 
 	private final ClientCardExpenseRepository repository;
 	private final ClientCardExpenseMapper mapper;
-	private final ClientCardMapper clientCardMapper;
-	private final ClientCardService clientCardService;
-	private final BeerService beerService;
 
+	@EventListener
+	public void addExpense(AddClientCardExpenseEvent event) {
+		ClientCardExpenseDto dto = new ClientCardExpenseDto(event);
 
+		dto.setDateTime(LocalDateTime.now());
 
-	public void pourBeer(PourBeerDTO dto){
-		ClientCardExpense entity = new ClientCardExpense();
-		entity.setCard(clientCardMapper.toEntity(clientCardService.findOpenByRfid(dto.getCard())));
-		entity.setValue(beerService.findById(dto.getBeer()).getValuePerMug());
-		entity.setDateTime(LocalDateTime.now());
-		repository.save(entity);
+		insert(dto);
 	}
+
+	private void insert(ClientCardExpenseDto dto) {
+		ClientCardExpense entity = mapper.toEntity(dto);
+
+		entity.setId(null);
+		entity = repository.save(entity);
+
+		mapper.toDto(entity);
+	}
+
 }

@@ -18,4 +18,10 @@ public interface ClientCardRepository extends JpaRepository<ClientCard, Long> {
 			" AND cc.status = :status ")
 	Optional<ClientCard> findByRfid(@Param("rfid") Long rfid, @Param("status") ClientCardStatusEnum status);
 
+	@Query("SELECT cc " +
+			" FROM ClientCard cc " +
+			" WHERE cc.client.id = :idClient " +
+			" AND cc.status = :status ")
+	Optional<ClientCard> findByClient(@Param("idClient") Long idClient, @Param("status") ClientCardStatusEnum status);
+
 }

@@ -8,6 +8,7 @@ import br.com.chadschoperia.service.mapper.UserMapper;
 import br.com.chadschoperia.service.mapper.ViewUserMapper;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -41,19 +42,27 @@ public class UserService {
 	}
 
 	public UserDto create(UserDto dto) {
-		roleService.existsById(dto.getIdRole());
+		validateRoleExists(dto.getIdRole());
 		return mapper.toDto(repository.save(mapper.toEntity(dto)));
 	}
 
 	public UserDto update(UserDto dto) {
 		existsById(dto.getId());
-		roleService.existsById(dto.getIdRole());
+		validateRoleExists(dto.getIdRole());
 		return mapper.toDto(repository.save(mapper.toEntity(dto)));
 	}
 
 	public void deleteById(Long id) {
 		existsById(id);
 		repository.deleteById(id);
+	}
+
+	private void validateRoleExists(Long idRole) throws EntityNotFoundException{
+		try {
+			roleService.existsById(idRole);
+		} catch (EntityNotFoundException e) {
+			throw new EntityNotFoundException(HttpStatus.BAD_REQUEST, e.getReason());
+		}
 	}
 
 }

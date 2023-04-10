@@ -31,7 +31,14 @@ export class AppMenuComponent implements OnInit {
 			{
 				label: 'Menu do Fiscal de Entrada',
 				items: [
-					{ label: 'Clientes', icon: 'pi pi-fw pi-id-card', routerLink: ['/cliente'] }
+					{ label: 'Clientes', icon: 'pi pi-fw pi-id-card', routerLink: ['/cliente'] },
+					{ label: 'Vincular Cartão', icon: 'pi pi-fw pi-credit-card', routerLink: ['/cartao/cliente/checkin'] }
+				]
+			},
+			{
+				label: 'Menu do Caixa',
+				items: [
+					{ label: 'Fechar Conta', material: 'point_of_sale', routerLink: ['/cartao/cliente/checkout'] }
 				]
 			},
 			{
