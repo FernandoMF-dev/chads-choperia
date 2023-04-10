@@ -1,6 +1,5 @@
 package br.com.chadschoperia.service.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,13 +16,13 @@ public class ViewClientDto implements Serializable {
 	private String telephone;
 	private String email;
 
-	private Boolean withCard;
+	private Long currentCardRfid;
 
-	public ViewClientDto(Long id, String name, String telephone, String email, Boolean withCard) {
+	public ViewClientDto(Long id, String name, String telephone, String email, Long currentCardRfid) {
 		this.id = id;
 		this.name = name;
 		this.telephone = telephone;
 		this.email = email;
-		this.withCard = withCard;
+		this.currentCardRfid = currentCardRfid;
 	}
 }
