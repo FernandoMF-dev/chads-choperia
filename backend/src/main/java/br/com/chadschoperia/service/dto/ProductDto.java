@@ -1,5 +1,6 @@
 package br.com.chadschoperia.service.dto;
 
+import br.com.chadschoperia.exceptions.OutOfStockException;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -29,4 +30,10 @@ public class ProductDto implements Serializable {
 	@NotNull(message = "product.barcode.not_null")
 	private Long barcode;
 
+	public void setStock(Long stock) {
+		if (stock < 0) {
+			throw new OutOfStockException("product.out_of_stock");
+		}
+		this.stock = stock;
+	}
 }

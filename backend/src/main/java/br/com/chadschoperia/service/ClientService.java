@@ -1,6 +1,6 @@
 package br.com.chadschoperia.service;
 
-import br.com.chadschoperia.exceptions.EntityAlreadyExistsResource;
+import br.com.chadschoperia.exceptions.EntityAlreadyExistsException;
 import br.com.chadschoperia.exceptions.EntityNotFoundException;
 import br.com.chadschoperia.repository.ClientRepository;
 import br.com.chadschoperia.service.dto.ClientDto;
@@ -47,7 +47,7 @@ public class ClientService {
 
 	private void existsByCpf(String cpf) {
 		if (clientRepository.existsByCpf(cpf)) {
-			throw new EntityAlreadyExistsResource("user.cpf.unique");
+			throw new EntityAlreadyExistsException("user.cpf.unique");
 		}
 	}
 

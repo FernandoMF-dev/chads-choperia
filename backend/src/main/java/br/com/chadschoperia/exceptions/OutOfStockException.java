@@ -3,10 +3,8 @@ package br.com.chadschoperia.exceptions;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
-public class EntityAlreadyExistsResource extends ResponseStatusException {
-
-	public EntityAlreadyExistsResource(String reason) {
+public class OutOfStockException extends ResponseStatusException {
+	public OutOfStockException(String reason) {
 		super(HttpStatus.BAD_REQUEST, reason);
 	}
-
 }

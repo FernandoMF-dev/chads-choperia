@@ -1,5 +1,6 @@
 package br.com.chadschoperia.domain.entities;
 
+import br.com.chadschoperia.exceptions.OutOfStockException;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -36,5 +37,10 @@ public class Product implements Serializable {
 	@Column(name = "barcode", nullable = false)
 	private Long barcode;
 
-
+	public void setStock(Long stock) {
+		if (stock < 0) {
+			throw new OutOfStockException("product.out_of_stock");
+		}
+		this.stock = stock;
+	}
 }

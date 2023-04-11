@@ -1,5 +1,6 @@
 package br.com.chadschoperia.domain.entities;
 
+import br.com.chadschoperia.exceptions.OutOfStockException;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -38,6 +39,13 @@ public class Beer implements Serializable {
 
 	@Column(name = "rfid", nullable = false)
 	private String rfid;
+
+	public void setStock(Double stock) {
+		if (stock < 0) {
+			throw new OutOfStockException("beer.out_of_stock");
+		}
+		this.stock = stock;
+	}
 
 	public void addStock(Double value) {
 		this.setStock(this.getStock() + value);

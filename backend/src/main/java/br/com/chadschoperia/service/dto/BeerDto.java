@@ -1,5 +1,6 @@
 package br.com.chadschoperia.service.dto;
 
+import br.com.chadschoperia.exceptions.OutOfStockException;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -32,6 +33,13 @@ public class BeerDto implements Serializable {
 	private Double stock;
 
 	private String rfid;
+
+	public void setStock(Double stock) {
+		if (stock < 0) {
+			throw new OutOfStockException("beer.out_of_stock");
+		}
+		this.stock = stock;
+	}
 
 	public void subtractStock(Double value) {
 		this.setStock(this.getStock() - value);
