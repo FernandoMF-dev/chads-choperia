@@ -1,15 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { RouteLinkUtils } from '../../utils/route-link.utils';
 import { ClientCardCheckinComponent } from './pages/client-card-checkin/client-card-checkin.component';
 import { ClientCardPaymentComponent } from './pages/client-card-payment/client-card-payment.component';
 
 const routes: Routes = [
 	{
-		path: 'cliente/checkin',
+		path: `${ RouteLinkUtils.CLIENTE }/${ RouteLinkUtils.ENTRANCE }`,
 		component: ClientCardCheckinComponent
 	},
 	{
-		path: 'cliente/pagamento',
+		path: `${ RouteLinkUtils.CLIENTE }/${ RouteLinkUtils.PAYMENT }`,
 		component: ClientCardPaymentComponent
 	}
 ];

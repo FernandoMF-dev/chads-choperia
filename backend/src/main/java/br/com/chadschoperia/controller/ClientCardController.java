@@ -34,7 +34,7 @@ public class ClientCardController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(clientCardService.linkCardToCustomer(link));
 	}
 
-	@PatchMapping("/concluir-pagamento")
+	@PatchMapping("/pagamento")
 	public ResponseEntity<ClientCardDto> completePayment(@RequestBody ClientCardPaymentDto payment) {
 		return ResponseEntity.ok(clientCardService.completePayment(payment));
 	}
