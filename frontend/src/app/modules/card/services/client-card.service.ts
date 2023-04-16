@@ -24,4 +24,8 @@ export class ClientCardService {
 	public completePayment(payment: ClientCardPayment): Observable<ClientCard> {
 		return this.http.patch<ClientCard>(`${ this.apiUrl }/pagamento`, payment);
 	}
+
+	public unlinkCardFromCustomer(rfid: string): Observable<void> {
+		return this.http.delete<void>(`${ this.apiUrl }/rfid/${ rfid }`);
+	}
 }

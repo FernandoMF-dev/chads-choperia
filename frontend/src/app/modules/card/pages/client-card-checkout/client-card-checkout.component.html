@@ -1,17 +1,61 @@
 <div class="grid">
 	<div class="col-12">
-		<form>
-			<div class="card px-6 py-6">
-				<p-toast></p-toast>
-				<p-toolbar styleClass="mb-4">
-					<div class="p-toolbar-group-start">
-						<h5 style="margin: 0">Desvincular Cartão ao Cliente</h5>
-					</div>
-				</p-toolbar>
+		<div class="card px-6 py-6">
+			<p-toast></p-toast>
+			<p-toolbar styleClass="mb-4">
+				<div class="p-toolbar-group-start">
+					<h5>Desvincular Cartão ao Cliente</h5>
+				</div>
 
-				<div class="col-12 grid">
+				<div class="p-toolbar-group-end">
+					<button *ngIf="situation !== 'invalid'" pButton type="button" label="Desvincular Cartão"
+							[disabled]="situation !== 'valid'" class="p-button-success p-button-raised" (click)="onSubmit()">
+						<em class="pi p-button-icon p-button-icon-left material-symbols-outlined on-data-content"
+							aria-hidden="true" data-material="credit_card_off"></em>
+					</button>
+
+					<button *ngIf="situation === 'invalid'" pButton type="button" label="Conta ainda não foi completamente paga"
+							class="p-button-danger p-button-raised" icon="pi pi-times"></button>
+				</div>
+			</p-toolbar>
+
+			<div class="col-12 grid">
+				<div class="xl:col-3 lg:col-6 sm:col-12 field">
+					<label htmlFor="rfid">Código do Cartão</label>
+					<input type="text" pInputText [(ngModel)]="rfid" [maxlength]="10"
+						   (change)="findCardByRfid()" [readonly]="!!clientCard" placeholder="0000000000">
+				</div>
+
+				<div class="xl:col-3 sm:col-12 field">
+					<label htmlFor="total-expenses">Despesas</label>
+					<p-inputNumber id="total-expenses" [showButtons]="false" [readonly]="true" mode="currency" currency="BRL" locale="pt-BR"
+								   [ngModel]="clientCard?.totalExpenses" [minFractionDigits]=2 [maxFractionDigits]=2></p-inputNumber>
+				</div>
+
+				<div class="xl:col-3 sm:col-12 field">
+					<label htmlFor="payment">Pagameto</label>
+					<p-inputNumber id="payment" [showButtons]="false" [readonly]="true" mode="currency" currency="BRL" locale="pt-BR"
+								   [ngModel]="clientCard?.payment" [minFractionDigits]=2 [maxFractionDigits]=2></p-inputNumber>
+				</div>
+
+				<div class="xl:col-3 sm:col-12 field">
+					<label htmlFor="change">Troco</label>
+					<p-inputNumber id="change" [showButtons]="false" [readonly]="true" mode="currency" currency="BRL" locale="pt-BR"
+								   [ngModel]="clientCard?.change" [minFractionDigits]=2 [maxFractionDigits]=2></p-inputNumber>
+				</div>
+
+				<div class="xl:col-6 sm:col-12 field">
+					<label htmlFor="client">Cliente</label>
+					<input pInputText type="text" id="client" [readonly]="true" [ngModel]="getClientName()">
+				</div>
+
+				<div class="xl:col-2 sm:col-6 field">
+					<label>&nbsp;</label>
+					<button pButton type="button" label="{{isLoadingRfid ? 'Buscando Cartão' : 'Cancelar'}}"
+							icon="pi pi-sync {{isLoadingRfid ? 'pi-spin': ''}}" [disabled]="isLoading || situation === 'undefined'"
+							class="p-button-secondary p-button-raised" (click)="resetForm()"></button>
 				</div>
 			</div>
-		</form>
+		</div>
 	</div>
 </div>
