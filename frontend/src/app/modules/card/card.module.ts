@@ -14,14 +14,14 @@ import { TooltipModule } from 'primeng/tooltip';
 
 import { CardRoutingModule } from './card-routing.module';
 import { ClientCardCheckinComponent } from './pages/client-card-checkin/client-card-checkin.component';
-import { ClientCardCheckoutComponent } from './pages/client-card-checkout/client-card-checkout.component';
+import { ClientCardPaymentComponent } from './pages/client-card-payment/client-card-payment.component';
 import { ClientCardService } from './services/client-card.service';
 
 
 @NgModule({
 	declarations: [
 		ClientCardCheckinComponent,
-		ClientCardCheckoutComponent
+		ClientCardPaymentComponent
 	],
 	imports: [
 		CommonModule,

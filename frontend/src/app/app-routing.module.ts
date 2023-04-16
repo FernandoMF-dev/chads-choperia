@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { NotfoundComponent } from './demo/components/notfound/notfound.component';
 import { AppLayoutComponent } from './layout/app.layout.component';
+import { RouteLinkUtils } from './utils/route-link.utils';
 
 const routes: Routes = [
 	{
@@ -32,27 +33,27 @@ const routes: Routes = [
 				loadChildren: () => import('./demo/components/pages/pages.module').then(m => m.PagesModule)
 			},
 			{
-				path: 'usuario',
+				path: RouteLinkUtils.USER,
 				loadChildren: () => import('./modules/user/user.module').then(m => m.UserModule)
 			},
 			{
-				path: 'produto',
+				path: RouteLinkUtils.PRODUCT,
 				loadChildren: () => import('./modules/product/product.module').then(m => m.ProductModule)
 			},
 			{
-				path: 'self-service',
+				path: RouteLinkUtils.SELF_SERVICE,
 				loadChildren: () => import('./modules/selfservice/selfservice.module').then(m => m.SelfserviceModule)
 			},
 			{
-				path: 'cliente',
+				path: RouteLinkUtils.CLIENTE,
 				loadChildren: () => import('./modules/client/client.module').then(m => m.ClientModule)
 			},
 			{
-				path: 'chope',
+				path: RouteLinkUtils.BEER,
 				loadChildren: () => import('./modules/beer/beer.module').then(m => m.BeerModule)
 			},
 			{
-				path: 'cartao',
+				path: RouteLinkUtils.CARD,
 				loadChildren: () => import('./modules/card/card.module').then(m => m.CardModule)
 			}
 		]
@@ -66,12 +67,12 @@ const routes: Routes = [
 		loadChildren: () => import('./demo/components/landing/landing.module').then(m => m.LandingModule)
 	},
 	{
-		path: 'notfound',
+		path: RouteLinkUtils.NOT_FOUND,
 		component: NotfoundComponent
 	},
 	{
 		path: '**',
-		redirectTo: '/notfound'
+		redirectTo: RouteLinkUtils.NOT_FOUND
 	}
 ];
 
@@ -79,7 +80,9 @@ const routes: Routes = [
 	imports: [
 		RouterModule.forRoot(routes, { scrollPositionRestoration: 'enabled', anchorScrolling: 'enabled', onSameUrlNavigation: 'reload' })
 	],
-	exports: [RouterModule]
+	exports: [
+		RouterModule
+	]
 })
 export class AppRoutingModule {
 }

@@ -8,11 +8,11 @@ import { ClientCard, ClientCardPayment } from '../../models/client-card.model';
 import { ClientCardService } from '../../services/client-card.service';
 
 @Component({
-	selector: 'app-client-card-checkout',
-	templateUrl: './client-card-checkout.component.html',
-	styleUrls: ['./client-card-checkout.component.scss']
+	selector: 'app-client-card-payment',
+	templateUrl: './client-card-payment.component.html',
+	styleUrls: ['./client-card-payment.component.scss']
 })
-export class ClientCardCheckoutComponent {
+export class ClientCardPaymentComponent {
 	form: FormGroup;
 	clientCard?: ClientCard;
 	paymentMethods = [{ key: null, description: 'Selecione um...' }, ...PaymentMethod.allValues];

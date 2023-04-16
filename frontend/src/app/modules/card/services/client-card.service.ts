@@ -22,6 +22,6 @@ export class ClientCardService {
 	}
 
 	public completePayment(payment: ClientCardPayment): Observable<ClientCard> {
-		return this.http.patch<ClientCard>(`${ this.apiUrl }/concluir-pagamento`, payment);
+		return this.http.patch<ClientCard>(`${ this.apiUrl }/pagamento`, payment);
 	}
 }
