@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ClientCardCheckinComponent } from './pages/client-card-checkin/client-card-checkin.component';
-import { ClientCardCheckoutComponent } from './pages/client-card-checkout/client-card-checkout.component';
+import { ClientCardPaymentComponent } from './pages/client-card-payment/client-card-payment.component';
 
 const routes: Routes = [
 	{
@@ -9,8 +9,8 @@ const routes: Routes = [
 		component: ClientCardCheckinComponent
 	},
 	{
-		path: 'cliente/checkout',
-		component: ClientCardCheckoutComponent
+		path: 'cliente/pagamento',
+		component: ClientCardPaymentComponent
 	}
 ];
 
