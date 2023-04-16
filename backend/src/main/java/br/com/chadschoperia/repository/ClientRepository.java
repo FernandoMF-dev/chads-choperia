@@ -25,7 +25,7 @@ public interface ClientRepository extends JpaRepository<Client, Long> {
 	@Query("SELECT new br.com.chadschoperia.service.dto.ViewClientDto" +
 			"(c.id, c.name, c.telephone, c.email, cc.rfid)" +
 			" FROM Client c " +
-			" LEFT JOIN ClientCard cc ON cc.client.id = c.id AND cc.status = 'OPEN'" +
+			" LEFT JOIN ClientCard cc ON cc.client.id = c.id AND (cc.status = 'OPEN' OR cc.status = 'PAID')" +
 			" WHERE (:#{#filter.withCard} IS NULL OR :#{#filter.withCard} = (CASE WHEN cc.id IS NULL THEN false ELSE true END)) ")
 	List<ViewClientDto> listDtos(@Param("filter") ViewClientFilterDto filter);
 

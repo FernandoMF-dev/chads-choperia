@@ -15,13 +15,13 @@ public interface ClientCardRepository extends JpaRepository<ClientCard, Long> {
 	@Query("SELECT cc " +
 			" FROM ClientCard cc " +
 			" WHERE cc.rfid = :rfid " +
-			" AND cc.status = :status ")
-	Optional<ClientCard> findByRfid(@Param("rfid") String rfid, @Param("status") ClientCardStatusEnum status);
+			" AND cc.status IN (:status) ")
+	Optional<ClientCard> findByRfidAndStatus(@Param("rfid") String rfid, @Param("status") ClientCardStatusEnum... status);
 
 	@Query("SELECT cc " +
 			" FROM ClientCard cc " +
 			" WHERE cc.client.id = :idClient " +
-			" AND cc.status = :status ")
-	Optional<ClientCard> findByClient(@Param("idClient") Long idClient, @Param("status") ClientCardStatusEnum status);
+			" AND cc.status IN (:status) ")
+	Optional<ClientCard> findByClientAndStatus(@Param("idClient") Long idClient, @Param("status") ClientCardStatusEnum... status);
 
 }

@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -36,9 +37,15 @@ public class ClientCardService {
 	private final MessageSource messageSource;
 
 	public ClientCardDto findOpenByRfid(String rfid) throws EntityNotFoundException {
-		ClientCard entity = repository.findByRfid(rfid, ClientCardStatusEnum.OPEN)
-				.orElseThrow(() -> new EntityNotFoundException("client_card.not_found"));
+		ClientCard entity = repository.findByRfidAndStatus(rfid, ClientCardStatusEnum.OPEN)
+				.orElseThrow(() -> new EntityNotFoundException("client_card.open.not_found"));
 		entity.getExpenses().sort(Comparator.comparing(ClientCardExpense::getDateTime).reversed());
+		return mapper.toDto(entity);
+	}
+
+	public ClientCardDto findPaidByRfid(String rfid) throws EntityNotFoundException {
+		ClientCard entity = repository.findByRfidAndStatus(rfid, ClientCardStatusEnum.PAID)
+				.orElseThrow(() -> new EntityNotFoundException("client_card.paid.not_found"));
 		return mapper.toDto(entity);
 	}
 
@@ -63,6 +70,7 @@ public class ClientCardService {
 
 			dto.setPayment(payment.getPayment());
 			dto.setPaymentMethod(payment.getPaymentMethod());
+			dto.setStatus(ClientCardStatusEnum.PAID);
 
 			return save(dto);
 		} catch (EntityNotFoundException e) {
@@ -72,7 +80,7 @@ public class ClientCardService {
 
 	public void unlinkCardFromCustomer(String rfid) {
 		try {
-			ClientCardDto dto = findOpenByRfid(rfid);
+			ClientCardDto dto = findPaidByRfid(rfid);
 
 			validateFullPayment(dto);
 
@@ -92,14 +100,14 @@ public class ClientCardService {
 	}
 
 	private void validadeCardInUse(String rfid) throws ResourceInUseException {
-		Optional<ClientCard> card = repository.findByRfid(rfid, ClientCardStatusEnum.OPEN);
+		Optional<ClientCard> card = repository.findByRfidAndStatus(rfid, ClientCardStatusEnum.OPEN, ClientCardStatusEnum.PAID);
 		if (card.isPresent()) {
 			throw new ResourceInUseException(messageSource.getMessage("client_card.in_use", new Object[]{card.get().getClient().getUniqueName()}, Locale.getDefault()));
 		}
 	}
 
 	private void validadeClientAlreadyWithCard(Long idClient) throws ResourceInUseException {
-		Optional<ClientCard> card = repository.findByClient(idClient, ClientCardStatusEnum.OPEN);
+		Optional<ClientCard> card = repository.findByClientAndStatus(idClient, ClientCardStatusEnum.OPEN, ClientCardStatusEnum.PAID);
 		if (card.isPresent()) {
 			throw new ResourceInUseException(messageSource.getMessage("client_card.client.already_with_card", new Object[]{card.get().getRfid()}, Locale.getDefault()));
 		}
@@ -112,7 +120,7 @@ public class ClientCardService {
 	}
 
 	private void validateFullPayment(ClientCardDto dto) {
-		if (dto.getChange() < 0) {
+		if (dto.getChange() < 0 || !Objects.equals(ClientCardStatusEnum.PAID, dto.getStatus())) {
 			throw new BusinessException("client_card.not_paid");
 		}
 	}

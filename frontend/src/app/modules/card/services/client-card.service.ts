@@ -13,8 +13,8 @@ export class ClientCardService {
 	constructor(private readonly http: HttpClient) {
 	}
 
-	public findOpenByRfid(rfid: string): Observable<ClientCard> {
-		return this.http.get<ClientCard>(`${ this.apiUrl }/rfid/${ rfid }`);
+	public findOpenByRfid(rfid: string, paid?: boolean): Observable<ClientCard> {
+		return this.http.get<ClientCard>(`${ this.apiUrl }/rfid/${ rfid }`, { params: { paid: !!paid } });
 	}
 
 	public linkCardToCustomer(link: ClientCardLink): Observable<ClientCard> {

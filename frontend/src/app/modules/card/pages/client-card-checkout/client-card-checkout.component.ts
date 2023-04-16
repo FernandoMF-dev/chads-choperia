@@ -38,7 +38,7 @@ export class ClientCardCheckoutComponent {
 
 	findCardByRfid(): void {
 		this.isLoadingRfid = true;
-		this.clientCardService.findOpenByRfid(this.rfid!)
+		this.clientCardService.findOpenByRfid(this.rfid!, true)
 			.pipe(finalize(() => this.isLoadingRfid = false))
 			.subscribe({
 				next: (res) => this.clientCard = res,

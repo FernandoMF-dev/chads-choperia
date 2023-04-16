@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -26,7 +27,10 @@ public class ClientCardController {
 	private final ClientCardService clientCardService;
 
 	@GetMapping("/rfid/{rfid}")
-	public ResponseEntity<ClientCardDto> findOpenByRfid(@PathVariable String rfid) {
+	public ResponseEntity<ClientCardDto> findOpenByRfid(@PathVariable String rfid, @RequestParam(required = false) boolean paid) {
+		if (paid) {
+			return ResponseEntity.ok(clientCardService.findPaidByRfid(rfid));
+		}
 		return ResponseEntity.ok(clientCardService.findOpenByRfid(rfid));
 	}
 
