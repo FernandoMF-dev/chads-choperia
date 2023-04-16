@@ -11,6 +11,7 @@ import lombok.Setter;
 @Setter
 public class ClientCardPaymentDto {
 	@NotNull(message = "client_card.rfid.not_null")
+	@NotEmpty(message = "client_card.rfid.not_empty")
 	private String rfid;
 
 	@NotNull(message = "client_card.payment.not_null")

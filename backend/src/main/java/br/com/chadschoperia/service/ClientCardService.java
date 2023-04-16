@@ -63,10 +63,23 @@ public class ClientCardService {
 
 			dto.setPayment(payment.getPayment());
 			dto.setPaymentMethod(payment.getPaymentMethod());
+
+			return save(dto);
+		} catch (EntityNotFoundException e) {
+			throw new EntityNotFoundException(HttpStatus.BAD_REQUEST, e.getReason());
+		}
+	}
+
+	public void unlinkCardFromCustomer(String rfid) {
+		try {
+			ClientCardDto dto = findOpenByRfid(rfid);
+
+			validateFullPayment(dto);
+
 			dto.setCheckOut(LocalDateTime.now());
 			dto.setStatus(ClientCardStatusEnum.CLOSED);
 
-			return save(dto);
+			save(dto);
 		} catch (EntityNotFoundException e) {
 			throw new EntityNotFoundException(HttpStatus.BAD_REQUEST, e.getReason());
 		}
@@ -88,13 +101,19 @@ public class ClientCardService {
 	private void validadeClientAlreadyWithCard(Long idClient) throws ResourceInUseException {
 		Optional<ClientCard> card = repository.findByClient(idClient, ClientCardStatusEnum.OPEN);
 		if (card.isPresent()) {
-			throw new ResourceInUseException(messageSource.getMessage("client_card.client.already_with_card", new Object[]{card.get().getRfid().toString()}, Locale.getDefault()));
+			throw new ResourceInUseException(messageSource.getMessage("client_card.client.already_with_card", new Object[]{card.get().getRfid()}, Locale.getDefault()));
 		}
 	}
 
 	private void validatePayment(ClientCardPaymentDto payment, ClientCardDto dto) throws BusinessException {
 		if (dto.getTotalExpenses() > payment.getPayment()) {
 			throw new BusinessException("client_card.total_expenses.less_than.payment");
+		}
+	}
+
+	private void validateFullPayment(ClientCardDto dto) {
+		if (dto.getChange() < 0) {
+			throw new BusinessException("client_card.not_paid");
 		}
 	}
 }

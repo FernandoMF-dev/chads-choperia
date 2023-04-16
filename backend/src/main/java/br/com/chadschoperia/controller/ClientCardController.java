@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -39,4 +40,9 @@ public class ClientCardController {
 		return ResponseEntity.ok(clientCardService.completePayment(payment));
 	}
 
+	@DeleteMapping("/rfid/{rfid}")
+	public ResponseEntity<Void> unlinkCardFromCustomer(@PathVariable String rfid) {
+		clientCardService.unlinkCardFromCustomer(rfid);
+		return ResponseEntity.noContent().build();
+	}
 }
