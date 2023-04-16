@@ -5,12 +5,15 @@
 				<p-toast></p-toast>
 				<p-toolbar styleClass="mb-4">
 					<div class="p-toolbar-group-start">
-						<h5 style="margin: 0">Vincular Cartão ao Cliente</h5>
+						<h5>Vincular Cartão ao Cliente</h5>
 					</div>
 
 					<div class="p-toolbar-group-end">
-						<button pButton type="submit" label="Vincular Cartão" icon="pi pi-link" [disabled]="loadingLink || !form.valid"
-								class="p-button-success p-button-raised"></button>
+						<button pButton type="submit" label="Vincular Cartão" [disabled]="loadingLink || !form.valid"
+								class="p-button-success p-button-raised">
+							<em class="pi p-button-icon p-button-icon-left material-symbols-outlined on-data-content"
+								aria-hidden="true" data-material="add_card"></em>
+						</button>
 					</div>
 				</p-toolbar>
 

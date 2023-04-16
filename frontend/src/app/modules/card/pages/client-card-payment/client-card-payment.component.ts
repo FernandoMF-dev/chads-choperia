@@ -44,7 +44,7 @@ export class ClientCardPaymentComponent {
 			.pipe(finalize(() => this.isLoadingSubmit = false))
 			.subscribe({
 				next: (res) => {
-					this.utilsService.showSuccessMessage(`Compra do cartão ${ res.rfid } em nome de "${ res.client!.name }" fechada com sucesso.`);
+					this.utilsService.showSuccessMessage(`Compra do cartão ${ res.rfid } em nome de "${ this.getClientName() }" fechada com sucesso.`);
 					this.resetForm();
 				},
 				error: (err) => this.utilsService.showErrorMessage(err.error.detail)
@@ -70,7 +70,7 @@ export class ClientCardPaymentComponent {
 		return `${ this.clientCard.client.name } - ${ FormatUtils.formatTelephone(this.clientCard.client.telephone) }`;
 	}
 
-	findCardByRfid(event?: any): void {
+	findCardByRfid(): void {
 		this.isLoadingRfid = true;
 		const rfid: string = this.form.get('rfid')?.value;
 		this.clientCardService.findOpenByRfid(rfid)
