@@ -47,7 +47,7 @@ const server = createServer((socket) => {
 
 	const handleSubmitCardNumber = async () => {
 		try {
-			// const cardValue = await fetch(`http://localhost:8080/cartao/${inputString}`);
+			// const cardValue = await fetch(`http://localhost:8080/cartao/cliente/rfid/${inputString}`);
 			// const data = await cardValue.json();
 			inputString = `Total ${formatToBrlCurrency(20)}`;
 		} catch {

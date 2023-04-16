@@ -35,8 +35,13 @@ export class AppMenuComponent implements OnInit {
 					{ label: 'Clientes', icon: 'pi pi-fw pi-id-card', routerLink: [RouteLinkUtils.CLIENTE] },
 					{
 						label: 'Vincular Cartão',
-						icon: 'pi pi-fw pi-credit-card',
+						material: 'add_card',
 						routerLink: [RouteLinkUtils.CARD, RouteLinkUtils.CLIENTE, RouteLinkUtils.ENTRANCE]
+					},
+					{
+						label: 'Desvincular Cartão',
+						material: 'credit_card_off',
+						routerLink: [RouteLinkUtils.CARD, RouteLinkUtils.CLIENTE, RouteLinkUtils.EXIT]
 					}
 				]
 			},
