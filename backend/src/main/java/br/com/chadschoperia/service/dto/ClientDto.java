@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.validator.constraints.br.CPF;
 
@@ -12,6 +13,7 @@ import java.io.Serializable;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class ClientDto implements Serializable {
 
 	private Long id;
@@ -36,4 +38,11 @@ public class ClientDto implements Serializable {
 	@CPF(message = "client.cpf.valid")
 	private String cpf;
 
+	public ClientDto(Long id, String name, String telephone, String email, String cpf) {
+		this.id = id;
+		this.name = name;
+		this.telephone = telephone;
+		this.email = email;
+		this.cpf = cpf;
+	}
 }

@@ -30,12 +30,12 @@ public class ClientController {
 
 	@GetMapping
 	public ResponseEntity<List<ViewClientDto>> findAll(ViewClientFilterDto filter) {
-		return ResponseEntity.ok(clientService.findAll(filter));
+		return ResponseEntity.ok(clientService.findAllView(filter));
 	}
 
 	@GetMapping("/{idClient}")
 	public ResponseEntity<ClientDto> findById(@PathVariable Long idClient) {
-		return ResponseEntity.ok(clientService.findById(idClient));
+		return ResponseEntity.ok(clientService.findDtoById(idClient));
 	}
 
 	@PostMapping

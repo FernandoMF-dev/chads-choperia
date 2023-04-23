@@ -12,5 +12,7 @@
 	<include file="db/changelog/files/20230326140010_create_table_beer.xml"/>
 	<include file="db/changelog/files/20230331081200_create_table_client_card.xml"/>
 	<include file="db/changelog/files/20230401142800_create_table_client_card_expense.xml"/>
+	<include file="db/changelog/files/20230423142700_add_column_deleted_all.xml"/>
+	<include file="db/changelog/files/20230423154200_rename_table_products_and_users.xml"/>
 
 </databaseChangeLog>

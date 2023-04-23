@@ -22,7 +22,7 @@ public class RoleController {
 
 	@GetMapping
 	public ResponseEntity<List<DropdownDto>> findAll() {
-		return ResponseEntity.ok(roleService.findAll());
+		return ResponseEntity.ok(roleService.findAllDropdown());
 	}
 
 	@GetMapping("/{id}")

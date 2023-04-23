@@ -31,17 +31,17 @@ public class BeerController {
 
 	@GetMapping
 	public ResponseEntity<List<ViewBeerDto>> findAll() {
-		return ResponseEntity.ok(beerService.findAll());
+		return ResponseEntity.ok(beerService.findAllView());
 	}
 
 	@GetMapping("/complete")
 	public ResponseEntity<List<BeerDto>> findAllComplete() {
-		return ResponseEntity.ok(beerService.findAllComplete());
+		return ResponseEntity.ok(beerService.findAllDto());
 	}
 
 	@GetMapping("/{idBeer}")
 	public ResponseEntity<BeerDto> findById(@PathVariable Long idBeer) {
-		return ResponseEntity.ok(beerService.findById(idBeer));
+		return ResponseEntity.ok(beerService.findDtoById(idBeer));
 	}
 
 	@PostMapping

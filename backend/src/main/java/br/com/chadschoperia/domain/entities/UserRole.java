@@ -22,4 +22,7 @@ public class UserRole implements Serializable {
 	@Column(name = "name", nullable = false)
 	private String name;
 
+	@Column(name = "deleted", nullable = false)
+	private Boolean deleted = Boolean.FALSE;
+
 }

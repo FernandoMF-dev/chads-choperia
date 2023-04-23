@@ -1,11 +1,11 @@
 package br.com.chadschoperia.service;
 
+import br.com.chadschoperia.domain.entities.User;
 import br.com.chadschoperia.exceptions.EntityNotFoundException;
 import br.com.chadschoperia.repository.UserRepository;
 import br.com.chadschoperia.service.dto.UserDto;
 import br.com.chadschoperia.service.dto.ViewUserDto;
 import br.com.chadschoperia.service.mapper.UserMapper;
-import br.com.chadschoperia.service.mapper.ViewUserMapper;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -24,45 +24,51 @@ public class UserService {
 
 	private final UserMapper mapper;
 
-	private final ViewUserMapper viewUserMapper;
-
 	public List<ViewUserDto> findAll() {
-		return viewUserMapper.toDto(repository.findAll());
+		return repository.findAllView();
 	}
 
-	public UserDto findById(Long id) {
-		return mapper.toDto(repository.findById(id)
-				.orElseThrow(() -> new EntityNotFoundException("user.not_found")));
+	public UserDto findDtoById(Long id) {
+		return repository.findDtoById(id)
+				.orElseThrow(() -> new EntityNotFoundException("user.not_found"));
 	}
 
-	private void existsById(Long id) {
-		if (!repository.existsById(id)) {
-			throw new EntityNotFoundException("user.not_found");
-		}
+	public User findEntityById(Long id) {
+		return repository.findByIdAndDeletedIsFalse(id)
+				.orElseThrow(() -> new EntityNotFoundException("user.not_found"));
 	}
 
 	public UserDto create(UserDto dto) {
-		validateRoleExists(dto.getIdRole());
-		return mapper.toDto(repository.save(mapper.toEntity(dto)));
+		dto.setId(null);
+		return saveDto(dto);
 	}
 
 	public UserDto update(UserDto dto) {
-		existsById(dto.getId());
-		validateRoleExists(dto.getIdRole());
-		return mapper.toDto(repository.save(mapper.toEntity(dto)));
+		findDtoById(dto.getId());
+		return saveDto(dto);
 	}
 
 	public void deleteById(Long id) {
-		existsById(id);
-		repository.deleteById(id);
+		User entity = findEntityById(id);
+		entity.setDeleted(Boolean.TRUE);
+		saveEntity(entity);
 	}
 
-	private void validateRoleExists(Long idRole) throws EntityNotFoundException{
+	private void validateRoleExists(Long idRole) throws EntityNotFoundException {
 		try {
-			roleService.existsById(idRole);
+			roleService.findById(idRole);
 		} catch (EntityNotFoundException e) {
 			throw new EntityNotFoundException(HttpStatus.BAD_REQUEST, e.getReason());
 		}
+	}
+
+	private UserDto saveDto(UserDto dto) {
+		validateRoleExists(dto.getIdRole());
+		return mapper.toDto(saveEntity(mapper.toEntity(dto)));
+	}
+
+	private User saveEntity(User entity) {
+		return repository.save(entity);
 	}
 
 }

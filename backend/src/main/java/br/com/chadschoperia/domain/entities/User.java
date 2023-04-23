@@ -16,7 +16,7 @@ import lombok.Setter;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "users")
+@Table(name = "\"user\"")
 @Getter
 @Setter
 public class User implements Serializable {
@@ -36,8 +36,11 @@ public class User implements Serializable {
 	@Column(name = "email", nullable = false)
 	private String email;
 
+	@Column(name = "deleted", nullable = false)
+	private Boolean deleted = Boolean.FALSE;
+
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_role", referencedColumnName = "id")
+	@JoinColumn(name = "id_role", referencedColumnName = "id", nullable = false)
 	private UserRole role;
 
 }

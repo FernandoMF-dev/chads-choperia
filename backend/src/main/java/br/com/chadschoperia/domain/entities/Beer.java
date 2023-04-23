@@ -40,6 +40,9 @@ public class Beer implements Serializable {
 	@Column(name = "rfid", nullable = false)
 	private String rfid;
 
+	@Column(name = "deleted", nullable = false)
+	private Boolean deleted = Boolean.FALSE;
+
 	public void setStock(Double stock) {
 		if (stock < 0) {
 			throw new OutOfStockException("beer.out_of_stock");

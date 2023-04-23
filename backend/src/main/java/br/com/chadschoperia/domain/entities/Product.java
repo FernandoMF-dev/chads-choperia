@@ -14,7 +14,7 @@ import lombok.Setter;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "products")
+@Table(name = "product")
 @Getter
 @Setter
 public class Product implements Serializable {
@@ -37,10 +37,17 @@ public class Product implements Serializable {
 	@Column(name = "barcode", nullable = false)
 	private Long barcode;
 
+	@Column(name = "deleted", nullable = false)
+	private Boolean deleted = Boolean.FALSE;
+
 	public void setStock(Long stock) {
 		if (stock < 0) {
 			throw new OutOfStockException("product.out_of_stock");
 		}
 		this.stock = stock;
+	}
+
+	public void addStock(Long amount) {
+		this.setStock(this.getStock() + amount);
 	}
 }

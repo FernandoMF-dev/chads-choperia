@@ -6,12 +6,14 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class BeerDto implements Serializable {
 
 	private Long id;
@@ -33,6 +35,15 @@ public class BeerDto implements Serializable {
 	private Double stock;
 
 	private String rfid;
+
+	public BeerDto(Long id, String name, Double purchasePrice, Double valuePerMug, Double stock, String rfid) {
+		this.id = id;
+		this.name = name;
+		this.purchasePrice = purchasePrice;
+		this.valuePerMug = valuePerMug;
+		this.stock = stock;
+		this.rfid = rfid;
+	}
 
 	public void setStock(Double stock) {
 		if (stock < 0) {

@@ -5,12 +5,14 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class ProductDto implements Serializable {
 
 	private Long id;
@@ -29,6 +31,14 @@ public class ProductDto implements Serializable {
 
 	@NotNull(message = "product.barcode.not_null")
 	private Long barcode;
+
+	public ProductDto(Long id, String name, Long restockThreshold, Long stock, Long barcode) {
+		this.id = id;
+		this.name = name;
+		this.restockThreshold = restockThreshold;
+		this.stock = stock;
+		this.barcode = barcode;
+	}
 
 	public void setStock(Long stock) {
 		if (stock < 0) {

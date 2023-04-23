@@ -54,7 +54,7 @@ public class ClientCardService {
 		validadeClientAlreadyWithCard(link.getIdClient());
 
 		try {
-			ClientDto client = clientService.findById(link.getIdClient());
+			ClientDto client = clientService.findDtoById(link.getIdClient());
 			ClientCardDto dto = new ClientCardDto(client, link.getRfid(), LocalDateTime.now(), ClientCardStatusEnum.OPEN);
 			return save(dto);
 		} catch (EntityNotFoundException e) {

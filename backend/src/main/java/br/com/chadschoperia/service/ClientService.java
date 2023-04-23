@@ -1,5 +1,6 @@
 package br.com.chadschoperia.service;
 
+import br.com.chadschoperia.domain.entities.Client;
 import br.com.chadschoperia.exceptions.EntityAlreadyExistsException;
 import br.com.chadschoperia.exceptions.EntityNotFoundException;
 import br.com.chadschoperia.repository.ClientRepository;
@@ -7,10 +8,8 @@ import br.com.chadschoperia.service.dto.ClientDto;
 import br.com.chadschoperia.service.dto.ViewClientDto;
 import br.com.chadschoperia.service.dto.filters.ViewClientFilterDto;
 import br.com.chadschoperia.service.mapper.ClientMapper;
-import br.com.chadschoperia.service.mapper.ViewClientMapper;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,49 +23,45 @@ public class ClientService {
 
 	private final ClientMapper clientMapper;
 
-	private final ViewClientMapper viewClientMapper;
-
-	public List<ViewClientDto> findAll() {
-		return viewClientMapper.toDto(clientRepository.findAll());
+	public List<ViewClientDto> findAllView(ViewClientFilterDto filter) {
+		return clientRepository.findAllView(filter);
 	}
 
-	public List<ViewClientDto> findAll(ViewClientFilterDto filter) {
-		return clientRepository.listDtos(filter);
+	public ClientDto findDtoById(Long idClient) {
+		return clientRepository.findDtoById(idClient)
+				.orElseThrow(() -> new EntityNotFoundException("client.not_found"));
 	}
 
-	public ClientDto findById(Long idClient) {
-		return clientMapper.toDto(clientRepository.findById(idClient)
-				.orElseThrow(() -> new EntityNotFoundException("client.not_found")));
-	}
-
-	private void existsById(Long idClient) {
-		if (!clientRepository.existsById(idClient)) {
-			throw new EntityNotFoundException("client.not_found");
-		}
-	}
-
-	private void existsByCpf(String cpf) {
-		if (clientRepository.existsByCpf(cpf)) {
-			throw new EntityAlreadyExistsException("user.cpf.unique");
-		}
+	public Client findEntityById(Long idClient) {
+		return clientRepository.findByIdAndDeletedIsFalse(idClient)
+				.orElseThrow(() -> new EntityNotFoundException("client.not_found"));
 	}
 
 	public ClientDto create(ClientDto clientDto) {
-		existsByCpf(clientDto.getCpf());
-		return clientMapper.toDto(clientRepository.save(clientMapper.toEntity(clientDto)));
+		clientDto.setId(null);
+		return saveDto(clientDto);
 	}
 
 	public ClientDto update(ClientDto clientDto) {
-		existsById(clientDto.getId());
-		if (!StringUtils.equals(clientDto.getCpf(), clientRepository.findCpfById(clientDto.getId()))) {
-			existsByCpf(clientDto.getCpf());
-		}
-		return clientMapper.toDto(clientRepository.save(clientMapper.toEntity(clientDto)));
+		findDtoById(clientDto.getId());
+		return saveDto(clientDto);
 	}
 
 	public void deleteById(Long idClient) {
-		existsById(idClient);
-		clientRepository.deleteById(idClient);
+		Client entity = findEntityById(idClient);
+		entity.setDeleted(Boolean.TRUE);
+		saveEntity(entity);
 	}
 
+	private ClientDto saveDto(ClientDto dto) {
+		return clientMapper.toDto(saveEntity(clientMapper.toEntity(dto)));
+	}
+
+	private Client saveEntity(Client entity) {
+		if (clientRepository.existsDuplicateCpf(entity.getCpf(), entity.getId())) {
+			throw new EntityAlreadyExistsException("user.cpf.unique");
+		}
+
+		return clientRepository.save(entity);
+	}
 }
