@@ -37,6 +37,9 @@ public class Client implements Serializable {
 	@Column(name = "cpf", nullable = false)
 	private String cpf;
 
+	@Column(name = "deleted", nullable = false)
+	private Boolean deleted = Boolean.FALSE;
+
 	public String getUniqueName() {
 		return String.format("%s - %s", this.getName(), FormatUtils.formatTelephone(this.getTelephone()));
 	}
