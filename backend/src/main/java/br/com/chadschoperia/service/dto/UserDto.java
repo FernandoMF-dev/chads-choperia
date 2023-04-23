@@ -5,12 +5,14 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class UserDto implements Serializable {
 
 	private Long id;
@@ -37,4 +39,12 @@ public class UserDto implements Serializable {
 
 	private String roleName;
 
+	public UserDto(Long id, String username, String password, String email, Long idRole, String roleName) {
+		this.id = id;
+		this.username = username;
+		this.password = password;
+		this.email = email;
+		this.idRole = idRole;
+		this.roleName = roleName;
+	}
 }
