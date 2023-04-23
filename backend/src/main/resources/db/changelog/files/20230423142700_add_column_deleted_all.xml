@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+		xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.17.xsd">
+
+	<changeSet id="20230423142700-1" author="Fernando Martins Ferreira">
+		<addColumn tableName="client">
+			<column name="deleted" type="boolean" defaultValueBoolean="false">
+				<constraints nullable="false"/>
+			</column>
+		</addColumn>
+
+		<rollback>
+			<dropColumn tableName="client" columnName="deleted"/>
+		</rollback>
+	</changeSet>
+
+	<changeSet id="20230423142700-2" author="Fernando Martins Ferreira">
+		<addColumn tableName="beer">
+			<column name="deleted" type="boolean" defaultValueBoolean="false">
+				<constraints nullable="false"/>
+			</column>
+		</addColumn>
+
+		<rollback>
+			<dropColumn tableName="beer" columnName="deleted"/>
+		</rollback>
+	</changeSet>
+
+	<changeSet id="20230423142700-3" author="Fernando Martins Ferreira">
+		<addColumn tableName="products">
+			<column name="deleted" type="boolean" defaultValueBoolean="false">
+				<constraints nullable="false"/>
+			</column>
+		</addColumn>
+
+		<rollback>
+			<dropColumn tableName="products" columnName="deleted"/>
+		</rollback>
+	</changeSet>
+
+	<changeSet id="20230423142700-4" author="Fernando Martins Ferreira">
+		<addColumn tableName="role">
+			<column name="deleted" type="boolean" defaultValueBoolean="false">
+				<constraints nullable="false"/>
+			</column>
+		</addColumn>
+
+		<rollback>
+			<dropColumn tableName="role" columnName="deleted"/>
+		</rollback>
+	</changeSet>
+
+	<changeSet id="20230423142700-5" author="Fernando Martins Ferreira">
+		<addColumn tableName="users">
+			<column name="deleted" type="boolean" defaultValueBoolean="false">
+				<constraints nullable="false"/>
+			</column>
+		</addColumn>
+
+		<rollback>
+			<dropColumn tableName="users" columnName="deleted"/>
+		</rollback>
+	</changeSet>
+</databaseChangeLog>
