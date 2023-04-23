@@ -41,23 +41,22 @@ public class BeerService {
 	private final MessageSource messageSource;
 	private final ApplicationEventPublisher applicationEventPublisher;
 
-	public List<ViewBeerDto> findAll() {
-		return viewBeerMapper.toDto(beerRepository.findAll());
+	public List<ViewBeerDto> findAllView() {
+		return beerRepository.findAllView();
 	}
 
-	public List<BeerDto> findAllComplete() {
-		return beerMapper.toDto(beerRepository.findAll());
+	public List<BeerDto> findAllDto() {
+		return beerRepository.findAllDto();
 	}
 
-	public BeerDto findById(Long idBeer) {
-		return beerMapper.toDto(beerRepository.findById(idBeer)
-				.orElseThrow(() -> new EntityNotFoundException("beer.not_found")));
+	public BeerDto findDtoById(Long idBeer) {
+		return beerRepository.findDtoById(idBeer)
+				.orElseThrow(() -> new EntityNotFoundException("beer.not_found"));
 	}
 
-	private void existsById(Long idBeer) {
-		if (!beerRepository.existsById(idBeer)) {
-			throw new EntityNotFoundException("beer.not_found");
-		}
+	public Beer findEntityById(Long idBeer) {
+		return beerRepository.findById(idBeer)
+				.orElseThrow(() -> new EntityNotFoundException("beer.not_found"));
 	}
 
 	private void validatePrices(BeerDto beerDto) {
@@ -69,40 +68,45 @@ public class BeerService {
 	public BeerDto create(BeerDto beerDto) {
 		validatePrices(beerDto);
 		beerDto.setStock(0D);
-		return beerMapper.toDto(beerRepository.save(beerMapper.toEntity(beerDto)));
+		return saveDto(beerDto);
 	}
 
 	public BeerDto update(BeerDto beerDto) {
-		existsById(beerDto.getId());
+		BeerDto originalDto = findDtoById(beerDto.getId());
 		validatePrices(beerDto);
-		beerDto.setStock(beerRepository.findStockById(beerDto.getId()));
-		return beerMapper.toDto(beerRepository.save(beerMapper.toEntity(beerDto)));
+		beerDto.setStock(originalDto.getStock());
+		return saveDto(beerDto);
 	}
 
 	public List<BeerDto> restock(List<ProductStockDto> dtos) {
 		List<Long> productIds = dtos.stream().map(ProductStockDto::getProductId).collect(Collectors.toList());
 		List<Beer> beers = beerRepository.findAllById(productIds);
-		beers.forEach(product -> {
-			Optional<ProductStockDto> stockDto = dtos.stream().filter(dto -> dto.getProductId().equals(product.getId())).findAny();
-			if (stockDto.isEmpty()) {
-				throw new EntityNotFoundException(HttpStatus.BAD_REQUEST, "beer.not_found.restock");
-			}
-			product.addStock(stockDto.get().getAmount() * STOCK_BASE_MULTIPLIER);
-		});
 
-		return beerMapper.toDto(beerRepository.saveAll(beers));
+		beers.forEach(product -> addStockFromSource(product, dtos));
+
+		return saveDto(beers);
 	}
 
+
 	public void pour(PourBeerDTO dto) {
-		BeerDto beer = findById(dto.getBeer());
+		BeerDto beer = findDtoById(dto.getBeer());
 		publishPourExpense(dto, beer);
 		beer.subtractStock(POUR_QUANTITY);
-		beerRepository.save(beerMapper.toEntity(beer));
+		saveDto(beer);
 	}
 
 	public void deleteById(Long idBeer) {
-		existsById(idBeer);
-		beerRepository.deleteById(idBeer);
+		Beer entity = findEntityById(idBeer);
+		entity.setDeleted(Boolean.TRUE);
+		saveEntity(entity);
+	}
+
+	private void addStockFromSource(Beer target, List<ProductStockDto> source) {
+		Optional<ProductStockDto> stockDto = source.stream().filter(dto -> dto.getProductId().equals(target.getId())).findAny();
+		if (stockDto.isEmpty()) {
+			throw new EntityNotFoundException(HttpStatus.BAD_REQUEST, "beer.not_found.restock");
+		}
+		target.addStock(stockDto.get().getAmount() * STOCK_BASE_MULTIPLIER);
 	}
 
 	private void publishPourExpense(PourBeerDTO dto, BeerDto beer) {
@@ -115,4 +119,19 @@ public class BeerService {
 		}
 	}
 
+	private BeerDto saveDto(BeerDto beer) {
+		return beerMapper.toDto(saveEntity(beerMapper.toEntity(beer)));
+	}
+
+	private List<BeerDto> saveDto(List<Beer> beers) {
+		return beerMapper.toDto(saveEntity(beers));
+	}
+
+	private Beer saveEntity(Beer entity) {
+		return beerRepository.save(entity);
+	}
+
+	private List<Beer> saveEntity(List<Beer> beers) {
+		return beerRepository.saveAll(beers);
+	}
 }
