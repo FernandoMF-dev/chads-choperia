@@ -14,7 +14,7 @@ import lombok.Setter;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "products")
+@Table(name = "product")
 @Getter
 @Setter
 public class Product implements Serializable {
