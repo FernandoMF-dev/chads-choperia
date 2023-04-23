@@ -86,7 +86,6 @@ public class BeerService {
 		return saveDto(beers);
 	}
 
-
 	public void pour(PourBeerDTO dto) {
 		BeerDto beer = findDtoById(dto.getBeer());
 		publishPourExpense(dto, beer);
