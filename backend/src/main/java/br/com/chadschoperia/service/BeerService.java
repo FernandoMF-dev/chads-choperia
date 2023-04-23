@@ -11,7 +11,6 @@ import br.com.chadschoperia.service.dto.ProductStockDto;
 import br.com.chadschoperia.service.dto.ViewBeerDto;
 import br.com.chadschoperia.service.events.AddClientCardExpenseEvent;
 import br.com.chadschoperia.service.mapper.BeerMapper;
-import br.com.chadschoperia.service.mapper.ViewBeerMapper;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
@@ -34,7 +33,6 @@ public class BeerService {
 	private final BeerRepository beerRepository;
 
 	private final BeerMapper beerMapper;
-	private final ViewBeerMapper viewBeerMapper;
 
 	private final ClientCardService clientCardService;
 
@@ -55,7 +53,7 @@ public class BeerService {
 	}
 
 	public Beer findEntityById(Long idBeer) {
-		return beerRepository.findById(idBeer)
+		return beerRepository.findByIdAndDeletedIsFalse(idBeer)
 				.orElseThrow(() -> new EntityNotFoundException("beer.not_found"));
 	}
 
@@ -67,6 +65,7 @@ public class BeerService {
 
 	public BeerDto create(BeerDto beerDto) {
 		validatePrices(beerDto);
+		beerDto.setId(null);
 		beerDto.setStock(0D);
 		return saveDto(beerDto);
 	}

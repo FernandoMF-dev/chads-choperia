@@ -33,10 +33,6 @@ public interface BeerRepository extends JpaRepository<Beer, Long> {
 			" AND b.deleted = false ")
 	Optional<BeerDto> findDtoById(@Param("id") Long id);
 
-	@Query("SELECT b.stock " +
-			" FROM Beer b " +
-			" WHERE b.id = :idBeer " +
-			" AND b.deleted = FALSE ")
-	Double findStockById(@Param("idBeer") Long idBeer);
+	Optional<Beer> findByIdAndDeletedIsFalse(Long id);
 
 }
