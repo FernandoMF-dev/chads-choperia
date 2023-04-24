@@ -8,7 +8,7 @@ import { FoodWeighingModel } from "../models/food-weighing.model";
 	providedIn: "root",
 })
 export class foodWeighingService {
-	private readonly apiUrl: string = `${environment.BASE_API}/self-service/food-weighing`;
+	private readonly apiUrl: string = `${environment.BASE_API}/self-service`;
 
 	constructor(private readonly http: HttpClient) {}
 
