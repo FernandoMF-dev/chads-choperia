@@ -1,7 +1,7 @@
 package br.com.chadschoperia.service;
 
 import br.com.chadschoperia.domain.entities.SelfService;
-import br.com.chadschoperia.repository.SelfServiceRepository;
+import br.com.chadschoperia.repository.SelfserviceRepository;
 import br.com.chadschoperia.service.dto.SelfServiceDto;
 import br.com.chadschoperia.service.events.AddClientCardExpenseEvent;
 import jakarta.transaction.Transactional;
@@ -14,11 +14,11 @@ import java.time.LocalDateTime;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class SelfServiceService {
+public class SelfserviceService {
 
 	private final ApplicationEventPublisher applicationEventPublisher;
 
-	private final SelfServiceRepository repository;
+	private final SelfserviceRepository repository;
 
 	private final ClientCardService clientCardService;
 	public static final String SELF_SERVICE_DESCRIPTION = "Self-service";
@@ -38,7 +38,7 @@ public class SelfServiceService {
 	}
 
 	public double getPricePerKg(){
-		return repository.getAllOrderByDateTime().get(0).getPricePerKg();
+		return repository.findFirstByOrderByIdDesc().getPricePerKg();
 	}
 
 }

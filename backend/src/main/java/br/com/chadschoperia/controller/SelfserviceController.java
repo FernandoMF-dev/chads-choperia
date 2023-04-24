@@ -1,36 +1,25 @@
 package br.com.chadschoperia.controller;
 
-import br.com.chadschoperia.service.BeerService;
-import br.com.chadschoperia.service.SelfServiceService;
-import br.com.chadschoperia.service.dto.BeerDto;
-import br.com.chadschoperia.service.dto.PourBeerDTO;
-import br.com.chadschoperia.service.dto.ProductStockDto;
+import br.com.chadschoperia.service.SelfserviceService;
 import br.com.chadschoperia.service.dto.SelfServiceDto;
-import br.com.chadschoperia.service.dto.ViewBeerDto;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/self-service")
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RequiredArgsConstructor
-public class SelfServiceController {
+public class SelfserviceController {
 
-	private final SelfServiceService service;
+	private final SelfserviceService service;
 
 	@PostMapping
 	public ResponseEntity<SelfServiceDto> create(@RequestBody SelfServiceDto dto) {
