@@ -14,12 +14,15 @@ import { RestockNotificationFormComponent } from './components/restock-notificat
 import { RestockNotificationListComponent } from './pages/restock-notification-list/restock-notification-list.component';
 import { SelfserviceRoutingModule } from './selfservice-routing.module';
 import { RestockNotificationService } from './services/restock-notification.service';
+import { FoodWeighingComponent } from './pages/food-weighing/food-weighing.component';
+import { InputNumberModule } from 'primeng/inputnumber';
 
 
 @NgModule({
 	declarations: [
 		RestockNotificationListComponent,
-		RestockNotificationFormComponent
+		RestockNotificationFormComponent,
+  FoodWeighingComponent
 	],
 	imports: [
 		SelfserviceRoutingModule,
@@ -30,6 +33,7 @@ import { RestockNotificationService } from './services/restock-notification.serv
 		DialogModule,
 		ReactiveFormsModule,
 		InputTextModule,
+		InputNumberModule,
 		RippleModule,
 		ToastModule,
 		ToolbarModule

@@ -1,0 +1,58 @@
+<div class="grid">
+	<div class="col-12">
+		<form [formGroup]="form" (ngSubmit)="onSubmit()">
+			<div class="card px-6 py-6">
+				<p-toast></p-toast>
+				<p-toolbar styleClass="mb-4">
+					<div class="p-toolbar-group-start">
+						<h5>Self-Service</h5>
+					</div>
+
+					<div class="p-toolbar-group-end">
+						<button
+							pButton
+							type="submit"
+							label="Adicionar ao Cartão"
+							[disabled]="!form.valid"
+							class="p-button-success p-button-raised"
+						>
+							<em
+								class="pi p-button-icon p-button-icon-left material-symbols-outlined on-data-content"
+								aria-hidden="true"
+								data-material="add_card"
+							></em>
+						</button>
+					</div>
+				</p-toolbar>
+
+				<div class="col-12 p-fluid p-formgrid grid">
+					<div class="col-6 field">
+						<label htmlFor="weight"> Peso </label>
+						<p-inputNumber
+							formControlName="weight"
+							inputId="weight"
+							mode="decimal"
+							[minFractionDigits]="0"
+							[maxFractionDigits]="3"
+						></p-inputNumber>
+						<small id="weight-help" class="p-error block" *ngIf="!isFieldValid('weight')">Valor obrigatório.</small>
+					</div>
+
+					<div class="col-6 field">
+						<label htmlFor="cardId">Cartão</label>
+						<input
+							id="cardId"
+							type="text"
+							pInputText
+							formControlName="cardId"
+							[minlength]="10"
+							[maxlength]="10"
+							placeholder="0000000000"
+						/>
+						<small id="cardId-help" class="p-error block" *ngIf="!isFieldValid('cardId')">Valor obrigatório.</small>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>

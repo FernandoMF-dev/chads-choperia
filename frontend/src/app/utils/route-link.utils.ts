@@ -9,6 +9,7 @@ export class RouteLinkUtils {
 	public static readonly EXIT = 'saida';
 	public static readonly PAYMENT = 'pagamento';
 	public static readonly RESTOCK = 'restock';
+	public static readonly FOOD_WEIGHING = 'food-weighing';
 
 	public static readonly NOT_FOUND = 'notfound';
 }
