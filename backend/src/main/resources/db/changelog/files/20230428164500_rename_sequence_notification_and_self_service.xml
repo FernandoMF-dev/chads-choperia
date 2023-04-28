@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+		xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.17.xsd">
+
+	<changeSet id="20230428164500-1" author="Fernando Martins Ferreira">
+		<renameSequence oldSequenceName="sequence_notification" newSequenceName="sequence_selfservice_notification"/>
+
+		<rollback>
+			<renameSequence oldSequenceName="sequence_selfservice_notification" newSequenceName="sequence_notification"/>
+		</rollback>
+	</changeSet>
+
+	<changeSet id="20230428164500-2" author="Fernando Martins Ferreira">
+		<renameSequence oldSequenceName="sequence_self_service" newSequenceName="sequence_selfservice_purchase"/>
+
+		<rollback>
+			<renameSequence oldSequenceName="sequence_selfservice_purchase" newSequenceName="sequence_self_service"/>
+		</rollback>
+	</changeSet>
+</databaseChangeLog>
