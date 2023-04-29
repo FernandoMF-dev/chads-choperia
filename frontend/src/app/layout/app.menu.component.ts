@@ -85,7 +85,11 @@ export class AppMenuComponent implements OnInit {
 				label: 'Área do cliente',
 				items: [
 					{ label: 'Chopes', material: 'sports_bar', routerLink: [RouteLinkUtils.BEER, RouteLinkUtils.EXIT] },
-					{ label: 'Self-Service', material: 'restaurant', routerLink: [RouteLinkUtils.SELF_SERVICE ,RouteLinkUtils.FOOD_WEIGHING] }
+					{
+						label: 'Self-Service',
+						material: 'restaurant',
+						routerLink: [RouteLinkUtils.SELF_SERVICE, RouteLinkUtils.FOOD_WEIGHING]
+					}
 				]
 			}
 		];
