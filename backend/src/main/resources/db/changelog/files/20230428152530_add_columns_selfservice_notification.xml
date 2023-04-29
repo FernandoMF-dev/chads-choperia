@@ -6,17 +6,37 @@
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.17.xsd">
 
 	<changeSet id="20230428152530-1" author="Fernando Martins Ferreira">
-		<addColumn tableName="selfservice_notification">
-			<column name="status" type="varchar(50)" defaultValue="OPEN">
-				<constraints nullable="false"/>
-			</column>
-
+		<addColumn tableName="restock_notification">
 			<column name="close_date" type="timestamp"/>
 		</addColumn>
 
 		<rollback>
-			<dropColumn tableName="selfservice_notification" columnName="status"/>
-			<dropColumn tableName="selfservice_notification" columnName="close_date"/>
+			<dropColumn tableName="restock_notification" columnName="close_date"/>
 		</rollback>
+	</changeSet>
+
+	<changeSet id="20230428152530-2" author="Fernando Martins Ferreira">
+		<addColumn tableName="restock_notification">
+			<column name="status" type="varchar(50)" defaultValue="OPEN">
+				<constraints nullable="false"/>
+			</column>
+		</addColumn>
+
+		<update tableName="restock_notification">
+			<column name="status" type="VARCHAR(50)" value="REPLACED"/>
+
+			<where>:name=:value</where>
+			<whereParams>
+				<param name="restocked_item" valueBoolean="TRUE"/>
+			</whereParams>
+		</update>
+
+		<rollback>
+			<dropColumn tableName="restock_notification" columnName="status"/>
+		</rollback>
+	</changeSet>
+
+	<changeSet id="20230428152530-3" author="Fernando Martins Ferreira">
+		<dropColumn tableName="restock_notification" columnName="restocked_item"/>
 	</changeSet>
 </databaseChangeLog>

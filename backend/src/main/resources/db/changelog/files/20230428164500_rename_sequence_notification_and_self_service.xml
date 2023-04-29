@@ -6,10 +6,10 @@
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.17.xsd">
 
 	<changeSet id="20230428164500-1" author="Fernando Martins Ferreira">
-		<renameSequence oldSequenceName="sequence_notification" newSequenceName="sequence_selfservice_notification"/>
+		<renameSequence oldSequenceName="sequence_notification" newSequenceName="sequence_restock_notification"/>
 
 		<rollback>
-			<renameSequence oldSequenceName="sequence_selfservice_notification" newSequenceName="sequence_notification"/>
+			<renameSequence oldSequenceName="sequence_restock_notification" newSequenceName="sequence_notification"/>
 		</rollback>
 	</changeSet>
 

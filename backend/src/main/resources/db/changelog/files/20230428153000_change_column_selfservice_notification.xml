@@ -6,38 +6,38 @@
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.17.xsd">
 
 	<changeSet id="20230428153000-1" author="Fernando Martins Ferreira">
-		<addColumn tableName="selfservice_notification">
+		<addColumn tableName="restock_notification">
 			<column name="open_date" type="timestamp"/>
 		</addColumn>
 
 		<rollback>
-			<dropColumn tableName="selfservice_notification" columnName="open_date"/>
+			<dropColumn tableName="restock_notification" columnName="open_date"/>
 		</rollback>
 	</changeSet>
 
 	<changeSet id="20230428153000-2" author="Fernando Martins Ferreira">
 		<sql>
-			UPDATE selfservice_notification
+			UPDATE restock_notification
 			SET open_date = notification_date
 			WHERE open_date IS NULL;
 		</sql>
 
 		<rollback>
 			<sql>
-				UPDATE selfservice_notification SET open_date = NULL WHERE open_date IS NOT NULL;
+				UPDATE restock_notification SET open_date = NULL WHERE open_date IS NOT NULL;
 			</sql>
 		</rollback>
 	</changeSet>
 
 	<changeSet id="20230428153000-3" author="Fernando Martins Ferreira">
-		<dropColumn tableName="selfservice_notification" columnName="notification_date"/>
+		<dropColumn tableName="restock_notification" columnName="notification_date"/>
 	</changeSet>
 
 	<changeSet id="20230428153000-4" author="Fernando Martins Ferreira">
-		<addNotNullConstraint tableName="selfservice_notification" columnName="open_date"/>
+		<addNotNullConstraint tableName="restock_notification" columnName="open_date"/>
 
 		<rollback>
-			<dropNotNullConstraint tableName="selfservice_notification" columnName="open_date"/>
+			<dropNotNullConstraint tableName="restock_notification" columnName="open_date"/>
 		</rollback>
 	</changeSet>
 </databaseChangeLog>
