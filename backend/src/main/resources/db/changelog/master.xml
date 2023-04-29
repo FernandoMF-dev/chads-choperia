@@ -19,5 +19,6 @@
 	<include file="/db/changelog/files/20230428152530_add_columns_restock_notification.xml"/>
 	<include file="/db/changelog/files/20230428153000_change_column_restock_notification.xml"/>
 	<include file="db/changelog/files/20230428164500_rename_sequence_notification_and_self_service.xml"/>
+	<include file="db/changelog/files/20230429164000_add_column_selfservice_settings.xml"/>
 
 </databaseChangeLog>

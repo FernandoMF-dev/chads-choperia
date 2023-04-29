@@ -26,6 +26,9 @@ public class SelfserviceSettings {
 	@Column(name = "price_per_kg", nullable = false)
 	private Double pricePerKg = 0.0;
 
+	@Column(name = "price_base", nullable = false)
+	private Double priceBase = 0.0;
+
 	@Column(name = "date_time")
 	private LocalDateTime dateTime;
 
