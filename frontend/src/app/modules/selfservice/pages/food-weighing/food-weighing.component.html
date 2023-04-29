@@ -9,18 +9,10 @@
 					</div>
 
 					<div class="p-toolbar-group-end">
-						<button
-							pButton
-							type="submit"
-							label="Adicionar ao Cartão"
-							[disabled]="!form.valid"
-							class="p-button-success p-button-raised"
-						>
-							<em
-								class="pi p-button-icon p-button-icon-left material-symbols-outlined on-data-content"
-								aria-hidden="true"
-								data-material="add_card"
-							></em>
+						<button pButton type="submit" label="Adicionar ao Cartão" [disabled]="!form.valid"
+								class="p-button-success p-button-raised">
+							<em class="pi p-button-icon p-button-icon-left material-symbols-outlined on-data-content"
+								aria-hidden="true" data-material="add_card"></em>
 						</button>
 					</div>
 				</p-toolbar>
@@ -28,27 +20,15 @@
 				<div class="col-12 p-fluid p-formgrid grid">
 					<div class="col-6 field">
 						<label htmlFor="weight"> Peso </label>
-						<p-inputNumber
-							formControlName="weight"
-							inputId="weight"
-							mode="decimal"
-							[minFractionDigits]="0"
-							[maxFractionDigits]="3"
-						></p-inputNumber>
+						<p-inputNumber formControlName="weight" inputId="weight" mode="decimal"
+									   [minFractionDigits]="0" [maxFractionDigits]="3"></p-inputNumber>
 						<small id="weight-help" class="p-error block" *ngIf="!isFieldValid('weight')">Valor obrigatório.</small>
 					</div>
 
 					<div class="col-6 field">
 						<label htmlFor="cardId">Cartão</label>
-						<input
-							id="cardId"
-							type="text"
-							pInputText
-							formControlName="cardId"
-							[minlength]="10"
-							[maxlength]="10"
-							placeholder="0000000000"
-						/>
+						<input id="cardId" type="text" pInputText formControlName="cardId" placeholder="0000000000"
+							   [minlength]="10" [maxlength]="10">
 						<small id="cardId-help" class="p-error block" *ngIf="!isFieldValid('cardId')">Valor obrigatório.</small>
 					</div>
 				</div>
