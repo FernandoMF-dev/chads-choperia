@@ -10,6 +10,6 @@
 	</changeSet>
 
 	<changeSet id="20230428151730-2" author="Fernando Martins Ferreira">
-		<renameTable oldTableName="self_service" newTableName="selfservice_purchase"/>
+		<renameTable oldTableName="self_service" newTableName="selfservice_settings"/>
 	</changeSet>
 </databaseChangeLog>

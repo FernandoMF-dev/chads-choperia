@@ -1,8 +1,8 @@
 package br.com.chadschoperia.service;
 
-import br.com.chadschoperia.domain.entities.SelfservicePurchase;
+import br.com.chadschoperia.domain.entities.SelfserviceSettings;
 import br.com.chadschoperia.exceptions.EntityNotFoundException;
-import br.com.chadschoperia.repository.SelfservicePurchaseRepository;
+import br.com.chadschoperia.repository.SelfserviceSettingsRepository;
 import br.com.chadschoperia.service.dto.ClientCardDto;
 import br.com.chadschoperia.service.dto.SelfservicePurchaseDto;
 import br.com.chadschoperia.service.events.AddClientCardExpenseEvent;
@@ -19,9 +19,9 @@ import java.util.Locale;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class SelfservicePurchaseService {
+public class SelfserviceService {
 
-	private final SelfservicePurchaseRepository repository;
+	private final SelfserviceSettingsRepository repository;
 
 	private final ClientCardService clientCardService;
 
@@ -31,7 +31,7 @@ public class SelfservicePurchaseService {
 	public SelfservicePurchaseDto insertExpense(SelfservicePurchaseDto dto) {
 		try {
 			ClientCardDto card = clientCardService.findOpenByRfid(dto.getCardId().toString());
-			double value = dto.getWeight() * getPricePerKg();
+			double value = dto.getWeight() * getCurrentSettings().getPricePerKg();
 			String formatedValue = String.format("%02.3f", value);
 			String description = messageSource.getMessage("selfservice.purchase.description", new String[]{formatedValue}, Locale.getDefault());
 			applicationEventPublisher.publishEvent(new AddClientCardExpenseEvent(card.getId(), value, description));
@@ -41,15 +41,15 @@ public class SelfservicePurchaseService {
 		}
 	}
 
-	public void insertPricePerKg(double pricePerKg) {
-		SelfservicePurchase entity = new SelfservicePurchase();
+	public void insertNewSettings(double pricePerKg) {
+		SelfserviceSettings entity = new SelfserviceSettings();
 		entity.setPricePerKg(pricePerKg);
 		entity.setDateTime(LocalDateTime.now());
 		repository.save(entity);
 	}
 
-	public double getPricePerKg() {
-		return repository.findFirstByOrderByIdDesc().getPricePerKg();
+	public SelfserviceSettings getCurrentSettings() {
+		return repository.findFirstByOrderByIdDesc();
 	}
 
 }

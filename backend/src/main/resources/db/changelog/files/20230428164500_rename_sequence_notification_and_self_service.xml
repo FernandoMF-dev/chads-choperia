@@ -14,10 +14,10 @@
 	</changeSet>
 
 	<changeSet id="20230428164500-2" author="Fernando Martins Ferreira">
-		<renameSequence oldSequenceName="sequence_self_service" newSequenceName="sequence_selfservice_purchase"/>
+		<renameSequence oldSequenceName="sequence_self_service" newSequenceName="sequence_selfservice_settings"/>
 
 		<rollback>
-			<renameSequence oldSequenceName="sequence_selfservice_purchase" newSequenceName="sequence_self_service"/>
+			<renameSequence oldSequenceName="sequence_selfservice_settings" newSequenceName="sequence_self_service"/>
 		</rollback>
 	</changeSet>
 </databaseChangeLog>

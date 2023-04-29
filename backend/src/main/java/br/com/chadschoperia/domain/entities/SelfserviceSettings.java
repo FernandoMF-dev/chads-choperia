@@ -13,13 +13,13 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "selfservice_purchase")
+@Table(name = "selfservice_settings")
 @Getter
 @Setter
-public class SelfservicePurchase {
+public class SelfserviceSettings {
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence_selfservice_purchase")
-	@SequenceGenerator(name = "sequence_selfservice_purchase", sequenceName = "sequence_selfservice_purchase", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence_selfservice_settings")
+	@SequenceGenerator(name = "sequence_selfservice_settings", sequenceName = "sequence_selfservice_settings", allocationSize = 1)
 	@Column(name = "id", nullable = false)
 	private Long id;
 
