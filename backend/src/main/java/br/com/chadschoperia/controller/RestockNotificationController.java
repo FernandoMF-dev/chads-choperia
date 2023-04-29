@@ -1,8 +1,8 @@
 package br.com.chadschoperia.controller;
 
 import br.com.chadschoperia.domain.enums.RestockNotificationStatusEnum;
-import br.com.chadschoperia.service.NotificationService;
-import br.com.chadschoperia.service.dto.NotificationDto;
+import br.com.chadschoperia.service.RestockNotificationService;
+import br.com.chadschoperia.service.dto.RestockNotificationDto;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.RequiredArgsConstructor;
@@ -23,25 +23,25 @@ import java.util.List;
 @RequestMapping("/api/self-service/restock-notification")
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RequiredArgsConstructor
-public class NotificationController {
+public class RestockNotificationController {
 
-	private final NotificationService notificationService;
+	private final RestockNotificationService notificationService;
 
 	@GetMapping
-	public ResponseEntity<List<NotificationDto>> findAllByCurrentDate() {
+	public ResponseEntity<List<RestockNotificationDto>> findAllByCurrentDate() {
 		return ResponseEntity.ok(notificationService.findAllByCurrentDateAndItemsNotReplaced());
 	}
 
 	@GetMapping("/{idNotification}")
-	public ResponseEntity<NotificationDto> findById(@PathVariable Long idNotification) {
+	public ResponseEntity<RestockNotificationDto> findById(@PathVariable Long idNotification) {
 		return ResponseEntity.ok(notificationService.findById(idNotification));
 	}
 
 	@PostMapping
-	public ResponseEntity<NotificationDto> create(@NotEmpty(message = "notification.item.not_empty")
-												  @Size(min = 3, message = "notification.item.min_size")
-												  @Size(max = 50, message = "notification.item.max_size")
-												  @RequestBody String replaceItemMessage) {
+	public ResponseEntity<RestockNotificationDto> create(@NotEmpty(message = "restock_notification.item.not_empty")
+														 @Size(min = 3, message = "restock_notification.item.min_size")
+														 @Size(max = 50, message = "restock_notification.item.max_size")
+														 @RequestBody String replaceItemMessage) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(notificationService.create(replaceItemMessage));
 	}
 
