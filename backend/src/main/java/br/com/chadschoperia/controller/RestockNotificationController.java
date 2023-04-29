@@ -28,8 +28,8 @@ public class RestockNotificationController {
 	private final RestockNotificationService notificationService;
 
 	@GetMapping
-	public ResponseEntity<List<RestockNotificationDto>> findAllByCurrentDate() {
-		return ResponseEntity.ok(notificationService.findAllByCurrentDateAndItemsNotReplaced());
+	public ResponseEntity<List<RestockNotificationDto>> findAllOpen() {
+		return ResponseEntity.ok(notificationService.findAllOpen());
 	}
 
 	@GetMapping("/{idNotification}")

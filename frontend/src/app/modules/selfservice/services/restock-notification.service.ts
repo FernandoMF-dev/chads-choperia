@@ -22,6 +22,10 @@ export class RestockNotificationService {
 	}
 
 	public replaceStock(notificationId: number): Observable<void> {
-		return this.http.patch<void>(`${ this.apiUrl }/replace-stock/${ notificationId }`, null);
+		return this.http.patch<void>(`${ this.apiUrl }/repor/${ notificationId }`, null);
+	}
+
+	public cancel(notificationId: number): Observable<void> {
+		return this.http.patch<void>(`${ this.apiUrl }/cancelar/${ notificationId }`, null);
 	}
 }

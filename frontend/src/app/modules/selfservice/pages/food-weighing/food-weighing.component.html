@@ -26,10 +26,10 @@
 					</div>
 
 					<div class="col-6 field">
-						<label htmlFor="cardId">Cartão</label>
-						<input id="cardId" type="text" pInputText formControlName="cardId" placeholder="0000000000"
+						<label htmlFor="card-rfid">Cartão</label>
+						<input id="card-rfid" type="text" pInputText formControlName="cardRfid" placeholder="0000000000"
 							   [minlength]="10" [maxlength]="10">
-						<small id="cardId-help" class="p-error block" *ngIf="!isFieldValid('cardId')">Valor obrigatório.</small>
+						<small id="card-rfid-help" class="p-error block" *ngIf="!isFieldValid('cardId')">Valor obrigatório.</small>
 					</div>
 				</div>
 			</div>

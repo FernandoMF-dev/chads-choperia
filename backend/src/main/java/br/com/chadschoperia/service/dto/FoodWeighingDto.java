@@ -9,7 +9,10 @@ import lombok.Setter;
 @NoArgsConstructor
 public class FoodWeighingDto {
 
-	private Long cardId;
+	private String cardRfid;
 	private Double weight = 0.0;
 
+	public String getFormatedWeight() {
+		return String.format("%02.3f", this.getWeight());
+	}
 }

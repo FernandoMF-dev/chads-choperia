@@ -3,6 +3,8 @@ package br.com.chadschoperia.domain.entities;
 import br.com.chadschoperia.domain.enums.RestockNotificationStatusEnum;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -36,6 +38,7 @@ public class RestockNotification implements Serializable {
 	private LocalDateTime closeDate;
 
 	@Column(name = "status", nullable = false)
+	@Enumerated(EnumType.STRING)
 	private RestockNotificationStatusEnum status = RestockNotificationStatusEnum.OPEN;
 
 }

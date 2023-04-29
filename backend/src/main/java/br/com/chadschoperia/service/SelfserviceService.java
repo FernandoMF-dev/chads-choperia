@@ -34,11 +34,10 @@ public class SelfserviceService {
 
 	public FoodWeighingDto insertExpense(FoodWeighingDto dto) {
 		try {
-			ClientCardDto card = clientCardService.findOpenByRfid(dto.getCardId().toString());
+			ClientCardDto card = clientCardService.findOpenByRfid(dto.getCardRfid());
 			SelfserviceSettingsDto settings = getCurrentSettings();
 			double value = calculateFinalValue(dto, settings);
-			String formatedValue = String.format("%02.3f", value);
-			String description = messageSource.getMessage("selfservice.purchase.description", new String[]{formatedValue}, Locale.getDefault());
+			String description = messageSource.getMessage("selfservice.purchase.description", new String[]{dto.getFormatedWeight()}, Locale.getDefault());
 			applicationEventPublisher.publishEvent(new AddClientCardExpenseEvent(card.getId(), value, description));
 			return dto;
 		} catch (EntityNotFoundException ex) {

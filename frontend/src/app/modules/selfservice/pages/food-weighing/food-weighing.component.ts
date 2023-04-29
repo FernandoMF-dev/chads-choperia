@@ -16,7 +16,7 @@ export class FoodWeighingComponent {
 		private selfserviceService: SelfserviceService
 	) {
 		this.form = new FormGroup({
-			cardId: new FormControl('', [Validators.required]),
+			cardRfid: new FormControl('', [Validators.required]),
 			weight: new FormControl('', [Validators.required])
 		});
 	}

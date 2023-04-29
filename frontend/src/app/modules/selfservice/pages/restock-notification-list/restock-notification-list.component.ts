@@ -1,5 +1,5 @@
-import { Component, HostListener, OnInit } from '@angular/core';
-import { interval } from 'rxjs';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
+import { interval, Subscription } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 import { UtilsService } from '../../../../services/utils.service';
 import { RestockNotification } from '../../models/restock-notification.model';
@@ -10,7 +10,7 @@ import { RestockNotificationService } from '../../services/restock-notification.
 	templateUrl: './restock-notification-list.component.html',
 	styleUrls: ['./restock-notification-list.component.scss']
 })
-export class RestockNotificationListComponent implements OnInit {
+export class RestockNotificationListComponent implements OnInit, OnDestroy {
 
 	/**
 	 * Waiting time in milliseconds between each automatic data fetching.
@@ -25,6 +25,7 @@ export class RestockNotificationListComponent implements OnInit {
 	newRequestCreated: boolean = false;
 
 
+	private autoFetch: Subscription;
 	private _isLoading = false;
 
 	get isLoading(): boolean {
@@ -39,11 +40,15 @@ export class RestockNotificationListComponent implements OnInit {
 		private restockNotificationService: RestockNotificationService,
 		private utilsService: UtilsService
 	) {
-		this.autoFetchNotifications();
+		this.autoFetch = this.autoFetchNotifications();
 	}
 
 	ngOnInit(): void {
 		this.findAllNotifications();
+	}
+
+	ngOnDestroy(): void {
+		this.autoFetch.unsubscribe();
 	}
 
 	@HostListener('document:click')
@@ -89,8 +94,8 @@ export class RestockNotificationListComponent implements OnInit {
 		}
 	}
 
-	private autoFetchNotifications() {
-		interval(RestockNotificationListComponent.AUTOLOAD_DELAY)
+	private autoFetchNotifications(): Subscription {
+		return interval(RestockNotificationListComponent.AUTOLOAD_DELAY)
 			.subscribe(() => {
 				if (!this.viewNotificationForm) {
 					this.restockNotificationService.findAll()

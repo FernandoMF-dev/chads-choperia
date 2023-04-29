@@ -23,7 +23,7 @@ public class RestockNotificationService {
 
 	private final RestockNotificationMapper mapper;
 
-	public List<RestockNotificationDto> findAllByCurrentDateAndItemsNotReplaced() {
+	public List<RestockNotificationDto> findAllOpen() {
 		return repository.findAllDtoOpen();
 	}
 
