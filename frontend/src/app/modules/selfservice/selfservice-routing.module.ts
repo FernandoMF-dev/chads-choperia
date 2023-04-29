@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { RouteLinkUtils } from '../../utils/route-link.utils';
-import { RestockNotificationListComponent } from './pages/restock-notification-list/restock-notification-list.component';
 import { FoodWeighingComponent } from './pages/food-weighing/food-weighing.component';
+import { RestockNotificationListComponent } from './pages/restock-notification-list/restock-notification-list.component';
 
 const routes: Routes = [
 	{

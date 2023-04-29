@@ -5,6 +5,7 @@ import { AutoFocusModule } from 'primeng/autofocus';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
+import { InputMaskModule } from 'primeng/inputmask';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
 import { RippleModule } from 'primeng/ripple';
@@ -13,22 +14,21 @@ import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
 import { TooltipModule } from 'primeng/tooltip';
-import { InputMaskModule } from 'primeng/inputmask';
 
 
 import { BeerRoutingModule } from './beer-routing.module';
 import { BeerFormComponent } from './components/beer-form/beer-form.component';
 import { BeerListComponent } from './pages/beer-list/beer-list.component';
+import { BeerManageStockComponent } from './pages/beer-manage-stock/beer-manage-stock.component';
 import { BeerPourComponent } from './pages/beer-pour/beer-pour.component';
 import { BeerService } from './services/beer.service';
-import { BeerManageStockComponent } from './pages/beer-manage-stock/beer-manage-stock.component';
 
 
 @NgModule({
 	declarations: [
 		BeerListComponent,
 		BeerFormComponent,
-  		BeerManageStockComponent,
+		BeerManageStockComponent,
 		BeerPourComponent
 	],
 	imports: [

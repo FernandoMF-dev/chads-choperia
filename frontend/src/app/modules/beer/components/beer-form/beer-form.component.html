@@ -40,7 +40,7 @@
 
 					<input pInputText id="rfid" type="text" required [disabled]="isLoading"
 						   [ngClass]="{'ng-invalid ng-dirty': !isFieldValid('rfid')}"
-					       formControlName="rfid"/>
+						   formControlName="rfid"/>
 
 					<small id="rfid-help" class="p-error block" *ngIf="!isFieldValid('rfid')">
 						Campo obrigatório.

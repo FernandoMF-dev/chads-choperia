@@ -9,7 +9,7 @@ const routes: Routes = [
 	{ path: '', component: BeerListComponent },
 	{ path: RouteLinkUtils.ENTRANCE, component: BeerManageStockComponent },
 	{ path: RouteLinkUtils.EXIT, component: BeerPourComponent }
-]
+];
 
 
 @NgModule({
