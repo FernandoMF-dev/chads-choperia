@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class SelfservicePurchaseDto {
+public class FoodWeighingDto {
 
 	private Long cardId;
 	private Double weight = 0.0;

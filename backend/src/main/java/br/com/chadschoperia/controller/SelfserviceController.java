@@ -1,7 +1,7 @@
 package br.com.chadschoperia.controller;
 
 import br.com.chadschoperia.service.SelfserviceService;
-import br.com.chadschoperia.service.dto.SelfservicePurchaseDto;
+import br.com.chadschoperia.service.dto.FoodWeighingDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +22,7 @@ public class SelfserviceController {
 	private final SelfserviceService service;
 
 	@PostMapping("/purchase")
-	public ResponseEntity<SelfservicePurchaseDto> createPurchase(@RequestBody SelfservicePurchaseDto dto) {
+	public ResponseEntity<FoodWeighingDto> createPurchase(@RequestBody FoodWeighingDto dto) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(service.insertExpense(dto));
 	}
 

@@ -4,7 +4,7 @@ import br.com.chadschoperia.domain.entities.SelfserviceSettings;
 import br.com.chadschoperia.exceptions.EntityNotFoundException;
 import br.com.chadschoperia.repository.SelfserviceSettingsRepository;
 import br.com.chadschoperia.service.dto.ClientCardDto;
-import br.com.chadschoperia.service.dto.SelfservicePurchaseDto;
+import br.com.chadschoperia.service.dto.FoodWeighingDto;
 import br.com.chadschoperia.service.dto.SelfserviceSettingsDto;
 import br.com.chadschoperia.service.events.AddClientCardExpenseEvent;
 import br.com.chadschoperia.service.mapper.SelfserviceSettingsMapper;
@@ -32,7 +32,7 @@ public class SelfserviceService {
 	private final MessageSource messageSource;
 	private final ApplicationEventPublisher applicationEventPublisher;
 
-	public SelfservicePurchaseDto insertExpense(SelfservicePurchaseDto dto) {
+	public FoodWeighingDto insertExpense(FoodWeighingDto dto) {
 		try {
 			ClientCardDto card = clientCardService.findOpenByRfid(dto.getCardId().toString());
 			SelfserviceSettingsDto settings = getCurrentSettings();
@@ -57,7 +57,7 @@ public class SelfserviceService {
 		return selfserviceSettingsMapper.toDto(repository.findFirstByOrderByIdDesc());
 	}
 
-	private double calculateFinalValue(SelfservicePurchaseDto dto, SelfserviceSettingsDto settings) {
+	private double calculateFinalValue(FoodWeighingDto dto, SelfserviceSettingsDto settings) {
 		return dto.getWeight() * settings.getPricePerKg() + settings.getPriceBase();
 	}
 
