@@ -1,0 +1,7 @@
+h5 {
+	margin: 0;
+}
+
+.p-toolbar-group-end > *:not(:nth-last-child(1)) {
+	margin-right: 1rem;
+}

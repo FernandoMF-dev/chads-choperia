@@ -1,18 +1,18 @@
 package br.com.chadschoperia.service.dto;
 
-import br.com.chadschoperia.service.events.AddClientCardExpenseEvent;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
-
 @Getter
 @Setter
 @NoArgsConstructor
-public class SelfServiceDto {
+public class FoodWeighingDto {
 
-	private Long cardId;
+	private String cardRfid;
 	private Double weight = 0.0;
 
+	public String getFormatedWeight() {
+		return String.format("%02.3f", this.getWeight());
+	}
 }

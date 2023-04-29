@@ -24,6 +24,6 @@ export class BeerService extends CrudService<Beer> {
 	}
 
 	public pourBeer(pour: Pour): Observable<void> {
-		return this.http.put<void>(this.apiUrl + '/pour',pour);
+		return this.http.put<void>(this.apiUrl + '/pour', pour);
 	}
 }

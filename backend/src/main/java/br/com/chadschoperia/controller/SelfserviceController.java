@@ -1,14 +1,15 @@
 package br.com.chadschoperia.controller;
 
 import br.com.chadschoperia.service.SelfserviceService;
-import br.com.chadschoperia.service.dto.SelfServiceDto;
+import br.com.chadschoperia.service.dto.FoodWeighingDto;
+import br.com.chadschoperia.service.dto.SelfserviceSettingsDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,20 +22,19 @@ public class SelfserviceController {
 
 	private final SelfserviceService service;
 
-	@PostMapping
-	public ResponseEntity<SelfServiceDto> create(@RequestBody SelfServiceDto dto) {
+	@PostMapping("/purchase")
+	public ResponseEntity<FoodWeighingDto> createPurchase(@RequestBody FoodWeighingDto dto) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(service.insertExpense(dto));
 	}
 
-	@PatchMapping()
-	public ResponseEntity<Void> insert(@RequestBody Double pricePerKg) {
-		service.insertPricePerKg(pricePerKg);
-		return ResponseEntity.status(HttpStatus.CREATED).build();
+	@PutMapping("/settings")
+	public ResponseEntity<SelfserviceSettingsDto> changeSettings(@RequestBody SelfserviceSettingsDto dto) {
+		return ResponseEntity.status(HttpStatus.OK).body(service.insertNewSettings(dto));
 	}
 
-	@GetMapping("/get-price-per-kg")
-	public ResponseEntity<Double> getPricePerKg() {
-		return ResponseEntity.status(HttpStatus.CREATED).body(service.getPricePerKg());
+	@GetMapping("/settings")
+	public ResponseEntity<SelfserviceSettingsDto> getCurrentSetting() {
+		return ResponseEntity.status(HttpStatus.OK).body(service.getCurrentSettings());
 	}
 
 }
