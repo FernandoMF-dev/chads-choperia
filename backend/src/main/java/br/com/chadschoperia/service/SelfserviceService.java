@@ -45,11 +45,12 @@ public class SelfserviceService {
 		}
 	}
 
-	public void insertNewSettings(double pricePerKg) {
-		SelfserviceSettings entity = new SelfserviceSettings();
-		entity.setPricePerKg(pricePerKg);
+	public SelfserviceSettingsDto insertNewSettings(SelfserviceSettingsDto dto) {
+		SelfserviceSettings entity = selfserviceSettingsMapper.toEntity(dto);
+		entity.setId(null);
 		entity.setDateTime(LocalDateTime.now());
-		repository.save(entity);
+		entity = repository.save(entity);
+		return selfserviceSettingsMapper.toDto(entity);
 	}
 
 	public SelfserviceSettingsDto getCurrentSettings() {

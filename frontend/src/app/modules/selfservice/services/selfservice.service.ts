@@ -18,8 +18,8 @@ export class SelfserviceService {
 		return this.http.post<FoodWeighingModel>(`${ this.apiUrl }/purchase`, resource);
 	}
 
-	public changeSettings(resource: SelfserviceSettings): Observable<void> {
-		return this.http.put<void>(`${ this.apiUrl }/settings`, resource);
+	public changeSettings(settings: SelfserviceSettings): Observable<SelfserviceSettings> {
+		return this.http.put<SelfserviceSettings>(`${ this.apiUrl }/settings`, settings);
 	}
 
 	public getCurrentSetting(): Observable<SelfserviceSettings> {

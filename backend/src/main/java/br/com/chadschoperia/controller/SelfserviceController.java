@@ -2,6 +2,7 @@ package br.com.chadschoperia.controller;
 
 import br.com.chadschoperia.service.SelfserviceService;
 import br.com.chadschoperia.service.dto.FoodWeighingDto;
+import br.com.chadschoperia.service.dto.SelfserviceSettingsDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,14 +28,13 @@ public class SelfserviceController {
 	}
 
 	@PutMapping("/settings")
-	public ResponseEntity<Void> changeSettings(@RequestBody Double pricePerKg) {
-		service.insertNewSettings(pricePerKg);
-		return ResponseEntity.status(HttpStatus.OK).build();
+	public ResponseEntity<SelfserviceSettingsDto> changeSettings(@RequestBody SelfserviceSettingsDto dto) {
+		return ResponseEntity.status(HttpStatus.OK).body(service.insertNewSettings(dto));
 	}
 
 	@GetMapping("/settings")
-	public ResponseEntity<Double> getCurrentSetting() {
-		return ResponseEntity.status(HttpStatus.OK).body(service.getCurrentSettings().getPricePerKg());
+	public ResponseEntity<SelfserviceSettingsDto> getCurrentSetting() {
+		return ResponseEntity.status(HttpStatus.OK).body(service.getCurrentSettings());
 	}
 
 }

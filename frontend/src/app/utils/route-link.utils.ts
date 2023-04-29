@@ -7,6 +7,7 @@ export class RouteLinkUtils {
 	public static readonly SELF_SERVICE = 'self-service';
 	public static readonly ENTRANCE = 'entrada';
 	public static readonly EXIT = 'saida';
+	public static readonly SETTING = 'configuracao';
 	public static readonly PAYMENT = 'pagamento';
 	public static readonly RESTOCK = 'restock';
 	public static readonly FOOD_WEIGHING = 'food-weighing';
