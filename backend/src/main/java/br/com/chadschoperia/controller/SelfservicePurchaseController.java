@@ -1,7 +1,7 @@
 package br.com.chadschoperia.controller;
 
-import br.com.chadschoperia.service.SelfserviceService;
-import br.com.chadschoperia.service.dto.SelfServiceDto;
+import br.com.chadschoperia.service.SelfservicePurchaseService;
+import br.com.chadschoperia.service.dto.SelfservicePurchaseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,12 +17,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/self-service")
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RequiredArgsConstructor
-public class SelfserviceController {
+public class SelfservicePurchaseController {
 
-	private final SelfserviceService service;
+	private final SelfservicePurchaseService service;
 
 	@PostMapping
-	public ResponseEntity<SelfServiceDto> create(@RequestBody SelfServiceDto dto) {
+	public ResponseEntity<SelfservicePurchaseDto> create(@RequestBody SelfservicePurchaseDto dto) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(service.insertExpense(dto));
 	}
 
