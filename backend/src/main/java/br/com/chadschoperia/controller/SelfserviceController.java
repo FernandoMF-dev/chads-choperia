@@ -22,7 +22,7 @@ public class SelfserviceController {
 	private final SelfserviceService service;
 
 	@PostMapping("/purchase")
-	public ResponseEntity<SelfservicePurchaseDto> create(@RequestBody SelfservicePurchaseDto dto) {
+	public ResponseEntity<SelfservicePurchaseDto> createPurchase(@RequestBody SelfservicePurchaseDto dto) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(service.insertExpense(dto));
 	}
 
@@ -32,8 +32,8 @@ public class SelfserviceController {
 		return ResponseEntity.status(HttpStatus.OK).build();
 	}
 
-	@GetMapping("/price-per-kg")
-	public ResponseEntity<Double> getPricePerKg() {
+	@GetMapping("/settings")
+	public ResponseEntity<Double> getCurrentSetting() {
 		return ResponseEntity.status(HttpStatus.OK).body(service.getCurrentSettings().getPricePerKg());
 	}
 

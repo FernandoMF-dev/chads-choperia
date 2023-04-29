@@ -5,7 +5,9 @@ import br.com.chadschoperia.exceptions.EntityNotFoundException;
 import br.com.chadschoperia.repository.SelfserviceSettingsRepository;
 import br.com.chadschoperia.service.dto.ClientCardDto;
 import br.com.chadschoperia.service.dto.SelfservicePurchaseDto;
+import br.com.chadschoperia.service.dto.SelfserviceSettingsDto;
 import br.com.chadschoperia.service.events.AddClientCardExpenseEvent;
+import br.com.chadschoperia.service.mapper.SelfserviceSettingsMapper;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
@@ -23,6 +25,8 @@ public class SelfserviceService {
 
 	private final SelfserviceSettingsRepository repository;
 
+	private final SelfserviceSettingsMapper selfserviceSettingsMapper;
+
 	private final ClientCardService clientCardService;
 
 	private final MessageSource messageSource;
@@ -31,7 +35,8 @@ public class SelfserviceService {
 	public SelfservicePurchaseDto insertExpense(SelfservicePurchaseDto dto) {
 		try {
 			ClientCardDto card = clientCardService.findOpenByRfid(dto.getCardId().toString());
-			double value = dto.getWeight() * getCurrentSettings().getPricePerKg();
+			SelfserviceSettingsDto settings = getCurrentSettings();
+			double value = calculateFinalValue(dto, settings);
 			String formatedValue = String.format("%02.3f", value);
 			String description = messageSource.getMessage("selfservice.purchase.description", new String[]{formatedValue}, Locale.getDefault());
 			applicationEventPublisher.publishEvent(new AddClientCardExpenseEvent(card.getId(), value, description));
@@ -48,8 +53,12 @@ public class SelfserviceService {
 		repository.save(entity);
 	}
 
-	public SelfserviceSettings getCurrentSettings() {
-		return repository.findFirstByOrderByIdDesc();
+	public SelfserviceSettingsDto getCurrentSettings() {
+		return selfserviceSettingsMapper.toDto(repository.findFirstByOrderByIdDesc());
+	}
+
+	private double calculateFinalValue(SelfservicePurchaseDto dto, SelfserviceSettingsDto settings) {
+		return dto.getWeight() * settings.getPricePerKg() + settings.getPriceBase();
 	}
 
 }
