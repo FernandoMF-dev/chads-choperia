@@ -1,5 +1,6 @@
 package br.com.chadschoperia.controller;
 
+import br.com.chadschoperia.domain.enums.RestockNotificationStatusEnum;
 import br.com.chadschoperia.service.NotificationService;
 import br.com.chadschoperia.service.dto.NotificationDto;
 import jakarta.validation.constraints.NotEmpty;
@@ -44,9 +45,15 @@ public class NotificationController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(notificationService.create(replaceItemMessage));
 	}
 
-	@PatchMapping("/replace-stock/{idNotification}")
+	@PatchMapping("/repor/{idNotification}")
 	public ResponseEntity<Void> replaceItem(@PathVariable Long idNotification) {
-		notificationService.replaceItem(idNotification);
+		notificationService.closeNotification(idNotification, RestockNotificationStatusEnum.REPLACED);
+		return ResponseEntity.noContent().build();
+	}
+
+	@PatchMapping("/cancelar/{idNotification}")
+	public ResponseEntity<Void> cancel(@PathVariable Long idNotification) {
+		notificationService.closeNotification(idNotification, RestockNotificationStatusEnum.CANCELED);
 		return ResponseEntity.noContent().build();
 	}
 

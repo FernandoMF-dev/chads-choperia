@@ -1,5 +1,6 @@
 package br.com.chadschoperia.domain.entities;
 
+import br.com.chadschoperia.domain.enums.RestockNotificationStatusEnum;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -11,27 +12,30 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "notification")
+@Table(name = "restock_notification")
 @Getter
 @Setter
 public class Notification implements Serializable {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence_notification")
-	@SequenceGenerator(name = "sequence_notification", sequenceName = "sequence_notification", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence_restock_notification")
+	@SequenceGenerator(name = "sequence_restock_notification", sequenceName = "sequence_restock_notification", allocationSize = 1)
 	@Column(name = "id", nullable = false)
 	private Long id;
 
 	@Column(name = "replace_item_message", nullable = false)
 	private String replaceItemMessage;
 
-	@Column(name = "notification_date", nullable = false)
-	private LocalDate notificationDate;
+	@Column(name = "open_date", nullable = false)
+	private LocalDateTime openDate;
 
-	@Column(name = "restocked_item", nullable = false)
-	private Boolean restockedItem;
+	@Column(name = "close_date")
+	private LocalDateTime closeDate;
+
+	@Column(name = "status", nullable = false)
+	private RestockNotificationStatusEnum status = RestockNotificationStatusEnum.OPEN;
 
 }
