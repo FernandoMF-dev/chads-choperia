@@ -14,6 +14,7 @@ import { ToolbarModule } from 'primeng/toolbar';
 import { RestockNotificationFormComponent } from './components/restock-notification-form/restock-notification-form.component';
 import { FoodWeighingComponent } from './pages/food-weighing/food-weighing.component';
 import { RestockNotificationListComponent } from './pages/restock-notification-list/restock-notification-list.component';
+import { SelfserviceSettingsComponent } from './pages/selfservice-settings/selfservice-settings.component';
 import { SelfserviceRoutingModule } from './selfservice-routing.module';
 import { RestockNotificationService } from './services/restock-notification.service';
 import { SelfserviceService } from './services/selfservice.service';
@@ -23,7 +24,8 @@ import { SelfserviceService } from './services/selfservice.service';
 	declarations: [
 		RestockNotificationListComponent,
 		RestockNotificationFormComponent,
-		FoodWeighingComponent
+		FoodWeighingComponent,
+		SelfserviceSettingsComponent
 	],
 	imports: [
 		SelfserviceRoutingModule,
