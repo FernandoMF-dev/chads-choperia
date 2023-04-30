@@ -15,6 +15,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
@@ -24,6 +25,7 @@ import java.time.LocalDateTime;
 @Table(name = "historic_beer")
 @Getter
 @Setter
+@NoArgsConstructor
 public class HistoricBeer implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence_historic_beer")
@@ -47,4 +49,12 @@ public class HistoricBeer implements Serializable {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_beer", referencedColumnName = "id", nullable = false)
 	private Beer beer;
+
+	public HistoricBeer(Long beerId, String description, Double stock, HistoricBeerActionEnum action) {
+		this.description = description;
+		this.stock = stock;
+		this.action = action;
+		this.dateTime = LocalDateTime.now();
+		this.beer = new Beer(beerId);
+	}
 }
