@@ -1,7 +1,16 @@
 package br.com.chadschoperia.service.events;
 
 import br.com.chadschoperia.domain.enums.HistoricBeerActionEnum;
+import org.springframework.context.MessageSource;
 import org.springframework.lang.NonNull;
 
-public record AddHistoricBeerEvent(@NonNull long idBeer, @NonNull HistoricBeerActionEnum action, String description, Double stock) {
+import java.util.Objects;
+
+public record AddHistoricBeerEvent(@NonNull Long idBeer, @NonNull HistoricBeerActionEnum action, Double stock, String description) {
+	public String formatedDescription(MessageSource messageSource) {
+		if (Objects.nonNull(this.description())) {
+			return this.description();
+		}
+		return this.action().formatMessage(messageSource);
+	}
 }

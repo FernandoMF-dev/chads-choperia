@@ -10,6 +10,7 @@ import java.util.Locale;
 @AllArgsConstructor
 public enum HistoricBeerActionEnum {
 	CREATE("default.create"),
+	UPDATE("default.update"),
 	RESTOCK("beer.restock"),
 	POUR("beer.pour"),
 	DELETE("default.deleted");

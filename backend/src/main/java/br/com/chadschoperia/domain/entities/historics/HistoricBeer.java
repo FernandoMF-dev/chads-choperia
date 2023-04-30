@@ -51,10 +51,18 @@ public class HistoricBeer implements Serializable {
 	private Beer beer;
 
 	public HistoricBeer(Long beerId, String description, Double stock, HistoricBeerActionEnum action) {
+		this.beer = new Beer(beerId);
 		this.description = description;
 		this.stock = stock;
 		this.action = action;
 		this.dateTime = LocalDateTime.now();
+	}
+
+	public HistoricBeer(Long beerId, String description, Double stock, HistoricBeerActionEnum action, LocalDateTime dateTime) {
 		this.beer = new Beer(beerId);
+		this.description = description;
+		this.stock = stock;
+		this.action = action;
+		this.dateTime = dateTime;
 	}
 }
