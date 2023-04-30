@@ -18,6 +18,14 @@ public class MessagePropertiesConfig {
 	}
 
 	@Bean
+	public MessageSource historicMessageSource() {
+		ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
+		messageSource.setBasename("classpath:/messages/historic/messages");
+		messageSource.setDefaultEncoding("UTF-8");
+		return messageSource;
+	}
+
+	@Bean
 	public LocalValidatorFactoryBean getValidator() {
 		LocalValidatorFactoryBean bean = new LocalValidatorFactoryBean();
 		bean.setValidationMessageSource(messageSource());
