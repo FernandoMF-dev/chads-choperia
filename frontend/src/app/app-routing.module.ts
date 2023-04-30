@@ -59,7 +59,7 @@ const routes: Routes = [
 			},
 			{
 				path: RouteLinkUtils.REPORT,
-				loadChildren: () => import('./modules/card/card.module').then(m => m.CardModule)
+				loadChildren: () => import('./modules/report/report.module').then(m => m.ReportModule)
 			}
 		]
 	},

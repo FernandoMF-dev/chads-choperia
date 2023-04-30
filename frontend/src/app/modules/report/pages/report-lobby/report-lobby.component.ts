@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { RouteLinkUtils } from '../../../../utils/route-link.utils';
+import { ReportLobbyItem } from '../../models/report-lobby-item.model';
 
 @Component({
 	selector: 'app-report-lobby',
@@ -6,5 +8,11 @@ import { Component } from '@angular/core';
 	styleUrls: ['./report-lobby.component.scss']
 })
 export class ReportLobbyComponent {
-
+	items: ReportLobbyItem[] = [
+		{
+			label: 'Estoque de Cerveja',
+			material: 'local_drink',
+			routerLink: [RouteLinkUtils.BEER]
+		}
+	];
 }

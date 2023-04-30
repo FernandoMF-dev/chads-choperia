@@ -1,1 +1,17 @@
-<p>report-lobby works!</p>
+<div id="report-lobby-page">
+	<nav id="report-lobby-selector">
+		<p-scrollPanel [style]="{ width: '100%', height: '100%' }">
+			<ng-template ngFor let-item let-i="index" [ngForOf]="items">
+				<a [routerLink]="item.routerLink" routerLinkActive="active-route">
+					<em [ngClass]="item.icon" attr.data-material="{{item.material ? item.material : ''}}"
+						class="layout-menuitem-icon {{item.material ? 'material-symbols-outlined on-data-content' : ''}}"></em>
+					<span>{{ item.label }}</span>
+				</a>
+			</ng-template>
+		</p-scrollPanel>
+	</nav>
+
+	<section id="report-lobby-display">
+		<router-outlet></router-outlet>
+	</section>
+</div>

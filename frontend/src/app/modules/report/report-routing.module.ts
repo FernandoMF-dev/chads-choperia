@@ -6,11 +6,13 @@ import { ReportLobbyComponent } from './pages/report-lobby/report-lobby.componen
 const routes: Routes = [
 	{
 		path: '',
-		component: ReportLobbyComponent
-	},
-	{
-		path: RouteLinkUtils.BEER,
-		loadChildren: () => import('./modules/report-beer/report-beer.module').then(m => m.ReportBeerModule)
+		component: ReportLobbyComponent,
+		children: [
+			{
+				path: RouteLinkUtils.BEER,
+				loadChildren: () => import('./modules/report-beer/report-beer.module').then(m => m.ReportBeerModule)
+			}
+		]
 	}
 ];
 
@@ -18,5 +20,6 @@ const routes: Routes = [
 	imports: [RouterModule.forChild(routes)],
 	exports: [RouterModule]
 })
+
 export class ReportRoutingModule {
 }
