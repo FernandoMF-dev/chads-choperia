@@ -31,7 +31,8 @@ export class AppMenuComponent implements OnInit {
 						label: 'Configurações do Self-Service',
 						material: 'restaurant_menu',
 						routerLink: [RouteLinkUtils.SELF_SERVICE, RouteLinkUtils.SETTING]
-					}
+					},
+					{ label: 'Relatórios', material: 'view_list', routerLink: [RouteLinkUtils.REPORT] }
 				]
 			},
 			{
