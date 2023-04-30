@@ -1,4 +1,4 @@
-import { BaseReport } from './base.report';
+import { BaseReport } from '../../../models/base.report';
 
 export class BeerStockReport extends BaseReport {
 	constructor(description: string, value: number, dateTime: Date) {
