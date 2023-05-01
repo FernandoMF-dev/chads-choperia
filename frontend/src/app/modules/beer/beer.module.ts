@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AutoFocusModule } from 'primeng/autofocus';
 import { ButtonModule } from 'primeng/button';
+import { CardModule } from 'primeng/card';
 import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputMaskModule } from 'primeng/inputmask';
@@ -17,6 +18,7 @@ import { TooltipModule } from 'primeng/tooltip';
 
 
 import { BeerRoutingModule } from './beer-routing.module';
+import { BeerCardComponent } from './components/beer-card/beer-card.component';
 import { BeerFormComponent } from './components/beer-form/beer-form.component';
 import { BeerListComponent } from './pages/beer-list/beer-list.component';
 import { BeerManageStockComponent } from './pages/beer-manage-stock/beer-manage-stock.component';
@@ -29,7 +31,8 @@ import { BeerService } from './services/beer.service';
 		BeerListComponent,
 		BeerFormComponent,
 		BeerManageStockComponent,
-		BeerPourComponent
+		BeerPourComponent,
+		BeerCardComponent
 	],
 	imports: [
 		CommonModule,
@@ -48,7 +51,8 @@ import { BeerService } from './services/beer.service';
 		InputNumberModule,
 		InputMaskModule,
 		FormsModule,
-		AutoFocusModule
+		AutoFocusModule,
+		CardModule
 	],
 	providers: [
 		BeerService
