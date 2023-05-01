@@ -1,30 +1,18 @@
-<div class="grid">
-	<div class="col-6">
-		<div class="card px-6 py-6">
-			<p-toast></p-toast>
-			<p-toolbar styleClass="mb-4">
-				<div class="p-toolbar-group-start">
-					<h5>Servir Chope</h5>
-				</div>
-			</p-toolbar>
-
-			<div class="grid">
-				<div class="col-10 field">
-					<label>Selecione um Chope</label>
-					<p-dropdown id="dropDownBeer" [options]="beers" (onChange)="handleFocus()" [(ngModel)]="selected.beer"></p-dropdown>
-				</div>
-
-				<div class="col-2 field beer-price">
-					<label>&nbsp;</label>
-					<strong>{{ price | currency:'BRL':'symbol' }}</strong>
-				</div>
-
-				<div class="col-6 field">
-					<label>Cartão</label>
-					<input id="inputCard" (focusout)="handleFocus()" (keydown.enter)="pourDrink()" [(ngModel)]="selected.card"
-						   [autofocus]="true" pAutoFocus placeholder="0000000000" pInputText>
-				</div>
+<div class="card">
+	<div>
+		<p-toast></p-toast>
+		<p-toolbar styleClass="mb-4">
+			<div class="p-toolbar-group-start">
+				<h5>Escolha seu Chope (Os valores apresentados são referentes a 500ml)</h5>
 			</div>
-		</div>
+		</p-toolbar>
+			<i *ngIf="_isLoading" class="pi pi-spin pi-spinner"></i>
+		<app-beer-card (onSelectBeer)="openModal($event)" [beers]="beers"></app-beer-card>
 	</div>
 </div>
+
+
+<p-dialog (onShow)="handleFocus()" (onHide)="clearSelected()" [draggable]="false" header="Confirmar" [modal]="true" [(visible)]="visible">
+	<p>Aproxime o cartão do leitor para finalizar a compra</p>
+	<input pInputText id="inputCard" (keydown.enter)="pourDrink()" [(ngModel)]="this.selected.card" >
+</p-dialog>

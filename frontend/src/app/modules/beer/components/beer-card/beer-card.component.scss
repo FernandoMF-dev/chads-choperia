@@ -1,0 +1,27 @@
+.grow {
+	transition: all .2s ease-in-out;
+}
+
+.grow:hover {
+	transform: scale(1.05);
+}
+
+.card-beer {
+	cursor: pointer;
+	overflow-x: hidden;
+	background-image: url("/assets/images/beer-background.jpg");
+	background-position-y: center;
+	background-position-x: left;
+	transition: all .2s ease-in-out;
+	min-height: 9em;
+	max-height: 9em;
+}
+
+.div-card {
+	display: flex;
+	padding-left: 1vh;
+	font-size: 1.8em;
+	color: black;
+	justify-content: space-between;
+	margin-top: 20%;
+}
