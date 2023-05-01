@@ -23,7 +23,7 @@ public class HistoricBeerService {
 
 	@EventListener
 	public void addHistoric(AddHistoricBeerEvent event) {
-		HistoricBeer historic = new HistoricBeer(event.idBeer(), event.formatedDescription(historicMessageSource), event.stock(), event.action());
+		HistoricBeer historic = new HistoricBeer(event.idBeer(), event.action(), event.formatedDescription(historicMessageSource), event.stock(), event.totalStock());
 		historicBeerRepository.save(historic);
 	}
 
@@ -31,9 +31,12 @@ public class HistoricBeerService {
 	public void AddListHistoricBeerEvent(AddListHistoricBeerEvent event) {
 		List<HistoricBeer> historics = new ArrayList<>();
 		LocalDateTime dateTime = LocalDateTime.now();
+
 		for (int i = 0; i < event.beerIds().size(); i++) {
-			historics.add(new HistoricBeer(event.beerIds().get(i), event.formatedDescription(i, historicMessageSource), event.stocks().get(i), event.action(), dateTime));
+			historics.add(new HistoricBeer(event.beerIds().get(i), event.action(), event.formatedDescription(i, historicMessageSource),
+					event.stocks().get(i), event.totalStocks().get(i), dateTime));
 		}
+
 		historicBeerRepository.saveAll(historics);
 	}
 }

@@ -74,7 +74,7 @@ public class BeerService {
 		beerDto.setStock(0D);
 		beerDto = saveDto(beerDto);
 
-		publishHistoric(beerDto.getId(), HistoricBeerActionEnum.CREATE);
+		publishHistoric(beerDto, HistoricBeerActionEnum.CREATE);
 
 		return beerDto;
 	}
@@ -86,7 +86,7 @@ public class BeerService {
 		beerDto.setStock(originalDto.getStock());
 		beerDto = saveDto(beerDto);
 
-		publishHistoric(beerDto.getId(), HistoricBeerActionEnum.UPDATE);
+		publishHistoric(beerDto, HistoricBeerActionEnum.UPDATE);
 
 		return beerDto;
 	}
@@ -94,10 +94,15 @@ public class BeerService {
 	public List<BeerDto> restock(List<ProductStockDto> dtos) {
 		List<Long> productIds = dtos.stream().map(ProductStockDto::getProductId).collect(Collectors.toList());
 		List<Beer> beers = beerRepository.findAllById(productIds);
-		List<Double> finalAmounts = new ArrayList<>();
+		List<Double> addedAmounts = new ArrayList<>();
+		List<Double> totalAmounts = new ArrayList<>();
 
-		beers.forEach(product -> finalAmounts.add(addStockFromSource(product, dtos)));
-		publishListHistoric(HistoricBeerActionEnum.RESTOCK, productIds, finalAmounts);
+		beers.forEach(product -> {
+			double added = addStockFromSource(product, dtos);
+			addedAmounts.add(added);
+			totalAmounts.add(product.getStock());
+		});
+		publishListHistoric(HistoricBeerActionEnum.RESTOCK, productIds, addedAmounts, totalAmounts);
 
 		return saveDto(beers);
 	}
@@ -105,15 +110,15 @@ public class BeerService {
 	public void pour(PourBeerDTO dto) {
 		BeerDto beer = findDtoById(dto.getBeer());
 		publishPourExpense(dto, beer);
-		publishHistoric(beer.getId(), HistoricBeerActionEnum.POUR, POUR_QUANTITY);
 		beer.subtractStock(POUR_QUANTITY);
+		publishHistoric(beer, HistoricBeerActionEnum.POUR, POUR_QUANTITY);
 		saveDto(beer);
 	}
 
 	public void deleteById(Long idBeer) {
 		Beer entity = findEntityById(idBeer);
 		entity.setDeleted(Boolean.TRUE);
-		publishHistoric(entity.getId(), HistoricBeerActionEnum.DELETE);
+		publishHistoric(entity, HistoricBeerActionEnum.DELETE);
 		saveEntity(entity);
 	}
 
@@ -128,34 +133,7 @@ public class BeerService {
 		return amount;
 	}
 
-	private void publishPourExpense(PourBeerDTO dto, BeerDto beer) {
-		try {
-			ClientCardDto card = clientCardService.findOpenByRfid(dto.getCard());
-			String description = messageSource.getMessage("client_card_expense.beer.pour", new String[]{beer.getName()}, Locale.getDefault());
-			applicationEventPublisher.publishEvent(new AddClientCardExpenseEvent(card.getId(), beer.getValuePerMug(), description));
-		} catch (EntityNotFoundException ex) {
-			throw new EntityNotFoundException(HttpStatus.BAD_REQUEST, ex.getReason());
-		}
-	}
-
-	private void publishHistoric(Long beerId, HistoricBeerActionEnum action) {
-		this.publishHistoric(beerId, action, null);
-	}
-
-	private void publishHistoric(Long beerId, HistoricBeerActionEnum action, Double stock) {
-		applicationEventPublisher.publishEvent(new AddHistoricBeerEvent(beerId, action, stock, null));
-	}
-
-	private void publishListHistoric(HistoricBeerActionEnum action, List<Long> beerId, List<Double> stock) {
-		List<String> descriptions = new ArrayList<>();
-
-		for (int i = 0; i < beerId.size(); i++) {
-			descriptions.add(null);
-		}
-
-		applicationEventPublisher.publishEvent(new AddListHistoricBeerEvent(action, beerId, stock, descriptions));
-	}
-
+	// <editor-fold defaultstate="collapsed" desc="Private Methods: Persist entity">
 	private BeerDto saveDto(BeerDto beer) {
 		return beerMapper.toDto(saveEntity(beerMapper.toEntity(beer)));
 	}
@@ -171,4 +149,43 @@ public class BeerService {
 	private List<Beer> saveEntity(List<Beer> beers) {
 		return beerRepository.saveAll(beers);
 	}
+	// </editor-fold>
+
+	// <editor-fold defaultstate="collapsed" desc="Private Methods: Publish events">
+	private void publishPourExpense(PourBeerDTO dto, BeerDto beer) {
+		try {
+			ClientCardDto card = clientCardService.findOpenByRfid(dto.getCard());
+			String description = messageSource.getMessage("client_card_expense.beer.pour", new String[]{beer.getName()}, Locale.getDefault());
+			applicationEventPublisher.publishEvent(new AddClientCardExpenseEvent(card.getId(), beer.getValuePerMug(), description));
+		} catch (EntityNotFoundException ex) {
+			throw new EntityNotFoundException(HttpStatus.BAD_REQUEST, ex.getReason());
+		}
+	}
+
+	private void publishHistoric(BeerDto beerDto, HistoricBeerActionEnum action) {
+		this.publishHistoric(beerDto, action, null);
+	}
+
+	private void publishHistoric(Beer beer, HistoricBeerActionEnum action) {
+		this.publishHistoric(beer, action, null);
+	}
+
+	private void publishHistoric(BeerDto beerDto, HistoricBeerActionEnum action, Double stock) {
+		applicationEventPublisher.publishEvent(new AddHistoricBeerEvent(beerDto.getId(), action, stock, beerDto.getStock(), null));
+	}
+
+	private void publishHistoric(Beer beer, HistoricBeerActionEnum action, Double stock) {
+		applicationEventPublisher.publishEvent(new AddHistoricBeerEvent(beer.getId(), action, stock, beer.getStock(), null));
+	}
+
+	private void publishListHistoric(HistoricBeerActionEnum action, List<Long> beerIds, List<Double> stocks, List<Double> totalStocks) {
+		List<String> descriptions = new ArrayList<>();
+
+		for (int i = 0; i < beerIds.size(); i++) {
+			descriptions.add(null);
+		}
+
+		applicationEventPublisher.publishEvent(new AddListHistoricBeerEvent(action, beerIds, stocks, totalStocks, descriptions));
+	}
+	// </editor-fold>
 }

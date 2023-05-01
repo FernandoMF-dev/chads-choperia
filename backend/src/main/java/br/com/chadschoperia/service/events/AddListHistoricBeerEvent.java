@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Objects;
 
 public record AddListHistoricBeerEvent(@NonNull HistoricBeerActionEnum action, @NonNull List<Long> beerIds, List<Double> stocks,
-									   List<String> descriptions) {
+									   @NonNull List<Double> totalStocks, List<String> descriptions) {
 
 	public String formatedDescription(int index, MessageSource messageSource) {
 		String descrition = this.descriptions().get(index);

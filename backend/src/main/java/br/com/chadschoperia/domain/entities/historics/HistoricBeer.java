@@ -33,36 +33,41 @@ public class HistoricBeer implements Serializable {
 	@Column(name = "id", nullable = false)
 	private Long id;
 
-	@Column(name = "description")
-	private String description;
-
-	@Column(name = "stock")
-	private Double stock;
-
 	@Column(name = "action", nullable = false)
 	@Enumerated(EnumType.STRING)
 	private HistoricBeerActionEnum action;
 
+	@Column(name = "description")
+	private String description;
+
 	@Column(name = "date_time", nullable = false)
 	private LocalDateTime dateTime;
+
+	@Column(name = "stock")
+	private Double stock;
+
+	@Column(name = "total_stock", nullable = false)
+	private Double totalStock;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_beer", referencedColumnName = "id", nullable = false)
 	private Beer beer;
 
-	public HistoricBeer(Long beerId, String description, Double stock, HistoricBeerActionEnum action) {
+	public HistoricBeer(Long beerId, HistoricBeerActionEnum action, String description, Double stock, Double totalStock) {
 		this.beer = new Beer(beerId);
+		this.action = action;
 		this.description = description;
 		this.stock = stock;
-		this.action = action;
+		this.totalStock = totalStock;
 		this.dateTime = LocalDateTime.now();
 	}
 
-	public HistoricBeer(Long beerId, String description, Double stock, HistoricBeerActionEnum action, LocalDateTime dateTime) {
+	public HistoricBeer(Long beerId, HistoricBeerActionEnum action, String description, Double stock, Double totalStock, LocalDateTime dateTime) {
 		this.beer = new Beer(beerId);
+		this.action = action;
 		this.description = description;
 		this.stock = stock;
-		this.action = action;
+		this.totalStock = totalStock;
 		this.dateTime = dateTime;
 	}
 }

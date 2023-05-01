@@ -21,9 +21,13 @@
 
 			<column name="description" type="varchar(255)"/>
 
+			<column name="date_time" type="timestamp">
+				<constraints nullable="false"/>
+			</column>
+
 			<column name="stock" type="double"/>
 
-			<column name="date_time" type="timestamp">
+			<column name="total_stock" type="double">
 				<constraints nullable="false"/>
 			</column>
 		</createTable>

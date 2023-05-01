@@ -6,7 +6,8 @@ import org.springframework.lang.NonNull;
 
 import java.util.Objects;
 
-public record AddHistoricBeerEvent(@NonNull Long idBeer, @NonNull HistoricBeerActionEnum action, Double stock, String description) {
+public record AddHistoricBeerEvent(@NonNull Long idBeer, @NonNull HistoricBeerActionEnum action, Double stock, @NonNull Double totalStock,
+								   String description) {
 	public String formatedDescription(MessageSource messageSource) {
 		if (Objects.nonNull(this.description())) {
 			return this.description();
