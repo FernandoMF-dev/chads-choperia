@@ -6,7 +6,7 @@ import org.springframework.web.server.ResponseStatusException;
 public class InvalidStatusException extends ResponseStatusException {
 
 	public InvalidStatusException(String reason) {
-		super(HttpStatus.BAD_REQUEST, reason);
+		super(HttpStatus.CONFLICT, reason);
 	}
 
 }

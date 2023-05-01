@@ -1,4 +1,4 @@
-package br.com.chadschoperia.service.dto.reports;
+package br.com.chadschoperia.service.reports.dto;
 
 import java.time.LocalDateTime;
 

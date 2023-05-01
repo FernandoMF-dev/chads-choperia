@@ -6,7 +6,8 @@ import { RouteLinkUtils } from './utils/route-link.utils';
 
 const routes: Routes = [
 	{
-		path: '', component: AppLayoutComponent,
+		path: '',
+		component: AppLayoutComponent,
 		children: [
 			{
 				path: '',
@@ -55,6 +56,10 @@ const routes: Routes = [
 			{
 				path: RouteLinkUtils.CARD,
 				loadChildren: () => import('./modules/card/card.module').then(m => m.CardModule)
+			},
+			{
+				path: RouteLinkUtils.REPORT,
+				loadChildren: () => import('./modules/report/report.module').then(m => m.ReportModule)
 			}
 		]
 	},
