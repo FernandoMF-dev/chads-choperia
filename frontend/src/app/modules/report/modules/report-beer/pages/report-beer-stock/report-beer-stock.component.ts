@@ -4,6 +4,8 @@ import { UtilsService } from '../../../../../../services/utils.service';
 import { Beer } from '../../../../../beer/models/beer.model';
 import { BeerService } from '../../../../../beer/services/beer.service';
 import { BeerStockReportFilter } from '../../models/beer-stock-report.filter';
+import { BeerStockReport } from '../../models/beer-stock.report';
+import { BeerReportService } from '../../services/beer-report.service';
 
 @Component({
 	selector: 'app-report-beer-stock',
@@ -12,6 +14,7 @@ import { BeerStockReportFilter } from '../../models/beer-stock-report.filter';
 })
 export class ReportBeerStockComponent implements OnInit {
 	filter: BeerStockReportFilter = new BeerStockReportFilter();
+	report: BeerStockReport[] = [];
 	beers: Beer[] = [];
 
 	isLoadingSearch: boolean = false;
@@ -19,6 +22,7 @@ export class ReportBeerStockComponent implements OnInit {
 
 	constructor(
 		private beerService: BeerService,
+		private beerReportService: BeerReportService,
 		private utilsService: UtilsService
 	) {
 	}
@@ -38,7 +42,17 @@ export class ReportBeerStockComponent implements OnInit {
 	}
 
 	search() {
-		// TODO: Implement this method
+		this.isLoadingSearch = true;
+		this.beerReportService.reportBeerStockOverTime(this.filter)
+			.pipe(finalize(() => this.isLoadingSearch = false))
+			.subscribe({
+				next: (res) => this.updateReport(res),
+				error: (err) => this.utilsService.showErrorMessage(err.error.detail)
+			});
+	}
+
+	private updateReport(res: BeerStockReport[]): void {
+		this.report = res;
 	}
 
 	private updateBeers(beers: Beer[]): void {

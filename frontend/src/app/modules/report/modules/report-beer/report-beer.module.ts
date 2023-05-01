@@ -7,9 +7,10 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { RippleModule } from 'primeng/ripple';
 import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
-import { ReportBeerStockComponent } from './pages/report-beer-stock/report-beer-stock.component';
 
+import { ReportBeerStockComponent } from './pages/report-beer-stock/report-beer-stock.component';
 import { ReportBeerRoutingModule } from './report-beer-routing.module';
+import { BeerReportService } from './services/beer-report.service';
 
 
 @NgModule({
@@ -27,6 +28,9 @@ import { ReportBeerRoutingModule } from './report-beer-routing.module';
 		CalendarModule,
 		MultiSelectModule,
 		RippleModule
+	],
+	providers: [
+		BeerReportService
 	]
 })
 export class ReportBeerModule {
