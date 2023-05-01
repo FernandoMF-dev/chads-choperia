@@ -1,1 +1,38 @@
-<p>report-beer-stock works!</p>
+<div class="grid">
+	<div class="col-12">
+		<div class="card px-6 py-6">
+			<p-toast></p-toast>
+			<p-toolbar styleClass="mb-4">
+				<div class="p-toolbar-group-start">
+					<h5>Finalizar Compra do Cliente</h5>
+				</div>
+
+				<div class="p-toolbar-group-end">
+					<button pButton pRipple label="Pesquisar" icon="pi pi-search" (click)="search()"
+							class="p-button-raised p-button-success" [disabled]="isLoadingSearch"></button>
+				</div>
+			</p-toolbar>
+
+			<div class="col-12 grid">
+				<div class="xl:col-4 lg:col-6 sm:col-12 field">
+					<label htmlFor="filter-min-date">Data inicial</label>
+					<p-calendar id="filter-min-date" [(ngModel)]="filter.minDate" [showIcon]="true"></p-calendar>
+				</div>
+
+				<div class="xl:col-4 lg:col-6 sm:col-12 field">
+					<label htmlFor="filter-max-date">Data final</label>
+					<p-calendar id="filter-max-date" [(ngModel)]="filter.maxDate" [showIcon]="true"></p-calendar>
+				</div>
+
+				<div class="xl:col-4 lg:col-6 sm:col-12 field">
+					<label htmlFor="filter-beers">Chopes</label>
+					<p-multiSelect id="filter-beers" [options]="beers" [(ngModel)]="filter.beers" defaultLabel="Escolha o chope"
+								   [disabled]="isLoadingBeers" [dropdownIcon]="isLoadingBeers ? 'pi pi-spin pi-spinner' : ''"
+								   optionLabel="name" optionValue="id" display="chip"></p-multiSelect>
+				</div>
+			</div>
+
+			<div class="col-12 grid"></div>
+		</div>
+	</div>
+</div>
