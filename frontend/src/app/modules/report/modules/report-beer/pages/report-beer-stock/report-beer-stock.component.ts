@@ -14,7 +14,7 @@ import { BeerReportService } from '../../services/beer-report.service';
 })
 export class ReportBeerStockComponent implements OnInit {
 	filter: BeerStockReportFilter = new BeerStockReportFilter();
-	report: BeerStockReport[] = [];
+	allReports: BeerStockReport[] = [];
 	beers: Beer[] = [];
 
 	isLoadingSearch: boolean = false;
@@ -52,7 +52,7 @@ export class ReportBeerStockComponent implements OnInit {
 	}
 
 	private updateReport(res: BeerStockReport[]): void {
-		this.report = res;
+		this.allReports = res;
 	}
 
 	private updateBeers(beers: Beer[]): void {

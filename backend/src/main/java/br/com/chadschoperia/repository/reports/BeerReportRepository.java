@@ -19,6 +19,7 @@ public interface BeerReportRepository extends JpaRepository<HistoricBeer, Long> 
 			" WHERE hb.stock IS NOT NULL " +
 			" AND (CAST(:#{#filter.minDate} as timestamp) IS NULL OR CAST(:#{#filter.minDate} as timestamp) <= hb.dateTime) " +
 			" AND (CAST(:#{#filter.maxDate} as timestamp) IS NULL OR CAST(:#{#filter.maxDate} as timestamp) >= hb.dateTime) " +
-			" AND (b.id IN (:#{#filter.beers}))")
+			" AND (b.id IN (:#{#filter.beers})) " +
+			" ORDER BY hb.dateTime DESC ")
 	List<BeerStockReportDto> reportBeerStockOverTime(@Param("filter") BeerStockReportFilterDto filter);
 }

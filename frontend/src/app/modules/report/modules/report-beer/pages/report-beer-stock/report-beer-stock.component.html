@@ -8,8 +8,9 @@
 				</div>
 
 				<div class="p-toolbar-group-end">
-					<button pButton pRipple label="Pesquisar" icon="pi pi-search" (click)="search()"
-							class="p-button-raised p-button-success" [disabled]="isLoadingSearch"></button>
+					<button pButton pRipple label="Pesquisar" (click)="search()" [disabled]="isLoadingSearch"
+							icon="pi {{ isLoadingSearch ? 'pi pi-spin pi-spinner' : 'pi-search' }}"
+							class="p-button-raised p-button-success"></button>
 				</div>
 			</p-toolbar>
 
@@ -32,7 +33,44 @@
 				</div>
 			</div>
 
-			<div class="col-12 grid"></div>
+			<div class="col-12 grid">
+				<p-table [value]="allReports">
+					<ng-template pTemplate="header">
+						<tr>
+							<th>Chope</th>
+							<th>Descrição</th>
+							<th colspan="2">Estoque</th>
+							<th>Data &amp; Hora</th>
+						</tr>
+					</ng-template>
+
+					<ng-template pTemplate="body" let-beer>
+						<tr>
+							<th>
+								{{ beer.beer }} ({{ beer.rfid }})
+							</th>
+							<th>
+								{{ beer.description }}
+							</th>
+							<th class="{{beer.value < 0 ? 'negative' : 'positive'}}">
+								{{ beer.value >= 0 ? '+' : '' }}{{ beer.value | number:'.1-1' }} L
+							</th>
+							<th>
+								{{ beer.totalStock | number:'.1-1' }} L
+							</th>
+							<th>
+								{{ beer.dateTime | date:'dd/MM/yyyy HH:mm:ss' }}
+							</th>
+						</tr>
+					</ng-template>
+
+					<ng-template pTemplate="emptymessage">
+						<tr>
+							<td colspan="5">Nenhum registro encontrado...</td>
+						</tr>
+					</ng-template>
+				</p-table>
+			</div>
 		</div>
 	</div>
 </div>

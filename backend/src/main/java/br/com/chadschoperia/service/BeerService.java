@@ -111,7 +111,7 @@ public class BeerService {
 		BeerDto beer = findDtoById(dto.getBeer());
 		publishPourExpense(dto, beer);
 		beer.subtractStock(POUR_QUANTITY);
-		publishHistoric(beer, HistoricBeerActionEnum.POUR, POUR_QUANTITY);
+		publishHistoric(beer, HistoricBeerActionEnum.POUR, -POUR_QUANTITY);
 		saveDto(beer);
 	}
 

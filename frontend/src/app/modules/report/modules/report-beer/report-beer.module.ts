@@ -5,6 +5,7 @@ import { CalendarModule } from 'primeng/calendar';
 import { InputTextModule } from 'primeng/inputtext';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { RippleModule } from 'primeng/ripple';
+import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
 
@@ -27,7 +28,8 @@ import { BeerReportService } from './services/beer-report.service';
 		ToolbarModule,
 		CalendarModule,
 		MultiSelectModule,
-		RippleModule
+		RippleModule,
+		TableModule
 	],
 	providers: [
 		BeerReportService
