@@ -151,13 +151,19 @@ export class ReportBeerStockComponent implements OnInit {
 
 	private groupReportsPerBeer(group: ReportBeerStockViewMode, splitFn: (reportGroup: BeerStockReportGroup) => BeerStockReport[][]): void {
 		const reportGroups: BeerStockReportGroup[] = [];
+
 		this.reportsGroups.get('all')!.groups.forEach(reportGroup => {
 			const allReportsPerDay: BeerStockReport[][] = splitFn(reportGroup);
 			const reports: BeerStockReport[] = [];
 
 			allReportsPerDay.forEach(day => {
-				const report = day[0];
-				report.value = day.map(value => value.value).reduce((accumulator, current) => accumulator + current);
+				const report: BeerStockReport = Object.assign({}, day[0]);
+				let addStock: StockMovementControl = { total: 0, qntd: 0 };
+				let minusStock: StockMovementControl = { total: 0, qntd: 0 };
+
+				day.forEach(value => this.acumulateStockMovements(value.value < 0 ? minusStock : addStock, value));
+				report.description = this.formatGroupedReportDescription(addStock, minusStock);
+				report.value = addStock.total + minusStock.total;
 				reports.push(report);
 			});
 
@@ -165,6 +171,17 @@ export class ReportBeerStockComponent implements OnInit {
 		});
 
 		this.reportsGroups.set(group, { groups: reportGroups, loaded: true });
+	}
+
+	private acumulateStockMovements(control: StockMovementControl, value: BeerStockReport): void {
+		control.total += value.value;
+		control.qntd++;
+	}
+
+	private formatGroupedReportDescription(addStock: StockMovementControl, minusStock: { total: number, qntd: number }): string {
+		return `${ addStock.qntd + minusStock.qntd } movimentações no estoque.<br>`
+			+ `${ addStock.qntd } adições ao estoque totalizando ${ addStock.total.toFixed(1) }L.<br>`
+			+ `${ minusStock.qntd } remoções no estoque totalizando ${ minusStock.total.toFixed(1) }L.`;
 	}
 }
 
@@ -175,4 +192,9 @@ interface BeerStockReportGroupControl {
 
 interface BeerStockReportFnGroupControl {
 	update: () => void;
+}
+
+interface StockMovementControl {
+	total: number;
+	qntd: number;
 }
