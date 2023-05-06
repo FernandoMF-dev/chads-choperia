@@ -27,7 +27,7 @@
 
 				<div class="xl:col-4 lg:col-6 sm:col-12 field">
 					<label htmlFor="filter-beers">Chopes</label>
-					<p-multiSelect id="filter-beers" [options]="beers" [(ngModel)]="filter.beers" defaultLabel="Escolha o chope"
+					<p-multiSelect id="filter-beers" [options]="allBeers" [(ngModel)]="filter.beers" defaultLabel="Escolha o chope"
 								   [disabled]="isLoadingBeers" [dropdownIcon]="isLoadingBeers ? 'pi pi-spin pi-spinner' : ''"
 								   optionLabel="name" optionValue="id" display="chip"></p-multiSelect>
 				</div>
@@ -47,7 +47,7 @@
 					<ng-template pTemplate="body" let-beer>
 						<tr>
 							<th>
-								{{ beer.beer }} ({{ beer.rfid }})
+								{{ beer.beerName }} ({{ beer.rfid }})
 							</th>
 							<th>
 								{{ beer.description }}
