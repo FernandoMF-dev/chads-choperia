@@ -27,6 +27,7 @@ export class ReportBeerStockComponent implements OnInit {
 	allReports: BeerStockReport[] = [];
 
 	private reportsGroups: Map<ReportBeerStockViewMode, BeerStockReportGroupControl>;
+	private reportsFnGroups: Map<ReportBeerStockViewMode, BeerStockReportFnGroupControl>;
 
 	constructor(
 		private beerService: BeerService,
@@ -40,10 +41,22 @@ export class ReportBeerStockComponent implements OnInit {
 			['month', { groups: [], loaded: false }],
 			['year', { groups: [], loaded: false }]
 		]);
+
+		this.reportsFnGroups = new Map([
+			['all', { update: () => this.updateReportViewAll() }],
+			['day', { update: () => this.updateReportViewDay() }],
+			['week', { update: () => this.updateReportViewWeek() }],
+			['month', { update: () => this.updateReportViewMonth() }],
+			['year', { update: () => this.updateReportViewYear() }]
+		]);
 	}
 
 	get reportsDisplay(): BeerStockReportGroup[] {
 		return this.reportsGroups.get(this.viewMode)!.groups;
+	}
+
+	get reportsDisplayLoaded(): boolean {
+		return this.reportsGroups.get(this.viewMode)!.loaded;
 	}
 
 	ngOnInit() {
@@ -58,6 +71,10 @@ export class ReportBeerStockComponent implements OnInit {
 				next: (res) => this.updateBeers(res),
 				error: (err) => this.utilsService.showErrorMessage(err.error.detail)
 			});
+	}
+
+	loadReportGroups() {
+		this.reportsFnGroups.get(this.viewMode)!.update();
 	}
 
 	search() {
@@ -87,13 +104,17 @@ export class ReportBeerStockComponent implements OnInit {
 	private updateReportViewAll(): void {
 		this.reportsGroups.set('all', { groups: [], loaded: false });
 
+		const groups: BeerStockReportGroup[] = [];
+
 		this.filter.beers.forEach(beerId => {
 			const reports = this.allReports.filter(value => value.beerId === beerId);
 
 			if (reports.length > 0) {
-				this.reportsGroups.get('all')!.groups.push(new BeerStockReportGroup(reports));
+				groups.push(new BeerStockReportGroup(reports));
 			}
 		});
+
+		this.reportsGroups.set('all', { groups: groups, loaded: true });
 	}
 
 	private updateReportViewDay(): void {
@@ -150,4 +171,8 @@ export class ReportBeerStockComponent implements OnInit {
 interface BeerStockReportGroupControl {
 	groups: BeerStockReportGroup[];
 	loaded: boolean;
+}
+
+interface BeerStockReportFnGroupControl {
+	update: () => void;
 }
