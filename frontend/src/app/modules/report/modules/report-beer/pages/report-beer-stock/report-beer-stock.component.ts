@@ -25,22 +25,25 @@ export class ReportBeerStockComponent implements OnInit {
 	isLoadingBeers: boolean = false;
 
 	allReports: BeerStockReport[] = [];
-	reportsPerBeerViewAll: BeerStockReportGroup[] = [];
-	reportsPerBeerViewDay: BeerStockReportGroup[] = [];
-	reportsPerBeerViewWeek: BeerStockReportGroup[] = [];
-	reportsPerBeerViewMonth: BeerStockReportGroup[] = [];
-	reportsPerBeerViewYear: BeerStockReportGroup[] = [];
 
-	hasLoadedViewDay: boolean = false;
-	hasLoadedViewWeek: boolean = false;
-	hasLoadedViewMonth: boolean = false;
-	hasLoadedViewYear: boolean = false;
+	private reportsGroups: Map<ReportBeerStockViewMode, BeerStockReportGroupControl>;
 
 	constructor(
 		private beerService: BeerService,
 		private beerReportService: BeerReportService,
 		private utilsService: UtilsService
 	) {
+		this.reportsGroups = new Map([
+			['all', { groups: [], loaded: false }],
+			['day', { groups: [], loaded: false }],
+			['week', { groups: [], loaded: false }],
+			['month', { groups: [], loaded: false }],
+			['year', { groups: [], loaded: false }]
+		]);
+	}
+
+	get reportsDisplay(): BeerStockReportGroup[] {
+		return this.reportsGroups.get(this.viewMode)!.groups;
 	}
 
 	ngOnInit() {
@@ -59,10 +62,7 @@ export class ReportBeerStockComponent implements OnInit {
 
 	search() {
 		this.viewMode = 'all';
-		this.hasLoadedViewDay = false;
-		this.hasLoadedViewWeek = false;
-		this.hasLoadedViewMonth = false;
-		this.hasLoadedViewYear = false;
+		this.reportsGroups.forEach(control => control.loaded = false);
 
 		this.isLoadingSearch = true;
 		this.beerReportService.reportBeerStockOverTime(this.filter)
@@ -85,59 +85,52 @@ export class ReportBeerStockComponent implements OnInit {
 	}
 
 	private updateReportViewAll(): void {
-		this.reportsPerBeerViewAll = [];
+		this.reportsGroups.set('all', { groups: [], loaded: false });
+
 		this.filter.beers.forEach(beerId => {
 			const reports = this.allReports.filter(value => value.beerId === beerId);
 
 			if (reports.length > 0) {
-				this.reportsPerBeerViewAll.push(new BeerStockReportGroup(reports));
+				this.reportsGroups.get('all')!.groups.push(new BeerStockReportGroup(reports));
 			}
 		});
 	}
 
 	private updateReportViewDay(): void {
-		if (this.hasLoadedViewDay) {
+		if (this.reportsGroups.get('day')!.loaded) {
 			return;
 		}
 
-		this.reportsPerBeerViewDay = [];
-		this.reportsPerBeerViewDay = this.groupReportsPerBeer((reportGroup) => BaseReport.splitPerDay(reportGroup.reports));
-		this.hasLoadedViewDay = true;
+		this.groupReportsPerBeer('day', (reportGroup) => BaseReport.splitPerDay(reportGroup.reports));
 	}
 
 	private updateReportViewWeek(): void {
-		if (this.hasLoadedViewWeek) {
+		if (this.reportsGroups.get('week')!.loaded) {
 			return;
 		}
 
-		this.reportsPerBeerViewWeek = [];
-		this.reportsPerBeerViewWeek = this.groupReportsPerBeer((reportGroup) => BaseReport.splitPerWeek(reportGroup.reports));
-		this.hasLoadedViewWeek = true;
+		this.groupReportsPerBeer('week', (reportGroup) => BaseReport.splitPerWeek(reportGroup.reports));
 	}
 
 	private updateReportViewMonth(): void {
-		if (this.hasLoadedViewMonth) {
+		if (this.reportsGroups.get('month')!.loaded) {
 			return;
 		}
 
-		this.reportsPerBeerViewMonth = [];
-		this.reportsPerBeerViewMonth = this.groupReportsPerBeer((reportGroup) => BaseReport.splitPerMonth(reportGroup.reports));
-		this.hasLoadedViewMonth = true;
+		this.groupReportsPerBeer('month', (reportGroup) => BaseReport.splitPerMonth(reportGroup.reports));
 	}
 
 	private updateReportViewYear(): void {
-		if (this.hasLoadedViewYear) {
+		if (this.reportsGroups.get('year')!.loaded) {
 			return;
 		}
 
-		this.reportsPerBeerViewYear = [];
-		this.reportsPerBeerViewYear = this.groupReportsPerBeer((reportGroup) => BaseReport.splitPerYear(reportGroup.reports));
-		this.hasLoadedViewYear = true;
+		this.groupReportsPerBeer('year', (reportGroup) => BaseReport.splitPerYear(reportGroup.reports));
 	}
 
-	private groupReportsPerBeer(splitFn: (reportGroup: BeerStockReportGroup) => BeerStockReport[][]): BeerStockReportGroup[] {
+	private groupReportsPerBeer(group: ReportBeerStockViewMode, splitFn: (reportGroup: BeerStockReportGroup) => BeerStockReport[][]): void {
 		const reportGroups: BeerStockReportGroup[] = [];
-		this.reportsPerBeerViewAll.forEach(reportGroup => {
+		this.reportsGroups.get('all')!.groups.forEach(reportGroup => {
 			const allReportsPerDay: BeerStockReport[][] = splitFn(reportGroup);
 			const reports: BeerStockReport[] = [];
 
@@ -150,6 +143,11 @@ export class ReportBeerStockComponent implements OnInit {
 			reportGroups.push(new BeerStockReportGroup(reports));
 		});
 
-		return reportGroups;
+		this.reportsGroups.set(group, { groups: reportGroups, loaded: true });
 	}
+}
+
+interface BeerStockReportGroupControl {
+	groups: BeerStockReportGroup[];
+	loaded: boolean;
 }
