@@ -10,6 +10,7 @@ import br.com.chadschoperia.service.dto.ClientCardDto;
 import br.com.chadschoperia.service.dto.PourBeerDTO;
 import br.com.chadschoperia.service.dto.ProductStockDto;
 import br.com.chadschoperia.service.dto.ViewBeerDto;
+import br.com.chadschoperia.service.dto.filters.ViewBeerFilterDto;
 import br.com.chadschoperia.service.events.AddClientCardExpenseEvent;
 import br.com.chadschoperia.service.events.AddHistoricBeerEvent;
 import br.com.chadschoperia.service.events.AddListHistoricBeerEvent;
@@ -48,8 +49,8 @@ public class BeerService {
 		return beerRepository.findAllView();
 	}
 
-	public List<BeerDto> findAllDto() {
-		return beerRepository.findAllDto();
+	public List<BeerDto> findAllDto(ViewBeerFilterDto filter) {
+		return beerRepository.findAllDto(filter);
 	}
 
 	public BeerDto findDtoById(Long idBeer) {

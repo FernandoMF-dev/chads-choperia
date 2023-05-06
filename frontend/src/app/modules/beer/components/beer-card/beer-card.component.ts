@@ -1,34 +1,17 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { finalize } from 'rxjs/operators';
-import { UtilsService } from '../../../../services/utils.service';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Beer } from '../../models/beer.model';
-import { Select } from '../../models/select.model';
-import { BeerService } from '../../services/beer.service';
 
 @Component({
 	selector: 'app-beer-card',
 	templateUrl: './beer-card.component.html',
 	styleUrls: ['./beer-card.component.scss']
 })
-export class BeerCardComponent implements OnInit {
+export class BeerCardComponent {
 
 	@Input() beers: Beer[] = [];
-	@Output() onSelectBeer: EventEmitter<Beer> = new EventEmitter<Beer>();
+	@Output() selectBeer: EventEmitter<Beer> = new EventEmitter<Beer>();
 
-
-	constructor(
-
-	) {
-	}
-
-
-	ngOnInit(): void {
-
-	}
-
-
-	emitBeer(beer: Beer){
-		this.onSelectBeer.emit(beer)
+	emitBeer(beer: Beer) {
+		this.selectBeer.emit(beer);
 	}
 }

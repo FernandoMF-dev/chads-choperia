@@ -6,13 +6,13 @@
 				<h5>Escolha seu Chope (Os valores apresentados são referentes a 500ml)</h5>
 			</div>
 		</p-toolbar>
-			<i *ngIf="_isLoading" class="pi pi-spin pi-spinner"></i>
-		<app-beer-card (onSelectBeer)="openModal($event)" [beers]="beers"></app-beer-card>
+
+		<app-beer-card (selectBeer)="openModal($event)" [beers]="beers"></app-beer-card>
 	</div>
 </div>
 
 
 <p-dialog (onShow)="handleFocus()" (onHide)="clearSelected()" [draggable]="false" header="Confirmar" [modal]="true" [(visible)]="visible">
 	<p>Aproxime o cartão do leitor para finalizar a compra</p>
-	<input pInputText id="inputCard" (keydown.enter)="pourDrink()" [(ngModel)]="this.selected.card" >
+	<input pInputText id="inputCard" (change)="pourDrink()" [(ngModel)]="this.selected.card">
 </p-dialog>
