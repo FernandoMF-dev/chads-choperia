@@ -41,6 +41,7 @@ public class BeerService {
 	private final ClientCardService clientCardService;
 
 	private final MessageSource messageSource;
+	private final MessageSource historicMessageSource;
 	private final ApplicationEventPublisher applicationEventPublisher;
 
 	public List<ViewBeerDto> findAllView() {
@@ -109,9 +110,12 @@ public class BeerService {
 
 	public void pour(PourBeerDTO dto) {
 		BeerDto beer = findDtoById(dto.getBeer());
-		publishPourExpense(dto, beer);
+		ClientCardDto card = clientCardService.findOpenByRfid(dto.getCard());
+		String description = historicMessageSource.getMessage(HistoricBeerActionEnum.POUR.getMessage(), new String[]{card.getClient().getName(), card.getRfid()}, Locale.getDefault());
+
+		publishPourExpense(card, beer);
 		beer.subtractStock(POUR_QUANTITY);
-		publishHistoric(beer, HistoricBeerActionEnum.POUR, -POUR_QUANTITY);
+		publishHistoric(beer, HistoricBeerActionEnum.POUR, -POUR_QUANTITY, description);
 		saveDto(beer);
 	}
 
@@ -152,9 +156,8 @@ public class BeerService {
 	// </editor-fold>
 
 	// <editor-fold defaultstate="collapsed" desc="Private Methods: Publish events">
-	private void publishPourExpense(PourBeerDTO dto, BeerDto beer) {
+	private void publishPourExpense(ClientCardDto card, BeerDto beer) {
 		try {
-			ClientCardDto card = clientCardService.findOpenByRfid(dto.getCard());
 			String description = messageSource.getMessage("client_card_expense.beer.pour", new String[]{beer.getName()}, Locale.getDefault());
 			applicationEventPublisher.publishEvent(new AddClientCardExpenseEvent(card.getId(), beer.getValuePerMug(), description));
 		} catch (EntityNotFoundException ex) {
@@ -172,6 +175,10 @@ public class BeerService {
 
 	private void publishHistoric(BeerDto beerDto, HistoricBeerActionEnum action, Double stock) {
 		applicationEventPublisher.publishEvent(new AddHistoricBeerEvent(beerDto.getId(), action, stock, beerDto.getStock(), null));
+	}
+
+	private void publishHistoric(BeerDto beerDto, HistoricBeerActionEnum action, Double stock, String description) {
+		applicationEventPublisher.publishEvent(new AddHistoricBeerEvent(beerDto.getId(), action, stock, beerDto.getStock(), description));
 	}
 
 	private void publishHistoric(Beer beer, HistoricBeerActionEnum action, Double stock) {

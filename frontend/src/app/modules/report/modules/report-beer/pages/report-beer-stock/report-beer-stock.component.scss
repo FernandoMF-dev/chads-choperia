@@ -2,22 +2,17 @@ h5 {
 	margin: 0;
 }
 
-p-table {
+p-accordion {
 	width: 100%;
-}
 
-tr:nth-child(2n) {
-	background-color: #f8f9fa;
-}
+	.report-accordion-header {
+		display: flex;
+		justify-content: space-between;
+		width: 100%;
+		align-items: center;
 
-th {
-	text-align: start;
-}
-
-.positive {
-	color: lime;
-}
-
-.negative {
-	color: red;
+		p {
+			margin: 0;
+		}
+	}
 }

@@ -13,13 +13,13 @@ import java.util.List;
 @Repository
 public interface BeerReportRepository extends JpaRepository<HistoricBeer, Long> {
 	@Query("SELECT new br.com.chadschoperia.service.reports.dto.BeerStockReportDto" +
-			"(hb.action, hb.description, b.name, b.rfid, hb.stock, hb.totalStock, hb.dateTime) " +
+			"(hb.action, hb.description, b.id, b.name, b.rfid, hb.stock, hb.totalStock, hb.dateTime) " +
 			" FROM HistoricBeer hb " +
 			" INNER JOIN hb.beer b " +
 			" WHERE hb.stock IS NOT NULL " +
 			" AND (CAST(:#{#filter.minDate} as timestamp) IS NULL OR CAST(:#{#filter.minDate} as timestamp) <= hb.dateTime) " +
 			" AND (CAST(:#{#filter.maxDate} as timestamp) IS NULL OR CAST(:#{#filter.maxDate} as timestamp) >= hb.dateTime) " +
 			" AND (b.id IN (:#{#filter.beers})) " +
-			" ORDER BY hb.dateTime DESC ")
+			" ORDER BY b.name ASC, hb.dateTime DESC ")
 	List<BeerStockReportDto> reportBeerStockOverTime(@Param("filter") BeerStockReportFilterDto filter);
 }
