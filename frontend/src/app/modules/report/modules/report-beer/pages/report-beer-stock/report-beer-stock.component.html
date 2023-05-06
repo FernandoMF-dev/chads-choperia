@@ -31,45 +31,32 @@
 								   [disabled]="isLoadingBeers" [dropdownIcon]="isLoadingBeers ? 'pi pi-spin pi-spinner' : ''"
 								   optionLabel="name" optionValue="id" display="chip"></p-multiSelect>
 				</div>
+
+				<div class="xl:col-4 lg:col-6 sm:col-12 field">
+					<label htmlFor="view-mode">Visualização</label>
+					<p-dropdown id="view-mode" [options]="viewModeOptions" [(ngModel)]="viewMode" (onChange)="loadReportGroups()"
+								[disabled]="isLoadingBeers"></p-dropdown>
+				</div>
 			</div>
 
 			<div class="col-12 grid">
-				<p-table [value]="allReports">
-					<ng-template pTemplate="header">
-						<tr>
-							<th>Chope</th>
-							<th>Descrição</th>
-							<th colspan="2">Estoque</th>
-							<th>Data &amp; Hora</th>
-						</tr>
-					</ng-template>
+				<p-accordion class="alternate-list">
+					<p-accordionTab *ngFor="let report of reportsDisplay" class="no-content-padding highlight-active">
+						<ng-template pTemplate="header">
+							<div class="report-accordion-header">
+								<p>{{ report.beerName }} [{{ report.rfid }}]</p>
+								<p>{{ report.reports.length | number: '2.0-0' }} registros</p>
+							</div>
+						</ng-template>
 
-					<ng-template pTemplate="body" let-beer>
-						<tr>
-							<th>
-								{{ beer.beerName }} ({{ beer.rfid }})
-							</th>
-							<th>
-								{{ beer.description }}
-							</th>
-							<th class="{{beer.value < 0 ? 'negative' : 'positive'}}">
-								{{ beer.value >= 0 ? '+' : '' }}{{ beer.value | number:'.1-1' }} L
-							</th>
-							<th>
-								{{ beer.totalStock | number:'.1-1' }} L
-							</th>
-							<th>
-								{{ beer.dateTime | date:'dd/MM/yyyy HH:mm:ss' }}
-							</th>
-						</tr>
-					</ng-template>
+						<ng-template pTemplate="content">
+							<em *ngIf="!reportsDisplayLoaded" class="pi pi-spin pi-spinner"></em>
 
-					<ng-template pTemplate="emptymessage">
-						<tr>
-							<td colspan="5">Nenhum registro encontrado...</td>
-						</tr>
-					</ng-template>
-				</p-table>
+							<app-report-beer-stock-item *ngIf="reportsDisplayLoaded" [viewMode]="viewMode"
+														[reports]="report.reports"></app-report-beer-stock-item>
+						</ng-template>
+					</p-accordionTab>
+				</p-accordion>
 			</div>
 		</div>
 	</div>

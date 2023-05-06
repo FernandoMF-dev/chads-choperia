@@ -59,7 +59,7 @@ export class ReportBeerStockComponent implements OnInit {
 		return this.reportsGroups.get(this.viewMode)!.loaded;
 	}
 
-	ngOnInit() {
+	ngOnInit(): void {
 		this.fetchBeers();
 	}
 
@@ -77,7 +77,7 @@ export class ReportBeerStockComponent implements OnInit {
 		this.reportsFnGroups.get(this.viewMode)!.update();
 	}
 
-	search() {
+	search(): void {
 		this.viewMode = 'all';
 		this.reportsGroups.forEach(control => control.loaded = false);
 

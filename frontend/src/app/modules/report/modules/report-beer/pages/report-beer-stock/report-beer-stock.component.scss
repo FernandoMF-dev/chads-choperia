@@ -1,3 +1,18 @@
 h5 {
 	margin: 0;
 }
+
+p-accordion {
+	width: 100%;
+
+	.report-accordion-header {
+		display: flex;
+		justify-content: space-between;
+		width: 100%;
+		align-items: center;
+
+		p {
+			margin: 0;
+		}
+	}
+}

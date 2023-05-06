@@ -1,7 +1,6 @@
 <p-table [value]="reports">
 	<ng-template pTemplate="header">
 		<tr>
-			<th>Chope</th>
 			<th>Descrição</th>
 			<th colspan="2">Estoque</th>
 			<th>Data &amp; Hora</th>
@@ -10,9 +9,6 @@
 
 	<ng-template pTemplate="body" let-beer>
 		<tr>
-			<th>
-				{{ beer.beerName }} ({{ beer.rfid }})
-			</th>
 			<th>
 				{{ beer.description }}
 			</th>
