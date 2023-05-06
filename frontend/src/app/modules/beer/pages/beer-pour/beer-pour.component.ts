@@ -1,10 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { InputNumber } from 'primeng/inputnumber';
+import { Component, OnInit } from '@angular/core';
 import { finalize } from 'rxjs/operators';
 import { UtilsService } from '../../../../services/utils.service';
 import { Beer } from '../../models/beer.model';
 import { Pour } from '../../models/pour.model';
-import { Select } from '../../models/select.model';
 import { BeerService } from '../../services/beer.service';
 
 @Component({
@@ -16,21 +14,9 @@ export class BeerPourComponent implements OnInit {
 
 	beers: Beer[] = [];
 
-	viewBeerForm: boolean = false;
-
-	_isLoading = false;
-
 	selected: Pour = new Pour();
 
 	visible: boolean = false;
-
-	get isLoading(): boolean {
-		return this._isLoading;
-	}
-
-	set isLoading(value: boolean) {
-		this._isLoading = value;
-	}
 
 	constructor(
 		private beerService: BeerService,
@@ -43,10 +29,8 @@ export class BeerPourComponent implements OnInit {
 	}
 
 	fetchBeers(): void {
-		this.isLoading = true;
 		this.selected = new Pour();
-		this.beerService.getAllComplete()
-			.pipe(finalize(() => this.isLoading = false))
+		this.beerService.getAllComplete({ 'onStock': `${ true }` })
 			.subscribe({
 				next: (res) => this.beers = res,
 				error: (err) => this.utilsService.showErrorMessage(err.error.detail)
@@ -56,7 +40,8 @@ export class BeerPourComponent implements OnInit {
 	pourDrink() {
 		this.beerService.pourBeer(this.selected)
 			.pipe(finalize(() => {
-				this.clearSelected()
+				this.clearSelected();
+				this.fetchBeers();
 				this.visible = false;
 			}))
 			.subscribe({
@@ -70,12 +55,11 @@ export class BeerPourComponent implements OnInit {
 		this.visible = true;
 	}
 
-
-	handleFocus(){
+	handleFocus() {
 		document.getElementById('inputCard')?.focus();
 	}
 
-	clearSelected(){
+	clearSelected() {
 		this.selected = new Pour();
 	}
 }

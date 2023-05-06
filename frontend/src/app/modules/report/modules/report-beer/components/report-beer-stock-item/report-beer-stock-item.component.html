@@ -10,7 +10,7 @@
 	<ng-template pTemplate="body" let-beer>
 		<tr>
 			<th>
-				{{ beer.description }}
+				<span [innerHTML]="beer.description"></span>
 			</th>
 			<th class="{{beer.value < 0 ? 'negative' : 'positive'}}">
 				{{ beer.value >= 0 ? '+' : '' }}{{ beer.value | number:'.1-1' }} L
