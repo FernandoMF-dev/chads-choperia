@@ -1,0 +1,19 @@
+p-table {
+	width: 100%;
+}
+
+tr:nth-child(2n) {
+	background-color: #f8f9fa;
+}
+
+th {
+	text-align: start;
+}
+
+.positive {
+	color: lime;
+}
+
+.negative {
+	color: red;
+}

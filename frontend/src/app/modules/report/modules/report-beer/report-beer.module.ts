@@ -8,6 +8,7 @@ import { RippleModule } from 'primeng/ripple';
 import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
+import { ReportBeerStockItemComponent } from './pages/report-beer-stock/report-beer-stock-item/report-beer-stock-item.component';
 
 import { ReportBeerStockComponent } from './pages/report-beer-stock/report-beer-stock.component';
 import { ReportBeerRoutingModule } from './report-beer-routing.module';
@@ -16,7 +17,8 @@ import { BeerReportService } from './services/beer-report.service';
 
 @NgModule({
 	declarations: [
-		ReportBeerStockComponent
+		ReportBeerStockComponent,
+		ReportBeerStockItemComponent
 	],
 	imports: [
 		CommonModule,
