@@ -178,7 +178,7 @@ export class ReportBeerStockComponent implements OnInit {
 		control.qntd++;
 	}
 
-	private formatGroupedReportDescription(addStock: StockMovementControl, minusStock: { total: number, qntd: number }): string {
+	private formatGroupedReportDescription(addStock: StockMovementControl, minusStock: StockMovementControl): string {
 		return `${ addStock.qntd + minusStock.qntd } movimentações no estoque.<br>`
 			+ `${ addStock.qntd } adições ao estoque totalizando ${ addStock.total.toFixed(1) }L.<br>`
 			+ `${ minusStock.qntd } remoções no estoque totalizando ${ minusStock.total.toFixed(1) }L.`;
