@@ -54,7 +54,7 @@ public class ProductService {
 		return dto;
 	}
 
-	public List<ProductDto> restock(List<ProductStockDto> dtos) {
+	public List<ProductDto> restock(List<ProductStockDto> dtos, boolean positive) {
 		List<Long> productIds = dtos.stream().map(ProductStockDto::getProductId).collect(Collectors.toList());
 		List<Product> products = repository.findAllById(productIds);
 		List<Double> addedAmounts = new ArrayList<>();
@@ -65,7 +65,7 @@ public class ProductService {
 			addedAmounts.add(added);
 			totalAmounts.add(product.getStock());
 		});
-		publishListHistoric(HistoricProductActionEnum.RESTOCK, productIds, addedAmounts, totalAmounts);
+		publishListHistoric(positive ? HistoricProductActionEnum.RESTOCK : HistoricProductActionEnum.UNSTOCK, productIds, addedAmounts, totalAmounts);
 
 		return mapper.toDto(saveEntity(products));
 	}

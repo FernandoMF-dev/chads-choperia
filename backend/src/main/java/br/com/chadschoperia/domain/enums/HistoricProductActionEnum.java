@@ -12,6 +12,7 @@ public enum HistoricProductActionEnum {
 	CREATE("default.create"),
 	UPDATE("default.update"),
 	RESTOCK("default.restock"),
+	UNSTOCK("default.unstock"),
 	POUR("beer.pour"),
 	DELETE("default.deleted");
 

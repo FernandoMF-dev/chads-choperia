@@ -44,7 +44,12 @@ public class ProductController {
 
 	@PostMapping("/restock")
 	public ResponseEntity<List<ProductDto>> restock(@RequestBody List<ProductStockDto> dto) {
-		return ResponseEntity.status(HttpStatus.CREATED).body(service.restock(dto));
+		return ResponseEntity.status(HttpStatus.CREATED).body(service.restock(dto, true));
+	}
+
+	@PostMapping("/unstock")
+	public ResponseEntity<List<ProductDto>> unstock(@RequestBody List<ProductStockDto> dto) {
+		return ResponseEntity.status(HttpStatus.CREATED).body(service.restock(dto, false));
 	}
 
 	@PutMapping

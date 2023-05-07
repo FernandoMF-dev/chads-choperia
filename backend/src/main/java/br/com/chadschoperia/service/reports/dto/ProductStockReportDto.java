@@ -10,7 +10,6 @@ public class ProductStockReportDto extends BaseStockReportDto {
 
 	private final Long barcode;
 
-
 	public ProductStockReportDto(HistoricProductActionEnum action, String description, Long productId, String productName,
 								 Double stock, Double totalStock, LocalDateTime dateTime, Long barcode) {
 		super(description, stock, dateTime, action, productId, productName, totalStock);

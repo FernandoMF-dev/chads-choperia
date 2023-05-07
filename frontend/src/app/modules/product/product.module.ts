@@ -54,7 +54,9 @@ import { ProductService } from './services/product.service';
 		AutoCompleteModule,
 		FormsModule
 	],
-	providers: [ProductService]
+	providers: [
+		ProductService
+	]
 })
 export class ProductModule {
 }
