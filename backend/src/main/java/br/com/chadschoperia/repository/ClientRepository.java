@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,5 +39,11 @@ public interface ClientRepository extends JpaRepository<Client, Long> {
 			" AND c.deleted = FALSE " +
 			" AND (:id IS NULL OR c.id <> :id) ")
 	boolean existsDuplicateCpf(@Param("cpf") String cpf, @Param("id") Long id);
+
+	@Query(value = " SELECT DISTINCT C.EMAIL " +
+			" FROM CLIENT C " +
+			" INNER JOIN CLIENT_CARD CC ON (C.ID = CC.ID_CLIENT) " +
+			" WHERE CC.CHECK_OUT >= :periodStartDate AND CC.CHECK_OUT <= :periodEndDate ", nativeQuery = true)
+	List<String> findEmailByPurchasePeriod(@Param("periodStartDate") LocalDate periodStartDate, @Param("periodEndDate") LocalDate periodEndDate);
 
 }

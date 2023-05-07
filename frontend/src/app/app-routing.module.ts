@@ -60,6 +60,10 @@ const routes: Routes = [
 			{
 				path: RouteLinkUtils.REPORT,
 				loadChildren: () => import('./modules/report/report.module').then(m => m.ReportModule)
+			},
+			{
+				path: RouteLinkUtils.EMAIL,
+				loadChildren: () => import('./modules/email/email.module').then(m => m.EmailModule)
 			}
 		]
 	},
