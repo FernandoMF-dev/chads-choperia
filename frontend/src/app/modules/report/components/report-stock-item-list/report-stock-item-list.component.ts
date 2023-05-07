@@ -13,6 +13,7 @@ import { BeerStockReport } from '../../modules/report-beer/models/beer-stock.rep
 export class ReportStockItemListComponent {
 	@Input() viewMode: ReportBeerStockViewMode = 'all';
 	@Input() reports: BeerStockReport[] = [];
+	@Input() stockSufix: string = '';
 
 	get dateFormat(): string {
 		return REPORT_BEER_STOCK_VIEW_MODE_DATE_FORMAT.get(this.viewMode) || '';

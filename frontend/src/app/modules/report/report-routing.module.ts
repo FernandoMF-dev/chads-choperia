@@ -16,6 +16,10 @@ const routes: Routes = [
 			{
 				path: RouteLinkUtils.BEER,
 				loadChildren: () => import('./modules/report-beer/report-beer.module').then(m => m.ReportBeerModule)
+			},
+			{
+				path: RouteLinkUtils.PRODUCT,
+				loadChildren: () => import('./modules/report-product/report-product.module').then(m => m.ReportProductModule)
 			}
 		]
 	}
