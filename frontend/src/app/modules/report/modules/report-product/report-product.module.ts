@@ -10,6 +10,7 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { RippleModule } from 'primeng/ripple';
 import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
+import { ProductModule } from '../../../product/product.module';
 
 import { ReportModule } from '../../report.module';
 import { ReportProductStockComponent } from './pages/report-product-stock/report-product-stock.component';
@@ -25,6 +26,7 @@ import { ProductReportService } from './services/product-report.service';
 		CommonModule,
 		ReportProductRoutingModule,
 		ReportModule,
+		ProductModule,
 		AccordionModule,
 		ButtonModule,
 		CalendarModule,

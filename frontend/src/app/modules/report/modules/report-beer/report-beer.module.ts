@@ -9,6 +9,7 @@ import { RippleModule } from 'primeng/ripple';
 import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
 
+import { BeerModule } from '../../../beer/beer.module';
 import { ReportModule } from '../../report.module';
 import { ReportBeerStockComponent } from './pages/report-beer-stock/report-beer-stock.component';
 import { ReportBeerRoutingModule } from './report-beer-routing.module';
@@ -23,6 +24,7 @@ import { BeerReportService } from './services/beer-report.service';
 		CommonModule,
 		ReportBeerRoutingModule,
 		ReportModule,
+		BeerModule,
 		FormsModule,
 		ReactiveFormsModule,
 		ToastModule,
