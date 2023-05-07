@@ -4,19 +4,19 @@ import { Observable } from 'rxjs';
 import { environment } from '../../../../../../environments/environment';
 import { HttpRequestUtil } from '../../../../../utils/http-request.util';
 import { BaseStockReportFilter } from '../../../models/base-stock-report.filter';
-import { BeerStockReport } from '../models/beer-stock.report';
+import { ProductStockReport } from '../models/product-stock.report';
 
 @Injectable({
 	providedIn: 'root'
 })
-export class BeerReportService {
-	private readonly apiUrl: string = `${ environment.BASE_API }/report/chope`;
+export class ProductReportService {
+	private readonly apiUrl: string = `${ environment.BASE_API }/report/produto`;
 
 	constructor(private readonly http: HttpClient) {
 	}
 
-	public reportBeerStockOverTime(filter: Partial<BaseStockReportFilter>): Observable<BeerStockReport[]> {
+	public reportProductStockOverTime(filter: Partial<BaseStockReportFilter>): Observable<ProductStockReport[]> {
 		const params: HttpParams = HttpRequestUtil.getParamsFromObject(filter);
-		return this.http.get<BeerStockReport[]>(`${ this.apiUrl }/stock`, { params: params });
+		return this.http.get<ProductStockReport[]>(`${ this.apiUrl }/stock`, { params: params });
 	}
 }

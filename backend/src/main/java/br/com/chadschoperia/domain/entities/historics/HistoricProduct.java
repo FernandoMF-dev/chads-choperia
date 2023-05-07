@@ -1,6 +1,6 @@
 package br.com.chadschoperia.domain.entities.historics;
 
-import br.com.chadschoperia.domain.entities.Beer;
+import br.com.chadschoperia.domain.entities.Product;
 import br.com.chadschoperia.domain.enums.HistoricProductActionEnum;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -20,28 +20,28 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "historic_beer")
+@Table(name = "historic_product")
 @Getter
 @Setter
 @NoArgsConstructor
-public class HistoricBeer extends HisoricBaseStock implements Serializable {
+public class HistoricProduct extends HisoricBaseStock implements Serializable {
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence_historic_beer")
-	@SequenceGenerator(name = "sequence_historic_beer", sequenceName = "sequence_historic_beer", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence_historic_product")
+	@SequenceGenerator(name = "sequence_historic_product", sequenceName = "sequence_historic_product", allocationSize = 1)
 	@Column(name = "id", nullable = false)
 	private Long id;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_beer", referencedColumnName = "id", nullable = false)
-	private Beer beer;
+	@JoinColumn(name = "id_product", referencedColumnName = "id", nullable = false)
+	private Product product;
 
-	public HistoricBeer(Long beerId, HistoricProductActionEnum action, String description, Double stock, Double totalStock) {
+	public HistoricProduct(Long productId, HistoricProductActionEnum action, String description, Double stock, Double totalStock) {
 		super(action, description, stock, totalStock);
-		this.beer = new Beer(beerId);
+		this.product = new Product(productId);
 	}
 
-	public HistoricBeer(Long beerId, HistoricProductActionEnum action, String description, Double stock, Double totalStock, LocalDateTime dateTime) {
+	public HistoricProduct(Long productId, HistoricProductActionEnum action, String description, Double stock, Double totalStock, LocalDateTime dateTime) {
 		super(action, description, stock, totalStock, dateTime);
-		this.beer = new Beer(beerId);
+		this.product = new Product(productId);
 	}
 }

@@ -1,9 +1,9 @@
 import { HistoricActionEnum } from '../../../enums/historic-action.enum';
 import { BaseStockReport, BaseStockReportGroup } from '../../../models/base-stock.report';
 
-export class BeerStockReport extends BaseStockReport {
+export class ProductStockReport extends BaseStockReport {
 	constructor(
-		public rfid: string,
+		public barcode: number,
 		action: HistoricActionEnum,
 		productId: number,
 		productName: string,
@@ -16,16 +16,16 @@ export class BeerStockReport extends BaseStockReport {
 	}
 }
 
-export class BeerStockReportGroup extends BaseStockReportGroup<BeerStockReport> {
-	public readonly rfid: string;
+export class ProductStockReportGroup extends BaseStockReportGroup<ProductStockReport> {
+	public readonly barcode: number;
 
-	constructor(reports: BeerStockReport[]) {
+	constructor(reports: ProductStockReport[]) {
 		super(reports);
 
 		if (reports.length > 0) {
-			this.rfid = reports[0].rfid;
+			this.barcode = reports[0].barcode;
 		} else {
-			this.rfid = '';
+			this.barcode = 0;
 		}
 	}
 }

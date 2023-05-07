@@ -1,7 +1,7 @@
 package br.com.chadschoperia.service;
 
 import br.com.chadschoperia.domain.entities.Beer;
-import br.com.chadschoperia.domain.enums.HistoricBeerActionEnum;
+import br.com.chadschoperia.domain.enums.HistoricProductActionEnum;
 import br.com.chadschoperia.exceptions.BusinessException;
 import br.com.chadschoperia.exceptions.EntityNotFoundException;
 import br.com.chadschoperia.repository.BeerRepository;
@@ -76,7 +76,7 @@ public class BeerService {
 		beerDto.setStock(0D);
 		beerDto = saveDto(beerDto);
 
-		publishHistoric(beerDto, HistoricBeerActionEnum.CREATE);
+		publishHistoric(beerDto, HistoricProductActionEnum.CREATE);
 
 		return beerDto;
 	}
@@ -88,7 +88,7 @@ public class BeerService {
 		beerDto.setStock(originalDto.getStock());
 		beerDto = saveDto(beerDto);
 
-		publishHistoric(beerDto, HistoricBeerActionEnum.UPDATE);
+		publishHistoric(beerDto, HistoricProductActionEnum.UPDATE);
 
 		return beerDto;
 	}
@@ -104,26 +104,26 @@ public class BeerService {
 			addedAmounts.add(added);
 			totalAmounts.add(product.getStock());
 		});
-		publishListHistoric(HistoricBeerActionEnum.RESTOCK, productIds, addedAmounts, totalAmounts);
+		publishListHistoric(HistoricProductActionEnum.RESTOCK, productIds, addedAmounts, totalAmounts);
 
-		return saveDto(beers);
+		return beerMapper.toDto(saveEntity(beers));
 	}
 
 	public void pour(PourBeerDTO dto) {
 		BeerDto beer = findDtoById(dto.getBeer());
 		ClientCardDto card = clientCardService.findOpenByRfid(dto.getCard());
-		String description = historicMessageSource.getMessage(HistoricBeerActionEnum.POUR.getMessage(), new String[]{card.getClient().getName(), card.getRfid()}, Locale.getDefault());
+		String description = historicMessageSource.getMessage(HistoricProductActionEnum.POUR.getMessage(), new String[]{card.getClient().getName(), card.getRfid()}, Locale.getDefault());
 
 		publishPourExpense(card, beer);
 		beer.subtractStock(POUR_QUANTITY);
-		publishHistoric(beer, HistoricBeerActionEnum.POUR, -POUR_QUANTITY, description);
+		publishHistoric(beer, HistoricProductActionEnum.POUR, -POUR_QUANTITY, description);
 		saveDto(beer);
 	}
 
 	public void deleteById(Long idBeer) {
 		Beer entity = findEntityById(idBeer);
 		entity.setDeleted(Boolean.TRUE);
-		publishHistoric(entity, HistoricBeerActionEnum.DELETE);
+		publishHistoric(entity, HistoricProductActionEnum.DELETE);
 		saveEntity(entity);
 	}
 
@@ -141,10 +141,6 @@ public class BeerService {
 	// <editor-fold defaultstate="collapsed" desc="Private Methods: Persist entity">
 	private BeerDto saveDto(BeerDto beer) {
 		return beerMapper.toDto(saveEntity(beerMapper.toEntity(beer)));
-	}
-
-	private List<BeerDto> saveDto(List<Beer> beers) {
-		return beerMapper.toDto(saveEntity(beers));
 	}
 
 	private Beer saveEntity(Beer entity) {
@@ -166,27 +162,27 @@ public class BeerService {
 		}
 	}
 
-	private void publishHistoric(BeerDto beerDto, HistoricBeerActionEnum action) {
+	private void publishHistoric(BeerDto beerDto, HistoricProductActionEnum action) {
 		this.publishHistoric(beerDto, action, null);
 	}
 
-	private void publishHistoric(Beer beer, HistoricBeerActionEnum action) {
+	private void publishHistoric(Beer beer, HistoricProductActionEnum action) {
 		this.publishHistoric(beer, action, null);
 	}
 
-	private void publishHistoric(BeerDto beerDto, HistoricBeerActionEnum action, Double stock) {
+	private void publishHistoric(BeerDto beerDto, HistoricProductActionEnum action, Double stock) {
 		applicationEventPublisher.publishEvent(new AddHistoricBeerEvent(beerDto.getId(), action, stock, beerDto.getStock(), null));
 	}
 
-	private void publishHistoric(BeerDto beerDto, HistoricBeerActionEnum action, Double stock, String description) {
+	private void publishHistoric(BeerDto beerDto, HistoricProductActionEnum action, Double stock, String description) {
 		applicationEventPublisher.publishEvent(new AddHistoricBeerEvent(beerDto.getId(), action, stock, beerDto.getStock(), description));
 	}
 
-	private void publishHistoric(Beer beer, HistoricBeerActionEnum action, Double stock) {
+	private void publishHistoric(Beer beer, HistoricProductActionEnum action, Double stock) {
 		applicationEventPublisher.publishEvent(new AddHistoricBeerEvent(beer.getId(), action, stock, beer.getStock(), null));
 	}
 
-	private void publishListHistoric(HistoricBeerActionEnum action, List<Long> beerIds, List<Double> stocks, List<Double> totalStocks) {
+	private void publishListHistoric(HistoricProductActionEnum action, List<Long> beerIds, List<Double> stocks, List<Double> totalStocks) {
 		List<String> descriptions = new ArrayList<>();
 
 		for (int i = 0; i < beerIds.size(); i++) {

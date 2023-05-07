@@ -144,7 +144,7 @@ export class ProductManageStockComponent implements OnInit {
 	}
 
 	handleSubmitData(): void {
-		this.productService.restockProducts(this.buildDataToSave())
+		this.productService.restockProducts(this.buildDataToSave(), this.currentAction)
 			.subscribe({
 				next: () => {
 					this.utilsService.showSuccessMessage('Movimentações cadastradas com sucesso');

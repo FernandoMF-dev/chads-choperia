@@ -13,10 +13,10 @@
 				<span [innerHTML]="beer.description"></span>
 			</th>
 			<th class="{{beer.value < 0 ? 'negative' : 'positive'}}">
-				{{ beer.value >= 0 ? '+' : '' }}{{ beer.value | number:'.1-1' }} L
+				{{ beer.value >= 0 ? '+' : '' }}{{ beer.value | number:'.1-1' }}{{ stockSufix }}
 			</th>
 			<th>
-				{{ beer.totalStock | number:'.1-1' }} L
+				{{ beer.totalStock | number:'.1-1' }}{{ stockSufix }}
 			</th>
 			<th>
 				{{ beer.dateTime | date:dateFormat }}

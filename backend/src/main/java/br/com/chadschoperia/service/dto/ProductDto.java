@@ -27,12 +27,12 @@ public class ProductDto implements Serializable {
 	private Long restockThreshold;
 
 	@NotNull(message = "product.stock.not_null")
-	private Long stock;
+	private Double stock;
 
 	@NotNull(message = "product.barcode.not_null")
 	private Long barcode;
 
-	public ProductDto(Long id, String name, Long restockThreshold, Long stock, Long barcode) {
+	public ProductDto(Long id, String name, Long restockThreshold, Double stock, Long barcode) {
 		this.id = id;
 		this.name = name;
 		this.restockThreshold = restockThreshold;
@@ -40,7 +40,7 @@ public class ProductDto implements Serializable {
 		this.barcode = barcode;
 	}
 
-	public void setStock(Long stock) {
+	public void setStock(Double stock) {
 		if (stock < 0) {
 			throw new OutOfStockException("product.out_of_stock");
 		}

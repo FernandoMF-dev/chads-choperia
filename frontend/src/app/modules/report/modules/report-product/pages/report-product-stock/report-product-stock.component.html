@@ -4,7 +4,7 @@
 			<p-toast></p-toast>
 			<p-toolbar styleClass="mb-4">
 				<div class="p-toolbar-group-start">
-					<h5>Relatório de Estoque de Chope</h5>
+					<h5>Relatório de Estoque de Produtos da Cozinha</h5>
 				</div>
 
 				<div class="p-toolbar-group-end">
@@ -28,16 +28,16 @@
 				</div>
 
 				<div class="xl:col-4 lg:col-6 sm:col-12 field">
-					<label htmlFor="filter-beers">Chopes</label>
-					<p-multiSelect id="filter-beers" [options]="allBeers" [(ngModel)]="filter.targets" defaultLabel="Escolha o chope"
-								   [disabled]="isLoadingBeers" [dropdownIcon]="isLoadingBeers ? 'pi pi-spin pi-spinner' : ''"
+					<label htmlFor="filter-products">Produtos</label>
+					<p-multiSelect id="filter-products" [options]="allProducts" [(ngModel)]="filter.targets" defaultLabel="Escolha o chope"
+								   [disabled]="isLoadingProducts" [dropdownIcon]="isLoadingProducts ? 'pi pi-spin pi-spinner' : ''"
 								   optionLabel="name" optionValue="id" display="chip"></p-multiSelect>
 				</div>
 
 				<div class="xl:col-4 lg:col-6 sm:col-12 field">
 					<label htmlFor="view-mode">Visualização</label>
 					<p-dropdown id="view-mode" [options]="viewModeOptions" [(ngModel)]="viewMode" (onChange)="loadReportGroups()"
-								[disabled]="isLoadingBeers"></p-dropdown>
+								[disabled]="isLoadingProducts"></p-dropdown>
 				</div>
 			</div>
 
@@ -46,7 +46,7 @@
 					<p-accordionTab *ngFor="let report of reportsDisplay" class="no-content-padding highlight-active">
 						<ng-template pTemplate="header">
 							<div class="report-accordion-header">
-								<p>{{ report.productName }} [{{ report.rfid }}]</p>
+								<p>{{ report.productName }} [{{ report.barcode }}]</p>
 								<p>{{ report.reports.length | number: '2.0-0' }} registros</p>
 							</div>
 						</ng-template>
