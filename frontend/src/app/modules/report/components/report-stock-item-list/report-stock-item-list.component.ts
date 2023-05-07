@@ -1,8 +1,5 @@
 import { Component, Input } from '@angular/core';
-import {
-	REPORT_BEER_STOCK_VIEW_MODE_DATE_FORMAT,
-	ReportBeerStockViewMode
-} from '../../modules/report-beer/interfaces/report-beer-stock-view.mode';
+import { REPORT_STOCK_VIEW_MODE_DATE_FORMAT, ReportStockViewMode } from '../../interfaces/report-stock-view.mode';
 import { BeerStockReport } from '../../modules/report-beer/models/beer-stock.report';
 
 @Component({
@@ -11,11 +8,11 @@ import { BeerStockReport } from '../../modules/report-beer/models/beer-stock.rep
 	styleUrls: ['./report-stock-item-list.component.scss']
 })
 export class ReportStockItemListComponent {
-	@Input() viewMode: ReportBeerStockViewMode = 'all';
+	@Input() viewMode: ReportStockViewMode = 'all';
 	@Input() reports: BeerStockReport[] = [];
 	@Input() stockSufix: string = '';
 
 	get dateFormat(): string {
-		return REPORT_BEER_STOCK_VIEW_MODE_DATE_FORMAT.get(this.viewMode) || '';
+		return REPORT_STOCK_VIEW_MODE_DATE_FORMAT.get(this.viewMode) || '';
 	}
 }

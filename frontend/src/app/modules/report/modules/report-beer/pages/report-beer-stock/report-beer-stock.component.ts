@@ -4,9 +4,9 @@ import { finalize } from 'rxjs/operators';
 import { UtilsService } from '../../../../../../services/utils.service';
 import { Beer } from '../../../../../beer/models/beer.model';
 import { BeerService } from '../../../../../beer/services/beer.service';
+import { REPORT_STOCK_VIEW_MODE_SELECT, ReportStockViewMode } from '../../../../interfaces/report-stock-view.mode';
 import { BaseStockReportFilter } from '../../../../models/base-stock-report.filter';
 import { BaseReport } from '../../../../models/base.report';
-import { REPORT_BEER_STOCK_VIEW_MODE_SELECT, ReportBeerStockViewMode } from '../../interfaces/report-beer-stock-view.mode';
 import { BeerStockReport, BeerStockReportGroup } from '../../models/beer-stock.report';
 import { BeerReportService } from '../../services/beer-report.service';
 
@@ -18,16 +18,16 @@ import { BeerReportService } from '../../services/beer-report.service';
 export class ReportBeerStockComponent implements OnInit {
 	filter: BaseStockReportFilter = new BaseStockReportFilter();
 	allBeers: Beer[] = [];
-	viewMode: ReportBeerStockViewMode = 'all';
-	viewModeOptions: SelectItem<ReportBeerStockViewMode>[] = REPORT_BEER_STOCK_VIEW_MODE_SELECT;
+	viewMode: ReportStockViewMode = 'all';
+	viewModeOptions: SelectItem<ReportStockViewMode>[] = REPORT_STOCK_VIEW_MODE_SELECT;
 
 	isLoadingSearch: boolean = false;
 	isLoadingBeers: boolean = false;
 
 	allReports: BeerStockReport[] = [];
 
-	private reportsGroups: Map<ReportBeerStockViewMode, BeerStockReportGroupControl>;
-	private reportsFnGroups: Map<ReportBeerStockViewMode, BeerStockReportFnGroupControl>;
+	private reportsGroups: Map<ReportStockViewMode, BeerStockReportGroupControl>;
+	private reportsFnGroups: Map<ReportStockViewMode, BeerStockReportFnGroupControl>;
 
 	constructor(
 		private beerService: BeerService,
@@ -149,7 +149,7 @@ export class ReportBeerStockComponent implements OnInit {
 		this.groupReportsPerBeer('year', (reportGroup) => BaseReport.splitPerYear(reportGroup.reports));
 	}
 
-	private groupReportsPerBeer(group: ReportBeerStockViewMode, splitFn: (reportGroup: BeerStockReportGroup) => BeerStockReport[][]): void {
+	private groupReportsPerBeer(group: ReportStockViewMode, splitFn: (reportGroup: BeerStockReportGroup) => BeerStockReport[][]): void {
 		const reportGroups: BeerStockReportGroup[] = [];
 
 		this.reportsGroups.get('all')!.groups.forEach(reportGroup => {

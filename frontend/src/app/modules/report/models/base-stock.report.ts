@@ -1,10 +1,10 @@
-import { HistoricBeerActionEnum } from '../modules/report-beer/enums/historic-beer-action.enum';
+import { HistoricActionEnum } from '../enums/historic-action.enum';
 import { BaseReport } from './base.report';
 
 export abstract class BaseStockReport extends BaseReport {
 
 	protected constructor(
-		public action: HistoricBeerActionEnum,
+		public action: HistoricActionEnum,
 		public productId: number,
 		public productName: string,
 		description: string,
