@@ -54,7 +54,7 @@
 						<ng-template pTemplate="content">
 							<em *ngIf="!reportsDisplayLoaded" class="pi pi-spin pi-spinner"></em>
 
-							<app-report-stock-item-list *ngIf="reportsDisplayLoaded" [viewMode]="viewMode" stockSufix="un."
+							<app-report-stock-item-list *ngIf="reportsDisplayLoaded" [viewMode]="viewMode" [stockSufix]="getUnitSufix()"
 														[reports]="report.reports"></app-report-stock-item-list>
 						</ng-template>
 					</p-accordionTab>

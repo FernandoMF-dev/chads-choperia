@@ -16,7 +16,7 @@ export abstract class BaseStockReport extends BaseReport {
 	}
 }
 
-export abstract class BaseProductStockReportGroup<T extends BaseStockReport> {
+export abstract class BaseStockReportGroup<T extends BaseStockReport> {
 	public readonly productId: number;
 	public readonly productName: string;
 

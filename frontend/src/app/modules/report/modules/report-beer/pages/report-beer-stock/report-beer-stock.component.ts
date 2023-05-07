@@ -5,8 +5,7 @@ import { UtilsService } from '../../../../../../services/utils.service';
 import { Beer } from '../../../../../beer/models/beer.model';
 import { BeerService } from '../../../../../beer/services/beer.service';
 import { REPORT_STOCK_VIEW_MODE_SELECT, ReportStockViewMode } from '../../../../interfaces/report-stock-view.mode';
-import { BaseStockReportFilter } from '../../../../models/base-stock-report.filter';
-import { BaseReport } from '../../../../models/base.report';
+import { ReportStockComponentUtils } from '../../../../utils/report-stock-component.utils';
 import { BeerStockReport, BeerStockReportGroup } from '../../models/beer-stock.report';
 import { BeerReportService } from '../../services/beer-report.service';
 
@@ -15,8 +14,7 @@ import { BeerReportService } from '../../services/beer-report.service';
 	templateUrl: './report-beer-stock.component.html',
 	styleUrls: ['./report-beer-stock.component.scss']
 })
-export class ReportBeerStockComponent implements OnInit {
-	filter: BaseStockReportFilter = new BaseStockReportFilter();
+export class ReportBeerStockComponent extends ReportStockComponentUtils<BeerStockReport, BeerStockReportGroup> implements OnInit {
 	allBeers: Beer[] = [];
 	viewMode: ReportStockViewMode = 'all';
 	viewModeOptions: SelectItem<ReportStockViewMode>[] = REPORT_STOCK_VIEW_MODE_SELECT;
@@ -24,31 +22,12 @@ export class ReportBeerStockComponent implements OnInit {
 	isLoadingSearch: boolean = false;
 	isLoadingBeers: boolean = false;
 
-	allReports: BeerStockReport[] = [];
-
-	private reportsGroups: Map<ReportStockViewMode, BeerStockReportGroupControl>;
-	private reportsFnGroups: Map<ReportStockViewMode, BeerStockReportFnGroupControl>;
-
 	constructor(
 		private beerService: BeerService,
 		private beerReportService: BeerReportService,
 		private utilsService: UtilsService
 	) {
-		this.reportsGroups = new Map([
-			['all', { groups: [], loaded: false }],
-			['day', { groups: [], loaded: false }],
-			['week', { groups: [], loaded: false }],
-			['month', { groups: [], loaded: false }],
-			['year', { groups: [], loaded: false }]
-		]);
-
-		this.reportsFnGroups = new Map([
-			['all', { update: () => this.updateReportViewAll() }],
-			['day', { update: () => this.updateReportViewDay() }],
-			['week', { update: () => this.updateReportViewWeek() }],
-			['month', { update: () => this.updateReportViewMonth() }],
-			['year', { update: () => this.updateReportViewYear() }]
-		]);
+		super();
 	}
 
 	get reportsDisplay(): BeerStockReportGroup[] {
@@ -101,100 +80,11 @@ export class ReportBeerStockComponent implements OnInit {
 		this.updateReportViewAll();
 	}
 
-	private updateReportViewAll(): void {
-		this.reportsGroups.set('all', { groups: [], loaded: false });
-
-		const groups: BeerStockReportGroup[] = [];
-
-		this.filter.targets.forEach(beerId => {
-			const reports = this.allReports.filter(value => value.productId === beerId);
-
-			if (reports.length > 0) {
-				groups.push(new BeerStockReportGroup(reports));
-			}
-		});
-
-		this.reportsGroups.set('all', { groups: groups, loaded: true });
+	public getUnitSufix(): string {
+		return ' L';
 	}
 
-	private updateReportViewDay(): void {
-		if (this.reportsGroups.get('day')!.loaded) {
-			return;
-		}
-
-		this.groupReportsPerBeer('day', (reportGroup) => BaseReport.splitPerDay(reportGroup.reports));
+	protected newStockReportGroup(reports: BeerStockReport[]): BeerStockReportGroup {
+		return new BeerStockReportGroup(reports);
 	}
-
-	private updateReportViewWeek(): void {
-		if (this.reportsGroups.get('week')!.loaded) {
-			return;
-		}
-
-		this.groupReportsPerBeer('week', (reportGroup) => BaseReport.splitPerWeek(reportGroup.reports));
-	}
-
-	private updateReportViewMonth(): void {
-		if (this.reportsGroups.get('month')!.loaded) {
-			return;
-		}
-
-		this.groupReportsPerBeer('month', (reportGroup) => BaseReport.splitPerMonth(reportGroup.reports));
-	}
-
-	private updateReportViewYear(): void {
-		if (this.reportsGroups.get('year')!.loaded) {
-			return;
-		}
-
-		this.groupReportsPerBeer('year', (reportGroup) => BaseReport.splitPerYear(reportGroup.reports));
-	}
-
-	private groupReportsPerBeer(group: ReportStockViewMode, splitFn: (reportGroup: BeerStockReportGroup) => BeerStockReport[][]): void {
-		const reportGroups: BeerStockReportGroup[] = [];
-
-		this.reportsGroups.get('all')!.groups.forEach(reportGroup => {
-			const allReportsPerDay: BeerStockReport[][] = splitFn(reportGroup);
-			const reports: BeerStockReport[] = [];
-
-			allReportsPerDay.forEach(day => {
-				const report: BeerStockReport = Object.assign({}, day[0]);
-				let addStock: StockMovementControl = { total: 0, qntd: 0 };
-				let minusStock: StockMovementControl = { total: 0, qntd: 0 };
-
-				day.forEach(value => this.acumulateStockMovements(value.value < 0 ? minusStock : addStock, value));
-				report.description = this.formatGroupedReportDescription(addStock, minusStock);
-				report.value = addStock.total + minusStock.total;
-				reports.push(report);
-			});
-
-			reportGroups.push(new BeerStockReportGroup(reports));
-		});
-
-		this.reportsGroups.set(group, { groups: reportGroups, loaded: true });
-	}
-
-	private acumulateStockMovements(control: StockMovementControl, value: BeerStockReport): void {
-		control.total += value.value;
-		control.qntd++;
-	}
-
-	private formatGroupedReportDescription(addStock: StockMovementControl, minusStock: StockMovementControl): string {
-		return `${ addStock.qntd + minusStock.qntd } movimentações no estoque.<br>`
-			+ `${ addStock.qntd } adições ao estoque totalizando ${ addStock.total.toFixed(1) }L.<br>`
-			+ `${ minusStock.qntd } remoções no estoque totalizando ${ minusStock.total.toFixed(1) }L.`;
-	}
-}
-
-interface BeerStockReportGroupControl {
-	groups: BeerStockReportGroup[];
-	loaded: boolean;
-}
-
-interface BeerStockReportFnGroupControl {
-	update: () => void;
-}
-
-interface StockMovementControl {
-	total: number;
-	qntd: number;
 }

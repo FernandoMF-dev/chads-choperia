@@ -1,5 +1,5 @@
 import { HistoricActionEnum } from '../../../enums/historic-action.enum';
-import { BaseProductStockReportGroup, BaseStockReport } from '../../../models/base-stock.report';
+import { BaseStockReport, BaseStockReportGroup } from '../../../models/base-stock.report';
 
 export class BeerStockReport extends BaseStockReport {
 	constructor(
@@ -16,7 +16,7 @@ export class BeerStockReport extends BaseStockReport {
 	}
 }
 
-export class BeerStockReportGroup extends BaseProductStockReportGroup<BeerStockReport> {
+export class BeerStockReportGroup extends BaseStockReportGroup<BeerStockReport> {
 	public readonly rfid: string;
 
 	constructor(reports: BeerStockReport[]) {
