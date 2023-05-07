@@ -9,6 +9,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
@@ -17,6 +18,7 @@ import java.io.Serializable;
 @Table(name = "product")
 @Getter
 @Setter
+@NoArgsConstructor
 public class Product implements Serializable {
 
 	@Id
@@ -39,6 +41,10 @@ public class Product implements Serializable {
 
 	@Column(name = "deleted", nullable = false)
 	private Boolean deleted = Boolean.FALSE;
+
+	public Product(Long id) {
+		this.id = id;
+	}
 
 	public void setStock(Long stock) {
 		if (stock < 0) {

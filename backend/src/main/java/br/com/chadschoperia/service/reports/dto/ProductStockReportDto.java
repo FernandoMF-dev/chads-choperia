@@ -1,9 +1,19 @@
 package br.com.chadschoperia.service.reports.dto;
 
+import br.com.chadschoperia.domain.enums.HistoricProductActionEnum;
+import lombok.Getter;
+
 import java.time.LocalDateTime;
 
-public class ProductStockReportDto extends BaseReportDto {
-	public ProductStockReportDto(String description, Double value, LocalDateTime dateTime) {
-		super(description, value, dateTime);
+@Getter
+public class ProductStockReportDto extends BaseStockReportDto {
+
+	private final Long barcode;
+
+
+	public ProductStockReportDto(HistoricProductActionEnum action, String description, Long productId, String productName,
+								 Double stock, Double totalStock, LocalDateTime dateTime, Long barcode) {
+		super(description, stock, dateTime, action, productId, productName, totalStock);
+		this.barcode = barcode;
 	}
 }
