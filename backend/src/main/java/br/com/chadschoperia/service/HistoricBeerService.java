@@ -28,7 +28,7 @@ public class HistoricBeerService {
 	}
 
 	@EventListener
-	public void AddListHistoricBeerEvent(AddListHistoricBeerEvent event) {
+	public void AddListHistoricBeer(AddListHistoricBeerEvent event) {
 		List<HistoricBeer> historics = new ArrayList<>();
 		LocalDateTime dateTime = LocalDateTime.now();
 
