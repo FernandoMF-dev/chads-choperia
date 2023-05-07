@@ -15,7 +15,7 @@ export class ProductReportService {
 	constructor(private readonly http: HttpClient) {
 	}
 
-	public reportProuctStockOverTime(filter: Partial<BaseStockReportFilter>): Observable<ProductStockReport[]> {
+	public reportProductStockOverTime(filter: Partial<BaseStockReportFilter>): Observable<ProductStockReport[]> {
 		const params: HttpParams = HttpRequestUtil.getParamsFromObject(filter);
 		return this.http.get<ProductStockReport[]>(`${ this.apiUrl }/stock`, { params: params });
 	}

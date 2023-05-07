@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { REPORT_STOCK_VIEW_MODE_DATE_FORMAT, ReportStockViewMode } from '../../interfaces/report-stock-view.mode';
-import { BeerStockReport } from '../../modules/report-beer/models/beer-stock.report';
+import { BaseStockReport } from '../../models/base-stock.report';
 
 @Component({
 	selector: 'app-report-stock-item-list',
@@ -9,7 +9,7 @@ import { BeerStockReport } from '../../modules/report-beer/models/beer-stock.rep
 })
 export class ReportStockItemListComponent {
 	@Input() viewMode: ReportStockViewMode = 'all';
-	@Input() reports: BeerStockReport[] = [];
+	@Input() reports: BaseStockReport[] = [];
 	@Input() stockSufix: string = '';
 
 	get dateFormat(): string {
