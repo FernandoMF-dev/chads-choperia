@@ -12,7 +12,10 @@ export class ProductService extends CrudService<Product> {
 		super(http, 'produto');
 	}
 
-	public restockProducts(queries: ManageStockProduct[]): Observable<ManageStockProduct[]> {
-		return this.http.post<ManageStockProduct[]>(`${ this.apiUrl }/restock`, queries);
+	public restockProducts(queries: ManageStockProduct[], action: 'entry' | 'removal'): Observable<ManageStockProduct[]> {
+		if (action === 'entry') {
+			return this.http.post<ManageStockProduct[]>(`${ this.apiUrl }/restock`, queries);
+		}
+		return this.http.post<ManageStockProduct[]>(`${ this.apiUrl }/unstock`, queries);
 	}
 }

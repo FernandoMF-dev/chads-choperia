@@ -1,22 +1,18 @@
 package br.com.chadschoperia.service.reports.dto;
 
-import br.com.chadschoperia.domain.enums.HistoricBeerActionEnum;
+import br.com.chadschoperia.domain.enums.HistoricProductActionEnum;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
 
 @Getter
-public class BeerStockReportDto extends BaseReportDto {
-	private final HistoricBeerActionEnum action;
-	private final String beer;
+public class BeerStockReportDto extends BaseStockReportDto {
 	private final String rfid;
-	private final Double totalStock;
 
-	public BeerStockReportDto(HistoricBeerActionEnum action, String description, String beer, String rfid, Double stock, Double totalStock, LocalDateTime dateTime) {
-		super(description, stock, dateTime);
-		this.action = action;
-		this.beer = beer;
+
+	public BeerStockReportDto(HistoricProductActionEnum action, String description, Long productId, String productName,
+							  Double stock, Double totalStock, LocalDateTime dateTime, String rfid) {
+		super(description, stock, dateTime, action, productId, productName, totalStock);
 		this.rfid = rfid;
-		this.totalStock = totalStock;
 	}
 }

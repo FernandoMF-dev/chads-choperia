@@ -5,6 +5,7 @@ import br.com.chadschoperia.service.dto.BeerDto;
 import br.com.chadschoperia.service.dto.PourBeerDTO;
 import br.com.chadschoperia.service.dto.ProductStockDto;
 import br.com.chadschoperia.service.dto.ViewBeerDto;
+import br.com.chadschoperia.service.dto.filters.ViewBeerFilterDto;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -35,8 +36,8 @@ public class BeerController {
 	}
 
 	@GetMapping("/complete")
-	public ResponseEntity<List<BeerDto>> findAllComplete() {
-		return ResponseEntity.ok(beerService.findAllDto());
+	public ResponseEntity<List<BeerDto>> findAllComplete(ViewBeerFilterDto filter) {
+		return ResponseEntity.ok(beerService.findAllDto(filter));
 	}
 
 	@GetMapping("/{idBeer}")

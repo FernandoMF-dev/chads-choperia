@@ -11,7 +11,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class BeerStockReportFilterDto implements Serializable {
+public class BaseStockReportFilterDto implements Serializable {
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
 	private LocalDateTime minDate;
 
@@ -19,5 +19,5 @@ public class BeerStockReportFilterDto implements Serializable {
 	private LocalDateTime maxDate;
 
 	@NotEmpty(message = "report.filter.targets.not_empty")
-	private List<Long> beers;
+	private List<Long> targets;
 }

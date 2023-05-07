@@ -9,6 +9,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
@@ -17,6 +18,7 @@ import java.io.Serializable;
 @Table(name = "product")
 @Getter
 @Setter
+@NoArgsConstructor
 public class Product implements Serializable {
 
 	@Id
@@ -32,7 +34,7 @@ public class Product implements Serializable {
 	private Long restockThreshold;
 
 	@Column(name = "stock", nullable = false)
-	private Long stock;
+	private Double stock;
 
 	@Column(name = "barcode", nullable = false)
 	private Long barcode;
@@ -40,14 +42,18 @@ public class Product implements Serializable {
 	@Column(name = "deleted", nullable = false)
 	private Boolean deleted = Boolean.FALSE;
 
-	public void setStock(Long stock) {
+	public Product(Long id) {
+		this.id = id;
+	}
+
+	public void setStock(Double stock) {
 		if (stock < 0) {
 			throw new OutOfStockException("product.out_of_stock");
 		}
 		this.stock = stock;
 	}
 
-	public void addStock(Long amount) {
+	public void addStock(Double amount) {
 		this.setStock(this.getStock() + amount);
 	}
 }

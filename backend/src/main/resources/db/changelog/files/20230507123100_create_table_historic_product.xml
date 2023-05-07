@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+		xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.17.xsd">
+
+	<changeSet id="20230507123100-1" author="Fernando Martins Ferreira">
+		<createTable tableName="historic_product">
+			<column name="id" type="bigint">
+				<constraints nullable="false"/>
+			</column>
+
+			<column name="id_product" type="bigint">
+				<constraints nullable="false"/>
+			</column>
+
+			<column name="action" type="varchar(50)">
+				<constraints nullable="false"/>
+			</column>
+
+			<column name="description" type="varchar(255)"/>
+
+			<column name="date_time" type="timestamp">
+				<constraints nullable="false"/>
+			</column>
+
+			<column name="stock" type="double"/>
+
+			<column name="total_stock" type="double">
+				<constraints nullable="false"/>
+			</column>
+		</createTable>
+
+		<rollback>
+			<dropTable tableName="historic_product"/>
+		</rollback>
+	</changeSet>
+
+	<changeSet id="20230507123100-2" author="Fernando Martins Ferreira">
+		<addPrimaryKey tableName="historic_product" columnNames="id" constraintName="pk_historic_product"/>
+
+		<rollback>
+			<dropPrimaryKey tableName="historic_product" constraintName="pk_historic_product"/>
+		</rollback>
+	</changeSet>
+
+	<changeSet id="20230507123100-3" author="Fernando Martins Ferreira">
+		<addForeignKeyConstraint baseTableName="historic_product" baseColumnNames="id_product"
+								 referencedTableName="product" referencedColumnNames="id"
+								 constraintName="fk_historic_product_product"/>
+
+		<rollback>
+			<dropAllForeignKeyConstraints baseTableName="historic_product"/>
+		</rollback>
+	</changeSet>
+
+	<changeSet id="20230507123100-4" author="Fernando Martins Ferreira">
+		<createSequence sequenceName="sequence_historic_product" dataType="bigint" startValue="1" incrementBy="1"/>
+
+		<rollback>
+			<dropSequence sequenceName="sequence_historic_product"/>
+		</rollback>
+	</changeSet>
+</databaseChangeLog>

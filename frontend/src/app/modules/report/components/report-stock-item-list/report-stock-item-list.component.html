@@ -1,0 +1,32 @@
+<p-table [value]="reports">
+	<ng-template pTemplate="header">
+		<tr>
+			<th>Descrição</th>
+			<th colspan="2">Estoque</th>
+			<th>Data &amp; Hora</th>
+		</tr>
+	</ng-template>
+
+	<ng-template pTemplate="body" let-beer>
+		<tr>
+			<th>
+				<span [innerHTML]="beer.description"></span>
+			</th>
+			<th class="{{beer.value < 0 ? 'negative' : 'positive'}}">
+				{{ beer.value >= 0 ? '+' : '' }}{{ beer.value | number:'.1-1' }}{{ stockSufix }}
+			</th>
+			<th>
+				{{ beer.totalStock | number:'.1-1' }}{{ stockSufix }}
+			</th>
+			<th>
+				{{ beer.dateTime | date:dateFormat }}
+			</th>
+		</tr>
+	</ng-template>
+
+	<ng-template pTemplate="emptymessage">
+		<tr>
+			<td colspan="5">Nenhum registro encontrado...</td>
+		</tr>
+	</ng-template>
+</p-table>

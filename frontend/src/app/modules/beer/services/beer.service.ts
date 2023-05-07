@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CrudService } from '../../../services/crud.service';
@@ -19,8 +19,9 @@ export class BeerService extends CrudService<Beer> {
 		return this.http.post<ManageStockBeer[]>(`${ this.apiUrl }/restock`, queries);
 	}
 
-	public getAllComplete(): Observable<any[]> {
-		return this.http.get<any[]>(this.apiUrl + '/complete');
+	public getAllComplete(query?: { [key: string]: string }): Observable<Beer[]> {
+		const params = new HttpParams({ fromObject: query });
+		return this.http.get<Beer[]>(this.apiUrl + '/complete', { params });
 	}
 
 	public pourBeer(pour: Pour): Observable<void> {

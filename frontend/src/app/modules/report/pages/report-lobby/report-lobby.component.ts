@@ -13,6 +13,11 @@ export class ReportLobbyComponent {
 			label: 'Estoque de Cerveja',
 			material: 'local_drink',
 			routerLink: [RouteLinkUtils.BEER]
+		},
+		{
+			label: 'Estoque de Produtos',
+			material: 'kitchen',
+			routerLink: [RouteLinkUtils.PRODUCT]
 		}
 	];
 }
