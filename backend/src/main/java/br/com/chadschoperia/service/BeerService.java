@@ -106,7 +106,7 @@ public class BeerService {
 		});
 		publishListHistoric(HistoricProductActionEnum.RESTOCK, productIds, addedAmounts, totalAmounts);
 
-		return saveDto(beers);
+		return beerMapper.toDto(saveEntity(beers));
 	}
 
 	public void pour(PourBeerDTO dto) {
@@ -141,10 +141,6 @@ public class BeerService {
 	// <editor-fold defaultstate="collapsed" desc="Private Methods: Persist entity">
 	private BeerDto saveDto(BeerDto beer) {
 		return beerMapper.toDto(saveEntity(beerMapper.toEntity(beer)));
-	}
-
-	private List<BeerDto> saveDto(List<Beer> beers) {
-		return beerMapper.toDto(saveEntity(beers));
 	}
 
 	private Beer saveEntity(Beer entity) {

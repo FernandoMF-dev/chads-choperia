@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -47,34 +47,54 @@ public class ProductService {
 
 	public ProductDto create(ProductDto dto) {
 		dto.setId(null);
-		return saveDto(dto);
+		dto = saveDto(dto);
+
+		publishHistoric(dto, HistoricProductActionEnum.CREATE);
+
+		return dto;
 	}
 
 	public List<ProductDto> restock(List<ProductStockDto> dtos) {
-		List<Product> products = repository.findAllById(dtos.stream().map(ProductStockDto::getProductId).collect(Collectors.toList()));
+		List<Long> productIds = dtos.stream().map(ProductStockDto::getProductId).collect(Collectors.toList());
+		List<Product> products = repository.findAllById(productIds);
+		List<Double> addedAmounts = new ArrayList<>();
+		List<Double> totalAmounts = new ArrayList<>();
 
-		products.forEach(product -> addStockFromSource(product, dtos));
+		products.forEach(product -> {
+			double added = addStockFromSource(product, dtos);
+			addedAmounts.add(added);
+			totalAmounts.add(product.getStock());
+		});
+		publishListHistoric(HistoricProductActionEnum.RESTOCK, productIds, addedAmounts, totalAmounts);
 
 		return mapper.toDto(saveEntity(products));
 	}
 
 	public ProductDto update(ProductDto dto) {
 		findDtoById(dto.getId());
-		return saveDto(dto);
+		dto = saveDto(dto);
+
+		publishHistoric(dto, HistoricProductActionEnum.UPDATE);
+
+		return dto;
 	}
 
 	public void deleteById(Long id) {
 		Product entity = findEntityById(id);
 		entity.setDeleted(Boolean.TRUE);
+		publishHistoric(entity, HistoricProductActionEnum.DELETE);
 		saveEntity(entity);
 	}
 
-	private void addStockFromSource(Product target, List<ProductStockDto> source) {
-		Optional<ProductStockDto> stockDto = source.stream().filter(dto -> dto.getProductId().equals(target.getId())).findAny();
-		if (stockDto.isEmpty()) {
-			throw new EntityNotFoundException(HttpStatus.BAD_REQUEST, "product.not_found.restock");
-		}
-		target.addStock(stockDto.get().getAmount());
+	private double addStockFromSource(Product target, List<ProductStockDto> source) {
+		ProductStockDto stockDto = source.stream()
+				.filter(dto -> Objects.equals(dto.getProductId(), target.getId()))
+				.findAny()
+				.orElseThrow(() -> new EntityNotFoundException(HttpStatus.BAD_REQUEST, "product.not_found.restock"));
+
+		double amount = stockDto.getAmount();
+		target.addStock(stockDto.getAmount());
+		return amount;
 	}
 
 	// <editor-fold defaultstate="collapsed" desc="Private Methods: Persist entity">
