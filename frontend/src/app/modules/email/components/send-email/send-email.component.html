@@ -1,0 +1,40 @@
+<div class="grid">
+	<div class="col-12">
+		<div class="card px-6 py-6" [formGroup]="formGroup">
+			<h2 class="title-center">Envio de e-mail para clientes</h2>
+			<div class="col-12 grid">
+				<div class="col field">
+					<span class="font-bold block mb-2">Data de início do período</span>
+					<p-inputMask formControlName="periodStartDate" mask="99/99/9999" slotChar="dd/mm/yyyy" (onBlur)="validateStartDate()"></p-inputMask>
+				</div>
+
+				<div class="col field">
+					<span class="font-bold block mb-2">Data de fim do período</span>
+					<p-inputMask formControlName="periodEndDate" mask="99/99/9999" slotChar="dd/mm/yyyy" (onBlur)="validateEndDate()"></p-inputMask>
+				</div>
+			</div>
+
+			<div class="col-12 grid">
+				<span class="font-bold block mb-2">Assunto</span>
+				<input type="text" pInputText formControlName="subject" class="width-100"/>
+			</div>
+
+			<div class="col-12 grid">
+				<span class="font-bold block mb-2 width-100">Mensagem</span>
+				<textarea rows="5" cols="160" pInputTextarea formControlName="message" class="width-100"></textarea>
+			</div>
+
+			<div>
+				<button pButton
+						pRipple
+						label="Enviar"
+						icon="pi pi-check-square"
+						class="p-button-raised p-button-success"
+						[disabled]="disableSendButton()"
+						(click)="send()"></button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<p-toast></p-toast>
