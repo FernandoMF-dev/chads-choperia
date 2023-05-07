@@ -13,7 +13,7 @@ import java.util.List;
 @Repository
 public interface BeerReportRepository extends JpaRepository<HistoricBeer, Long> {
 	@Query("SELECT new br.com.chadschoperia.service.reports.dto.BeerStockReportDto" +
-			"(hb.action, hb.description, b.id, b.name, b.rfid, hb.stock, hb.totalStock, hb.dateTime) " +
+			"(hb.action, hb.description, b.id, b.name, hb.stock, hb.totalStock, hb.dateTime, b.rfid) " +
 			" FROM HistoricBeer hb " +
 			" INNER JOIN hb.beer b " +
 			" WHERE hb.stock IS NOT NULL " +
