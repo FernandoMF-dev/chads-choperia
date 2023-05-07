@@ -4,9 +4,9 @@ import { finalize } from 'rxjs/operators';
 import { UtilsService } from '../../../../../../services/utils.service';
 import { Beer } from '../../../../../beer/models/beer.model';
 import { BeerService } from '../../../../../beer/services/beer.service';
+import { BaseStockReportFilter } from '../../../../models/base-stock-report.filter';
 import { BaseReport } from '../../../../models/base.report';
 import { REPORT_BEER_STOCK_VIEW_MODE_SELECT, ReportBeerStockViewMode } from '../../interfaces/report-beer-stock-view.mode';
-import { BeerStockReportFilter } from '../../models/beer-stock-report.filter';
 import { BeerStockReport, BeerStockReportGroup } from '../../models/beer-stock.report';
 import { BeerReportService } from '../../services/beer-report.service';
 
@@ -16,7 +16,7 @@ import { BeerReportService } from '../../services/beer-report.service';
 	styleUrls: ['./report-beer-stock.component.scss']
 })
 export class ReportBeerStockComponent implements OnInit {
-	filter: BeerStockReportFilter = new BeerStockReportFilter();
+	filter: BaseStockReportFilter = new BaseStockReportFilter();
 	allBeers: Beer[] = [];
 	viewMode: ReportBeerStockViewMode = 'all';
 	viewModeOptions: SelectItem<ReportBeerStockViewMode>[] = REPORT_BEER_STOCK_VIEW_MODE_SELECT;
@@ -91,7 +91,7 @@ export class ReportBeerStockComponent implements OnInit {
 	}
 
 	private updateBeers(beers: Beer[]): void {
-		this.filter.beers = beers.map(value => value.id!);
+		this.filter.targets = beers.map(value => value.id!);
 		this.allBeers = beers;
 	}
 
@@ -106,7 +106,7 @@ export class ReportBeerStockComponent implements OnInit {
 
 		const groups: BeerStockReportGroup[] = [];
 
-		this.filter.beers.forEach(beerId => {
+		this.filter.targets.forEach(beerId => {
 			const reports = this.allReports.filter(value => value.productId === beerId);
 
 			if (reports.length > 0) {

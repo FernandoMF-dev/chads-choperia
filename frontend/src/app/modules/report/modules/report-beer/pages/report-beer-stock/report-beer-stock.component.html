@@ -17,17 +17,19 @@
 			<div class="col-12 grid">
 				<div class="xl:col-4 lg:col-6 sm:col-12 field">
 					<label htmlFor="filter-min-date">Data inicial</label>
-					<p-calendar id="filter-min-date" [(ngModel)]="filter.minDate" [showIcon]="true"></p-calendar>
+					<p-calendar id="filter-min-date" [(ngModel)]="filter.minDate" [showIcon]="true" [showClear]="true"
+								[showTime]="true" [showButtonBar]="true"></p-calendar>
 				</div>
 
 				<div class="xl:col-4 lg:col-6 sm:col-12 field">
 					<label htmlFor="filter-max-date">Data final</label>
-					<p-calendar id="filter-max-date" [(ngModel)]="filter.maxDate" [showIcon]="true"></p-calendar>
+					<p-calendar id="filter-max-date" [(ngModel)]="filter.maxDate" [showIcon]="true" [showClear]="true"
+								[showTime]="true" [showButtonBar]="true"></p-calendar>
 				</div>
 
 				<div class="xl:col-4 lg:col-6 sm:col-12 field">
 					<label htmlFor="filter-beers">Chopes</label>
-					<p-multiSelect id="filter-beers" [options]="allBeers" [(ngModel)]="filter.beers" defaultLabel="Escolha o chope"
+					<p-multiSelect id="filter-beers" [options]="allBeers" [(ngModel)]="filter.targets" defaultLabel="Escolha o chope"
 								   [disabled]="isLoadingBeers" [dropdownIcon]="isLoadingBeers ? 'pi pi-spin pi-spinner' : ''"
 								   optionLabel="name" optionValue="id" display="chip"></p-multiSelect>
 				</div>
