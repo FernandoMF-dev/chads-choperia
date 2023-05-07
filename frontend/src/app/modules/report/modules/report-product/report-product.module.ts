@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { ReportModule } from '../../report.module';
 
 import { ReportProductRoutingModule } from './report-product-routing.module';
+import { ProductReportService } from './services/product-report.service';
 
 
 @NgModule({
@@ -11,6 +12,9 @@ import { ReportProductRoutingModule } from './report-product-routing.module';
 		CommonModule,
 		ReportProductRoutingModule,
 		ReportModule
+	],
+	providers: [
+		ProductReportService
 	]
 })
 export class ReportProductModule {
