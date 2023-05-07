@@ -1,37 +1,30 @@
-import { BaseReport } from '../../../models/base.report';
+import { BaseProductStockReportGroup, BaseStockReport } from '../../../models/base-stock.report';
 import { HistoricBeerActionEnum } from '../enums/historic-beer-action.enum';
 
-export class BeerStockReport extends BaseReport {
+export class BeerStockReport extends BaseStockReport {
 	constructor(
-		public action: HistoricBeerActionEnum,
-		public beerId: number,
-		public beerName: string,
 		public rfid: string,
+		action: HistoricBeerActionEnum,
+		productId: number,
+		productName: string,
 		description: string,
 		value: number,
 		dateTime: Date,
-		public totalStock: number
+		totalStock: number
 	) {
-		super(description, value, dateTime);
+		super(action, productId, productName, description, value, dateTime, totalStock);
 	}
 }
 
-export class BeerStockReportGroup {
-	public readonly beerId: number;
-	public readonly beerName: string;
+export class BeerStockReportGroup extends BaseProductStockReportGroup<BeerStockReport> {
 	public readonly rfid: string;
 
-	constructor(
-		public readonly reports: BeerStockReport[]
-	) {
+	constructor(reports: BeerStockReport[]) {
+		super(reports);
+
 		if (reports.length > 0) {
-			const aux = reports[0];
-			this.beerId = aux.beerId;
-			this.beerName = aux.beerName;
-			this.rfid = aux.rfid;
+			this.rfid = reports[0].rfid;
 		} else {
-			this.beerId = 0;
-			this.beerName = '';
 			this.rfid = '';
 		}
 	}

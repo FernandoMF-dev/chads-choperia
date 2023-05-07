@@ -44,7 +44,7 @@
 					<p-accordionTab *ngFor="let report of reportsDisplay" class="no-content-padding highlight-active">
 						<ng-template pTemplate="header">
 							<div class="report-accordion-header">
-								<p>{{ report.beerName }} [{{ report.rfid }}]</p>
+								<p>{{ report.productName }} [{{ report.rfid }}]</p>
 								<p>{{ report.reports.length | number: '2.0-0' }} registros</p>
 							</div>
 						</ng-template>
@@ -52,8 +52,8 @@
 						<ng-template pTemplate="content">
 							<em *ngIf="!reportsDisplayLoaded" class="pi pi-spin pi-spinner"></em>
 
-							<app-report-beer-stock-item *ngIf="reportsDisplayLoaded" [viewMode]="viewMode"
-														[reports]="report.reports"></app-report-beer-stock-item>
+							<app-report-stock-item-list *ngIf="reportsDisplayLoaded" [viewMode]="viewMode"
+														[reports]="report.reports"></app-report-stock-item-list>
 						</ng-template>
 					</p-accordionTab>
 				</p-accordion>

@@ -107,7 +107,7 @@ export class ReportBeerStockComponent implements OnInit {
 		const groups: BeerStockReportGroup[] = [];
 
 		this.filter.beers.forEach(beerId => {
-			const reports = this.allReports.filter(value => value.beerId === beerId);
+			const reports = this.allReports.filter(value => value.productId === beerId);
 
 			if (reports.length > 0) {
 				groups.push(new BeerStockReportGroup(reports));
