@@ -34,7 +34,7 @@ public class Product implements Serializable {
 	private Long restockThreshold;
 
 	@Column(name = "stock", nullable = false)
-	private Long stock;
+	private Double stock;
 
 	@Column(name = "barcode", nullable = false)
 	private Long barcode;
@@ -46,14 +46,14 @@ public class Product implements Serializable {
 		this.id = id;
 	}
 
-	public void setStock(Long stock) {
+	public void setStock(Double stock) {
 		if (stock < 0) {
 			throw new OutOfStockException("product.out_of_stock");
 		}
 		this.stock = stock;
 	}
 
-	public void addStock(Long amount) {
+	public void addStock(Double amount) {
 		this.setStock(this.getStock() + amount);
 	}
 }
