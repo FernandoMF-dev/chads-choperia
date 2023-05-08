@@ -29,9 +29,10 @@
 
 				<div class="xl:col-4 lg:col-6 sm:col-12 field">
 					<label htmlFor="filter-products">Produtos</label>
-					<p-multiSelect id="filter-products" [options]="allProducts" [(ngModel)]="filter.targets" defaultLabel="Escolha o chope"
+					<p-multiSelect id="filter-products" [options]="allProducts" [(ngModel)]="filter.targets"
+								   defaultLabel="Escolha o produto da cozinha" display="chip"
 								   [disabled]="isLoadingProducts" [dropdownIcon]="isLoadingProducts ? 'pi pi-spin pi-spinner' : ''"
-								   optionLabel="name" optionValue="id" display="chip"></p-multiSelect>
+								   optionLabel="name" optionValue="id"></p-multiSelect>
 				</div>
 
 				<div class="xl:col-4 lg:col-6 sm:col-12 field">
