@@ -21,5 +21,9 @@
 	<include file="db/changelog/files/20230428164500_rename_sequence_notification_and_self_service.xml"/>
 	<include file="db/changelog/files/20230429164000_add_column_selfservice_settings.xml"/>
 	<include file="/db/changelog/files/20230430134100_create_table_historic_beer.xml"/>
+	<include file="/db/changelog/files/20230508100700_change_table_user.xml"/>
+	<include file="/db/changelog/files/20230508102000_change_table_role.xml"/>
+	<include file="/db/changelog/files/20230508103700_create_table_user_role.xml"/>
+
 
 </databaseChangeLog>

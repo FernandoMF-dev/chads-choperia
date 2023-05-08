@@ -19,10 +19,9 @@ public class ViewUserDto implements Serializable {
 
 	private String roleName;
 
-	public ViewUserDto(Long id, String username, String email, String roleName) {
+	public ViewUserDto(Long id, String username, String email) {
 		this.id = id;
 		this.username = username;
 		this.email = email;
-		this.roleName = roleName;
 	}
 }

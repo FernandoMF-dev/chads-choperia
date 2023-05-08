@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+		xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.17.xsd">
+
+	<changeSet id="20230508100700-1" author="Lucas Boeloni">
+		<modifyDataType tableName="user" columnName="password" newDataType="varchar(200)"/>
+	</changeSet>
+	<changeSet id="20230508100700-2" author="Lucas Boeloni">
+		<dropForeignKeyConstraint  baseTableName="user" constraintName="fk_user_id_role" />
+	</changeSet>
+	<changeSet id="20230508100700-3" author="Lucas Boeloni">
+		<dropColumn tableName="user" columnName="id_role" />
+	</changeSet>
+
+</databaseChangeLog>

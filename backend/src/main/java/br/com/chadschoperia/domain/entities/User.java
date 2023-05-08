@@ -7,6 +7,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
@@ -17,6 +19,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name = "\"user\"")
@@ -30,7 +33,7 @@ public class User implements UserDetails, Serializable {
 	@Column(name = "id", nullable = false)
 	private Long id;
 
-	@Column(name = "username", nullable = false)
+	@Column(name = "username", nullable = false, unique = true)
 	private String username;
 
 	@Column(name = "password", nullable = false)
@@ -42,13 +45,15 @@ public class User implements UserDetails, Serializable {
 	@Column(name = "deleted", nullable = false)
 	private Boolean deleted = Boolean.FALSE;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_role", referencedColumnName = "id", nullable = false)
-	private UserRole role;
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "user_role",
+			joinColumns = @JoinColumn(name = "id_user"),
+			inverseJoinColumns = @JoinColumn(name = "id_role"))
+	private List<Role> roles;
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return null;
+		return this.roles;
 	}
 
 	@Override
