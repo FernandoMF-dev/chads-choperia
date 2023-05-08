@@ -8,7 +8,7 @@
 				</div>
 
 				<div class="p-toolbar-group-end">
-					<button pButton pRipple label="Pesquisar" (click)="search()" [disabled]="isLoadingSearch"
+					<button pButton pRipple label="Pesquisar" (click)="search()" [disabled]="isLoadingSearch || filter.targets.length === 0"
 							icon="pi {{ isLoadingSearch ? 'pi pi-spin pi-spinner' : 'pi-search' }}"
 							class="p-button-raised p-button-success"></button>
 				</div>
