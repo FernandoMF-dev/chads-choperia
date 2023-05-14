@@ -14,6 +14,8 @@ import br.com.chadschoperia.service.dto.filters.ViewBeerFilterDto;
 import br.com.chadschoperia.service.events.AddClientCardExpenseEvent;
 import br.com.chadschoperia.service.events.AddHistoricBeerEvent;
 import br.com.chadschoperia.service.events.AddListHistoricBeerEvent;
+import br.com.chadschoperia.service.events.AddListRevenueExpenseEvent;
+import br.com.chadschoperia.service.events.AddRevenueExpenseEvent;
 import br.com.chadschoperia.service.mapper.BeerMapper;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +28,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -94,17 +95,22 @@ public class BeerService {
 	}
 
 	public List<BeerDto> restock(List<ProductStockDto> dtos) {
-		List<Long> productIds = dtos.stream().map(ProductStockDto::getProductId).collect(Collectors.toList());
+		List<Long> productIds = dtos.stream().map(ProductStockDto::getProductId).toList();
 		List<Beer> beers = beerRepository.findAllById(productIds);
+		List<Double> expensesValues = new ArrayList<>();
+		List<String> expensesDescs = new ArrayList<>();
 		List<Double> addedAmounts = new ArrayList<>();
 		List<Double> totalAmounts = new ArrayList<>();
 
-		beers.forEach(product -> {
-			double added = addStockFromSource(product, dtos);
+		beers.forEach(beer -> {
+			double added = addStockFromSource(beer, dtos);
 			addedAmounts.add(added);
-			totalAmounts.add(product.getStock());
+			totalAmounts.add(beer.getStock());
+			expensesValues.add(-beer.getTotalPurchasePrice(added));
+			expensesDescs.add(historicMessageSource.getMessage("revenue.beer.restock", new String[]{String.format("%01.1f", added), beer.getName()}, Locale.getDefault()));
 		});
 		publishListHistoric(HistoricProductActionEnum.RESTOCK, productIds, addedAmounts, totalAmounts);
+		publishRevenueExpense(expensesValues, expensesDescs);
 
 		return beerMapper.toDto(saveEntity(beers));
 	}
@@ -112,11 +118,13 @@ public class BeerService {
 	public void pour(PourBeerDTO dto) {
 		BeerDto beer = findDtoById(dto.getBeer());
 		ClientCardDto card = clientCardService.findOpenByRfid(dto.getCard());
-		String description = historicMessageSource.getMessage(HistoricProductActionEnum.POUR.getMessage(), new String[]{card.getClient().getName(), card.getRfid()}, Locale.getDefault());
+		String historicDesc = historicMessageSource.getMessage(HistoricProductActionEnum.POUR.getMessage(), new String[]{card.getClient().getName(), card.getRfid()}, Locale.getDefault());
+		String revenueDesc = historicMessageSource.getMessage("revenue.beer.pour", new String[]{beer.getName(), card.getClient().getName(), card.getRfid()}, Locale.getDefault());
 
 		publishPourExpense(card, beer);
 		beer.subtractStock(POUR_QUANTITY);
-		publishHistoric(beer, HistoricProductActionEnum.POUR, -POUR_QUANTITY, description);
+		publishRevenueExpense(beer.getValuePerMug(), revenueDesc);
+		publishHistoric(beer, HistoricProductActionEnum.POUR, -POUR_QUANTITY, historicDesc);
 		saveDto(beer);
 	}
 
@@ -160,6 +168,14 @@ public class BeerService {
 		} catch (EntityNotFoundException ex) {
 			throw new EntityNotFoundException(HttpStatus.BAD_REQUEST, ex.getReason());
 		}
+	}
+
+	private void publishRevenueExpense(Double value, String description) {
+		applicationEventPublisher.publishEvent(new AddRevenueExpenseEvent(value, description));
+	}
+
+	private void publishRevenueExpense(List<Double> values, List<String> descriptions) {
+		applicationEventPublisher.publishEvent(new AddListRevenueExpenseEvent(values, descriptions));
 	}
 
 	private void publishHistoric(BeerDto beerDto, HistoricProductActionEnum action) {
