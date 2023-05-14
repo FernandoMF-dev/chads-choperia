@@ -38,6 +38,7 @@ export class ProductFormModalComponent {
 			id: new FormControl(null),
 			name: new FormControl('', [Validators.required, Validators.minLength(3)]),
 			stock: new FormControl(0, [Validators.required]),
+			purchasePrice: new FormControl(0, [Validators.required]),
 			restockThreshold: new FormControl(0, [Validators.required]),
 			barcode: new FormControl(null, [Validators.required, Validators.minLength(13), Validators.maxLength(13)])
 		});

@@ -36,6 +36,9 @@ public class Product implements Serializable {
 	@Column(name = "stock", nullable = false)
 	private Double stock;
 
+	@Column(name = "purchase_price", nullable = false)
+	private Double purchasePrice;
+
 	@Column(name = "barcode", nullable = false)
 	private Long barcode;
 

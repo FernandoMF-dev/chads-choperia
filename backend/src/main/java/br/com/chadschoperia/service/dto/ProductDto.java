@@ -29,6 +29,9 @@ public class ProductDto implements Serializable {
 	@NotNull(message = "product.stock.not_null")
 	private Double stock;
 
+	@NotNull(message = "product.purchase.not_null")
+	private Double purchasePrice;
+
 	@NotNull(message = "product.barcode.not_null")
 	private Long barcode;
 

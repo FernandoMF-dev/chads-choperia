@@ -10,17 +10,25 @@
 					<small id="name-help" class="p-error block" *ngIf="!isFieldValid('name')">Nome inválido.</small>
 				</div>
 				<div class="field col-12">
+					<label htmlFor="purchase-price">Valor de Compra</label>
+					<p-inputNumber id="purchase-price" [showButtons]="true" buttonLayout="horizontal" [step]="1" [min]="0"
+								   decrementButtonClass="p-button-danger" incrementButtonClass="p-button-success"
+								   incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus" formControlName="purchasePrice"
+								   [ngClass]="{'ng-invalid ng-dirty': !isFieldValid('purchasePrice')}"></p-inputNumber>
+					<small id="purchase-price-help" class="p-error block" *ngIf="!isFieldValid('purchasePrice')">Valor obrigatório.</small>
+				</div>
+				<div class="field col-12">
 					<label htmlFor="stock">Estoque Atual</label>
-					<p-inputNumber id="stock" [showButtons]="true" buttonLayout="horizontal" spinnerMode="horizontal" [step]="1"
-								   decrementButtonClass="p-button-danger" incrementButtonClass="p-button-success" [min]="0"
+					<p-inputNumber id="stock" [showButtons]="true" buttonLayout="horizontal" [step]="1" [min]="0"
+								   decrementButtonClass="p-button-danger" incrementButtonClass="p-button-success"
 								   incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus" formControlName="stock"
 								   [ngClass]="{'ng-invalid ng-dirty': !isFieldValid('stock')}"></p-inputNumber>
 					<small id="stock-help" class="p-error block" *ngIf="!isFieldValid('stock')">Valor obrigatório.</small>
 				</div>
 				<div class="field col-12">
 					<label htmlFor="restockThreshold">Ponto de Encomenda</label>
-					<p-inputNumber id="restockThreshold" [showButtons]="true" buttonLayout="horizontal" spinnerMode="horizontal"
-								   [step]="1" decrementButtonClass="p-button-danger" incrementButtonClass="p-button-success" [min]="0"
+					<p-inputNumber id="restockThreshold" [showButtons]="true" buttonLayout="horizontal" [step]="1" [min]="0"
+								   decrementButtonClass="p-button-danger" incrementButtonClass="p-button-success"
 								   incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus" formControlName="restockThreshold"
 								   [ngClass]="{'ng-invalid ng-dirty': !isFieldValid('restockThreshold')}"></p-inputNumber>
 					<small id="restockThreshold-help" class="p-error block" *ngIf="!isFieldValid('restockThreshold')">Valor
