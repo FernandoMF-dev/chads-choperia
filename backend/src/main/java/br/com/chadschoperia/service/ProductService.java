@@ -8,17 +8,19 @@ import br.com.chadschoperia.service.dto.ProductDto;
 import br.com.chadschoperia.service.dto.ProductStockDto;
 import br.com.chadschoperia.service.events.AddHistoricProductEvent;
 import br.com.chadschoperia.service.events.AddListHistoricProductEvent;
+import br.com.chadschoperia.service.events.AddListRevenueExpenseEvent;
 import br.com.chadschoperia.service.mapper.ProductMapper;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -29,6 +31,7 @@ public class ProductService {
 
 	private final ProductMapper mapper;
 
+	private final MessageSource historicMessageSource;
 	private final ApplicationEventPublisher applicationEventPublisher;
 
 	public List<ProductDto> findAllDto() {
@@ -55,17 +58,22 @@ public class ProductService {
 	}
 
 	public List<ProductDto> restock(List<ProductStockDto> dtos, boolean positive) {
-		List<Long> productIds = dtos.stream().map(ProductStockDto::getProductId).collect(Collectors.toList());
+		List<Long> productIds = dtos.stream().map(ProductStockDto::getProductId).toList();
 		List<Product> products = repository.findAllById(productIds);
 		List<Double> addedAmounts = new ArrayList<>();
 		List<Double> totalAmounts = new ArrayList<>();
+		List<Double> expensesValues = new ArrayList<>();
+		List<String> expensesDescs = new ArrayList<>();
 
 		products.forEach(product -> {
 			double added = addStockFromSource(product, dtos);
 			addedAmounts.add(added);
 			totalAmounts.add(product.getStock());
+			expensesValues.add(-product.getTotalPurchasePrice(added));
+			expensesDescs.add(historicMessageSource.getMessage("revenue.product.restock", new String[]{String.format("%01.1f", added), product.getName()}, Locale.getDefault()));
 		});
 		publishListHistoric(positive ? HistoricProductActionEnum.RESTOCK : HistoricProductActionEnum.UNSTOCK, productIds, addedAmounts, totalAmounts);
+		publishRevenueExpense(expensesValues, expensesDescs);
 
 		return mapper.toDto(saveEntity(products));
 	}
@@ -112,6 +120,10 @@ public class ProductService {
 	// </editor-fold>
 
 	// <editor-fold defaultstate="collapsed" desc="Private Methods: Publish events">
+	private void publishRevenueExpense(List<Double> values, List<String> descriptions) {
+		applicationEventPublisher.publishEvent(new AddListRevenueExpenseEvent(values, descriptions));
+	}
+
 	private void publishHistoric(ProductDto productDto, HistoricProductActionEnum action) {
 		this.publishHistoric(productDto, action, null);
 	}
@@ -122,10 +134,6 @@ public class ProductService {
 
 	private void publishHistoric(ProductDto productDto, HistoricProductActionEnum action, Double stock) {
 		applicationEventPublisher.publishEvent(new AddHistoricProductEvent(productDto.getId(), action, stock, productDto.getStock(), null));
-	}
-
-	private void publishHistoric(ProductDto productDto, HistoricProductActionEnum action, Double stock, String description) {
-		applicationEventPublisher.publishEvent(new AddHistoricProductEvent(productDto.getId(), action, stock, productDto.getStock(), description));
 	}
 
 	private void publishHistoric(Product product, HistoricProductActionEnum action, Double stock) {

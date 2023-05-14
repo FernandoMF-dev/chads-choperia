@@ -1,6 +1,7 @@
 package br.com.chadschoperia.domain.entities;
 
 import br.com.chadschoperia.exceptions.OutOfStockException;
+import br.com.chadschoperia.service.BeerService;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -58,5 +59,9 @@ public class Beer implements Serializable {
 
 	public void addStock(Double value) {
 		this.setStock(this.getStock() + value);
+	}
+
+	public double getTotalPurchasePrice(double liters) {
+		return liters / BeerService.POUR_QUANTITY * this.getPurchasePrice();
 	}
 }

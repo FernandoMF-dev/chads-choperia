@@ -36,6 +36,9 @@ public class Product implements Serializable {
 	@Column(name = "stock", nullable = false)
 	private Double stock;
 
+	@Column(name = "purchase_price", nullable = false)
+	private Double purchasePrice;
+
 	@Column(name = "barcode", nullable = false)
 	private Long barcode;
 
@@ -55,5 +58,9 @@ public class Product implements Serializable {
 
 	public void addStock(Double amount) {
 		this.setStock(this.getStock() + amount);
+	}
+
+	public double getTotalPurchasePrice(double added) {
+		return added * this.getPurchasePrice();
 	}
 }

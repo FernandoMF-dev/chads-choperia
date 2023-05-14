@@ -7,6 +7,7 @@ import br.com.chadschoperia.service.dto.ClientCardDto;
 import br.com.chadschoperia.service.dto.FoodWeighingDto;
 import br.com.chadschoperia.service.dto.SelfserviceSettingsDto;
 import br.com.chadschoperia.service.events.AddClientCardExpenseEvent;
+import br.com.chadschoperia.service.events.AddRevenueExpenseEvent;
 import br.com.chadschoperia.service.mapper.SelfserviceSettingsMapper;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -30,15 +31,18 @@ public class SelfserviceService {
 	private final ClientCardService clientCardService;
 
 	private final MessageSource messageSource;
+	private final MessageSource historicMessageSource;
 	private final ApplicationEventPublisher applicationEventPublisher;
 
 	public FoodWeighingDto insertExpense(FoodWeighingDto dto) {
 		try {
 			ClientCardDto card = clientCardService.findOpenByRfid(dto.getCardRfid());
 			SelfserviceSettingsDto settings = getCurrentSettings();
-			double value = calculateFinalValue(dto, settings);
-			String description = messageSource.getMessage("selfservice.purchase.description", new String[]{dto.getFormatedWeight()}, Locale.getDefault());
-			applicationEventPublisher.publishEvent(new AddClientCardExpenseEvent(card.getId(), value, description));
+			double value = dto.calculateFinalValue(settings);
+
+			publishCardExpenseEvent(dto, card, value);
+			publishRevenueExpense(dto, card, value);
+
 			return dto;
 		} catch (EntityNotFoundException ex) {
 			throw new EntityNotFoundException(HttpStatus.BAD_REQUEST, ex.getReason());
@@ -57,8 +61,14 @@ public class SelfserviceService {
 		return selfserviceSettingsMapper.toDto(repository.findFirstByOrderByIdDesc());
 	}
 
-	private double calculateFinalValue(FoodWeighingDto dto, SelfserviceSettingsDto settings) {
-		return dto.getWeight() * settings.getPricePerKg() + settings.getPriceBase();
+	private void publishCardExpenseEvent(FoodWeighingDto dto, ClientCardDto card, double value) {
+		String expenseDesc = messageSource.getMessage("selfservice.purchase.description", new String[]{dto.getFormatedWeight()}, Locale.getDefault());
+		applicationEventPublisher.publishEvent(new AddClientCardExpenseEvent(card.getId(), value, expenseDesc));
+	}
+
+	private void publishRevenueExpense(FoodWeighingDto dto, ClientCardDto card, double value) {
+		String revenueDesc = historicMessageSource.getMessage("revenue.selfservice.serve", new String[]{dto.getFormatedWeight(), card.getClient().getName(), card.getRfid()}, Locale.getDefault());
+		applicationEventPublisher.publishEvent(new AddRevenueExpenseEvent(value, revenueDesc));
 	}
 
 }

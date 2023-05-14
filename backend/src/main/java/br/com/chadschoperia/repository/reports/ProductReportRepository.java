@@ -17,8 +17,8 @@ public interface ProductReportRepository extends JpaRepository<HistoricProduct, 
 			" FROM HistoricProduct hp " +
 			" INNER JOIN hp.product p " +
 			" WHERE hp.stock IS NOT NULL " +
-			" AND (CAST(:#{#filter.minDate} AS timestamp) IS NULL OR CAST(:#{#filter.minDate} as timestamp) <= hp.dateTime) " +
-			" AND (CAST(:#{#filter.maxDate} AS timestamp) IS NULL OR CAST(:#{#filter.maxDate} as timestamp) >= hp.dateTime) " +
+			" AND (CAST(CAST(:#{#filter.minDate} AS char) AS timestamp) IS NULL OR CAST(:#{#filter.minDate} as timestamp) <= hp.dateTime) " +
+			" AND (CAST(CAST(:#{#filter.maxDate} AS char) AS timestamp) IS NULL OR CAST(:#{#filter.maxDate} as timestamp) >= hp.dateTime) " +
 			" AND (p.id IN (:#{#filter.targets})) " +
 			" ORDER BY p.name ASC, hp.dateTime DESC ")
 	List<ProductStockReportDto> reportProductStockOverTime(@Param("filter") BaseStockReportFilterDto filter);

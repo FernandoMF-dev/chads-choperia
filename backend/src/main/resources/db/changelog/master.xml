@@ -23,5 +23,7 @@
 	<include file="/db/changelog/files/20230430134100_create_table_historic_beer.xml"/>
 	<include file="/db/changelog/files/20230507123100_create_table_historic_product.xml"/>
 	<include file="/db/changelog/files/20230507183000_change_column_product.xml"/>
+	<include file="/db/changelog/files/20230514130000_create_table_revenue_expense.xml"/>
+	<include file="/db/changelog/files/20230514151800_add_column_product.xml"/>
 
 </databaseChangeLog>

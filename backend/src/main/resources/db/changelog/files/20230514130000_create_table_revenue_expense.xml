@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+		xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.17.xsd">
+
+	<changeSet id="20230514130000-1" author="Fernando Martins Ferreira">
+		<createTable tableName="revenue_expense">
+			<column name="id" type="bigint">
+				<constraints nullable="false"/>
+			</column>
+
+			<column name="type" type="varchar(50)">
+				<constraints nullable="false"/>
+			</column>
+
+			<column name="description" type="varchar(255)">
+				<constraints nullable="false"/>
+			</column>
+
+			<column name="date_time" type="timestamp">
+				<constraints nullable="false"/>
+			</column>
+
+			<column name="value" type="double">
+				<constraints nullable="false"/>
+			</column>
+		</createTable>
+
+		<rollback>
+			<dropTable tableName="revenue_expense"/>
+		</rollback>
+	</changeSet>
+
+	<changeSet id="20230514130000-2" author="Fernando Martins Ferreira">
+		<addPrimaryKey tableName="revenue_expense" columnNames="id" constraintName="pk_revenue_expense"/>
+
+		<rollback>
+			<dropPrimaryKey tableName="revenue_expense" constraintName="pk_revenue_expense"/>
+		</rollback>
+	</changeSet>
+
+	<changeSet id="20230514130000-3" author="Fernando Martins Ferreira">
+		<createSequence sequenceName="sequence_revenue_expense" dataType="bigint" startValue="1" incrementBy="1"/>
+
+		<rollback>
+			<dropSequence sequenceName="sequence_revenue_expense"/>
+		</rollback>
+	</changeSet>
+</databaseChangeLog>
