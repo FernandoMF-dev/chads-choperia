@@ -49,4 +49,11 @@ public class RevenueExpense implements Serializable {
 		this.value = value;
 		this.dateTime = LocalDateTime.now();
 	}
+
+	public RevenueExpense(String description, Double value, LocalDateTime dateTime) {
+		this.type = value >= 0 ? RevenueExpenseTypeEnum.REVENUE : RevenueExpenseTypeEnum.EXPENSE;
+		this.description = description;
+		this.value = value;
+		this.dateTime = dateTime;
+	}
 }
