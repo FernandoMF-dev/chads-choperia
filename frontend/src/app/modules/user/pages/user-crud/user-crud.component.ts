@@ -161,7 +161,7 @@ export class UserCrudComponent implements OnInit {
 				.pipe(finalize(() => resolve()))
 				.subscribe({
 					next: (newUser) => {
-						this.users.push({ ...this.user, id: newUser.id });
+						this.fetchUsers()
 						this.utilsService.showSuccessMessage('Usuário Criado');
 					},
 					error: (err) => this.utilsService.showErrorMessage(err.error.detail)

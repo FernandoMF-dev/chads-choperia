@@ -17,15 +17,7 @@ export class AppMenuComponent implements OnInit {
 
 	ngOnInit() {
 		const user = ActiveUserService.getInstance().getUser();
-		this.model = [
-			{
-				label: 'Home',
-				items: [
-					{ label: 'Dashboard', icon: 'pi pi-fw pi-home', routerLink: ['/'] }
-				]
-			},
-
-		];
+		this.model = [];
 		const notFound: number = -1;
 		if(user?.roleNames?.indexOf(RolesUtil.ADMIN) != notFound ){
 			this.model.push(this.getAdminMenu());

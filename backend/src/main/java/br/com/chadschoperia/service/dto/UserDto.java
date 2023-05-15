@@ -35,7 +35,7 @@ public class UserDto implements Serializable {
 	@NotNull(message = "user.role.not_null")
 	private List<Long> idsRole = new ArrayList<>();
 
-	private String roleName;
+	private List<String> roleNames = new ArrayList<>();
 
 	public UserDto(Long id, String username, String password, String email) {
 		this.id = id;
