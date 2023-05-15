@@ -161,8 +161,9 @@ export class AppMenuComponent implements OnInit {
 					material: 'restaurant_menu',
 					routerLink: [RouteLinkUtils.SELF_SERVICE, RouteLinkUtils.SETTING]
 				},
-				{ label: 'Relatórios', material: 'view_list', routerLink: [RouteLinkUtils.REPORT] }
+				{ label: 'Relatórios', material: 'view_list', routerLink: [RouteLinkUtils.REPORT] },
+				{ label: 'E-mail', material: 'email', routerLink: [RouteLinkUtils.EMAIL] }
 			]
-		};
+		}
 	}
 }
