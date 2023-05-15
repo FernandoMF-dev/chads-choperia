@@ -1,6 +1,5 @@
 package br.com.chadschoperia.service.reports.filters;
 
-import br.com.chadschoperia.domain.enums.RevenueExpenseTypeEnum;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -17,5 +16,5 @@ public class RevenueExpenseReportFilterDto implements Serializable {
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
 	private LocalDateTime maxDate;
 
-	private RevenueExpenseTypeEnum type;
+	private String type;
 }
