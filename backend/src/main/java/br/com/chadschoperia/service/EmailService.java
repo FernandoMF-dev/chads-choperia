@@ -34,7 +34,7 @@ public class EmailService {
 	public void sendEmailToClients(SendEmailDto dto) {
 		List<String> clientsEmail = clientRepository.findEmailByPurchasePeriod(dto.getPeriodStartDate(), dto.getPeriodEndDate());
 		if (clientsEmail.isEmpty()) {
-			throw new BusinessException("Nenhum cliente possui compra no período informado");
+			throw new BusinessException("email.not.have.purchases");
 		}
 		clientsEmail.forEach(email -> {
 			sendEmail(dto.getSubject(), dto.getMessage(), email);
