@@ -24,6 +24,7 @@ public class SecurityConfiguration {
 				.httpBasic()
 				.and()
 				.authorizeHttpRequests()
+				.requestMatchers("/user/login").permitAll()
 				.anyRequest().authenticated()
 				.and()
 				.cors()

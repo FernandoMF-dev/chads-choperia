@@ -7,6 +7,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,6 +41,11 @@ public class UserController {
 	@PostMapping
 	public ResponseEntity<UserDto> create(@Valid @RequestBody UserDto dto) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(service.create(dto));
+	}
+
+	@PostMapping("/login")
+	public ResponseEntity<UserDetails> login(@RequestBody UserDto dto) {
+		return ResponseEntity.status(HttpStatus.OK).body(service.login(dto));
 	}
 
 	@PutMapping

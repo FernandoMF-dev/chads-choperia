@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { ActiveUserService } from './ActiveUserService';
 
 
 @Injectable()
@@ -10,9 +11,8 @@ export class BasicAuthInterceptor implements HttpInterceptor {
 	) { }
 
 	intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-		const username = 'ADMINISTRADOR';
-		const password = 'senha123';
-		const basicAuthHeader = 'Basic ' + btoa(`${username}:${password}`);
+		const user = ActiveUserService.getInstance().getUser();
+		const basicAuthHeader = 'Basic ' + btoa(`${user?.username}:${user?.password}`);
 
 
 		request = request.clone({

@@ -2,12 +2,14 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { NotfoundComponent } from './demo/components/notfound/notfound.component';
 import { AppLayoutComponent } from './layout/app.layout.component';
+import { AuthGuard } from './layout/service/auth/AuthGuard';
 import { RouteLinkUtils } from './utils/route-link.utils';
 
 const routes: Routes = [
 	{
 		path: '',
 		component: AppLayoutComponent,
+		canActivate: [AuthGuard],
 		children: [
 			{
 				path: '',
