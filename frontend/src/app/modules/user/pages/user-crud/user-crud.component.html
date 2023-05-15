@@ -93,9 +93,9 @@
 						</div>
 						<div class="field col-12 md:col-6">
 							<label htmlFor="role">Função</label>
-							<p-dropdown id="role" [options]="roleOptions" optionLabel="name" optionValue="id"
-										optionDisabled="disabled" formControlName="idRole"
-										[ngClass]="{'ng-invalid ng-dirty': !isFieldValid('idRole')}"></p-dropdown>
+							<p-multiSelect appendTo="body" id="role" [options]="roleOptions" optionLabel="name" optionValue="id"
+										optionDisabled="disabled" formControlName="idsRole"
+										[ngClass]="{'ng-invalid ng-dirty': !isFieldValid('idsRole')}"></p-multiSelect>
 						</div>
 						<div class="field col-12">
 							<label htmlFor="email">Email</label>
@@ -104,7 +104,7 @@
 							<small id="email-help" class="p-error block" *ngIf="!isFieldValid('email')">Email
 								inválido.</small>
 						</div>
-						<div class="field col-12">
+						<div *ngIf="isEditing()" class="field col-12">
 							<label htmlFor="password">Senha</label>
 							<input pPassword toggleMask id="password" type="password"
 								   [ngClass]="{'ng-invalid ng-dirty': !isFieldValid('password')}"

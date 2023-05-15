@@ -42,7 +42,7 @@ export class UserCrudComponent implements OnInit {
 			username: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]),
 			email: new FormControl('', [Validators.required, Validators.email]),
 			password: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]),
-			idRole: new FormControl('', [Validators.required])
+			idsRole: new FormControl('', [Validators.required])
 		});
 	}
 
@@ -95,6 +95,7 @@ export class UserCrudComponent implements OnInit {
 
 	private closeUserFormDialog() {
 		this.userDialog = false;
+		this.userForm.get('password')?.setValidators([Validators.required, Validators.minLength(3), Validators.maxLength(50)])
 	}
 
 	openNew() {
@@ -109,6 +110,7 @@ export class UserCrudComponent implements OnInit {
 		this.userService.getById(user.id!).subscribe({
 			next: (user) => {
 				this.userForm.patchValue(user);
+				this.userForm.get('password')?.clearValidators();
 				this.isLoading = false;
 			},
 			error: (err) => {
@@ -204,5 +206,9 @@ export class UserCrudComponent implements OnInit {
 
 	get roleOptions(): Array<Role & { disabled?: boolean }> {
 		return [{ name: 'Escolha a função', disabled: true }, ...this.roles];
+	}
+
+	isEditing(): boolean{
+		return !this.user.id
 	}
 }

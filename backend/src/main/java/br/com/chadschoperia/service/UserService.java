@@ -34,12 +34,17 @@ public class UserService {
 	private final UserDetailsServiceImpl userDetailsService;
 
 	public List<ViewUserDto> findAll() {
-		return repository.findAllByDeleted(false).stream().map(viewMapper::toDto).collect(Collectors.toList());
+		return repository.findAllByDeletedIsFalse().stream().map(viewMapper::toDto).collect(Collectors.toList());
 	}
 
 	public UserDto findDtoById(Long id) {
-		return repository.findDtoById(id)
-				.orElseThrow(() -> new EntityNotFoundException("user.not_found"));
+		return mapper.toDto(findEntityById(id));
+	}
+
+	public UserDto findDtoByIdToEdit(Long id) {
+		UserDto dto = findDtoById(id);
+		dto.setPassword(null);
+		return dto;
 	}
 
 	public User findEntityById(Long id) {
@@ -49,6 +54,7 @@ public class UserService {
 
 	public UserDto create(UserDto dto) {
 		dto.setId(null);
+		dto.setPassword(new BCryptPasswordEncoder().encode(dto.getPassword()));
 		return saveDto(dto);
 	}
 
@@ -63,7 +69,8 @@ public class UserService {
 	}
 
 	public UserDto update(UserDto dto) {
-		findDtoById(dto.getId());
+		UserDto savedDto = findDtoById(dto.getId());
+		dto.setPassword(savedDto.getPassword());
 		return saveDto(dto);
 	}
 
@@ -73,17 +80,15 @@ public class UserService {
 		saveEntity(entity);
 	}
 
-	private void validateRoleExists(Long idRole) throws EntityNotFoundException {
-		try {
-			roleService.findById(idRole);
-		} catch (EntityNotFoundException e) {
-			throw new EntityNotFoundException(HttpStatus.BAD_REQUEST, e.getReason());
+	private void validateRoleExists(List<Long> idsRole) throws EntityNotFoundException {
+		if(!roleService.existsRoleByIds(idsRole)){
+			throw new EntityNotFoundException(HttpStatus.BAD_REQUEST,"role.not.found");
+
 		}
 	}
 
 	private UserDto saveDto(UserDto dto) {
-		validateRoleExists(dto.getIdRole());
-		dto.setPassword(new BCryptPasswordEncoder().encode(dto.getPassword()));
+		validateRoleExists(dto.getIdsRole());
 		return mapper.toDto(saveEntity(mapper.toEntity(dto)));
 	}
 

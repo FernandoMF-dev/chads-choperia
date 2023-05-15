@@ -24,4 +24,6 @@ public interface RoleRepository extends JpaRepository<Role, Long> {
 			" WHERE ur.id = :id " +
 			" AND ur.deleted = FALSE ")
 	Optional<DropdownDto> findDropdownById(@Param("id") Long id);
+
+	boolean existsRoleByIdInAndDeletedIsFalse(List<Long> ids);
 }
