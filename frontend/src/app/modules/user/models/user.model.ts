@@ -4,5 +4,5 @@ export interface User {
 	email?: string;
 	password?: string;
 	roleNames?: string[];
-	idRole?: number;
+	idsRole?: number[];
 }

@@ -35,7 +35,7 @@ public class UserController {
 
 	@GetMapping("/{id}")
 	public ResponseEntity<UserDto> findById(@PathVariable Long id) {
-		return ResponseEntity.ok(service.findDtoById(id));
+		return ResponseEntity.ok(service.findDtoByIdToEdit(id));
 	}
 
 	@PostMapping

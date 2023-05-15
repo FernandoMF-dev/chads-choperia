@@ -13,14 +13,7 @@ import java.util.Optional;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-	List<User> findAllByDeleted(Boolean deleted);
-
-	@Query("SELECT new br.com.chadschoperia.service.dto.UserDto" +
-			"(u.id, u.username, u.password, u.email)" +
-			" FROM User u " +
-			" WHERE u.id = :id " +
-			" AND u.deleted = FALSE ")
-	Optional<UserDto> findDtoById(@Param("id") Long id);
+	List<User> findAllByDeletedIsFalse();
 
 	Optional<User> findByIdAndDeletedIsFalse(Long id);
 
