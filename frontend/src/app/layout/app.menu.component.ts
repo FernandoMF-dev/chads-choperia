@@ -42,7 +42,7 @@ export class AppMenuComponent implements OnInit {
 		if(user?.roleNames?.indexOf(RolesUtil.STOCK_MONITOR) != notFound ){
 			this.model.push(this.getStockManagerMenu());
 		}
-		if(user?.roleNames?.indexOf(RolesUtil.COSTUMER_MONITOR) != notFound ){
+		if(user?.roleNames?.indexOf(RolesUtil.COSTUMER) != notFound ){
 			this.model.push(this.getCostumerMenu());
 		}
 
