@@ -47,5 +47,10 @@ export class ActiveUserService {
 		return this.activeUser;
 	}
 
+	public logout(): void {
+		this.setUser({});
+		localStorage.removeItem(USER);
+	}
+
 }
 
