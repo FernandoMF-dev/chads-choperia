@@ -13,11 +13,7 @@ import java.util.Optional;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-	@Query("SELECT new br.com.chadschoperia.service.dto.ViewUserDto" +
-			"(u.id, u.username, u.email)" +
-			" FROM User u " +
-			" WHERE u.deleted = FALSE ")
-	List<ViewUserDto> findAllView();
+	List<User> findAllByDeleted(Boolean deleted);
 
 	@Query("SELECT new br.com.chadschoperia.service.dto.UserDto" +
 			"(u.id, u.username, u.password, u.email)" +
