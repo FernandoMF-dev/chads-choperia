@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { ActiveUserService } from '../../../../layout/service/auth/ActiveUserService';
 import { User } from '../../../../modules/user/models/user.model';
 import { UserService } from '../../../../modules/user/services/user.service';
@@ -21,7 +22,9 @@ export class LoginComponent {
 
 	user: User = {};
 
-	constructor(private service: UserService) {
+	constructor(private service: UserService,
+				private router: Router
+	) {
 	}
 
 	login(){
@@ -31,6 +34,7 @@ export class LoginComponent {
 					return role.roleName;
 				})
 				ActiveUserService.getInstance().setUser(this.user);
+				this.router.navigate(['/']);
 			});
 		}
 	}
