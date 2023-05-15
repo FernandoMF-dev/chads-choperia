@@ -1,38 +1,62 @@
 <div class="grid">
 	<div class="col-12">
-		<div class="card px-6 py-6" [formGroup]="formGroup">
+		<div class="card px-6 py-6">
 			<h2 class="title-center">Envio de e-mail para clientes</h2>
-			<div class="col-12 grid">
-				<div class="col field">
-					<span class="font-bold block mb-2">Data de início do período</span>
-					<p-inputMask formControlName="periodStartDate" mask="99/99/9999" slotChar="dd/mm/yyyy" (onBlur)="validateStartDate()"></p-inputMask>
+			<form [formGroup]="formGroup" (ngSubmit)="send()">
+				<div class="col-12 grid">
+					<div class="xl:col-4 lg:col-6 sm:col-12 field">
+						<label htmlFor="form-period-start-date">Data de início do período</label>
+
+						<p-calendar id="form-period-start-date" formControlName="periodStartDate" [showIcon]="true" [showClear]="true"
+									[showTime]="false" [showButtonBar]="true"></p-calendar>
+
+						<small id="period-start-date-help" class="p-error block" *ngIf="!isFieldValid('periodStartDate')">
+							Campo obrigatório.
+						</small>
+					</div>
+
+					<div class="xl:col-4 lg:col-6 sm:col-12 field">
+						<label htmlFor="form-period-end-date">Data de fim do período</label>
+
+						<p-calendar id="form-period-end-date" formControlName="periodEndDate" [showIcon]="true" [showClear]="true"
+									[showTime]="false" [showButtonBar]="true" (onSelect)="validateEndDate()"></p-calendar>
+
+						<small id="period-end-date-help" class="p-error block" *ngIf="!isFieldValid('periodEndDate')">
+							Campo obrigatório.
+						</small>
+					</div>
 				</div>
 
-				<div class="col field">
-					<span class="font-bold block mb-2">Data de fim do período</span>
-					<p-inputMask formControlName="periodEndDate" mask="99/99/9999" slotChar="dd/mm/yyyy" (onBlur)="validateEndDate()"></p-inputMask>
+				<div class="col-12 grid field">
+					<label htmlFor="form-subject">Data de fim do período</label>
+
+					<input id="form-subject" type="text" pInputText formControlName="subject" class="width-100"/>
+
+					<small id="subject-help" class="p-error block" *ngIf="!isFieldValid('subject')">
+						Campo obrigatório.
+					</small>
 				</div>
-			</div>
 
-			<div class="col-12 grid">
-				<span class="font-bold block mb-2">Assunto</span>
-				<input type="text" pInputText formControlName="subject" class="width-100"/>
-			</div>
+				<div class="col-12 grid field">
+					<label htmlFor="form-message">Data de fim do período</label>
 
-			<div class="col-12 grid">
-				<span class="font-bold block mb-2 width-100">Mensagem</span>
-				<textarea rows="5" cols="160" pInputTextarea formControlName="message" class="width-100"></textarea>
-			</div>
+					<textarea id="form-message" rows="5" cols="160" pInputTextarea formControlName="message" class="width-100"></textarea>
 
-			<div>
-				<button pButton
-						pRipple
-						label="Enviar"
-						icon="pi pi-check-square"
-						class="p-button-raised p-button-success"
-						[disabled]="disableSendButton()"
-						(click)="send()"></button>
-			</div>
+					<small id="message-help" class="p-error block" *ngIf="!isFieldValid('message')">
+						Campo obrigatório.
+					</small>					
+				</div>
+
+				<div class="center-send-button">
+					<button pButton
+							pRipple
+							type="submit"
+							label="Enviar"
+							icon="pi pi-check-square"
+							class="p-button-raised p-button-success"
+							[disabled]="disableSendButton()"></button>
+				</div>
+			</form>
 		</div>
 	</div>
 </div>

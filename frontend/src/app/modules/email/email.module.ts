@@ -7,6 +7,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { RippleModule } from 'primeng/ripple';
 import { ToastModule } from 'primeng/toast';
+import { CalendarModule } from 'primeng/calendar';
 import { SendEmailComponent } from './components/send-email/send-email.component';
 
 import { EmailRoutingModule } from './email-routing.module';
@@ -26,7 +27,8 @@ import { EmailRoutingModule } from './email-routing.module';
 		InputTextModule,
 		ReactiveFormsModule,
 		ToastModule,
-		RippleModule
+		RippleModule,
+		CalendarModule
 	]
 })
 export class EmailModule { }
