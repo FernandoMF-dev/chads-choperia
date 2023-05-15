@@ -20,12 +20,12 @@ export class ReportLobbyComponent {
 		},
 		{
 			label: 'Receitas e Despesas',
-			material: 'kitchen',
+			material: 'Event_note',
 			routerLink: [RouteLinkUtils.REVENUE_EXPENSE]
 		},
 		{
-			label: 'Clientes',
-			material: 'kitchen',
+			label: 'Gasto Cliente',
+			material: 'payments',
 			routerLink: [RouteLinkUtils.CLIENTE]
 		}
 	];
