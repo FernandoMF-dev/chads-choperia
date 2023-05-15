@@ -38,8 +38,8 @@ public class BeerController {
 		return ResponseEntity.ok(beerService.findAllView());
 	}
 	//TODO change this
+//	@PreAuthorize("hasRole('ADMINISTRADOR')")
 	@GetMapping("/complete")
-	@PreAuthorize("hasRole('ADMINISTRADOR')")
 	public ResponseEntity<List<BeerDto>> findAllComplete(ViewBeerFilterDto filter) {
 		return ResponseEntity.ok(beerService.findAllDto(filter));
 	}
