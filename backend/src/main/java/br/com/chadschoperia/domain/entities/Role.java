@@ -4,8 +4,11 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.security.core.GrantedAuthority;
 
 import java.io.Serializable;
 
@@ -13,16 +16,22 @@ import java.io.Serializable;
 @Table(name = "role")
 @Getter
 @Setter
-public class UserRole implements Serializable {
+@AllArgsConstructor
+@NoArgsConstructor
+public class Role implements GrantedAuthority, Serializable {
 
 	@Id
 	@Column(name = "id", nullable = false)
 	private Long id;
 
-	@Column(name = "name", nullable = false)
-	private String name;
+	@Column(name = "roleName", nullable = false)
+	private String roleName;
 
 	@Column(name = "deleted", nullable = false)
 	private Boolean deleted = Boolean.FALSE;
 
+	@Override
+	public String getAuthority() {
+		return this.roleName;
+	}
 }

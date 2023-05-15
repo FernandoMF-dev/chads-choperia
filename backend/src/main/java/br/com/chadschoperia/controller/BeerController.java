@@ -10,6 +10,8 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,13 +20,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/chop")
-@CrossOrigin(origins = "*", maxAge = 3600)
+@CrossOrigin(origins = "*", allowedHeaders = "*", methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE, RequestMethod.OPTIONS })
 @RequiredArgsConstructor
 public class BeerController {
 
@@ -34,8 +37,9 @@ public class BeerController {
 	public ResponseEntity<List<ViewBeerDto>> findAll() {
 		return ResponseEntity.ok(beerService.findAllView());
 	}
-
+	//TODO change this
 	@GetMapping("/complete")
+	@PreAuthorize("hasRole('ADMINISTRADOR')")
 	public ResponseEntity<List<BeerDto>> findAllComplete(ViewBeerFilterDto filter) {
 		return ResponseEntity.ok(beerService.findAllDto(filter));
 	}

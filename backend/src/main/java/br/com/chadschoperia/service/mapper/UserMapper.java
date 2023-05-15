@@ -1,21 +1,25 @@
 package br.com.chadschoperia.service.mapper;
 
+import br.com.chadschoperia.domain.entities.Role;
 import br.com.chadschoperia.domain.entities.User;
 import br.com.chadschoperia.service.dto.UserDto;
+import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 
 @Mapper(componentModel = "spring")
 public interface UserMapper extends EntityMapper<UserDto, User> {
 
 	@Override
-	@Mapping(source = "role.id", target = "idRole")
-	@Mapping(source = "role.name", target = "roleName")
 	UserDto toDto(User entity);
 
 	@Override
-	@Mapping(source = "idRole", target = "role.id")
-	@Mapping(source = "roleName", target = "role.name")
 	User toEntity(UserDto dto);
+
+	@AfterMapping
+	default void mapRole(@MappingTarget User user, UserDto dto){
+		user.getRoles().add(new Role(dto.getIdRole(), dto.getRoleName(), false));
+	}
+
 
 }
