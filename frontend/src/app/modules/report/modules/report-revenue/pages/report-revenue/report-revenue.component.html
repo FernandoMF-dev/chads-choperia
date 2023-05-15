@@ -57,7 +57,7 @@
 								{{ report.value | currency : 'BRL':'symbol' }}
 							</td>
 							<td>
-								12/04/2023
+								{{ report.dateTime | date:'dd/MM/yyyy HH:mm:ss' }}
 							</td>
 						</tr>
 					</ng-template>
