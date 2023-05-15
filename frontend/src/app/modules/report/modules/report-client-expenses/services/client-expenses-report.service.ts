@@ -17,6 +17,6 @@ export class ClientExpensesReportService {
 
 	public reportClientExpenseOverTime(filter: Partial<BaseClientReportFilter>): Observable<ClientExpensesReport[]> {
 		const params: HttpParams = HttpRequestUtil.getParamsFromObject(filter);
-		return this.http.get<ClientExpensesReport[]>(`${ this.apiUrl }`, { params: params });
+		return this.http.get<ClientExpensesReport[]>(`${ this.apiUrl }/expenses`, { params: params });
 	}
 }
