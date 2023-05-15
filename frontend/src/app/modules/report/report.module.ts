@@ -13,7 +13,7 @@ import { ReportRoutingModule } from './report-routing.module';
 	declarations: [
 		ReportLobbyComponent,
 		ReportLobbyPlaceholderComponent,
-		ReportStockItemListComponent
+		ReportStockItemListComponent,
 	],
 	imports: [
 		CommonModule,

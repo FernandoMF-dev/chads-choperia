@@ -17,6 +17,11 @@ export class ReportLobbyComponent {
 			label: 'Estoque de Produtos',
 			material: 'kitchen',
 			routerLink: [RouteLinkUtils.PRODUCT]
+		},
+		{
+			label: 'Receitas e Despesas',
+			material: 'kitchen',
+			routerLink: [RouteLinkUtils.REVENUE_EXPENSE]
 		}
 	];
 }

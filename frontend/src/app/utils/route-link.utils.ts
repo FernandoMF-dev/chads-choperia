@@ -13,6 +13,7 @@ export class RouteLinkUtils {
 	public static readonly FOOD_WEIGHING = 'food-weighing';
 	public static readonly REPORT = 'relatorio';
 	public static readonly EMAIL = 'email';
+	public static readonly REVENUE_EXPENSE = 'receitas-despesas';
 
 	public static readonly NOT_FOUND = 'notfound';
 }
