@@ -8,10 +8,11 @@ import java.util.Locale;
 
 @Getter
 @AllArgsConstructor
-public enum HistoricBeerActionEnum {
+public enum HistoricProductActionEnum {
 	CREATE("default.create"),
 	UPDATE("default.update"),
-	RESTOCK("beer.restock"),
+	RESTOCK("default.restock"),
+	UNSTOCK("default.unstock"),
 	POUR("beer.pour"),
 	DELETE("default.deleted");
 

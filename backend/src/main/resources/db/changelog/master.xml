@@ -24,6 +24,9 @@
 	<include file="/db/changelog/files/20230508100700_change_table_user.xml"/>
 	<include file="/db/changelog/files/20230508102000_change_table_role.xml"/>
 	<include file="/db/changelog/files/20230508103700_create_table_user_role.xml"/>
-
+	<include file="/db/changelog/files/20230507123100_create_table_historic_product.xml"/>
+	<include file="/db/changelog/files/20230507183000_change_column_product.xml"/>
+	<include file="/db/changelog/files/20230514130000_create_table_revenue_expense.xml"/>
+	<include file="/db/changelog/files/20230514151800_add_column_product.xml"/>
 
 </databaseChangeLog>

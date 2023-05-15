@@ -11,6 +11,6 @@ public class ProductStockDto implements Serializable {
 
 	private Long productId;
 
-	private Long amount;
+	private Double amount;
 
 }

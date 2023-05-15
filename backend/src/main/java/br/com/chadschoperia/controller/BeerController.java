@@ -5,10 +5,12 @@ import br.com.chadschoperia.service.dto.BeerDto;
 import br.com.chadschoperia.service.dto.PourBeerDTO;
 import br.com.chadschoperia.service.dto.ProductStockDto;
 import br.com.chadschoperia.service.dto.ViewBeerDto;
+import br.com.chadschoperia.service.dto.filters.ViewBeerFilterDto;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -38,8 +40,8 @@ public class BeerController {
 	//TODO change this
 	@GetMapping("/complete")
 	@PreAuthorize("hasRole('ADMINISTRADOR')")
-	public ResponseEntity<List<BeerDto>> findAllComplete() {
-		return ResponseEntity.ok(beerService.findAllDto());
+	public ResponseEntity<List<BeerDto>> findAllComplete(ViewBeerFilterDto filter) {
+		return ResponseEntity.ok(beerService.findAllDto(filter));
 	}
 
 	@GetMapping("/{idBeer}")

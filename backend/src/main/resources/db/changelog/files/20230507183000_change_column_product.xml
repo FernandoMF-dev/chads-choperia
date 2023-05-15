@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+		xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.17.xsd">
+	<changeSet id="20230507183000-1" author="Fernando Martins Ferreira">
+		<addColumn tableName="product">
+			<column name="new_stock" type="double"/>
+		</addColumn>
+
+		<rollback>
+			<dropColumn tableName="product" columnName="new_stock"/>
+		</rollback>
+	</changeSet>
+
+	<changeSet id="20230507183000-2" author="Fernando Martins Ferreira">
+		<sql>
+			UPDATE product
+			SET new_stock = stock
+			WHERE new_stock IS NULL;
+		</sql>
+
+		<rollback>
+			<sql>
+				UPDATE product SET new_stock = NULL WHERE new_stock IS NOT NULL;
+			</sql>
+		</rollback>
+	</changeSet>
+
+	<changeSet id="20230507183000-3" author="Fernando Martins Ferreira">
+		<dropColumn tableName="product" columnName="stock"/>
+	</changeSet>
+
+	<changeSet id="20230507183000-4" author="Fernando Martins Ferreira">
+		<renameColumn tableName="product" oldColumnName="new_stock" newColumnName="stock"/>
+
+		<rollback>
+			<renameColumn tableName="product" oldColumnName="stock" newColumnName="new_stock"/>
+		</rollback>
+	</changeSet>
+
+	<changeSet id="20230507183000-5" author="Fernando Martins Ferreira">
+		<addNotNullConstraint tableName="product" columnName="stock"/>
+
+		<rollback>
+			<dropNotNullConstraint tableName="product" columnName="stock"/>
+		</rollback>
+	</changeSet>
+</databaseChangeLog>

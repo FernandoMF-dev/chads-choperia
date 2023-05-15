@@ -1,0 +1,19 @@
+p-accordiontab {
+	&.no-content-padding {
+		> div.p-accordion-tab > div > div.p-accordion-content {
+			padding: 0;
+		}
+	}
+
+	&.highlight-active {
+		div.p-accordion-tab.p-accordion-tab-active > div.p-accordion-header > a.p-accordion-header-link {
+			background-color: #6366F1;
+			color: #ffffff;
+
+			&:hover {
+				background-color: #4F46E5;
+				color: #ffffff;
+			}
+		}
+	}
+}

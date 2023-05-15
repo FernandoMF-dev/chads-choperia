@@ -54,7 +54,7 @@ export class SelfserviceSettingsComponent implements OnInit {
 			.pipe(finalize(() => this.isLoading = false))
 			.subscribe({
 				next: (res) => {
-					this.utilsService.showSuccessMessage('Configurações salvas com sucesso');
+					this.utilsService.showSuccessMessage('Configurações de self-service salvas com sucesso');
 					this.resetForm(res);
 				},
 				error: (err) => this.utilsService.showErrorMessage(err.error.detail)

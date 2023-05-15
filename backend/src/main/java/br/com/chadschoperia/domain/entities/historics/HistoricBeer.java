@@ -1,11 +1,9 @@
 package br.com.chadschoperia.domain.entities.historics;
 
 import br.com.chadschoperia.domain.entities.Beer;
-import br.com.chadschoperia.domain.enums.HistoricBeerActionEnum;
+import br.com.chadschoperia.domain.enums.HistoricProductActionEnum;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -26,48 +24,24 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
-public class HistoricBeer implements Serializable {
+public class HistoricBeer extends HisoricBaseStock implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence_historic_beer")
 	@SequenceGenerator(name = "sequence_historic_beer", sequenceName = "sequence_historic_beer", allocationSize = 1)
 	@Column(name = "id", nullable = false)
 	private Long id;
 
-	@Column(name = "action", nullable = false)
-	@Enumerated(EnumType.STRING)
-	private HistoricBeerActionEnum action;
-
-	@Column(name = "description")
-	private String description;
-
-	@Column(name = "date_time", nullable = false)
-	private LocalDateTime dateTime;
-
-	@Column(name = "stock")
-	private Double stock;
-
-	@Column(name = "total_stock", nullable = false)
-	private Double totalStock;
-
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_beer", referencedColumnName = "id", nullable = false)
 	private Beer beer;
 
-	public HistoricBeer(Long beerId, HistoricBeerActionEnum action, String description, Double stock, Double totalStock) {
+	public HistoricBeer(Long beerId, HistoricProductActionEnum action, String description, Double stock, Double totalStock) {
+		super(action, description, stock, totalStock);
 		this.beer = new Beer(beerId);
-		this.action = action;
-		this.description = description;
-		this.stock = stock;
-		this.totalStock = totalStock;
-		this.dateTime = LocalDateTime.now();
 	}
 
-	public HistoricBeer(Long beerId, HistoricBeerActionEnum action, String description, Double stock, Double totalStock, LocalDateTime dateTime) {
+	public HistoricBeer(Long beerId, HistoricProductActionEnum action, String description, Double stock, Double totalStock, LocalDateTime dateTime) {
+		super(action, description, stock, totalStock, dateTime);
 		this.beer = new Beer(beerId);
-		this.action = action;
-		this.description = description;
-		this.stock = stock;
-		this.totalStock = totalStock;
-		this.dateTime = dateTime;
 	}
 }

@@ -21,8 +21,8 @@
 								   mode="currency" currency="BRL" locale="pt-BR" [minFractionDigits]=2 [maxFractionDigits]=2
 								   decrementButtonClass="p-button-danger" incrementButtonClass="p-button-success" buttonLayout="horizontal"
 								   incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus" formControlName="purchasePrice"
-								   [ngClass]="{'ng-invalid ng-dirty': !isFieldValid('stock')}"></p-inputNumber>
-					<small id="purchase-price-help" class="p-error block" *ngIf="!isFieldValid('stock')">Valor obrigatório.</small>
+								   [ngClass]="{'ng-invalid ng-dirty': !isFieldValid('purchasePrice')}"></p-inputNumber>
+					<small id="purchase-price-help" class="p-error block" *ngIf="!isFieldValid('purchasePrice')">Valor obrigatório.</small>
 				</div>
 
 				<div class="field col-12">
@@ -40,7 +40,7 @@
 
 					<input pInputText id="rfid" type="text" required [disabled]="isLoading"
 						   [ngClass]="{'ng-invalid ng-dirty': !isFieldValid('rfid')}"
-						   formControlName="rfid"/>
+						   formControlName="rfid" maxlength="6"/>
 
 					<small id="rfid-help" class="p-error block" *ngIf="!isFieldValid('rfid')">
 						Campo obrigatório.

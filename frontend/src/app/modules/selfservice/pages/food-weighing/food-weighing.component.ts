@@ -29,7 +29,7 @@ export class FoodWeighingComponent {
 		this.selfserviceService.createPurchase(this.form.value)
 			.subscribe({
 				next: () => {
-					this.utilsService.showSuccessMessage('Self-service cadastrado com sucesso');
+					this.utilsService.showSuccessMessage('Compra no self-service cadastrada com sucesso');
 					this.form.reset();
 				},
 				error: (err) => this.utilsService.showErrorMessage(err.error.detail)

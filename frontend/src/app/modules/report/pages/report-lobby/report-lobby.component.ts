@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { RouteLinkUtils } from '../../../../utils/route-link.utils';
-import { ReportLobbyItem } from '../../models/report-lobby-item.model';
 
 @Component({
 	selector: 'app-report-lobby',
@@ -13,6 +12,18 @@ export class ReportLobbyComponent {
 			label: 'Estoque de Cerveja',
 			material: 'local_drink',
 			routerLink: [RouteLinkUtils.BEER]
+		},
+		{
+			label: 'Estoque de Produtos',
+			material: 'kitchen',
+			routerLink: [RouteLinkUtils.PRODUCT]
 		}
 	];
+}
+
+interface ReportLobbyItem {
+	label: string;
+	icon?: string;
+	material?: string;
+	routerLink: string[];
 }

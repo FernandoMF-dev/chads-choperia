@@ -15,4 +15,8 @@ public class FoodWeighingDto {
 	public String getFormatedWeight() {
 		return String.format("%02.3f", this.getWeight());
 	}
+
+	public double calculateFinalValue(SelfserviceSettingsDto settings) {
+		return this.getWeight() * settings.getPricePerKg() + settings.getPriceBase();
+	}
 }
