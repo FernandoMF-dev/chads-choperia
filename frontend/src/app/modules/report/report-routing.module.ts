@@ -24,6 +24,10 @@ const routes: Routes = [
 			{
 				path: RouteLinkUtils.REVENUE_EXPENSE,
 				loadChildren: () => import('./modules/report-revenue/report-revenue.module').then(m => m.ReportRevenueModule)
+			},
+			{
+				path: RouteLinkUtils.CLIENTE,
+				loadChildren: () => import('./modules/report-client-expenses/report-client-expenses.module').then(m => m.ReportClientExpensesModule)
 			}
 		]
 	}
