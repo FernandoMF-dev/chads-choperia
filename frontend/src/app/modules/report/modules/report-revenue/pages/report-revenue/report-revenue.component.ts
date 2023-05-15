@@ -1,35 +1,35 @@
 import { Component } from '@angular/core';
-import { RevenueExpenseReportService } from '../../services/revenueReport.service';
-import { UtilsService } from 'src/app/services/utils.service';
-import { ProductStockReportGroup } from '../../../report-product/models/product-stock.report';
+import { SelectItem } from 'primeng/api';
 import { finalize } from 'rxjs/operators';
 import { BaseRevenueExpenseReportFilter } from 'src/app/modules/report/models/base-revenue-expense-report.filter';
-import { SelectItem } from 'primeng/api';
 import { RevenueExpenseReport } from 'src/app/modules/report/models/revenue-expense.report';
+import { UtilsService } from 'src/app/services/utils.service';
+import { RevenueExpenseReportService } from '../../services/revenueReport.service';
 
-export type RevenueExpenseType = 'REVENUE' | 'EXPENSE' | 'all';
+export type RevenueExpenseType = 'REVENUE' | 'EXPENSE' | null;
 
 export const REVENUE_EXPENSE_TYPE_OPTIONS: SelectItem<RevenueExpenseType>[] = [
-	{ label: 'Ambas Movimentações', value: 'all' },
+	{ label: 'Ambas Movimentações', value: null },
 	{ label: 'Receitas', value: 'REVENUE' },
 	{ label: 'Despesas', value: 'EXPENSE' }
 ];
 
 @Component({
-  selector: 'app-report-revenue',
-  templateUrl: './report-revenue.component.html',
-  styleUrls: ['./report-revenue.component.scss']
+	selector: 'app-report-revenue',
+	templateUrl: './report-revenue.component.html',
+	styleUrls: ['./report-revenue.component.scss']
 })
 export class ReportRevenueComponent {
 	isLoadingSearch: boolean = false;
-  allReports: RevenueExpenseReport[] = [];
-  filter = new BaseRevenueExpenseReportFilter();
-  viewModeOptions: SelectItem<RevenueExpenseType>[] = REVENUE_EXPENSE_TYPE_OPTIONS;
+	allReports: RevenueExpenseReport[] = [];
+	filter = new BaseRevenueExpenseReportFilter();
+	viewModeOptions: SelectItem<RevenueExpenseType>[] = REVENUE_EXPENSE_TYPE_OPTIONS;
 
 	constructor(
 		private revenueExpenseReportService: RevenueExpenseReportService,
 		private utilsService: UtilsService
-	) { }
+	) {
+	}
 
 	search(): void {
 		this.isLoadingSearch = true;
@@ -46,7 +46,7 @@ export class ReportRevenueComponent {
 		this.allReports.forEach(value => value.dateTime = new Date(value.dateTime));
 	}
 
-  getTypeDisplayName(revenueExpenseReport: RevenueExpenseReport): string {
-    return revenueExpenseReport.type === 'REVENUE' ? 'Receita' : 'Despesa';
-  }
+	getTypeDisplayName(revenueExpenseReport: RevenueExpenseReport): string {
+		return revenueExpenseReport.type === 'REVENUE' ? 'Receita' : 'Despesa';
+	}
 }
