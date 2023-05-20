@@ -18,6 +18,7 @@ public interface RevenueExpenseReportRepository extends JpaRepository<RevenueExp
 			" WHERE (CAST(CAST(:#{#filter.minDate} AS char) AS timestamp) IS NULL OR CAST(:#{#filter.minDate} AS timestamp) <= re.dateTime) " +
 			" AND (CAST(CAST(:#{#filter.maxDate} AS char) AS timestamp) IS NULL OR CAST(:#{#filter.maxDate} AS timestamp) >= re.dateTime) " +
 			" AND(:#{#filter.type} IS NULL OR CAST(:#{#filter.type} AS char) = CAST(re.type AS char)) " +
+			" AND(re.sellingPoint IN (:#{#filter.sellingPoints})) " +
 			" ORDER BY re.dateTime DESC ")
 	List<RevenueExpenseReportDto> getRevenueExpenseOverTime(@Param("filter") RevenueExpenseReportFilterDto filter);
 }

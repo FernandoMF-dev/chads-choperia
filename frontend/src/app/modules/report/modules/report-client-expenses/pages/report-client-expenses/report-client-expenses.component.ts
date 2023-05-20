@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
+import { SelectItem } from 'primeng/api';
 import { finalize } from 'rxjs';
-import { BaseClientReportFilter } from 'src/app/modules/report/models/base-client-report.filter';
 import { ClientExpensesReport } from 'src/app/modules/report/modules/report-client-expenses/models/client-expenses.report';
+import { ClientReportFilter } from 'src/app/modules/report/modules/report-client-expenses/models/client-report.filter';
 import { UtilsService } from 'src/app/services/utils.service';
+import { SELLING_POINT_SELECT, SellingPointEnum } from '../../../../../../enums/selling-point.enum';
 import { FormatUtils } from '../../../../../../utils/format.utils';
 import { ClientExpensesReportService } from '../../services/client-expenses-report.service';
 
@@ -14,7 +16,8 @@ import { ClientExpensesReportService } from '../../services/client-expenses-repo
 export class ReportClientExpensesComponent {
 	isLoadingSearch: boolean = false;
 	allReports: ClientExpensesReport[] = [];
-	filter = new BaseClientReportFilter();
+	filter = new ClientReportFilter();
+	sellingPointOptions: SelectItem<SellingPointEnum>[] = SELLING_POINT_SELECT;
 
 	constructor(
 		private clientExpensesReportService: ClientExpensesReportService,

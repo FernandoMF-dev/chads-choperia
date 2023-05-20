@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../../../environments/environment';
 import { HttpRequestUtil } from '../../../../../utils/http-request.util';
-import { BaseRevenueExpenseReportFilter } from '../../../models/base-revenue-expense-report.filter';
+import { RevenueExpenseReportFilter } from '../models/revenue-expense-report.filter';
 import { RevenueExpenseReport } from '../models/revenue-expense.report';
 
 @Injectable({
@@ -15,7 +15,7 @@ export class RevenueExpenseReportService {
 	constructor(private readonly http: HttpClient) {
 	}
 
-	public reportRevenueExpenseOverTime(filter: Partial<BaseRevenueExpenseReportFilter>): Observable<RevenueExpenseReport[]> {
+	public reportRevenueExpenseOverTime(filter: Partial<RevenueExpenseReportFilter>): Observable<RevenueExpenseReport[]> {
 		const params: HttpParams = HttpRequestUtil.getParamsFromObject(filter);
 		return this.http.get<RevenueExpenseReport[]>(`${ this.apiUrl }`, { params: params });
 	}

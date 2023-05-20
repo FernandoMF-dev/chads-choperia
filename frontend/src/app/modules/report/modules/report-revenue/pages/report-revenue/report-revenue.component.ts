@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { SelectItem } from 'primeng/api';
 import { finalize } from 'rxjs/operators';
-import { BaseRevenueExpenseReportFilter } from 'src/app/modules/report/models/base-revenue-expense-report.filter';
+import { RevenueExpenseReportFilter } from 'src/app/modules/report/modules/report-revenue/models/revenue-expense-report.filter';
 import { RevenueExpenseReport } from 'src/app/modules/report/modules/report-revenue/models/revenue-expense.report';
 import { UtilsService } from 'src/app/services/utils.service';
+import { SELLING_POINT_SELECT, SellingPointEnum } from '../../../../../../enums/selling-point.enum';
 import { REVENUE_EXPENSE_TYPE_OPTIONS, RevenueExpenseTypeEnum } from '../../enums/revenue-expense-type.enum';
 import { RevenueExpenseReportService } from '../../services/revenue-report.service';
 
@@ -15,8 +16,9 @@ import { RevenueExpenseReportService } from '../../services/revenue-report.servi
 export class ReportRevenueComponent {
 	isLoadingSearch: boolean = false;
 	allReports: RevenueExpenseReport[] = [];
-	filter = new BaseRevenueExpenseReportFilter();
-	viewModeOptions: SelectItem<RevenueExpenseTypeEnum | null>[] = REVENUE_EXPENSE_TYPE_OPTIONS;
+	filter = new RevenueExpenseReportFilter();
+	typeOptions: SelectItem<RevenueExpenseTypeEnum | null>[] = REVENUE_EXPENSE_TYPE_OPTIONS;
+	sellingPointOptions: SelectItem<SellingPointEnum>[] = SELLING_POINT_SELECT;
 
 	totalRevenue?: number;
 

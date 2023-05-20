@@ -18,6 +18,7 @@ public interface ClientReportRepository extends JpaRepository<Client, Long> {
 			" INNER JOIN cc.client c " +
 			" INNER JOIN cc.expenses cce " +
 			" WHERE (CAST(CAST(:#{#filter.minDate} AS char) AS timestamp) IS NULL OR CAST(:#{#filter.minDate} AS timestamp) <= cce.dateTime) " +
-			" AND (CAST(CAST(:#{#filter.maxDate} AS char) AS timestamp) IS NULL OR CAST(:#{#filter.maxDate} AS timestamp) >= cce.dateTime) ")
+			" AND (CAST(CAST(:#{#filter.maxDate} AS char) AS timestamp) IS NULL OR CAST(:#{#filter.maxDate} AS timestamp) >= cce.dateTime) " +
+			" AND(cce.sellingPoint IN (:#{#filter.sellingPoints})) ")
 	List<ClientExpesesReportDto> getExpensesOverTime(@Param("filter") ClientReportFilterDto filter);
 }

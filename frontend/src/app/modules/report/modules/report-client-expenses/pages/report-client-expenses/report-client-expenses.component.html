@@ -26,6 +26,12 @@
 					<p-calendar id="filter-max-date" [(ngModel)]="filter.maxDate" [showIcon]="true" [showClear]="true"
 								[showTime]="true" [showButtonBar]="true"></p-calendar>
 				</div>
+
+				<div class="xl:col-4 lg:col-6 sm:col-12 field">
+					<label htmlFor="selling-point">Ponto de Venda</label>
+					<p-multiSelect id="selling-point" [options]="sellingPointOptions" [(ngModel)]="filter.sellingPoints" display="chip"
+								   [disabled]="isLoadingSearch" defaultLabel="Selecione os pontos de venda"></p-multiSelect>
+				</div>
 			</div>
 
 			<div class="col-12">
