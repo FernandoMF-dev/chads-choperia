@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from '../../../../../../environments/environment';
 import { HttpRequestUtil } from '../../../../../utils/http-request.util';
 import { BaseClientReportFilter } from '../../../models/base-client-report.filter';
-import { ClientExpensesReport } from '../../../models/client-expenses.report';
+import { ClientExpensesReport } from '../models/client-expenses.report';
 
 @Injectable({
 	providedIn: 'root'

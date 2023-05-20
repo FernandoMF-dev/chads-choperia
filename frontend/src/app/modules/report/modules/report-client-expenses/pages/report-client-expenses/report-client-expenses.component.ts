@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { finalize } from 'rxjs';
 import { BaseClientReportFilter } from 'src/app/modules/report/models/base-client-report.filter';
-import { ClientExpensesReport } from 'src/app/modules/report/models/client-expenses.report';
+import { ClientExpensesReport } from 'src/app/modules/report/modules/report-client-expenses/models/client-expenses.report';
 import { UtilsService } from 'src/app/services/utils.service';
 import { ClientExpensesReportService } from '../../services/client-expenses-report.service';
 

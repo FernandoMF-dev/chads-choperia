@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { SelectItem } from 'primeng/api';
 import { finalize } from 'rxjs/operators';
 import { BaseRevenueExpenseReportFilter } from 'src/app/modules/report/models/base-revenue-expense-report.filter';
-import { RevenueExpenseReport } from 'src/app/modules/report/models/revenue-expense.report';
+import { RevenueExpenseReport } from 'src/app/modules/report/modules/report-revenue/models/revenue-expense.report';
 import { UtilsService } from 'src/app/services/utils.service';
 import { RevenueExpenseReportService } from '../../services/revenue-report.service';
 

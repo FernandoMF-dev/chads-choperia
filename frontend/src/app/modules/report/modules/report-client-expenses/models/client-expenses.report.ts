@@ -1,5 +1,6 @@
-import { ClientCardStatusEnum } from '../../card/enums/client-card-status.enum';
-import { BaseReport } from './base.report';
+import { SellingPointEnum } from '../../../../../enums/selling-point.enum';
+import { ClientCardStatusEnum } from '../../../../card/enums/client-card-status.enum';
+import { BaseReport } from '../../../models/base.report';
 
 export class ClientExpensesReport extends BaseReport {
 	constructor(
@@ -10,6 +11,7 @@ export class ClientExpensesReport extends BaseReport {
 		public clientCardId: number,
 		public clientCardStatus: ClientCardStatusEnum,
 		public clientCardrfid: string,
+		public sellingPoint: SellingPointEnum,
 		description: string,
 		value: number,
 		dateTime: Date

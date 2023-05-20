@@ -13,7 +13,7 @@ import java.util.List;
 @Repository
 public interface ClientReportRepository extends JpaRepository<Client, Long> {
 	@Query("SELECT new br.com.chadschoperia.service.reports.dto.ClientExpesesReportDto" +
-			"(cce.description, cce.value, cce.dateTime, c, cc)" +
+			"(c, cc, cce)" +
 			" FROM ClientCard cc " +
 			" INNER JOIN cc.client c " +
 			" INNER JOIN cc.expenses cce " +
