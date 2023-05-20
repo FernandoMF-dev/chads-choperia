@@ -1,6 +1,6 @@
 import { SellingPointEnum } from '../../../../../enums/selling-point.enum';
-import { RevenueExpenseTypeEnum } from '../../../enums/revenue-expense-type.enum';
 import { BaseReport } from '../../../models/base.report';
+import { RevenueExpenseTypeEnum } from '../enums/revenue-expense-type.enum';
 
 export class RevenueExpenseReport extends BaseReport {
 	constructor(

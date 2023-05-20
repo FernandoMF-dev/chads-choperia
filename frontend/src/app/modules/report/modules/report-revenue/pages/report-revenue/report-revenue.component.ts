@@ -4,15 +4,8 @@ import { finalize } from 'rxjs/operators';
 import { BaseRevenueExpenseReportFilter } from 'src/app/modules/report/models/base-revenue-expense-report.filter';
 import { RevenueExpenseReport } from 'src/app/modules/report/modules/report-revenue/models/revenue-expense.report';
 import { UtilsService } from 'src/app/services/utils.service';
+import { REVENUE_EXPENSE_TYPE_OPTIONS, RevenueExpenseTypeEnum } from '../../enums/revenue-expense-type.enum';
 import { RevenueExpenseReportService } from '../../services/revenue-report.service';
-
-export type RevenueExpenseType = 'REVENUE' | 'EXPENSE' | null;
-
-export const REVENUE_EXPENSE_TYPE_OPTIONS: SelectItem<RevenueExpenseType>[] = [
-	{ label: 'Ambas Movimentações', value: null },
-	{ label: 'Receitas', value: 'REVENUE' },
-	{ label: 'Despesas', value: 'EXPENSE' }
-];
 
 @Component({
 	selector: 'app-report-revenue',
@@ -23,7 +16,7 @@ export class ReportRevenueComponent {
 	isLoadingSearch: boolean = false;
 	allReports: RevenueExpenseReport[] = [];
 	filter = new BaseRevenueExpenseReportFilter();
-	viewModeOptions: SelectItem<RevenueExpenseType>[] = REVENUE_EXPENSE_TYPE_OPTIONS;
+	viewModeOptions: SelectItem<RevenueExpenseTypeEnum | null>[] = REVENUE_EXPENSE_TYPE_OPTIONS;
 
 	totalRevenue?: number;
 

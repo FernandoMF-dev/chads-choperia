@@ -1,9 +1,9 @@
-import { RevenueExpenseType } from '../modules/report-revenue/pages/report-revenue/report-revenue.component';
+import { RevenueExpenseTypeEnum } from '../modules/report-revenue/enums/revenue-expense-type.enum';
 
 export class BaseRevenueExpenseReportFilter {
 	minDate: Date = new Date();
 	maxDate: Date = new Date();
-	type: RevenueExpenseType;
+	type: RevenueExpenseTypeEnum | null;
 
 	constructor() {
 		this.maxDate.setDate(this.maxDate.getDate() + 1);
