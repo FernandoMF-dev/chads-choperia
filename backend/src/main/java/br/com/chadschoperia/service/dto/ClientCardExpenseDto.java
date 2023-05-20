@@ -1,5 +1,6 @@
 package br.com.chadschoperia.service.dto;
 
+import br.com.chadschoperia.domain.enums.SellingPointEnum;
 import br.com.chadschoperia.service.events.AddClientCardExpenseEvent;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,10 +17,12 @@ public class ClientCardExpenseDto {
 	private Double value = 0.0;
 	private String description;
 	private LocalDateTime dateTime;
+	private SellingPointEnum sellingPoint;
 
 	public ClientCardExpenseDto(AddClientCardExpenseEvent event) {
 		this.idCard = event.idClientCard();
 		this.value = event.value();
 		this.description = event.description();
+		this.sellingPoint = event.sellingPoint();
 	}
 }
