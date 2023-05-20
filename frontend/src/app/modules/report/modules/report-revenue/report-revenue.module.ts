@@ -6,6 +6,7 @@ import { SharedModule } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { CalendarModule } from 'primeng/calendar';
 import { DropdownModule } from 'primeng/dropdown';
+import { InputNumberModule } from 'primeng/inputnumber';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { RippleModule } from 'primeng/ripple';
 import { TableModule } from 'primeng/table';
@@ -33,7 +34,8 @@ import { ReportRevenueRoutingModule } from './report-revenue-routing.module';
 		ToastModule,
 		ToolbarModule,
 		TableModule,
-		FormsModule
+		FormsModule,
+		InputNumberModule
 	]
 })
 export class ReportRevenueModule {

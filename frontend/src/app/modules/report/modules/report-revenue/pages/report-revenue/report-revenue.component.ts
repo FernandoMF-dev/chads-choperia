@@ -25,6 +25,8 @@ export class ReportRevenueComponent {
 	filter = new BaseRevenueExpenseReportFilter();
 	viewModeOptions: SelectItem<RevenueExpenseType>[] = REVENUE_EXPENSE_TYPE_OPTIONS;
 
+	totalRevenue?: number;
+
 	constructor(
 		private revenueExpenseReportService: RevenueExpenseReportService,
 		private utilsService: UtilsService
@@ -43,7 +45,12 @@ export class ReportRevenueComponent {
 
 	private updateReport(res: RevenueExpenseReport[]): void {
 		this.allReports = res;
-		this.allReports.forEach(value => value.dateTime = new Date(value.dateTime));
+		this.totalRevenue = 0;
+
+		this.allReports.forEach(report => {
+			report.dateTime = new Date(report.dateTime);
+			this.totalRevenue! += report.value;
+		});
 	}
 
 	getTypeDisplayName(revenueExpenseReport: RevenueExpenseReport): string {

@@ -17,3 +17,32 @@ $gutter: 1rem; //for primeflex grid system
 @import "assets/styles/icons";
 @import "assets/styles/form-grid";
 @import "assets/styles/overwrite-prime-panel";
+
+p-table.report {
+	width: 100%;
+
+	tr:nth-child(2n) {
+		background-color: #f8f9fa;
+	}
+
+	th {
+		padding: 0.25em 0.75em;
+	}
+
+	th, td {
+		text-align: center !important;
+
+		&.report-description {
+			width: 45%;
+			text-align: start !important;
+		}
+	}
+
+	.positive {
+		color: lime;
+	}
+
+	.negative {
+		color: red;
+	}
+}
