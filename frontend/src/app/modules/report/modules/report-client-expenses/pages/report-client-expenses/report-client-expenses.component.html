@@ -47,10 +47,10 @@
 								{{ report.clientName }}
 							</td>
 							<td>
-								{{ report.clientTelephone }}
+								<a href="tel:55{{report.clientTelephone}}">{{ formatTelephone(report.clientTelephone) }}</a>
 							</td>
 							<td>
-								{{ report.clientEmail }}
+								<a href="mailto:{{report.clientEmail}}">{{ report.clientEmail }}</a>
 							</td>
 							<td class="report-description">
 								{{ report.description }}

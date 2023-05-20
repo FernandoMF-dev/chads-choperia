@@ -3,6 +3,7 @@ import { finalize } from 'rxjs';
 import { BaseClientReportFilter } from 'src/app/modules/report/models/base-client-report.filter';
 import { ClientExpensesReport } from 'src/app/modules/report/modules/report-client-expenses/models/client-expenses.report';
 import { UtilsService } from 'src/app/services/utils.service';
+import { FormatUtils } from '../../../../../../utils/format.utils';
 import { ClientExpensesReportService } from '../../services/client-expenses-report.service';
 
 @Component({
@@ -29,6 +30,10 @@ export class ReportClientExpensesComponent {
 				next: (res) => this.updateReport(res),
 				error: (err) => this.utilsService.showErrorMessage(err.error.detail)
 			});
+	}
+
+	formatTelephone(telephone: string): string {
+		return FormatUtils.formatTelephone(telephone);
 	}
 
 	private updateReport(res: ClientExpensesReport[]): void {
