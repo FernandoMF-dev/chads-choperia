@@ -3,14 +3,15 @@ import { RouterModule, Routes } from '@angular/router';
 import { ReportRevenueComponent } from './pages/report-revenue/report-revenue.component';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: ReportRevenueComponent
-  }
+	{
+		path: '',
+		component: ReportRevenueComponent
+	}
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+	imports: [RouterModule.forChild(routes)],
+	exports: [RouterModule]
 })
-export class ReportRevenueRoutingModule { }
+export class ReportRevenueRoutingModule {
+}

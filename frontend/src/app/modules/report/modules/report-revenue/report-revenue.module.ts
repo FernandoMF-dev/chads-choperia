@@ -1,8 +1,5 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import { ReportRevenueRoutingModule } from './report-revenue-routing.module';
-import { ReportRevenueComponent } from './pages/report-revenue/report-revenue.component';
+import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AccordionModule } from 'primeng/accordion';
 import { SharedModule } from 'primeng/api';
@@ -11,19 +8,22 @@ import { CalendarModule } from 'primeng/calendar';
 import { DropdownModule } from 'primeng/dropdown';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { RippleModule } from 'primeng/ripple';
+import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
-import { TableModule } from 'primeng/table';
+import { ReportRevenueComponent } from './pages/report-revenue/report-revenue.component';
+
+import { ReportRevenueRoutingModule } from './report-revenue-routing.module';
 
 
 @NgModule({
-  declarations: [
-    ReportRevenueComponent
-  ],
-  imports: [
-    CommonModule,
-    ReportRevenueRoutingModule,
-    AccordionModule,
+	declarations: [
+		ReportRevenueComponent
+	],
+	imports: [
+		CommonModule,
+		ReportRevenueRoutingModule,
+		AccordionModule,
 		ButtonModule,
 		CalendarModule,
 		DropdownModule,
@@ -34,6 +34,7 @@ import { TableModule } from 'primeng/table';
 		ToolbarModule,
 		TableModule,
 		FormsModule
-  ]
+	]
 })
-export class ReportRevenueModule { }
+export class ReportRevenueModule {
+}

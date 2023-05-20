@@ -1,25 +1,25 @@
 import { Component } from '@angular/core';
-import { SelectItem } from 'primeng/api';
+import { finalize } from 'rxjs';
 import { BaseClientReportFilter } from 'src/app/modules/report/models/base-client-report.filter';
 import { ClientExpensesReport } from 'src/app/modules/report/models/client-expenses.report';
 import { UtilsService } from 'src/app/services/utils.service';
 import { ClientExpensesReportService } from '../../services/client-expenses-report.service';
-import { finalize } from 'rxjs';
 
 @Component({
-  selector: 'app-report-client-expenses',
-  templateUrl: './report-client-expenses.component.html',
-  styleUrls: ['./report-client-expenses.component.scss']
+	selector: 'app-report-client-expenses',
+	templateUrl: './report-client-expenses.component.html',
+	styleUrls: ['./report-client-expenses.component.scss']
 })
 export class ReportClientExpensesComponent {
-  isLoadingSearch: boolean = false;
-  allReports: ClientExpensesReport[] = [];
-  filter = new BaseClientReportFilter();
+	isLoadingSearch: boolean = false;
+	allReports: ClientExpensesReport[] = [];
+	filter = new BaseClientReportFilter();
 
 	constructor(
 		private clientExpensesReportService: ClientExpensesReportService,
 		private utilsService: UtilsService
-	) { }
+	) {
+	}
 
 	search(): void {
 		this.isLoadingSearch = true;

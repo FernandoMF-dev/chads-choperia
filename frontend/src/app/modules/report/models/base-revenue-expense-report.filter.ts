@@ -8,6 +8,6 @@ export class BaseRevenueExpenseReportFilter {
 		this.maxDate.setHours(0, 0, 0, 0);
 		this.minDate.setMonth(this.minDate.getMonth() - 1);
 		this.minDate.setHours(0, 0, 0, 0);
-    this.type = 'REVENUE'
+		this.type = 'REVENUE';
 	}
 }
