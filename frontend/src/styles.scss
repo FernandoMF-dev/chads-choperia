@@ -18,6 +18,10 @@ $gutter: 1rem; //for primeflex grid system
 @import "assets/styles/form-grid";
 @import "assets/styles/overwrite-prime-panel";
 
+h5 {
+	margin: 0;
+}
+
 p-table.report {
 	width: 100%;
 
