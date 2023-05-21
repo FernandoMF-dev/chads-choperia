@@ -60,6 +60,7 @@
 							<th id="report-revenue-list-header-type">Tipo</th>
 							<th id="report-revenue-list-header-description" class="report-description">Descrição</th>
 							<th id="report-revenue-list-header-value">Valor</th>
+							<th id="report-client-list-header-selling-point">Ponto de Venda</th>
 							<th id="report-revenue-list-header-date">Data &amp; Hora</th>
 						</tr>
 					</ng-template>
@@ -74,6 +75,9 @@
 							</td>
 							<td class="{{report.value < 0 ? 'negative' : 'positive'}}">
 								{{ report.value | currency : 'BRL':'symbol' }}
+							</td>
+							<td>
+								{{ formatSellingPoint(report.sellingPoint) }}
 							</td>
 							<td>
 								{{ report.dateTime | date:'dd/MM/yyyy HH:mm:ss' }}
