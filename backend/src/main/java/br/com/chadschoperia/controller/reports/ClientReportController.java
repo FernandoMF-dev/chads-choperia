@@ -2,7 +2,7 @@ package br.com.chadschoperia.controller.reports;
 
 import br.com.chadschoperia.service.reports.ClientReportService;
 import br.com.chadschoperia.service.reports.dto.ClientExpesesReportDto;
-import br.com.chadschoperia.service.reports.filters.ClientReportFilterDto;
+import br.com.chadschoperia.service.reports.filters.ClientExpesesReportFilterDto;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +21,7 @@ public class ClientReportController {
 	private final ClientReportService clientReportService;
 
 	@GetMapping("/expenses")
-	public ResponseEntity<List<ClientExpesesReportDto>> getExpensesOverTime(@Valid ClientReportFilterDto filter) {
+	public ResponseEntity<List<ClientExpesesReportDto>> getExpensesOverTime(@Valid ClientExpesesReportFilterDto filter) {
 		return ResponseEntity.ok(clientReportService.getExpensesOverTime(filter));
 	}
 }

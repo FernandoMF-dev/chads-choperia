@@ -21,7 +21,7 @@ public class RevenueExpenseService {
 
 	@EventListener
 	public void addRevenueExpense(AddRevenueExpenseEvent event) {
-		RevenueExpense entity = new RevenueExpense(event.description(), event.value());
+		RevenueExpense entity = new RevenueExpense(event.description(), event.value(), event.sellingPoint());
 		repository.save(entity);
 	}
 
@@ -30,7 +30,7 @@ public class RevenueExpenseService {
 		List<RevenueExpense> entities = new ArrayList<>();
 		LocalDateTime dateTime = LocalDateTime.now();
 		for (int i = 0; i < event.values().size(); i++) {
-			entities.add(new RevenueExpense(event.descriptions().get(i), event.values().get(i), dateTime));
+			entities.add(new RevenueExpense(event.descriptions().get(i), event.values().get(i), event.sellingPoint(), dateTime));
 		}
 		repository.saveAll(entities);
 	}

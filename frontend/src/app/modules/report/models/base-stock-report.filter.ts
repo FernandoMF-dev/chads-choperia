@@ -1,12 +1,9 @@
-export class BaseStockReportFilter {
-	minDate: Date = new Date();
-	maxDate: Date = new Date();
+import { BaseReportFilter } from './base-report.filter';
+
+export class BaseStockReportFilter extends BaseReportFilter {
 	targets: number[] = [];
 
 	constructor() {
-		this.maxDate.setDate(this.maxDate.getDate() + 1);
-		this.maxDate.setHours(0, 0, 0, 0);
-		this.minDate.setMonth(this.minDate.getMonth() - 1);
-		this.minDate.setHours(0, 0, 0, 0);
+		super();
 	}
 }

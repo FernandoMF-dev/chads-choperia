@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+		xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.17.xsd">
+
+	<changeSet id="20230520154230-1" author="Fernando Martins Ferreira">
+		<addColumn tableName="client_card_expense">
+			<column name="selling_point" type="varchar(50)"/>
+		</addColumn>
+
+		<rollback>
+			<dropColumn tableName="client_card_expense" columnName="selling_point"/>
+		</rollback>
+	</changeSet>
+
+	<changeSet id="20230520154230-2" author="Fernando Martins Ferreira">
+		<sql>
+			UPDATE client_card_expense
+			SET selling_point = 'SELF_SERVICE'
+			WHERE LOWER(description) LIKE LOWER('%self-service%')
+			  AND selling_point IS NULL;
+		</sql>
+
+		<sql>
+			UPDATE client_card_expense
+			SET selling_point = 'BEER'
+			WHERE LOWER(description) LIKE LOWER('%chope%')
+			  AND selling_point IS NULL;
+		</sql>
+
+		<sql>
+			UPDATE client_card_expense
+			SET selling_point = 'KITCHEN_PRODUCT'
+			WHERE LOWER(description) LIKE LOWER('%produto%')
+			  AND selling_point IS NULL;
+		</sql>
+
+		<sql>
+			UPDATE client_card_expense
+			SET selling_point = 'MISCELLANEA'
+			WHERE selling_point IS NULL;
+		</sql>
+	</changeSet>
+
+	<changeSet id="20230520154230-3" author="Fernando Martins Ferreira">
+		<addNotNullConstraint tableName="client_card_expense" columnName="selling_point"/>
+
+		<rollback>
+			<dropNotNullConstraint tableName="client_card_expense" columnName="selling_point"/>
+		</rollback>
+	</changeSet>
+</databaseChangeLog>

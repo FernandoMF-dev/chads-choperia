@@ -2,6 +2,7 @@ package br.com.chadschoperia.service;
 
 import br.com.chadschoperia.domain.entities.Product;
 import br.com.chadschoperia.domain.enums.HistoricProductActionEnum;
+import br.com.chadschoperia.domain.enums.SellingPointEnum;
 import br.com.chadschoperia.exceptions.EntityNotFoundException;
 import br.com.chadschoperia.repository.ProductRepository;
 import br.com.chadschoperia.service.dto.ProductDto;
@@ -121,7 +122,7 @@ public class ProductService {
 
 	// <editor-fold defaultstate="collapsed" desc="Private Methods: Publish events">
 	private void publishRevenueExpense(List<Double> values, List<String> descriptions) {
-		applicationEventPublisher.publishEvent(new AddListRevenueExpenseEvent(values, descriptions));
+		applicationEventPublisher.publishEvent(new AddListRevenueExpenseEvent(values, descriptions, SellingPointEnum.KITCHEN_PRODUCT));
 	}
 
 	private void publishHistoric(ProductDto productDto, HistoricProductActionEnum action) {

@@ -19,22 +19,22 @@ export class AppMenuComponent implements OnInit {
 		const user = ActiveUserService.getInstance().getUser();
 		this.model = [];
 		const notFound: number = -1;
-		if(user?.roleNames?.indexOf(RolesUtil.ADMIN) != notFound ){
+		if (user?.roleNames?.indexOf(RolesUtil.ADMIN) != notFound) {
 			this.model.push(this.getAdminMenu());
 		}
-		if(user?.roleNames?.indexOf(RolesUtil.COOK) != notFound ){
+		if (user?.roleNames?.indexOf(RolesUtil.COOK) != notFound) {
 			this.model.push(this.getCookMenu());
 		}
-		if(user?.roleNames?.indexOf(RolesUtil.COSTUMER_MONITOR) != notFound ){
+		if (user?.roleNames?.indexOf(RolesUtil.COSTUMER_MONITOR) != notFound) {
 			this.model.push(this.getCostumerMonitorMenu());
 		}
-		if(user?.roleNames?.indexOf(RolesUtil.CASHIER) != notFound ){
+		if (user?.roleNames?.indexOf(RolesUtil.CASHIER) != notFound) {
 			this.model.push(this.getCashierMenu());
 		}
-		if(user?.roleNames?.indexOf(RolesUtil.STOCK_MONITOR) != notFound ){
+		if (user?.roleNames?.indexOf(RolesUtil.STOCK_MONITOR) != notFound) {
 			this.model.push(this.getStockManagerMenu());
 		}
-		if(user?.roleNames?.indexOf(RolesUtil.COSTUMER) != notFound ){
+		if (user?.roleNames?.indexOf(RolesUtil.COSTUMER) != notFound) {
 			this.model.push(this.getCostumerMenu());
 		}
 
@@ -42,7 +42,7 @@ export class AppMenuComponent implements OnInit {
 
 	private getCostumerMenu(): {
 		label: string;
-		items: ({ routerLink: (string)[]; material: string; label: string } | { routerLink: (string)[]; material: string; label: string })[]
+		items: ({ routerLink: (string)[]; material: string; label: string })[]
 	} {
 		return {
 			label: 'Área do cliente',
@@ -59,7 +59,7 @@ export class AppMenuComponent implements OnInit {
 
 	private getStockManagerMenu(): {
 		label: string;
-		items: ({ routerLink: (string)[]; icon: string; label: string } | { routerLink: (string)[]; icon: string; label: string })[]
+		items: ({ routerLink: (string)[]; icon: string; label: string })[]
 	} {
 		return {
 			label: 'Menu do Fiscal de Estoque',
@@ -80,7 +80,7 @@ export class AppMenuComponent implements OnInit {
 
 	private getCookMenu(): {
 		label: string;
-		items: ({ routerLink: (string)[]; icon: string; label: string } | { routerLink: string[]; icon: string; label: string })[]
+		items: ({ routerLink: (string)[]; icon: string; label: string })[]
 	} {
 		return {
 			label: 'Menu do Cozinheiro',
@@ -110,11 +110,7 @@ export class AppMenuComponent implements OnInit {
 
 	private getCostumerMonitorMenu(): {
 		label: string;
-		items: ({ routerLink: string[]; icon: string; label: string } | { routerLink: (string)[]; material: string; label: string } | {
-			routerLink: (string)[];
-			material: string;
-			label: string
-		})[]
+		items: ({ routerLink: string[]; icon: string; label: string } | { routerLink: (string)[]; material: string; label: string })[]
 	} {
 		return {
 			label: 'Menu do Fiscal de Entrada',
@@ -136,11 +132,7 @@ export class AppMenuComponent implements OnInit {
 
 	private getAdminMenu(): {
 		label: string;
-		items: ({ routerLink: string[]; icon: string; label: string } | { routerLink: string[]; icon: string; label: string } | {
-			routerLink: string[];
-			material: string;
-			label: string
-		} | { routerLink: (string)[]; material: string; label: string } | { routerLink: string[]; material: string; label: string })[]
+		items: ({ routerLink: string[]; icon: string; label: string } | { routerLink: string[]; material: string; label: string })[]
 	} {
 		return {
 			label: 'Registros Administrativos',
@@ -156,6 +148,6 @@ export class AppMenuComponent implements OnInit {
 				{ label: 'Relatórios', material: 'view_list', routerLink: [RouteLinkUtils.REPORT] },
 				{ label: 'E-mail', material: 'email', routerLink: [RouteLinkUtils.EMAIL] }
 			]
-		}
+		};
 	}
 }

@@ -37,7 +37,7 @@ public abstract class HisoricBaseStock {
 	@Column(name = "date_time", nullable = false)
 	private LocalDateTime dateTime;
 
-	public HisoricBaseStock(HistoricProductActionEnum action, String description, Double stock, Double totalStock) {
+	protected HisoricBaseStock(HistoricProductActionEnum action, String description, Double stock, Double totalStock) {
 		this.action = action;
 		this.description = description;
 		this.stock = stock;

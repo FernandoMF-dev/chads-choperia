@@ -10,8 +10,6 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,7 +25,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/chop")
-@CrossOrigin(origins = "*", allowedHeaders = "*", methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE, RequestMethod.OPTIONS })
+@CrossOrigin(origins = "*", allowedHeaders = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE, RequestMethod.OPTIONS})
 @RequiredArgsConstructor
 public class BeerController {
 
@@ -37,7 +35,8 @@ public class BeerController {
 	public ResponseEntity<List<ViewBeerDto>> findAll() {
 		return ResponseEntity.ok(beerService.findAllView());
 	}
-	//TODO change this
+
+	// TODO change this
 //	@PreAuthorize("hasRole('ADMINISTRADOR')")
 	@GetMapping("/complete")
 	public ResponseEntity<List<BeerDto>> findAllComplete(ViewBeerFilterDto filter) {

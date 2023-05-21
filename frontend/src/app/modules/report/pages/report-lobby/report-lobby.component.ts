@@ -9,7 +9,7 @@ import { RouteLinkUtils } from '../../../../utils/route-link.utils';
 export class ReportLobbyComponent {
 	items: ReportLobbyItem[] = [
 		{
-			label: 'Estoque de Cerveja',
+			label: 'Estoque de Chopes',
 			material: 'local_drink',
 			routerLink: [RouteLinkUtils.BEER]
 		},
@@ -24,7 +24,7 @@ export class ReportLobbyComponent {
 			routerLink: [RouteLinkUtils.REVENUE_EXPENSE]
 		},
 		{
-			label: 'Gasto Cliente',
+			label: 'Gastos de Clientes',
 			material: 'payments',
 			routerLink: [RouteLinkUtils.CLIENTE]
 		}

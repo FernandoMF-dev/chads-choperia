@@ -1,6 +1,7 @@
 package br.com.chadschoperia.service;
 
 import br.com.chadschoperia.domain.entities.SelfserviceSettings;
+import br.com.chadschoperia.domain.enums.SellingPointEnum;
 import br.com.chadschoperia.exceptions.EntityNotFoundException;
 import br.com.chadschoperia.repository.SelfserviceSettingsRepository;
 import br.com.chadschoperia.service.dto.ClientCardDto;
@@ -63,12 +64,12 @@ public class SelfserviceService {
 
 	private void publishCardExpenseEvent(FoodWeighingDto dto, ClientCardDto card, double value) {
 		String expenseDesc = messageSource.getMessage("selfservice.purchase.description", new String[]{dto.getFormatedWeight()}, Locale.getDefault());
-		applicationEventPublisher.publishEvent(new AddClientCardExpenseEvent(card.getId(), value, expenseDesc));
+		applicationEventPublisher.publishEvent(new AddClientCardExpenseEvent(card.getId(), value, expenseDesc, SellingPointEnum.SELF_SERVICE));
 	}
 
 	private void publishRevenueExpense(FoodWeighingDto dto, ClientCardDto card, double value) {
 		String revenueDesc = historicMessageSource.getMessage("revenue.selfservice.serve", new String[]{dto.getFormatedWeight(), card.getClient().getName(), card.getRfid()}, Locale.getDefault());
-		applicationEventPublisher.publishEvent(new AddRevenueExpenseEvent(value, revenueDesc));
+		applicationEventPublisher.publishEvent(new AddRevenueExpenseEvent(value, revenueDesc, SellingPointEnum.SELF_SERVICE));
 	}
 
 }

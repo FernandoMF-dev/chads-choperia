@@ -8,6 +8,7 @@ import { FileUploadModule } from 'primeng/fileupload';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { MultiSelectModule } from 'primeng/multiselect';
 import { PasswordModule } from 'primeng/password';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { RatingModule } from 'primeng/rating';
@@ -21,34 +22,33 @@ import { UserService } from 'src/app/modules/user/services/user.service';
 import { UserCrudComponent } from './pages/user-crud/user-crud.component';
 
 import { UserRoutingModule } from './user-routing.module';
-import {MultiSelectModule} from "primeng/multiselect";
 
 
 @NgModule({
 	declarations: [
 		UserCrudComponent
 	],
-    imports: [
-        CommonModule,
-        UserRoutingModule,
-        TableModule,
-        FileUploadModule,
-        ReactiveFormsModule,
-        ButtonModule,
-        RippleModule,
-        ToastModule,
-        ToolbarModule,
-        RatingModule,
-        InputTextModule,
-        InputTextareaModule,
-        DropdownModule,
-        RadioButtonModule,
-        InputNumberModule,
-        DialogModule,
-        PasswordModule,
-        SkeletonModule,
-        MultiSelectModule
-    ],
+	imports: [
+		CommonModule,
+		UserRoutingModule,
+		TableModule,
+		FileUploadModule,
+		ReactiveFormsModule,
+		ButtonModule,
+		RippleModule,
+		ToastModule,
+		ToolbarModule,
+		RatingModule,
+		InputTextModule,
+		InputTextareaModule,
+		DropdownModule,
+		RadioButtonModule,
+		InputNumberModule,
+		DialogModule,
+		PasswordModule,
+		SkeletonModule,
+		MultiSelectModule
+	],
 	providers: [UserService, RoleService]
 })
 export class UserModule {

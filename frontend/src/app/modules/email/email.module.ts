@@ -2,12 +2,12 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
+import { CalendarModule } from 'primeng/calendar';
 import { InputMaskModule } from 'primeng/inputmask';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { RippleModule } from 'primeng/ripple';
 import { ToastModule } from 'primeng/toast';
-import { CalendarModule } from 'primeng/calendar';
 import { SendEmailComponent } from './components/send-email/send-email.component';
 
 import { EmailRoutingModule } from './email-routing.module';
@@ -31,4 +31,5 @@ import { EmailRoutingModule } from './email-routing.module';
 		CalendarModule
 	]
 })
-export class EmailModule { }
+export class EmailModule {
+}

@@ -1,6 +1,7 @@
 package br.com.chadschoperia.domain.entities;
 
 import br.com.chadschoperia.domain.enums.RevenueExpenseTypeEnum;
+import br.com.chadschoperia.domain.enums.SellingPointEnum;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -43,17 +44,23 @@ public class RevenueExpense implements Serializable {
 	@Column(name = "value", nullable = false)
 	private Double value;
 
-	public RevenueExpense(String description, Double value) {
+	@Column(name = "selling_point", nullable = false)
+	@Enumerated(EnumType.STRING)
+	private SellingPointEnum sellingPoint;
+
+	public RevenueExpense(String description, Double value, SellingPointEnum sellingPoint) {
 		this.type = value >= 0 ? RevenueExpenseTypeEnum.REVENUE : RevenueExpenseTypeEnum.EXPENSE;
 		this.description = description;
 		this.value = value;
+		this.sellingPoint = sellingPoint;
 		this.dateTime = LocalDateTime.now();
 	}
 
-	public RevenueExpense(String description, Double value, LocalDateTime dateTime) {
+	public RevenueExpense(String description, Double value, SellingPointEnum sellingPoint, LocalDateTime dateTime) {
 		this.type = value >= 0 ? RevenueExpenseTypeEnum.REVENUE : RevenueExpenseTypeEnum.EXPENSE;
 		this.description = description;
 		this.value = value;
+		this.sellingPoint = sellingPoint;
 		this.dateTime = dateTime;
 	}
 }

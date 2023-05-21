@@ -33,13 +33,16 @@
 				</ng-template>
 				<ng-template pTemplate="header">
 					<tr>
-						<th pSortableColumn="username">Nome
+						<th pSortableColumn="username">
+							Nome
 							<p-sortIcon field="username"></p-sortIcon>
 						</th>
-						<th pSortableColumn="email">Email
+						<th pSortableColumn="email">
+							Email
 							<p-sortIcon field="email"></p-sortIcon>
 						</th>
-						<th pSortableColumn="roleName">Função
+						<th pSortableColumn="roleName">
+							Função
 							<p-sortIcon field="roleName"></p-sortIcon>
 						</th>
 						<th></th>
@@ -88,29 +91,31 @@
 							<input pInputText id="username" type="text" aria-describedby="username-help" required
 								   autofocus [ngClass]="{'ng-invalid ng-dirty': !isFieldValid('username')}"
 								   formControlName="username"/>
-							<small id="username-help" class="p-error block" *ngIf="!isFieldValid('username')">Nome de
-								usuário inválido.</small>
+							<small id="username-help" class="p-error block" *ngIf="!isFieldValid('username')">
+								Nome de usuário inválido.
+							</small>
 						</div>
 						<div class="field col-12 md:col-6">
 							<label htmlFor="role">Função</label>
 							<p-multiSelect appendTo="body" id="role" [options]="roleOptions" optionLabel="name" optionValue="id"
-										optionDisabled="disabled" formControlName="idsRole"
-										[ngClass]="{'ng-invalid ng-dirty': !isFieldValid('idsRole')}"></p-multiSelect>
+										   optionDisabled="disabled" formControlName="idsRole"
+										   [ngClass]="{'ng-invalid ng-dirty': !isFieldValid('idsRole')}"></p-multiSelect>
 						</div>
 						<div class="field col-12">
 							<label htmlFor="email">Email</label>
 							<input pInputText id="email" type="email" formControlName="email"
 								   [ngClass]="{'ng-invalid ng-dirty': !isFieldValid('email')}"/>
-							<small id="email-help" class="p-error block" *ngIf="!isFieldValid('email')">Email
-								inválido.</small>
+							<small id="email-help" class="p-error block" *ngIf="!isFieldValid('email')">
+								Email inválido.
+							</small>
 						</div>
 						<div *ngIf="isEditing()" class="field col-12">
 							<label htmlFor="password">Senha</label>
-							<input pPassword toggleMask id="password" type="password"
-								   [ngClass]="{'ng-invalid ng-dirty': !isFieldValid('password')}"
-								   formControlName="password"/>
-							<small id="password-help" class="p-error block" *ngIf="!isFieldValid('password')">Senha
-								inválida.</small>
+							<input pPassword id="password" type="password" formControlName="password"
+								   [ngClass]="{'ng-invalid ng-dirty': !isFieldValid('password')}"/>
+							<small id="password-help" class="p-error block" *ngIf="!isFieldValid('password')">
+								Senha inválida.
+							</small>
 						</div>
 					</fieldset>
 				</form>
