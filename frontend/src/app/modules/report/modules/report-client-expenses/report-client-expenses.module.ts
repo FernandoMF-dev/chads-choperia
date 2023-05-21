@@ -5,17 +5,22 @@ import { SharedModule } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { CalendarModule } from 'primeng/calendar';
 import { DropdownModule } from 'primeng/dropdown';
+import { InputNumberModule } from 'primeng/inputnumber';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { RippleModule } from 'primeng/ripple';
 import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
-import { ReportClientExpensesComponent } from './pages/report-client-expenses/report-client-expenses.component';
 
+import { ReportClientExpensesGroupAllComponent } from './components/report-client-expenses-group-all/report-client-expenses-group-all.component';
+import { ReportClientExpensesComponent } from './pages/report-client-expenses/report-client-expenses.component';
 import { ReportClientExpensesRoutingModule } from './report-client-expenses-routing.module';
 
 @NgModule({
-	declarations: [ReportClientExpensesComponent],
+	declarations: [
+		ReportClientExpensesComponent,
+		ReportClientExpensesGroupAllComponent
+	],
 	imports: [
 		CommonModule,
 		ReportClientExpensesRoutingModule,
@@ -28,7 +33,8 @@ import { ReportClientExpensesRoutingModule } from './report-client-expenses-rout
 		ToastModule,
 		ToolbarModule,
 		TableModule,
-		FormsModule
+		FormsModule,
+		InputNumberModule
 	]
 })
 export class ReportClientExpensesModule {

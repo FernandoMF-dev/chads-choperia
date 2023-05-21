@@ -24,7 +24,7 @@ export class ReportLobbyComponent {
 			routerLink: [RouteLinkUtils.REVENUE_EXPENSE]
 		},
 		{
-			label: 'Gasto Cliente',
+			label: 'Gastos de Clientes',
 			material: 'payments',
 			routerLink: [RouteLinkUtils.CLIENTE]
 		}
