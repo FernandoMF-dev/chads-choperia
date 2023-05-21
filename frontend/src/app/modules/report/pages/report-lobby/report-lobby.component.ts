@@ -27,6 +27,11 @@ export class ReportLobbyComponent {
 			label: 'Gasto Cliente',
 			material: 'payments',
 			routerLink: [RouteLinkUtils.CLIENTE]
+		},
+		{
+			label: 'Consumo de Chope',
+			material: 'local_drink',
+			routerLink: [RouteLinkUtils.BEER_CONSUMPTION]
 		}
 	];
 }

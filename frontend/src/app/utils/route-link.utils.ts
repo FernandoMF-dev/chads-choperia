@@ -14,6 +14,7 @@ export class RouteLinkUtils {
 	public static readonly REPORT = 'relatorio';
 	public static readonly EMAIL = 'email';
 	public static readonly REVENUE_EXPENSE = 'receitas-despesas';
+	public static readonly BEER_CONSUMPTION = 'consumo-chope'
 
 	public static readonly NOT_FOUND = 'notfound';
 }
