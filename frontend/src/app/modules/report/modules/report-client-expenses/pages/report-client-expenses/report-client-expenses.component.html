@@ -32,6 +32,11 @@
 					<p-multiSelect id="selling-point" [options]="sellingPointOptions" [(ngModel)]="filter.sellingPoints" display="chip"
 								   [disabled]="isLoadingSearch" defaultLabel="Selecione os pontos de venda"></p-multiSelect>
 				</div>
+
+				<div class="xl:col-4 lg:col-6 sm:col-12 field">
+					<label htmlFor="order">Ordem</label>
+					<p-dropdown id="order" [options]="orderOptions" [(ngModel)]="filter.order" [disabled]="isLoadingSearch"></p-dropdown>
+				</div>
 			</div>
 
 			<div class="col-12">
@@ -39,10 +44,10 @@
 					<ng-template pTemplate="header">
 						<tr>
 							<th id="report-client-list-header-name">Nome</th>
-							<th id="report-client-list-header-telephone">Telefone</th>
-							<th id="report-client-list-header-email">Email</th>
+							<th id="report-client-list-header-contact">Contatos</th>
 							<th id="report-client-list-header-description" class="report-description">Descrição</th>
 							<th id="report-client-list-header-value">Valor</th>
+							<th id="report-client-list-header-selling-point">Ponto de Venda</th>
 							<th id="report-client-list-header-date">Data &amp; Hora</th>
 						</tr>
 					</ng-template>
@@ -54,8 +59,7 @@
 							</td>
 							<td>
 								<a href="tel:55{{report.clientTelephone}}">{{ formatTelephone(report.clientTelephone) }}</a>
-							</td>
-							<td>
+								<br>
 								<a href="mailto:{{report.clientEmail}}">{{ report.clientEmail }}</a>
 							</td>
 							<td class="report-description">
@@ -63,6 +67,9 @@
 							</td>
 							<td class="{{report.value < 0 ? 'negative' : 'positive'}}">
 								{{ report.value | currency : 'BRL':'symbol' }}
+							</td>
+							<td>
+								{{ formatSellingPoint(report.sellingPoint) }}
 							</td>
 							<td>
 								{{ report.dateTime | date:'dd/MM/yyyy HH:mm:ss' }}

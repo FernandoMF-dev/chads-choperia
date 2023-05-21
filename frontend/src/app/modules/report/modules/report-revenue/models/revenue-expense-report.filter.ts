@@ -12,3 +12,6 @@ export class RevenueExpenseReportFilter extends BaseReportFilter {
 		this.sellingPoints = SELLING_POINT_SELECT.map(element => element.value);
 	}
 }
+
+export class ClientExpesesReportOrderEnum {
+}

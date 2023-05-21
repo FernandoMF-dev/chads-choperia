@@ -1,6 +1,7 @@
 package br.com.chadschoperia.service.reports.filters;
 
 import br.com.chadschoperia.domain.enums.SellingPointEnum;
+import br.com.chadschoperia.service.reports.enums.ClientExpesesReportOrderEnum;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,7 +13,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class ClientReportFilterDto {
+public class ClientExpesesReportFilterDto {
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
 	private LocalDateTime minDate;
 
@@ -21,4 +22,6 @@ public class ClientReportFilterDto {
 
 	@NotEmpty(message = "report.filter.selling_point.not_empty")
 	private List<SellingPointEnum> sellingPoints = new ArrayList<>();
+
+	private ClientExpesesReportOrderEnum order = ClientExpesesReportOrderEnum.DATE_TIME;
 }
