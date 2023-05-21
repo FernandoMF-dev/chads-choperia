@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { AccordionModule } from 'primeng/accordion';
 import { SharedModule } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { CalendarModule } from 'primeng/calendar';
@@ -13,13 +14,15 @@ import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
 
 import { ReportClientExpensesGroupAllComponent } from './components/report-client-expenses-group-all/report-client-expenses-group-all.component';
+import { ReportClientExpensesGroupClientComponent } from './components/report-client-expenses-group-client/report-client-expenses-group-client.component';
 import { ReportClientExpensesComponent } from './pages/report-client-expenses/report-client-expenses.component';
 import { ReportClientExpensesRoutingModule } from './report-client-expenses-routing.module';
 
 @NgModule({
 	declarations: [
 		ReportClientExpensesComponent,
-		ReportClientExpensesGroupAllComponent
+		ReportClientExpensesGroupAllComponent,
+		ReportClientExpensesGroupClientComponent
 	],
 	imports: [
 		CommonModule,
@@ -34,7 +37,8 @@ import { ReportClientExpensesRoutingModule } from './report-client-expenses-rout
 		ToolbarModule,
 		TableModule,
 		FormsModule,
-		InputNumberModule
+		InputNumberModule,
+		AccordionModule
 	]
 })
 export class ReportClientExpensesModule {

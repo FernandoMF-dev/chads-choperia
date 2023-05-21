@@ -48,6 +48,9 @@
 			<div class="col-12">
 				<app-report-client-expenses-group-all *ngIf="filter.group === 'ALL'" [allReports]="allReports"
 													  [totalExpenses]="totalExpenses"></app-report-client-expenses-group-all>
+
+				<app-report-client-expenses-group-client *ngIf="filter.group === 'CLIENT' && selectedGroupView!.loaded"
+														 [reportGroups]="selectedGroupView!.groups"></app-report-client-expenses-group-client>
 			</div>
 		</div>
 	</div>

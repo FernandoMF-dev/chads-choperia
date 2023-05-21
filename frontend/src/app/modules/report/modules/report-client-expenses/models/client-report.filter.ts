@@ -1,17 +1,17 @@
 import { SELLING_POINT_SELECT, SellingPointEnum } from '../../../../../enums/selling-point.enum';
 import { BaseReportFilter } from '../../../models/base-report.filter';
-import { ClientExpesesReportGroupEnum } from '../enums/client-expeses-report-group.enum';
-import { ClientExpesesReportOrderEnum } from '../enums/client-expeses-report-order.enum';
+import { ClientExpensesReportGroupEnum } from '../enums/client-expenses-report-group.enum';
+import { ClientExpensesReportOrderEnum } from '../enums/client-expenses-report-order.enum';
 
 export class ClientReportFilter extends BaseReportFilter {
 	sellingPoints: SellingPointEnum[];
-	order: ClientExpesesReportOrderEnum;
-	group: ClientExpesesReportGroupEnum;
+	order: ClientExpensesReportOrderEnum;
+	group: ClientExpensesReportGroupEnum;
 
 	constructor() {
 		super();
-		this.group = ClientExpesesReportGroupEnum.ALL;
-		this.order = ClientExpesesReportOrderEnum.DATE_TIME;
+		this.group = ClientExpensesReportGroupEnum.ALL;
+		this.order = ClientExpensesReportOrderEnum.DATE_TIME;
 		this.sellingPoints = SELLING_POINT_SELECT.map(element => element.value);
 	}
 }
