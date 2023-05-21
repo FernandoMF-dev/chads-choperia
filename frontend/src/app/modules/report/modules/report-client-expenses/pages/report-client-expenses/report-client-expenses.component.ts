@@ -26,6 +26,7 @@ export class ReportClientExpensesComponent {
 	groupOptions: SelectItem<ClientExpensesReportGroupEnum>[] = CLIENT_EXPENSES_REPORT_GROUP_SELECT;
 
 	totalExpenses?: number;
+	groupMode: ClientExpensesReportGroupEnum = ClientExpensesReportGroupEnum.ALL;
 	private reportGroups: Map<ClientExpensesReportGroupEnum, ReportGroupControl>;
 	private backupFilter: ClientReportFilter = Object.assign({}, this.filter);
 
@@ -58,7 +59,7 @@ export class ReportClientExpensesComponent {
 	}
 
 	get selectedGroupView(): ReportGroupControl | undefined {
-		return this.reportGroups.get(this.filter.group);
+		return this.reportGroups.get(this.groupMode);
 	}
 
 	search(): void {
@@ -81,6 +82,7 @@ export class ReportClientExpensesComponent {
 	}
 
 	private updateReport(res: ClientExpensesReport[]): void {
+		this.groupMode = ClientExpensesReportGroupEnum.ALL;
 		this.backupFilter = Object.assign({}, this.filter);
 		this.allReports = res;
 		this.totalExpenses = 0;

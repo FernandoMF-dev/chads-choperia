@@ -40,16 +40,16 @@
 
 				<div class="xl:col-4 lg:col-6 sm:col-12 field">
 					<label htmlFor="group">Agrupar</label>
-					<p-dropdown id="group" [options]="groupOptions" [(ngModel)]="filter.group" [disabled]="isLoadingSearch"
+					<p-dropdown id="group" [options]="groupOptions" [(ngModel)]="groupMode" [disabled]="isLoadingSearch"
 								(onChange)="loadGroupedReports()"></p-dropdown>
 				</div>
 			</div>
 
 			<div class="col-12">
-				<app-report-client-expenses-group-all *ngIf="filter.group === 'ALL'" [allReports]="allReports"
+				<app-report-client-expenses-group-all *ngIf="groupMode === 'ALL'" [allReports]="allReports"
 													  [totalExpenses]="totalExpenses"></app-report-client-expenses-group-all>
 
-				<app-report-client-expenses-group-client *ngIf="filter.group === 'CLIENT' && selectedGroupView!.loaded"
+				<app-report-client-expenses-group-client *ngIf="groupMode === 'CLIENT' && selectedGroupView!.loaded"
 														 [reportGroups]="selectedGroupView!.groups"></app-report-client-expenses-group-client>
 			</div>
 		</div>
