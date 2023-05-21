@@ -11,8 +11,8 @@ import br.com.chadschoperia.service.mapper.UserViewMapper;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -61,7 +61,7 @@ public class UserService {
 	public UserDetails login(UserDto dto) {
 		User user = repository.findByUsername(dto.getUsername())
 				.orElseThrow(() -> new EntityNotFoundException("user.not_found"));
-		if(new BCryptPasswordEncoder().matches(dto.getPassword(), user.getPassword())){
+		if (new BCryptPasswordEncoder().matches(dto.getPassword(), user.getPassword())) {
 			return userDetailsService.loadUserByUsername(dto.getUsername());
 		} else {
 			throw new EntityNotFoundException("user.invalid.credentials");
@@ -81,8 +81,8 @@ public class UserService {
 	}
 
 	private void validateRoleExists(List<Long> idsRole) throws EntityNotFoundException {
-		if(!roleService.existsRoleByIds(idsRole)){
-			throw new EntityNotFoundException(HttpStatus.BAD_REQUEST,"role.not.found");
+		if (!roleService.existsRoleByIds(idsRole)) {
+			throw new EntityNotFoundException(HttpStatus.BAD_REQUEST, "role.not.found");
 
 		}
 	}

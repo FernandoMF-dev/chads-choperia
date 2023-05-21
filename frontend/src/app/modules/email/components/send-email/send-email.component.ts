@@ -1,23 +1,26 @@
 import { Component, OnInit } from '@angular/core';
-import { EmailData } from '../../models/send-email.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { EmailService } from '../../services/email.service';
 import { UtilsService } from 'src/app/services/utils.service';
+import { EmailData } from '../../models/send-email.model';
+import { EmailService } from '../../services/email.service';
 
 @Component({
-  selector: 'app-send-email',
-  templateUrl: './send-email.component.html',
-  styleUrls: ['./send-email.component.scss']
+	selector: 'app-send-email',
+	templateUrl: './send-email.component.html',
+	styleUrls: ['./send-email.component.scss']
 })
-export class SendEmailComponent implements OnInit{
+export class SendEmailComponent implements OnInit {
 
 	emailData: EmailData = new EmailData();
 
 	formGroup!: FormGroup;
 
-	constructor(private formBuilder: FormBuilder,
-				private emailService: EmailService,
-				private utilsService: UtilsService) {}
+	constructor(
+		private formBuilder: FormBuilder,
+		private emailService: EmailService,
+		private utilsService: UtilsService
+	) {
+	}
 
 	ngOnInit(): void {
 		this.buildFormGroup();
@@ -37,7 +40,7 @@ export class SendEmailComponent implements OnInit{
 	}
 
 	validateEndDate(): void {
-		if(this.formGroup.get('periodEndDate')?.value < this.formGroup.get('periodStartDate')?.value) {
+		if (this.formGroup.get('periodEndDate')?.value < this.formGroup.get('periodStartDate')?.value) {
 			this.utilsService.showErrorMessage('Data de fim não deve ser menor que a data de início');
 			this.formGroup.get('periodEndDate')?.reset();
 		}
@@ -47,13 +50,12 @@ export class SendEmailComponent implements OnInit{
 		this.formGroup.get('periodStartDate')?.reset();
 		this.formGroup.get('periodEndDate')?.reset();
 	}
-	
+
 	isFieldValid(fieldName: string): boolean {
 		return this.utilsService.isFieldValid(this.formGroup, fieldName);
 	}
 
-	sendEmail(emailData: EmailData) : void {
-		console.log(emailData);
+	sendEmail(emailData: EmailData): void {
 		this.emailService.sendEmail(emailData).subscribe({
 			next: () => {
 				this.utilsService.showSuccessMessage('E-mail enviado com sucesso');

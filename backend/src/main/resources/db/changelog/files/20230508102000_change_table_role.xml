@@ -7,43 +7,43 @@
 
 	<changeSet id="20230508102000-1" author="Lucas Boeloni">
 		<update tableName="role">
-			<column name="name" value="ROLE_ADMINISTRADOR" ></column>
+			<column name="name" value="ROLE_ADMINISTRADOR"></column>
 			<where>
 				id = 1
 			</where>
 		</update>
 		<update tableName="role">
-			<column name="name" value="ROLE_CAIXA" ></column>
+			<column name="name" value="ROLE_CAIXA"></column>
 			<where>
 				id = 2
 			</where>
 		</update>
 		<update tableName="role">
-			<column name="name" value="ROLE_CLIENTE" ></column>
+			<column name="name" value="ROLE_CLIENTE"></column>
 			<where>
 				id = 3
 			</where>
 		</update>
 		<update tableName="role">
-			<column name="name" value="ROLE_COZINHEIRO" ></column>
+			<column name="name" value="ROLE_COZINHEIRO"></column>
 			<where>
 				id = 4
 			</where>
 		</update>
 		<update tableName="role">
-			<column name="name" value="ROLE_FISCAL_ENTRADA" ></column>
+			<column name="name" value="ROLE_FISCAL_ENTRADA"></column>
 			<where>
 				id = 5
 			</where>
 		</update>
 		<update tableName="role">
-			<column name="name" value="ROLE_FISCAL_COMIDA" ></column>
+			<column name="name" value="ROLE_FISCAL_COMIDA"></column>
 			<where>
 				id = 6
 			</where>
 		</update>
 		<update tableName="role">
-			<column name="name" value="ROLE_FISCAL_ESTOQUE" ></column>
+			<column name="name" value="ROLE_FISCAL_ESTOQUE"></column>
 			<where>id = 7</where>
 		</update>
 	</changeSet>

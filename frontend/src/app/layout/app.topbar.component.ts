@@ -24,8 +24,8 @@ export class AppTopBarComponent {
 	) {
 	}
 
-	public logout(){
-		ActiveUserService.getInstance().logout()
+	public logout() {
+		ActiveUserService.getInstance().logout();
 		this.router.navigate(['/auth/login']);
 	}
 }

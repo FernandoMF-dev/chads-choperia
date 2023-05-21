@@ -9,10 +9,10 @@
 		<modifyDataType tableName="user" columnName="password" newDataType="varchar(200)"/>
 	</changeSet>
 	<changeSet id="20230508100700-2" author="Lucas Boeloni">
-		<dropForeignKeyConstraint  baseTableName="user" constraintName="fk_user_id_role" />
+		<dropForeignKeyConstraint baseTableName="user" constraintName="fk_user_id_role"/>
 	</changeSet>
 	<changeSet id="20230508100700-3" author="Lucas Boeloni">
-		<dropColumn tableName="user" columnName="id_role" />
+		<dropColumn tableName="user" columnName="id_role"/>
 	</changeSet>
 	<changeSet id="20230508100700-4" author="Lucas Boeloni">
 		<addUniqueConstraint tableName="user" columnNames="username" constraintName="uq_user_name"/>

@@ -9,7 +9,7 @@ public class ChadsChoperiaApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(ChadsChoperiaApplication.class, args);
-		System.out.println("senha: " +   new BCryptPasswordEncoder().encode("senha123"));
+		System.out.println("senha: " + new BCryptPasswordEncoder().encode("senha123"));
 	}
 
 }

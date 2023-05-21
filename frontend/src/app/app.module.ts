@@ -36,7 +36,7 @@ registerLocaleData(localePt);
 		RippleModule
 	],
 	providers: [
-		{ provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true},
+		{ provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true },
 		{ provide: LocationStrategy, useClass: HashLocationStrategy },
 		{ provide: LOCALE_ID, useValue: 'pt-BR' },
 		CountryService,

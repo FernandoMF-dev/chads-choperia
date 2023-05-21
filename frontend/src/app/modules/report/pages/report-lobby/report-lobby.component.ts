@@ -9,7 +9,7 @@ import { RouteLinkUtils } from '../../../../utils/route-link.utils';
 export class ReportLobbyComponent {
 	items: ReportLobbyItem[] = [
 		{
-			label: 'Estoque de Cerveja',
+			label: 'Estoque de Chopes',
 			material: 'local_drink',
 			routerLink: [RouteLinkUtils.BEER]
 		},

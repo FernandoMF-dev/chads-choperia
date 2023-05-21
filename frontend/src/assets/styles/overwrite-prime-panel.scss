@@ -1,3 +1,11 @@
+p-accordion {
+	&.alternate-list {
+		p-accordiontab:nth-of-type(2n) .p-accordion-tab .p-accordion-header .p-accordion-header-link {
+			background-color: #FFFFFF;
+		}
+	}
+}
+
 p-accordiontab {
 	&.no-content-padding {
 		> div.p-accordion-tab > div > div.p-accordion-content {
@@ -7,8 +15,8 @@ p-accordiontab {
 
 	&.highlight-active {
 		div.p-accordion-tab.p-accordion-tab-active > div.p-accordion-header > a.p-accordion-header-link {
-			background-color: #6366F1;
-			color: #ffffff;
+			background-color: var(--primary-color);
+			color: #FFFFFF;
 
 			&:hover {
 				background-color: #4F46E5;
