@@ -19,3 +19,15 @@ export class ClientExpensesReport extends BaseReport {
 		super(description, value, dateTime);
 	}
 }
+
+export class ClientExpensesReportGroup {
+	public value: number = 0;
+	public name: string = '';
+	public telephone: string = '';
+	public email: string = '';
+
+	constructor(
+		public reports: ClientExpensesReport[]
+	) {
+	}
+}
