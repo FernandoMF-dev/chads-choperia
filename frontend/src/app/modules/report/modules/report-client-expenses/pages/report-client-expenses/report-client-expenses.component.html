@@ -51,6 +51,9 @@
 
 				<app-report-client-expenses-group-client *ngIf="groupMode === 'CLIENT' && selectedGroupView!.loaded"
 														 [reportGroups]="selectedGroupView!.groups"></app-report-client-expenses-group-client>
+
+				<app-report-client-expenses-group-selling-point *ngIf="groupMode === 'SELLING_POINT' && selectedGroupView!.loaded"
+																[reportGroups]="selectedGroupView!.groups"></app-report-client-expenses-group-selling-point>
 			</div>
 		</div>
 	</div>

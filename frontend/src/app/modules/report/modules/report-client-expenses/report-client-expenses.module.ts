@@ -15,6 +15,7 @@ import { ToolbarModule } from 'primeng/toolbar';
 
 import { ReportClientExpensesGroupAllComponent } from './components/report-client-expenses-group-all/report-client-expenses-group-all.component';
 import { ReportClientExpensesGroupClientComponent } from './components/report-client-expenses-group-client/report-client-expenses-group-client.component';
+import { ReportClientExpensesGroupSellingPointComponent } from './components/report-client-expenses-group-selling-point/report-client-expenses-group-selling-point.component';
 import { ReportClientExpensesComponent } from './pages/report-client-expenses/report-client-expenses.component';
 import { ReportClientExpensesRoutingModule } from './report-client-expenses-routing.module';
 
@@ -22,7 +23,8 @@ import { ReportClientExpensesRoutingModule } from './report-client-expenses-rout
 	declarations: [
 		ReportClientExpensesComponent,
 		ReportClientExpensesGroupAllComponent,
-		ReportClientExpensesGroupClientComponent
+		ReportClientExpensesGroupClientComponent,
+		ReportClientExpensesGroupSellingPointComponent
 	],
 	imports: [
 		CommonModule,
