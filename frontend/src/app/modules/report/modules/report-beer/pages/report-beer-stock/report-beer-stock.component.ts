@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import * as jspdf from 'jspdf';
+import autoTable from 'jspdf-autotable';
+import * as moment from "moment";
 import { SelectItem } from 'primeng/api';
 import { finalize } from 'rxjs/operators';
 import { UtilsService } from '../../../../../../services/utils.service';
@@ -8,6 +11,7 @@ import { REPORT_STOCK_VIEW_MODE_SELECT, ReportStockViewMode } from '../../../../
 import { ReportStockComponentUtils } from '../../../../utils/report-stock-component.utils';
 import { BeerStockReport, BeerStockReportGroup } from '../../models/beer-stock.report';
 import { BeerReportService } from '../../services/beer-report.service';
+const _ = require('lodash');
 
 @Component({
 	selector: 'app-report-beer-stock',
@@ -21,6 +25,12 @@ export class ReportBeerStockComponent extends ReportStockComponentUtils<BeerStoc
 
 	isLoadingSearch: boolean = false;
 	isLoadingBeers: boolean = false;
+	cols = [
+		{ dataKey: 'description', title: 'Descrição'},
+		{ dataKey: 'value', title: 'Valor'},
+		{ dataKey: 'totalStock', title: 'Estoque' },
+		{ dataKey: 'dateTime', title: 'Data & Hora' },
+	];
 
 	constructor(
 		private beerService: BeerService,
@@ -86,5 +96,9 @@ export class ReportBeerStockComponent extends ReportStockComponentUtils<BeerStoc
 
 	protected newStockReportGroup(reports: BeerStockReport[]): BeerStockReportGroup {
 		return new BeerStockReportGroup(reports);
+	}
+
+	public exportPdf(){
+		ReportStockComponentUtils.groupedExportPdf(this.reportsDisplay, this.cols, 'Estoque de Chopes')
 	}
 }

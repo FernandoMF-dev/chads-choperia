@@ -31,4 +31,8 @@ export class ReportBeerConsumptionComponent {
 			});
 	}
 
+	public exportPdf(){
+
+	}
+
 }

@@ -1,3 +1,7 @@
+import * as jspdf from 'jspdf';
+import autoTable from 'jspdf-autotable';
+import * as moment from "moment";
+const _ = require('lodash');
 import { ReportStockViewMode } from '../interfaces/report-stock-view.mode';
 import { BaseStockReportFilter } from '../models/base-stock-report.filter';
 import { BaseStockReport, BaseStockReportGroup } from '../models/base-stock.report';
@@ -113,6 +117,34 @@ export abstract class ReportStockComponentUtils<R extends BaseStockReport, G ext
 		return `${ addStock.qntd + minusStock.qntd } movimentações no estoque.<br>`
 			+ `${ addStock.qntd } adições ao estoque totalizando ${ addStock.total.toFixed(1) }${ this.getUnitSufix() }.<br>`
 			+ `${ minusStock.qntd } remoções no estoque totalizando ${ minusStock.total.toFixed(1) }${ this.getUnitSufix() }.`;
+	}
+
+	public static groupedExportPdf(reportsDisplay: any[], cols: any[], fileName: string){
+		const doc = new jspdf.default('p', 'px', 'a4');
+		reportsDisplay.forEach(report => {
+			const columns = [{ title: report.productName + ' [' + (!!report.rfid ? report.rfid : report.barcode) + ']' }];
+			columns.push(...cols);
+			const body: any[] = _.cloneDeep(report.reports);
+			body.forEach(report => {
+				report.dateTime = moment(report.dateTime).format('DD/MM/YYYY hh:MM:SS')
+			})
+			autoTable(doc,{columns: columns, body: body as any});
+		})
+		doc.save( `${moment().format('DD/MM/YYYY hh:MM:SS')} ${fileName}.pdf`);
+	}
+
+	public static exportPdf(reports: any[], cols: any[], fileName: string){
+		const doc = new jspdf.default('p', 'px', 'a4');
+
+			const columns = [{ title: fileName }];
+			columns.push(...cols);
+			const body: any[] = _.cloneDeep(reports);
+			body.forEach(report => {
+				report.dateTime = moment(report.dateTime).format('DD/MM/YYYY hh:MM:SS')
+			})
+			autoTable(doc,{columns: columns, body: body as any});
+
+		doc.save( `${moment().format('DD/MM/YYYY hh:MM:SS')} ${fileName}.pdf`);
 	}
 }
 

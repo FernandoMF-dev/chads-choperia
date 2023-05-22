@@ -11,6 +11,9 @@
 					<button pButton pRipple label="Pesquisar" (click)="search()" [disabled]="isLoadingSearch || filter.targets.length === 0"
 							icon="pi {{ isLoadingSearch ? 'pi pi-spin pi-spinner' : 'pi-search' }}"
 							class="p-button-raised p-button-success"></button>
+					<button pButton pRipple label="Exportar" (click)="exportPdf()" [disabled]="!reportsDisplayLoaded"
+							icon="pi {{ isLoadingSearch ? 'pi pi-spin pi-spinner' : 'pi-file-pdf' }}"
+							class="margin-left p-button-raised p-button-success"></button>
 				</div>
 			</p-toolbar>
 
@@ -39,6 +42,9 @@
 					<p-dropdown id="view-mode" [options]="viewModeOptions" [(ngModel)]="viewMode" (onChange)="loadReportGroups()"
 								[disabled]="isLoadingBeers"></p-dropdown>
 				</div>
+				<div class="xl:col-4 lg:col-6 sm:col-12 field">
+				</div>
+
 			</div>
 
 			<div class="col-12 grid">

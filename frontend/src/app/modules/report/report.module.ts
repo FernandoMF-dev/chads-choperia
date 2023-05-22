@@ -7,6 +7,7 @@ import { ReportStockItemListComponent } from './components/report-stock-item-lis
 import { ReportLobbyPlaceholderComponent } from './pages/report-lobby-placeholder/report-lobby-placeholder.component';
 import { ReportLobbyComponent } from './pages/report-lobby/report-lobby.component';
 import { ReportRoutingModule } from './report-routing.module';
+import {ButtonModule} from "primeng/button";
 
 
 @NgModule({
@@ -15,12 +16,13 @@ import { ReportRoutingModule } from './report-routing.module';
 		ReportLobbyPlaceholderComponent,
 		ReportStockItemListComponent
 	],
-	imports: [
-		CommonModule,
-		ReportRoutingModule,
-		ScrollPanelModule,
-		TableModule
-	],
+    imports: [
+        CommonModule,
+        ReportRoutingModule,
+        ScrollPanelModule,
+        TableModule,
+        ButtonModule
+    ],
 	exports: [
 		ReportStockItemListComponent
 	]

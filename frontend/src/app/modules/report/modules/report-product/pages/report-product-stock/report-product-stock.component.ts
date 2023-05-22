@@ -22,6 +22,13 @@ export class ReportProductStockComponent extends ReportStockComponentUtils<Produ
 	isLoadingSearch: boolean = false;
 	isLoadingProducts: boolean = false;
 
+	cols = [
+		{ dataKey: 'description', title: 'Descrição'},
+		{ dataKey: 'value', title: 'Valor'},
+		{ dataKey: 'totalStock', title: 'Estoque' },
+		{ dataKey: 'dateTime', title: 'Data & Hora' },
+	];
+
 	constructor(
 		private productService: ProductService,
 		private productReportService: ProductReportService,
@@ -86,5 +93,10 @@ export class ReportProductStockComponent extends ReportStockComponentUtils<Produ
 
 	protected newStockReportGroup(reports: ProductStockReport[]): ProductStockReportGroup {
 		return new ProductStockReportGroup(reports);
+	}
+
+
+	public exportPdf(){
+		ReportStockComponentUtils.groupedExportPdf(this.reportsDisplay, this.cols, 'Estoque de Chopes')
 	}
 }
