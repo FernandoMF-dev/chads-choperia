@@ -165,7 +165,9 @@ export class ReportClientExpensesComponent {
 			})
 			ReportStockComponentUtils.exportPdf(body,this.cols, fileName, this.totalExpenses)
 		}else {
-			ReportStockComponentUtils.groupedExportPdf(this.allReports, this.cols, fileName)
+			if(this.selectedGroupView){
+				ReportStockComponentUtils.groupedExportPdfCostumer(this.selectedGroupView.groups, this.cols, fileName, this.groupMode === 'SELLING_POINT')
+			}
 		}
 
 	}

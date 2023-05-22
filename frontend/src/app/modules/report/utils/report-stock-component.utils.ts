@@ -2,6 +2,8 @@ import { jsPDF } from 'jspdf';
 import * as jspdf from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import * as moment from "moment";
+import { SELLING_POINT_FORMAT } from '../../../enums/selling-point.enum';
+import { FormatUtils } from '../../../utils/format.utils';
 const _ = require('lodash');
 import { ReportStockViewMode } from '../interfaces/report-stock-view.mode';
 import { BaseStockReportFilter } from '../models/base-stock-report.filter';
@@ -131,7 +133,9 @@ export abstract class ReportStockComponentUtils<R extends BaseStockReport, G ext
 			const docAny = doc as any;
 			const body: any[] = _.cloneDeep(report.reports);
 			body.forEach(report => {
-				report.dateTime = moment(report.dateTime).format('DD/MM/YYYY hh:MM:SS')
+				if(!!report.dateTime){
+					report.dateTime = moment(report.dateTime).format('DD/MM/YYYY hh:MM:SS')
+				}
 			})
 			doc.text((report.productName + ' [' + (!!report.rfid ? report.rfid : report.barcode) + ']'), HORIZONTAL_MARGIN,yValue )
 			autoTable(doc,{columns: cols, body: body as any, startY: yValue + VERTICAL_MARGIN});
@@ -139,6 +143,36 @@ export abstract class ReportStockComponentUtils<R extends BaseStockReport, G ext
 
 		})
 		doc.save( `${moment().format('DD/MM/YYYY hh:MM:SS')} ${fileName}.pdf`);
+	}
+
+	public static groupedExportPdfCostumer(reportsDisplay: any[], cols: any[], fileName: string, fromSellingPoint: boolean){
+		const doc = new jspdf.default('p', 'px', 'a4');
+		let yValue = VERTICAL_MARGIN;
+		reportsDisplay.forEach(report => {
+			const docAny = doc as any;
+			const body: any[] = _.cloneDeep(report.reports);
+			body.forEach(report => {
+				if(!!report.dateTime){
+					report.dateTime = moment(report.dateTime).format('DD/MM/YYYY hh:MM:SS')
+					report.sellingPoint = SELLING_POINT_FORMAT.get(report.sellingPoint)
+				}
+			})
+			if(fromSellingPoint){
+				doc.text((report.name + ' :    '  +report.reports.length + ' Movimentações TOTAL:' + report.value), HORIZONTAL_MARGIN,yValue)
+			}else {
+				doc.text((report.name + ' :    ' +this.getStringFromCostumer(report)), HORIZONTAL_MARGIN,yValue)
+				yValue = yValue + VERTICAL_MARGIN;
+				doc.text((report.reports.length + ' Movimentações TOTAL:' + report.value), HORIZONTAL_MARGIN,yValue)
+			}
+			autoTable(doc,{columns: cols, body: body as any, startY: yValue + VERTICAL_MARGIN});
+			yValue = docAny['lastAutoTable']['finalY'] + VERTICAL_MARGIN;
+
+		})
+		doc.save( `${moment().format('DD/MM/YYYY hh:MM:SS')} ${fileName}.pdf`);
+	}
+
+	private static getStringFromCostumer(report: any){
+		return FormatUtils.formatTelephone(report.telephone) + '          ' + report.email + '       ';
 	}
 
 	public static exportPdf(reports: any[], cols: any[], fileName: string, total: number | undefined = undefined){
