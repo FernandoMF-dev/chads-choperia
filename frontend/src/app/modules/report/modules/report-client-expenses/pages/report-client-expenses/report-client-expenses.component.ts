@@ -8,6 +8,7 @@ import {
 import { ClientReportFilter } from 'src/app/modules/report/modules/report-client-expenses/models/client-report.filter';
 import { UtilsService } from 'src/app/services/utils.service';
 import { SELLING_POINT_FORMAT, SELLING_POINT_SELECT, SellingPointEnum } from '../../../../../../enums/selling-point.enum';
+import { FormatUtils } from '../../../../../../utils/format.utils';
 import { ReportStockComponentUtils } from '../../../../utils/report-stock-component.utils';
 import { CLIENT_EXPENSES_REPORT_GROUP_SELECT, ClientExpensesReportGroupEnum } from '../../enums/client-expenses-report-group.enum';
 import { CLIENT_EXPESES_REPORT_ORDER_SELECT, ClientExpensesReportOrderEnum } from '../../enums/client-expenses-report-order.enum';
@@ -33,8 +34,14 @@ export class ReportClientExpensesComponent {
 	private backupFilter: ClientReportFilter = Object.assign({}, this.filter);
 
 	cols = [
-		{ dataKey: 'beerName', title: 'nome'},
-		{ dataKey: 'soldAmount', title: 'Quantidade Vendida'},
+		{ dataKey: 'clientName', title: 'Nome'},
+		{ dataKey: 'clientTelephone', title: 'Telefone'},
+		{ dataKey: 'clientEmail', title: 'Email'},
+		{ dataKey: 'description', title: 'Descrição'},
+		{ dataKey: 'value', title: 'Valor'},
+		{ dataKey: 'sellingPoint', title: 'Ponto de Venda'},
+		{ dataKey: 'dateTime', title: 'Data & Hora'},
+
 	];
 
 	constructor(
@@ -151,8 +158,12 @@ export class ReportClientExpensesComponent {
 	public exportPdf(){
 		const fileName = 'Gastos de Clientes'
 		if(this.groupMode === 'ALL'){
-			const body: any[] = [];
-			ReportStockComponentUtils.exportPdf(body,this.cols, fileName)
+			const body: any[] = _.cloneDeep(this.allReports);
+			body.forEach(elem => {
+				elem.clientTelephone = FormatUtils.formatTelephone(elem.clientTelephone);
+				elem.sellingPoint = SELLING_POINT_FORMAT.get(elem.sellingPoint);
+			})
+			ReportStockComponentUtils.exportPdf(body,this.cols, fileName, this.totalExpenses)
 		}else {
 			ReportStockComponentUtils.groupedExportPdf(this.allReports, this.cols, fileName)
 		}

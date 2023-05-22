@@ -141,7 +141,7 @@ export abstract class ReportStockComponentUtils<R extends BaseStockReport, G ext
 		doc.save( `${moment().format('DD/MM/YYYY hh:MM:SS')} ${fileName}.pdf`);
 	}
 
-	public static exportPdf(reports: any[], cols: any[], fileName: string){
+	public static exportPdf(reports: any[], cols: any[], fileName: string, total: number | undefined = undefined){
 		const doc = new jspdf.default('p', 'px', 'a4');
 			const body: any[] = _.cloneDeep(reports);
 			body.forEach(report => {
@@ -150,7 +150,7 @@ export abstract class ReportStockComponentUtils<R extends BaseStockReport, G ext
 				}
 			})
 		let yValue = VERTICAL_MARGIN;
-		doc.text(fileName, HORIZONTAL_MARGIN,yValue );
+		doc.text(fileName + (!!total ? (' Total: ' + total) : '') , HORIZONTAL_MARGIN,yValue );
 		autoTable(doc,{columns: cols, body: body as any, startY: yValue + VERTICAL_MARGIN});
 
 		doc.save( `${moment().format('DD/MM/YYYY hh:MM:SS')} ${fileName}.pdf`);

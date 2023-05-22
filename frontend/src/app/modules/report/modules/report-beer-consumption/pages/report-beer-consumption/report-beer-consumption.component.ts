@@ -22,7 +22,7 @@ export class ReportBeerConsumptionComponent {
 	isLoadingSearch: boolean = false;
 
 	cols = [
-		{ dataKey: 'beerName', title: 'nome'},
+		{ dataKey: 'beerName', title: 'Nome'},
 		{ dataKey: 'soldAmount', title: 'Quantidade Vendida'},
 	];
 

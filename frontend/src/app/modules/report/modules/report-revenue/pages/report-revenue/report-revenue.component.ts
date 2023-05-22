@@ -5,8 +5,10 @@ import { RevenueExpenseReportFilter } from 'src/app/modules/report/modules/repor
 import { RevenueExpenseReport } from 'src/app/modules/report/modules/report-revenue/models/revenue-expense.report';
 import { UtilsService } from 'src/app/services/utils.service';
 import { SELLING_POINT_FORMAT, SELLING_POINT_SELECT, SellingPointEnum } from '../../../../../../enums/selling-point.enum';
+import { ReportStockComponentUtils } from '../../../../utils/report-stock-component.utils';
 import { REVENUE_EXPENSE_TYPE_OPTIONS, RevenueExpenseTypeEnum } from '../../enums/revenue-expense-type.enum';
 import { RevenueExpenseReportService } from '../../services/revenue-report.service';
+const _ = require('lodash');
 
 @Component({
 	selector: 'app-report-revenue',
@@ -21,6 +23,14 @@ export class ReportRevenueComponent {
 	sellingPointOptions: SelectItem<SellingPointEnum>[] = SELLING_POINT_SELECT;
 
 	totalRevenue?: number;
+
+	cols = [
+		{ dataKey: 'type', title: 'Tipo'},
+		{ dataKey: 'description', title: 'Descrição'},
+		{ dataKey: 'value', title: 'Valor' },
+		{ dataKey: 'sellingPoint', title: 'Ponto de Venda' },
+		{ dataKey: 'dateTime', title: 'Data & Hora' },
+	];
 
 	constructor(
 		private revenueExpenseReportService: RevenueExpenseReportService,
@@ -57,6 +67,12 @@ export class ReportRevenueComponent {
 	}
 
 	public exportPdf(){
+		const body: any[] = _.cloneDeep(this.allReports);
+		body.forEach(elem => {
+			elem.type = this.getTypeDisplayName(elem);
+			elem.sellingPoint = this.formatSellingPoint(elem.sellingPoint);
+		})
 
+		ReportStockComponentUtils.exportPdf(body, this.cols,'Receita x Despesas', this.totalRevenue )
 	}
 }
