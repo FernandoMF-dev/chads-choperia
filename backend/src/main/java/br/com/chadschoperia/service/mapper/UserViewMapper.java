@@ -2,13 +2,10 @@ package br.com.chadschoperia.service.mapper;
 
 import br.com.chadschoperia.domain.entities.Role;
 import br.com.chadschoperia.domain.entities.User;
-import br.com.chadschoperia.service.dto.UserDto;
 import br.com.chadschoperia.service.dto.ViewUserDto;
 import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
-
-import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring")
 public interface UserViewMapper extends EntityMapper<ViewUserDto, User> {
@@ -20,7 +17,7 @@ public interface UserViewMapper extends EntityMapper<ViewUserDto, User> {
 	User toEntity(ViewUserDto dto);
 
 	@AfterMapping
-	default void mapRole(@MappingTarget ViewUserDto dto, User user){
+	default void mapRole(@MappingTarget ViewUserDto dto, User user) {
 		dto.setRoleNames(user.getRoles().stream().map(Role::getRoleName).toList().toString());
 	}
 

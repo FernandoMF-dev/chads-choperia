@@ -28,5 +28,7 @@
 	<include file="/db/changelog/files/20230507183000_change_column_product.xml"/>
 	<include file="/db/changelog/files/20230514130000_create_table_revenue_expense.xml"/>
 	<include file="/db/changelog/files/20230514151800_add_column_product.xml"/>
+	<include file="/db/changelog/files/20230520152330_add_column_revenue_expense.xml"/>
+	<include file="/db/changelog/files/20230520154230_add_column_client_card_expense.xml"/>
 
 </databaseChangeLog>

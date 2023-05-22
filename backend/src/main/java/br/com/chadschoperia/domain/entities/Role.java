@@ -24,7 +24,7 @@ public class Role implements GrantedAuthority, Serializable {
 	@Column(name = "id", nullable = false)
 	private Long id;
 
-	@Column(name = "roleName", nullable = false)
+	@Column(name = "role_name", nullable = false)
 	private String roleName;
 
 	@Column(name = "deleted", nullable = false)
@@ -35,7 +35,7 @@ public class Role implements GrantedAuthority, Serializable {
 		return this.roleName;
 	}
 
-	public Role(Long id){
+	public Role(Long id) {
 		this.id = id;
 	}
 }

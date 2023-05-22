@@ -1,18 +1,12 @@
 import { Component } from '@angular/core';
 import { SelectItem } from 'primeng/api';
 import { finalize } from 'rxjs/operators';
-import { BaseRevenueExpenseReportFilter } from 'src/app/modules/report/models/base-revenue-expense-report.filter';
-import { RevenueExpenseReport } from 'src/app/modules/report/models/revenue-expense.report';
+import { RevenueExpenseReportFilter } from 'src/app/modules/report/modules/report-revenue/models/revenue-expense-report.filter';
+import { RevenueExpenseReport } from 'src/app/modules/report/modules/report-revenue/models/revenue-expense.report';
 import { UtilsService } from 'src/app/services/utils.service';
-import { RevenueExpenseReportService } from '../../services/revenueReport.service';
-
-export type RevenueExpenseType = 'REVENUE' | 'EXPENSE' | null;
-
-export const REVENUE_EXPENSE_TYPE_OPTIONS: SelectItem<RevenueExpenseType>[] = [
-	{ label: 'Ambas Movimentações', value: null },
-	{ label: 'Receitas', value: 'REVENUE' },
-	{ label: 'Despesas', value: 'EXPENSE' }
-];
+import { SELLING_POINT_FORMAT, SELLING_POINT_SELECT, SellingPointEnum } from '../../../../../../enums/selling-point.enum';
+import { REVENUE_EXPENSE_TYPE_OPTIONS, RevenueExpenseTypeEnum } from '../../enums/revenue-expense-type.enum';
+import { RevenueExpenseReportService } from '../../services/revenue-report.service';
 
 @Component({
 	selector: 'app-report-revenue',
@@ -22,8 +16,11 @@ export const REVENUE_EXPENSE_TYPE_OPTIONS: SelectItem<RevenueExpenseType>[] = [
 export class ReportRevenueComponent {
 	isLoadingSearch: boolean = false;
 	allReports: RevenueExpenseReport[] = [];
-	filter = new BaseRevenueExpenseReportFilter();
-	viewModeOptions: SelectItem<RevenueExpenseType>[] = REVENUE_EXPENSE_TYPE_OPTIONS;
+	filter = new RevenueExpenseReportFilter();
+	typeOptions: SelectItem<RevenueExpenseTypeEnum | null>[] = REVENUE_EXPENSE_TYPE_OPTIONS;
+	sellingPointOptions: SelectItem<SellingPointEnum>[] = SELLING_POINT_SELECT;
+
+	totalRevenue?: number;
 
 	constructor(
 		private revenueExpenseReportService: RevenueExpenseReportService,
@@ -41,12 +38,21 @@ export class ReportRevenueComponent {
 			});
 	}
 
-	private updateReport(res: RevenueExpenseReport[]): void {
-		this.allReports = res;
-		this.allReports.forEach(value => value.dateTime = new Date(value.dateTime));
+	formatSellingPoint(sellingPoint: SellingPointEnum): string {
+		return SELLING_POINT_FORMAT.get(sellingPoint)!;
 	}
 
 	getTypeDisplayName(revenueExpenseReport: RevenueExpenseReport): string {
 		return revenueExpenseReport.type === 'REVENUE' ? 'Receita' : 'Despesa';
+	}
+
+	private updateReport(res: RevenueExpenseReport[]): void {
+		this.allReports = res;
+		this.totalRevenue = 0;
+
+		this.allReports.forEach(report => {
+			report.dateTime = new Date(report.dateTime);
+			this.totalRevenue! += report.value;
+		});
 	}
 }

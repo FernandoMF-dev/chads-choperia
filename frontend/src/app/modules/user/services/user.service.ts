@@ -11,8 +11,8 @@ export class UserService extends CrudService<User> {
 		super(http, 'usuario');
 	}
 
-	public login(user: User): Observable<any>{
-		return this.http.post(`${this.apiUrl}/login`,user)
+	public login(user: User): Observable<any> {
+		return this.http.post(`${ this.apiUrl }/login`, user);
 	}
 
 }

@@ -32,7 +32,7 @@ import java.util.stream.Collectors;
 @ControllerAdvice
 public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
-	private final static String DEFAULT_ERROR_MESSAGE = "default.error.bad_request";
+	private static final String DEFAULT_ERROR_MESSAGE = "default.error.bad_request";
 
 	private final MessageSource messageSource;
 
@@ -43,7 +43,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 																  WebRequest request) {
 		List<String> errors = ex.getBindingResult().getAllErrors().stream()
 				.map(DefaultMessageSourceResolvable::getDefaultMessage)
-				.collect(Collectors.toList());
+				.toList();
 
 		return getExceptionResponseEntity(Objects.requireNonNull(HttpStatus.resolve(status.value())), request, errors);
 	}
@@ -56,8 +56,8 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 																  WebRequest request) {
 		List<String> errors = List.of(DEFAULT_ERROR_MESSAGE);
 
-		if (ex instanceof ResponseStatusException) {
-			errors = List.of(Objects.requireNonNull(((ResponseStatusException) ex).getReason()));
+		if (ex instanceof ResponseStatusException responseStatusException) {
+			errors = List.of(Objects.requireNonNull(responseStatusException.getReason()));
 		}
 
 		return getExceptionResponseEntity(Objects.requireNonNull(HttpStatus.resolve(status.value())), request, errors);
@@ -67,13 +67,13 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 	public ResponseEntity<Object> handleConstraintViolation(ConstraintViolationException exception, WebRequest request) {
 		List<String> validationErrors = exception.getConstraintViolations().stream()
 				.map(violation -> violation.getPropertyPath() + ": " + violation.getMessage())
-				.collect(Collectors.toList());
+				.toList();
 		return getExceptionResponseEntity(HttpStatus.BAD_REQUEST, request, validationErrors);
 	}
 
 	private ResponseEntity<Object> getExceptionResponseEntity(final HttpStatus status, WebRequest request, List<String> errors) {
 		final Map<String, Object> body = new LinkedHashMap<>();
-		final List<String> errorsMessage = errors.stream().map(this::getMessageSourceIfAvailable).collect(Collectors.toList());
+		final List<String> errorsMessage = errors.stream().map(this::getMessageSourceIfAvailable).toList();
 		final String detail = getErrorsMessage(status, errorsMessage);
 		final String path = request.getDescription(false);
 

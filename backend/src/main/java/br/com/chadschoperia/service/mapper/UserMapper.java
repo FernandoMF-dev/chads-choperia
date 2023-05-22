@@ -17,14 +17,14 @@ public interface UserMapper extends EntityMapper<UserDto, User> {
 	User toEntity(UserDto dto);
 
 	@AfterMapping
-	default void mapRole(@MappingTarget User user, UserDto dto){
+	default void mapRole(@MappingTarget User user, UserDto dto) {
 		dto.getIdsRole().forEach(id -> {
 			user.getRoles().add(new Role(id));
 		});
 	}
 
 	@AfterMapping
-	default void mapRole(@MappingTarget UserDto dto, User user){
+	default void mapRole(@MappingTarget UserDto dto, User user) {
 		user.getRoles().forEach(role -> {
 			dto.getIdsRole().add(role.getId());
 		});

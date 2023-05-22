@@ -19,7 +19,7 @@ public class RevenueExpenseReportService {
 
 	public List<RevenueExpenseReportDto> getRevenueExpenseOverTime(RevenueExpenseReportFilterDto filter) {
 		validateStockOverTimeFilter(filter);
-		return revenueExpenseReportRepository.getRevenueExpenseOverTime(filter);
+		return revenueExpenseReportRepository.getRevenueExpenseOverTime(filter, filter.getType());
 	}
 
 	private void validateStockOverTimeFilter(RevenueExpenseReportFilterDto filter) {

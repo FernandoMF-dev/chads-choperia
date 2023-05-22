@@ -95,7 +95,7 @@ export class UserCrudComponent implements OnInit {
 
 	private closeUserFormDialog() {
 		this.userDialog = false;
-		this.userForm.get('password')?.setValidators([Validators.required, Validators.minLength(3), Validators.maxLength(50)])
+		this.userForm.get('password')?.setValidators([Validators.required, Validators.minLength(3), Validators.maxLength(50)]);
 	}
 
 	openNew() {
@@ -161,7 +161,7 @@ export class UserCrudComponent implements OnInit {
 				.pipe(finalize(() => resolve()))
 				.subscribe({
 					next: (newUser) => {
-						this.fetchUsers()
+						this.fetchUsers();
 						this.utilsService.showSuccessMessage('Usuário Criado');
 					},
 					error: (err) => this.utilsService.showErrorMessage(err.error.detail)
@@ -208,7 +208,7 @@ export class UserCrudComponent implements OnInit {
 		return [{ name: 'Escolha a função', disabled: true }, ...this.roles];
 	}
 
-	isEditing(): boolean{
-		return !this.user.id
+	isEditing(): boolean {
+		return !this.user.id;
 	}
 }

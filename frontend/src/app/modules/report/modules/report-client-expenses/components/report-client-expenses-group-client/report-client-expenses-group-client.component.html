@@ -1,0 +1,59 @@
+<p-accordion class="alternate-list">
+	<p-accordionTab *ngFor="let reportGroup of reportGroups" class="no-content-padding highlight-active">
+		<ng-template pTemplate="header">
+			<div class="report-accordion-header">
+				<p>
+					<strong>{{ reportGroup.name }}</strong>
+				</p>
+				<p>
+					<a href="tel:55{{reportGroup.telephone}}">{{ formatTelephone(reportGroup.telephone) }}</a>
+				</p>
+				<p>
+					<a href="mailto:{{reportGroup.email}}">{{ reportGroup.email }}</a>
+				</p>
+				<p>
+					{{reportGroup.reports.length}} Movimentações
+				</p>
+				<p>
+					<strong>TOTAL:</strong> {{reportGroup.value | currency:'BRL':'symbol'}}
+				</p>
+			</div>
+		</ng-template>
+
+		<ng-template pTemplate="content">
+			<p-table [value]="reportGroup.reports" [responsive]="true" class="report">
+				<ng-template pTemplate="header">
+					<tr>
+						<th id="report-client-list-header-description" class="report-description">Descrição</th>
+						<th id="report-client-list-header-value">Valor</th>
+						<th id="report-client-list-header-selling-point">Ponto de Venda</th>
+						<th id="report-client-list-header-date">Data &amp; Hora</th>
+					</tr>
+				</ng-template>
+
+				<ng-template pTemplate="body" let-report>
+					<tr>
+						<td class="report-description">
+							{{ report.description }}
+						</td>
+						<td class="{{report.value < 0 ? 'negative' : 'positive'}}">
+							{{ report.value | currency : 'BRL':'symbol' }}
+						</td>
+						<td>
+							{{ formatSellingPoint(report.sellingPoint) }}
+						</td>
+						<td>
+							{{ report.dateTime | date:'dd/MM/yyyy HH:mm:ss' }}
+						</td>
+					</tr>
+				</ng-template>
+
+				<ng-template pTemplate="emptymessage">
+					<tr>
+						<td colspan="4">Nenhum registro encontrado...</td>
+					</tr>
+				</ng-template>
+			</p-table>
+		</ng-template>
+	</p-accordionTab>
+</p-accordion>

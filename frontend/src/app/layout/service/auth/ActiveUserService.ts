@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { User } from '../../../modules/user/models/user.model';
 
 const USER = 'user';
@@ -14,14 +13,13 @@ export class ActiveUserService {
 	private get activeUser(): User {
 		const user = localStorage.getItem(USER);
 		if (!!user) {
-			const User: User = JSON.parse(user) as User;
-			return User;
+			return JSON.parse(user) as User;
 		}
 		return {};
 	}
 
 	private set activeUser(activeUser: User) {
-		localStorage.setItem(USER, JSON.stringify(activeUser))
+		localStorage.setItem(USER, JSON.stringify(activeUser));
 	}
 
 	public static getInstance(): ActiveUserService {
@@ -33,10 +31,7 @@ export class ActiveUserService {
 	}
 
 	public isLogged(): boolean {
-		if (!!this.activeUser.username) {
-			return true;
-		}
-		return false;
+		return !!this.activeUser.username;
 	}
 
 	public setUser(userLogado: User): void {

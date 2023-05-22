@@ -27,12 +27,12 @@ export class LoginComponent {
 	) {
 	}
 
-	login(){
-		if(!!this.user){
+	login() {
+		if (!!this.user) {
 			this.service.login(this.user).subscribe(res => {
 				this.user.roleNames = res['authorities'].map((role: { roleName: any; }) => {
 					return role.roleName;
-				})
+				});
 				ActiveUserService.getInstance().setUser(this.user);
 				this.router.navigate(['/']);
 			});

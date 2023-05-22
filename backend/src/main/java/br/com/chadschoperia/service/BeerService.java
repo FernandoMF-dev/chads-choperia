@@ -2,6 +2,7 @@ package br.com.chadschoperia.service;
 
 import br.com.chadschoperia.domain.entities.Beer;
 import br.com.chadschoperia.domain.enums.HistoricProductActionEnum;
+import br.com.chadschoperia.domain.enums.SellingPointEnum;
 import br.com.chadschoperia.exceptions.BusinessException;
 import br.com.chadschoperia.exceptions.EntityNotFoundException;
 import br.com.chadschoperia.repository.BeerRepository;
@@ -164,18 +165,18 @@ public class BeerService {
 	private void publishPourExpense(ClientCardDto card, BeerDto beer) {
 		try {
 			String description = messageSource.getMessage("client_card_expense.beer.pour", new String[]{beer.getName()}, Locale.getDefault());
-			applicationEventPublisher.publishEvent(new AddClientCardExpenseEvent(card.getId(), beer.getValuePerMug(), description));
+			applicationEventPublisher.publishEvent(new AddClientCardExpenseEvent(card.getId(), beer.getValuePerMug(), description, SellingPointEnum.BEER));
 		} catch (EntityNotFoundException ex) {
 			throw new EntityNotFoundException(HttpStatus.BAD_REQUEST, ex.getReason());
 		}
 	}
 
 	private void publishRevenueExpense(Double value, String description) {
-		applicationEventPublisher.publishEvent(new AddRevenueExpenseEvent(value, description));
+		applicationEventPublisher.publishEvent(new AddRevenueExpenseEvent(value, description, SellingPointEnum.BEER));
 	}
 
 	private void publishRevenueExpense(List<Double> values, List<String> descriptions) {
-		applicationEventPublisher.publishEvent(new AddListRevenueExpenseEvent(values, descriptions));
+		applicationEventPublisher.publishEvent(new AddListRevenueExpenseEvent(values, descriptions, SellingPointEnum.BEER));
 	}
 
 	private void publishHistoric(BeerDto beerDto, HistoricProductActionEnum action) {
