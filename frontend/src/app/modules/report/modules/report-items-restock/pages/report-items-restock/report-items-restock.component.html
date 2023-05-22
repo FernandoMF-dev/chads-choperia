@@ -1,0 +1,74 @@
+<div class="grid">
+	<div class="col-12">
+		<div class="card px-6 py-6">
+			<p-toast></p-toast>
+			<p-toolbar styleClass="mb-4">
+				<div class="p-toolbar-group-start">
+					<h5>Relatório de produtos em Ponto de Encomenda</h5>
+				</div>
+
+				<div class="p-toolbar-group-end">
+					<button
+						pButton
+						pRipple
+						label="Exportar PDF"
+						icon="pi pi-upload"
+						class="p-button-help mr-2"
+						(click)="generateReport()"
+					></button>
+					<button
+						pButton
+						pRipple
+						label="Atualizar"
+						(click)="search()"
+						[disabled]="isLoading"
+						icon="pi pi-spinner"
+						class="p-button-raised p-button-success"
+					></button>
+				</div>
+			</p-toolbar>
+
+			<div class="col-12">
+				<p-table [value]="products" [responsive]="true" class="report">
+					<ng-template pTemplate="caption">
+						<div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
+							<h5 class="m-0">Produtos em Ponto de Encomenda</h5>
+						</div>
+					</ng-template>
+
+					<ng-template pTemplate="header">
+						<tr>
+							<th id="report-revenue-list-header-type">Produto</th>
+							<th id="report-revenue-list-header-value">Estoque Atual</th>
+							<th id="report-client-list-header-selling-point">Ponto de Encomenda</th>
+							<th id="report-revenue-list-header-date">Status</th>
+						</tr>
+					</ng-template>
+
+					<ng-template pTemplate="body" let-product>
+						<tr>
+							<td>
+								{{ product.name }}
+							</td>
+							<td>{{ product.stock }}un</td>
+							<td>{{ product.restockThreshold }}un</td>
+							<td>
+								<p-button
+									label="{{ product.stock <= 0 ? 'Em falta' : 'Acabando' }}"
+									styleClass="{{ product.stock <= 0 ? 'p-button-danger' : 'p-button-warning' }}"
+									icon="pi {{ product.stock <= 0 ? 'pi-exclamation-triangle' : 'pi-exclamation-circle' }}"
+								></p-button>
+							</td>
+						</tr>
+					</ng-template>
+
+					<ng-template pTemplate="emptymessage">
+						<tr>
+							<td colspan="4">Nenhum registro encontrado...</td>
+						</tr>
+					</ng-template>
+				</p-table>
+			</div>
+		</div>
+	</div>
+</div>

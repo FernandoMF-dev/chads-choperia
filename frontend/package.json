@@ -27,6 +27,7 @@
 		"jspdf": "^2.5.1",
 		"jspdf-autotable": "^3.5.29",
 		"moment": "^2.29.4",
+		"jspdf-invoice-template": "^1.4.3",
 		"ng-thermal-print": "^1.0.3",
 		"primeflex": "^3.2.1",
 		"primeicons": "6.0.1",

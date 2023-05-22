@@ -32,6 +32,11 @@ export class ReportLobbyComponent {
 			label: 'Consumo de Chope',
 			material: 'local_drink',
 			routerLink: [RouteLinkUtils.BEER_CONSUMPTION]
+		},
+		{
+			label: 'Ponto de Encomenda',
+			material: 'deployed_code_alert',
+			routerLink: [RouteLinkUtils.RESTOCK]
 		}
 	];
 }
