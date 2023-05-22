@@ -8,9 +8,11 @@ import {
 import { ClientReportFilter } from 'src/app/modules/report/modules/report-client-expenses/models/client-report.filter';
 import { UtilsService } from 'src/app/services/utils.service';
 import { SELLING_POINT_FORMAT, SELLING_POINT_SELECT, SellingPointEnum } from '../../../../../../enums/selling-point.enum';
+import { ReportStockComponentUtils } from '../../../../utils/report-stock-component.utils';
 import { CLIENT_EXPENSES_REPORT_GROUP_SELECT, ClientExpensesReportGroupEnum } from '../../enums/client-expenses-report-group.enum';
 import { CLIENT_EXPESES_REPORT_ORDER_SELECT, ClientExpensesReportOrderEnum } from '../../enums/client-expenses-report-order.enum';
 import { ClientExpensesReportService } from '../../services/client-expenses-report.service';
+const _ = require('lodash');
 
 @Component({
 	selector: 'app-report-client-expenses',
@@ -29,6 +31,11 @@ export class ReportClientExpensesComponent {
 	groupMode: ClientExpensesReportGroupEnum = ClientExpensesReportGroupEnum.ALL;
 	private reportGroups: Map<ClientExpensesReportGroupEnum, ReportGroupControl>;
 	private backupFilter: ClientReportFilter = Object.assign({}, this.filter);
+
+	cols = [
+		{ dataKey: 'beerName', title: 'nome'},
+		{ dataKey: 'soldAmount', title: 'Quantidade Vendida'},
+	];
 
 	constructor(
 		private clientExpensesReportService: ClientExpensesReportService,
@@ -140,6 +147,18 @@ export class ReportClientExpensesComponent {
 		}
 		return 0;
 	}
+
+	public exportPdf(){
+		const fileName = 'Gastos de Clientes'
+		if(this.groupMode === 'ALL'){
+			const body: any[] = [];
+			ReportStockComponentUtils.exportPdf(body,this.cols, fileName)
+		}else {
+			ReportStockComponentUtils.groupedExportPdf(this.allReports, this.cols, fileName)
+		}
+
+	}
+
 }
 
 interface ReportGroupControl {

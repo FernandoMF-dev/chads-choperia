@@ -1,5 +1,8 @@
+import { el } from 'date-fns/locale';
 import { finalize } from 'rxjs';
 import { UtilsService } from 'src/app/services/utils.service';
+import { ReportStockComponentUtils } from '../../../../utils/report-stock-component.utils';
+const _ = require('lodash');
 import { BeerConsumptionFilter } from '../../models/beer-consumption-filter.model';
 import { BeerConsumptionReport } from './../../models/beer-consumption.report';
 import { Component } from '@angular/core';
@@ -18,6 +21,11 @@ export class ReportBeerConsumptionComponent {
 
 	isLoadingSearch: boolean = false;
 
+	cols = [
+		{ dataKey: 'beerName', title: 'nome'},
+		{ dataKey: 'soldAmount', title: 'Quantidade Vendida'},
+	];
+
 	constructor(private utilsService: UtilsService,
 				private beerReportService: BeerReportService) {}
 
@@ -32,7 +40,11 @@ export class ReportBeerConsumptionComponent {
 	}
 
 	public exportPdf(){
-
+		const body: any[] = _.cloneDeep(this.reportData);
+		body.forEach(elem => {
+			elem.soldAmount = (elem.soldAmount * -1) + ' L '
+		})
+		ReportStockComponentUtils.exportPdf(body,this.cols, 'Consumo de Chopes')
 	}
 
 }

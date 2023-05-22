@@ -1,3 +1,4 @@
+import { jsPDF } from 'jspdf';
 import * as jspdf from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import * as moment from "moment";
@@ -6,6 +7,10 @@ import { ReportStockViewMode } from '../interfaces/report-stock-view.mode';
 import { BaseStockReportFilter } from '../models/base-stock-report.filter';
 import { BaseStockReport, BaseStockReportGroup } from '../models/base-stock.report';
 import { BaseReport } from '../models/base.report';
+
+const VERTICAL_MARGIN: number = 20;
+
+const HORIZONTAL_MARGIN: number = 30;
 
 export abstract class ReportStockComponentUtils<R extends BaseStockReport, G extends BaseStockReportGroup<R>, F extends BaseStockReportFilter = BaseStockReportFilter> {
 	filter: BaseStockReportFilter = new BaseStockReportFilter();
@@ -121,28 +126,32 @@ export abstract class ReportStockComponentUtils<R extends BaseStockReport, G ext
 
 	public static groupedExportPdf(reportsDisplay: any[], cols: any[], fileName: string){
 		const doc = new jspdf.default('p', 'px', 'a4');
+		let yValue = VERTICAL_MARGIN;
 		reportsDisplay.forEach(report => {
-			const columns = [{ title: report.productName + ' [' + (!!report.rfid ? report.rfid : report.barcode) + ']' }];
-			columns.push(...cols);
+			const docAny = doc as any;
 			const body: any[] = _.cloneDeep(report.reports);
 			body.forEach(report => {
 				report.dateTime = moment(report.dateTime).format('DD/MM/YYYY hh:MM:SS')
 			})
-			autoTable(doc,{columns: columns, body: body as any});
+			doc.text((report.productName + ' [' + (!!report.rfid ? report.rfid : report.barcode) + ']'), HORIZONTAL_MARGIN,yValue )
+			autoTable(doc,{columns: cols, body: body as any, startY: yValue + VERTICAL_MARGIN});
+			yValue = docAny['lastAutoTable']['finalY'] + VERTICAL_MARGIN;
+
 		})
 		doc.save( `${moment().format('DD/MM/YYYY hh:MM:SS')} ${fileName}.pdf`);
 	}
 
 	public static exportPdf(reports: any[], cols: any[], fileName: string){
 		const doc = new jspdf.default('p', 'px', 'a4');
-
-			const columns = [{ title: fileName }];
-			columns.push(...cols);
 			const body: any[] = _.cloneDeep(reports);
 			body.forEach(report => {
-				report.dateTime = moment(report.dateTime).format('DD/MM/YYYY hh:MM:SS')
+				if(!!report.dateTime){
+					report.dateTime = moment(report.dateTime).format('DD/MM/YYYY hh:MM:SS')
+				}
 			})
-			autoTable(doc,{columns: columns, body: body as any});
+		let yValue = VERTICAL_MARGIN;
+		doc.text(fileName, HORIZONTAL_MARGIN,yValue );
+		autoTable(doc,{columns: cols, body: body as any, startY: yValue + VERTICAL_MARGIN});
 
 		doc.save( `${moment().format('DD/MM/YYYY hh:MM:SS')} ${fileName}.pdf`);
 	}

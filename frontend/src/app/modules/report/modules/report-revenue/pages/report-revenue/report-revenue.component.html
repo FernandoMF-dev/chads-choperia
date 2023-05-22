@@ -11,6 +11,9 @@
 					<button pButton pRipple label="Pesquisar" (click)="search()" [disabled]="isLoadingSearch"
 							icon="pi {{ isLoadingSearch ? 'pi pi-spin pi-spinner' : 'pi-search' }}"
 							class="p-button-raised p-button-success"></button>
+					<button pButton pRipple label="Exportar" (click)="exportPdf()" [disabled]="isLoadingSearch"
+							icon="pi {{ isLoadingSearch ? 'pi pi-spin pi-spinner' : 'pi-file-pdf' }}"
+							class="margin-left p-button-raised p-button-success"></button>
 				</div>
 			</p-toolbar>
 

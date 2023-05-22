@@ -55,4 +55,8 @@ export class ReportRevenueComponent {
 			this.totalRevenue! += report.value;
 		});
 	}
+
+	public exportPdf(){
+
+	}
 }
