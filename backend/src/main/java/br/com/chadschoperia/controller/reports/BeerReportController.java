@@ -11,8 +11,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -30,8 +28,8 @@ public class BeerReportController implements BaseStockReportController<BeerStock
 		return ResponseEntity.ok(beerReportService.getStockReportOverTime(filter));
 	}
 
-	@PostMapping("/consumption")
-	public ResponseEntity<List<BeerConsumptionReportDto>> getConsumptionReportOverTime(@RequestBody BeerConsumptionReportFilterDto filter) {
+	@GetMapping("/consumption")
+	public ResponseEntity<List<BeerConsumptionReportDto>> getConsumptionReportOverTime(@Valid BeerConsumptionReportFilterDto filter) {
 		return ResponseEntity.ok(beerReportService.getConsumptionReportOverTime(filter));
 	}
 

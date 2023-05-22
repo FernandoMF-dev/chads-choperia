@@ -1,9 +1,9 @@
 import { finalize } from 'rxjs';
 import { UtilsService } from 'src/app/services/utils.service';
 import { BeerConsumptionFilter } from '../../models/beer-consumption-filter.model';
-import { BeerConsumptionReportService } from '../../services/beer-consumption-report.service';
 import { BeerConsumptionReport } from './../../models/beer-consumption.report';
 import { Component } from '@angular/core';
+import { BeerReportService } from '../../../report-beer/services/beer-report.service';
 
 @Component({
   selector: 'app-report-beer-consumption',
@@ -18,12 +18,12 @@ export class ReportBeerConsumptionComponent {
 
 	isLoadingSearch: boolean = false;
 
-	constructor(private beerConsumptionReportService: BeerConsumptionReportService,
-				private utilsService: UtilsService) {}
+	constructor(private utilsService: UtilsService,
+				private beerReportService: BeerReportService) {}
 
 	search(): void {
 		this.isLoadingSearch = true;
-		this.beerConsumptionReportService.getConsumptionReportOverTime(this.filter)
+		this.beerReportService.getConsumptionReportOverTime(this.filter)
 			.pipe(finalize(() => this.isLoadingSearch = false))
 			.subscribe({
 				next: (data) => this.reportData = data,
