@@ -2,8 +2,10 @@ package br.com.chadschoperia.controller.reports;
 
 import br.com.chadschoperia.controller.reports.interfaces.BaseStockReportController;
 import br.com.chadschoperia.service.reports.BeerReportService;
+import br.com.chadschoperia.service.reports.dto.BeerConsumptionReportDto;
 import br.com.chadschoperia.service.reports.dto.BeerStockReportDto;
 import br.com.chadschoperia.service.reports.filters.BaseStockReportFilterDto;
+import br.com.chadschoperia.service.reports.filters.BeerConsumptionReportFilterDto;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -25,4 +27,10 @@ public class BeerReportController implements BaseStockReportController<BeerStock
 	public ResponseEntity<List<BeerStockReportDto>> getReportStockOverTime(@Valid BaseStockReportFilterDto filter) {
 		return ResponseEntity.ok(beerReportService.getStockReportOverTime(filter));
 	}
+
+	@GetMapping("/consumption")
+	public ResponseEntity<List<BeerConsumptionReportDto>> getConsumptionReportOverTime(@Valid BeerConsumptionReportFilterDto filter) {
+		return ResponseEntity.ok(beerReportService.getConsumptionReportOverTime(filter));
+	}
+
 }
