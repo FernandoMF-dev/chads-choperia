@@ -16,28 +16,30 @@ export class AppMenuComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		const user = ActiveUserService.getInstance().getUser();
-		this.model = [];
-		const notFound: number = -1;
-		if (user?.roleNames?.indexOf(RolesUtil.ADMIN) != notFound) {
-			this.model.push(this.getAdminMenu());
-		}
-		if (user?.roleNames?.indexOf(RolesUtil.COOK) != notFound) {
-			this.model.push(this.getCookMenu());
-		}
-		if (user?.roleNames?.indexOf(RolesUtil.COSTUMER_MONITOR) != notFound) {
-			this.model.push(this.getCostumerMonitorMenu());
-		}
-		if (user?.roleNames?.indexOf(RolesUtil.CASHIER) != notFound) {
-			this.model.push(this.getCashierMenu());
-		}
-		if (user?.roleNames?.indexOf(RolesUtil.STOCK_MONITOR) != notFound) {
-			this.model.push(this.getStockManagerMenu());
-		}
-		if (user?.roleNames?.indexOf(RolesUtil.COSTUMER) != notFound) {
+		const userService: ActiveUserService = ActiveUserService.getInstance();
+		const user = userService.getUser();
+		const isLogged = userService.isLogged();
+		if(isLogged){
+			this.model = [];
+			const notFound: number = -1;
+			if (user?.roleNames?.indexOf(RolesUtil.ADMIN) != notFound) {
+				this.model.push(this.getAdminMenu());
+			}
+			if (user?.roleNames?.indexOf(RolesUtil.COOK) != notFound) {
+				this.model.push(this.getCookMenu());
+			}
+			if (user?.roleNames?.indexOf(RolesUtil.COSTUMER_MONITOR) != notFound) {
+				this.model.push(this.getCostumerMonitorMenu());
+			}
+			if (user?.roleNames?.indexOf(RolesUtil.CASHIER) != notFound) {
+				this.model.push(this.getCashierMenu());
+			}
+			if (user?.roleNames?.indexOf(RolesUtil.STOCK_MONITOR) != notFound) {
+				this.model.push(this.getStockManagerMenu());
+			}
+		}else {
 			this.model.push(this.getCostumerMenu());
 		}
-
 	}
 
 	private getCostumerMenu(): {
