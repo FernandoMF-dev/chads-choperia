@@ -14,5 +14,6 @@
 
 <p-dialog (onShow)="handleFocus()" (onHide)="clearSelected()" [draggable]="false" header="Confirmar" [modal]="true" [(visible)]="visible">
 	<p>Aproxime o cartão do leitor para finalizar a compra</p>
-	<input pInputText id="inputCard" (change)="pourDrink()" [(ngModel)]="this.selected.card">
+	<input pInputText id="inputCard" (change)="pourDrink()" [(ngModel)]="this.selected.card" [minlength]="10" [maxlength]="10"
+		   placeholder="0000000000">
 </p-dialog>
