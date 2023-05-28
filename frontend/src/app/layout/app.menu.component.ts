@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RolesUtil } from '../utils/RolesUtil';
 import { RouteLinkUtils } from '../utils/route-link.utils';
+import { AppMenuitemType } from './interfaces/app.menuitem.type';
 import { LayoutService } from './service/app.layout.service';
 import { ActiveUserService } from './service/auth/ActiveUserService';
 
@@ -10,16 +11,17 @@ import { ActiveUserService } from './service/auth/ActiveUserService';
 })
 export class AppMenuComponent implements OnInit {
 
-	model: any[] = [];
+	model: AppMenuitemType[] = [];
+	private userService: ActiveUserService;
 
 	constructor(public layoutService: LayoutService) {
+		this.userService = ActiveUserService.getInstance();
 	}
 
 	ngOnInit() {
-		const userService: ActiveUserService = ActiveUserService.getInstance();
-		const user = userService.getUser();
-		const isLogged = userService.isLogged();
-		if(isLogged){
+		const user = this.userService.getUser();
+		const isLogged = this.userService.isLogged();
+		if (isLogged) {
 			this.model = [];
 			const notFound: number = -1;
 			if (user?.roleNames?.indexOf(RolesUtil.ADMIN) != notFound) {
@@ -37,15 +39,12 @@ export class AppMenuComponent implements OnInit {
 			if (user?.roleNames?.indexOf(RolesUtil.STOCK_MONITOR) != notFound) {
 				this.model.push(this.getStockManagerMenu());
 			}
-		}else {
+		} else {
 			this.model.push(this.getCostumerMenu());
 		}
 	}
 
-	private getCostumerMenu(): {
-		label: string;
-		items: ({ routerLink: (string)[]; material: string; label: string })[]
-	} {
+	private getCostumerMenu(): AppMenuitemType {
 		return {
 			label: 'Área do cliente',
 			items: [
@@ -59,10 +58,7 @@ export class AppMenuComponent implements OnInit {
 		};
 	}
 
-	private getStockManagerMenu(): {
-		label: string;
-		items: ({ routerLink: (string)[]; icon: string; label: string })[]
-	} {
+	private getStockManagerMenu(): AppMenuitemType {
 		return {
 			label: 'Menu do Fiscal de Estoque',
 			items: [
@@ -80,10 +76,7 @@ export class AppMenuComponent implements OnInit {
 		};
 	}
 
-	private getCookMenu(): {
-		label: string;
-		items: ({ routerLink: (string)[]; icon: string; label: string })[]
-	} {
+	private getCookMenu(): AppMenuitemType {
 		return {
 			label: 'Menu do Cozinheiro',
 			items: [
@@ -97,7 +90,7 @@ export class AppMenuComponent implements OnInit {
 		};
 	}
 
-	private getCashierMenu(): { label: string; items: { routerLink: (string)[]; material: string; label: string }[] } {
+	private getCashierMenu(): AppMenuitemType {
 		return {
 			label: 'Menu do Caixa',
 			items: [
@@ -110,10 +103,7 @@ export class AppMenuComponent implements OnInit {
 		};
 	}
 
-	private getCostumerMonitorMenu(): {
-		label: string;
-		items: ({ routerLink: string[]; icon: string; label: string } | { routerLink: (string)[]; material: string; label: string })[]
-	} {
+	private getCostumerMonitorMenu(): AppMenuitemType {
 		return {
 			label: 'Menu do Fiscal de Entrada',
 			items: [
@@ -132,10 +122,7 @@ export class AppMenuComponent implements OnInit {
 		};
 	}
 
-	private getAdminMenu(): {
-		label: string;
-		items: ({ routerLink: string[]; icon: string; label: string } | { routerLink: string[]; material: string; label: string })[]
-	} {
+	private getAdminMenu(): AppMenuitemType {
 		return {
 			label: 'Registros Administrativos',
 			items: [

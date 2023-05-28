@@ -30,7 +30,7 @@ export class ReportLobbyComponent {
 		},
 		{
 			label: 'Consumo de Chope',
-			material: 'local_drink',
+			material: 'sports_bar',
 			routerLink: [RouteLinkUtils.BEER_CONSUMPTION]
 		},
 		{
