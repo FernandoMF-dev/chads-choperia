@@ -11,12 +11,22 @@ export class ReportLobbyComponent {
 		{
 			label: 'Estoque de Chopes',
 			material: 'local_drink',
-			routerLink: [RouteLinkUtils.BEER]
+			routerLink: [RouteLinkUtils.BEER, RouteLinkUtils.STOCK]
+		},
+		{
+			label: 'Consumo de Chope',
+			material: 'sports_bar',
+			routerLink: [RouteLinkUtils.BEER, RouteLinkUtils.EXIT]
 		},
 		{
 			label: 'Estoque de Produtos',
 			material: 'kitchen',
-			routerLink: [RouteLinkUtils.PRODUCT]
+			routerLink: [RouteLinkUtils.PRODUCT, RouteLinkUtils.STOCK]
+		},
+		{
+			label: 'Produtos em Ponto de Encomenda',
+			material: 'deployed_code_alert',
+			routerLink: [RouteLinkUtils.PRODUCT, RouteLinkUtils.RESTOCK]
 		},
 		{
 			label: 'Receitas e Despesas',
@@ -27,16 +37,6 @@ export class ReportLobbyComponent {
 			label: 'Gastos de Clientes',
 			material: 'payments',
 			routerLink: [RouteLinkUtils.CLIENTE]
-		},
-		{
-			label: 'Consumo de Chope',
-			material: 'local_drink',
-			routerLink: [RouteLinkUtils.BEER_CONSUMPTION]
-		},
-		{
-			label: 'Ponto de Encomenda',
-			material: 'deployed_code_alert',
-			routerLink: [RouteLinkUtils.RESTOCK]
 		}
 	];
 }

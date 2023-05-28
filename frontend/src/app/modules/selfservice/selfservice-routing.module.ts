@@ -15,7 +15,7 @@ const routes: Routes = [
 	},
 	{
 		path: RouteLinkUtils.RESTOCK,
-		data: {roles: [RolesUtil.COOK]},
+		data: { roles: [RolesUtil.COOK, RolesUtil.FOOD_MONITOR] },
 		canActivate: [AuthGuard],
 		component: RestockNotificationListComponent
 	},

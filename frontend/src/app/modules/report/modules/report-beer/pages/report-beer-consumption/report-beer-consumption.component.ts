@@ -1,17 +1,17 @@
-import { el } from 'date-fns/locale';
+import { Component } from '@angular/core';
 import { finalize } from 'rxjs';
 import { UtilsService } from 'src/app/services/utils.service';
 import { ReportStockComponentUtils } from '../../../../utils/report-stock-component.utils';
-const _ = require('lodash');
 import { BeerConsumptionFilter } from '../../models/beer-consumption-filter.model';
-import { BeerConsumptionReport } from './../../models/beer-consumption.report';
-import { Component } from '@angular/core';
-import { BeerReportService } from '../../../report-beer/services/beer-report.service';
+import { BeerConsumptionReport } from '../../models/beer-consumption.report';
+import { BeerReportService } from '../../services/beer-report.service';
+
+const _ = require('lodash');
 
 @Component({
-  selector: 'app-report-beer-consumption',
-  templateUrl: './report-beer-consumption.component.html',
-  styleUrls: ['./report-beer-consumption.component.scss']
+	selector: 'app-report-beer-consumption',
+	templateUrl: './report-beer-consumption.component.html',
+	styleUrls: ['./report-beer-consumption.component.scss']
 })
 export class ReportBeerConsumptionComponent {
 
@@ -22,12 +22,15 @@ export class ReportBeerConsumptionComponent {
 	isLoadingSearch: boolean = false;
 
 	cols = [
-		{ dataKey: 'beerName', title: 'Nome'},
-		{ dataKey: 'soldAmount', title: 'Quantidade Vendida'},
+		{ dataKey: 'beerName', title: 'Nome' },
+		{ dataKey: 'soldAmount', title: 'Quantidade Vendida' }
 	];
 
-	constructor(private utilsService: UtilsService,
-				private beerReportService: BeerReportService) {}
+	constructor(
+		private utilsService: UtilsService,
+		private beerReportService: BeerReportService
+	) {
+	}
 
 	search(): void {
 		this.isLoadingSearch = true;
@@ -39,12 +42,12 @@ export class ReportBeerConsumptionComponent {
 			});
 	}
 
-	public exportPdf(){
+	public exportPdf() {
 		const body: any[] = _.cloneDeep(this.reportData);
 		body.forEach(elem => {
-			elem.soldAmount = (elem.soldAmount * -1) + ' L '
-		})
-		ReportStockComponentUtils.exportPdf(body,this.cols, 'Consumo de Chopes')
+			elem.soldAmount = (elem.soldAmount * -1) + ' L ';
+		});
+		ReportStockComponentUtils.exportPdf(body, this.cols, 'Consumo de Chopes');
 	}
 
 }

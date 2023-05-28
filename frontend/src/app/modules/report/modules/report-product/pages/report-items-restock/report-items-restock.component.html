@@ -4,27 +4,15 @@
 			<p-toast></p-toast>
 			<p-toolbar styleClass="mb-4">
 				<div class="p-toolbar-group-start">
-					<h5>Relatório de produtos em Ponto de Encomenda</h5>
+					<button pButton pRipple label="Exportar PDF" (click)="generateReport()" [disabled]="!isLoading"
+							icon="pi {{ isLoading ? 'pi-spin pi-spinner' : 'pi-file-pdf' }}"
+							class="margin-left p-button-raised p-button-danger"></button>
 				</div>
 
 				<div class="p-toolbar-group-end">
-					<button
-						pButton
-						pRipple
-						label="Exportar PDF"
-						icon="pi pi-upload"
-						class="p-button-help mr-2"
-						(click)="generateReport()"
-					></button>
-					<button
-						pButton
-						pRipple
-						label="Atualizar"
-						(click)="search()"
-						[disabled]="isLoading"
-						icon="pi pi-spinner"
-						class="p-button-raised p-button-success"
-					></button>
+					<button pButton pRipple label="Atualizar" (click)="search()" [disabled]="isLoading"
+							icon="pi {{ isLoading ? 'pi-spin pi-spinner' : 'pi-sync' }}"
+							class="p-button-raised p-button-success"></button>
 				</div>
 			</p-toolbar>
 
@@ -50,14 +38,16 @@
 							<td>
 								{{ product.name }}
 							</td>
-							<td>{{ product.stock }}un</td>
-							<td>{{ product.restockThreshold }}un</td>
 							<td>
-								<p-button
-									label="{{ product.stock <= 0 ? 'Em falta' : 'Acabando' }}"
-									styleClass="{{ product.stock <= 0 ? 'p-button-danger' : 'p-button-warning' }}"
-									icon="pi {{ product.stock <= 0 ? 'pi-exclamation-triangle' : 'pi-exclamation-circle' }}"
-								></p-button>
+								{{ product.stock }}un
+							</td>
+							<td>
+								{{ product.restockThreshold }}un
+							</td>
+							<td>
+								<p-button label="{{ product.stock <= 0 ? 'Em falta' : 'Acabando' }}"
+										  icon="pi {{ product.stock <= 0 ? 'pi-exclamation-triangle' : 'pi-exclamation-circle' }}"
+										  styleClass="{{ product.stock <= 0 ? 'p-button-danger' : 'p-button-warning' }}"></p-button>
 							</td>
 						</tr>
 					</ng-template>

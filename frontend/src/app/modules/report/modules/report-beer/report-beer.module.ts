@@ -6,11 +6,13 @@ import { CalendarModule } from 'primeng/calendar';
 import { DropdownModule } from 'primeng/dropdown';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { RippleModule } from 'primeng/ripple';
+import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
 
 import { BeerModule } from '../../../beer/beer.module';
 import { ReportModule } from '../../report.module';
+import { ReportBeerConsumptionComponent } from './pages/report-beer-consumption/report-beer-consumption.component';
 import { ReportBeerStockComponent } from './pages/report-beer-stock/report-beer-stock.component';
 import { ReportBeerRoutingModule } from './report-beer-routing.module';
 import { BeerReportService } from './services/beer-report.service';
@@ -18,7 +20,8 @@ import { BeerReportService } from './services/beer-report.service';
 
 @NgModule({
 	declarations: [
-		ReportBeerStockComponent
+		ReportBeerStockComponent,
+		ReportBeerConsumptionComponent
 	],
 	imports: [
 		CommonModule,
@@ -33,7 +36,8 @@ import { BeerReportService } from './services/beer-report.service';
 		CalendarModule,
 		MultiSelectModule,
 		DropdownModule,
-		RippleModule
+		RippleModule,
+		TableModule
 	],
 	providers: [
 		BeerReportService

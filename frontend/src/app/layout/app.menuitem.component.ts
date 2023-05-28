@@ -4,6 +4,7 @@ import { NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { MenuService } from './app.menu.service';
+import { AppMenuitemType } from './interfaces/app.menuitem.type';
 import { LayoutService } from './service/app.layout.service';
 
 @Component({
@@ -24,7 +25,7 @@ import { LayoutService } from './service/app.layout.service';
 })
 export class AppMenuitemComponent implements OnInit, OnDestroy {
 
-	@Input() item: any;
+	@Input() item: AppMenuitemType = {};
 
 	@Input() index!: number;
 
@@ -74,7 +75,7 @@ export class AppMenuitemComponent implements OnInit, OnDestroy {
 	}
 
 	updateActiveStateFromRoute() {
-		let activeRoute = this.router.isActive(this.item.routerLink[0], {
+		let activeRoute = this.router.isActive(this.item.routerLink![0], {
 			paths: 'exact',
 			queryParams: 'ignored',
 			matrixParams: 'ignored',

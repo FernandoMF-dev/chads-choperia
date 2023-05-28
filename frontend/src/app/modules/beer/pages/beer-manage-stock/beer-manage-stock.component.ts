@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Table } from 'primeng/table';
 import { finalize } from 'rxjs';
 import { UtilsService } from 'src/app/services/utils.service';
+import { RouteLinkUtils } from '../../../../utils/route-link.utils';
 import { ManageStockBeer } from '../../models/manage-stock-beer.model';
 import { ViewBeer } from '../../models/view-beer.model';
 import { BeerService } from '../../services/beer.service';
@@ -76,7 +77,7 @@ export class BeerManageStockComponent implements OnInit {
 
 	private defineCurrentActionByRoute(): void {
 		const routePaths = this.location.path().split('/');
-		routePaths[routePaths.length - 1] === 'entrada' ? this.currentAction = 'entry' : this.currentAction = 'removal';
+		routePaths[routePaths.length - 1] === RouteLinkUtils.ENTRANCE ? this.currentAction = 'entry' : this.currentAction = 'removal';
 	}
 
 	private defineColumns(): void {

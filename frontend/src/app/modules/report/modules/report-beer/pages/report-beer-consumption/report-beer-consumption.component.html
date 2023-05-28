@@ -4,16 +4,15 @@
 			<p-toast></p-toast>
 			<p-toolbar styleClass="mb-4">
 				<div class="p-toolbar-group-start">
-					<h5>Relatório de Consumo de Chopes</h5>
+					<button pButton pRipple label="Exportar PDF" (click)="exportPdf()" [disabled]="isLoadingSearch"
+							icon="pi {{ isLoadingSearch ? 'pi pi-spin pi-spinner' : 'pi-file-pdf' }}"
+							class="margin-left p-button-raised p-button-danger"></button>
 				</div>
 
 				<div class="p-toolbar-group-end">
 					<button pButton pRipple label="Pesquisar" (click)="search()" [disabled]="isLoadingSearch"
 							icon="pi {{ isLoadingSearch ? 'pi pi-spin pi-spinner' : 'pi-search' }}"
 							class="p-button-raised p-button-success"></button>
-					<button pButton pRipple label="Exportar" (click)="exportPdf()" [disabled]="isLoadingSearch"
-							icon="pi {{ isLoadingSearch ? 'pi pi-spin pi-spinner' : 'pi-file-pdf' }}"
-							class="margin-left p-button-raised p-button-success"></button>
 				</div>
 			</p-toolbar>
 
@@ -39,7 +38,7 @@
 							<th>Quantidade Vendida</th>
 						</tr>
 					</ng-template>
-				
+
 					<ng-template pTemplate="body" let-report>
 						<tr>
 							<td>
@@ -48,6 +47,12 @@
 							<td>
 								{{ (report.soldAmount * -1) + ' L ' }}
 							</td>
+						</tr>
+					</ng-template>
+
+					<ng-template pTemplate="emptymessage">
+						<tr>
+							<td colspan="2">Nenhum registro encontrado...</td>
 						</tr>
 					</ng-template>
 				</p-table>

@@ -8,11 +8,13 @@ import { CalendarModule } from 'primeng/calendar';
 import { DropdownModule } from 'primeng/dropdown';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { RippleModule } from 'primeng/ripple';
+import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
-import { ProductModule } from '../../../product/product.module';
 
+import { ProductModule } from '../../../product/product.module';
 import { ReportModule } from '../../report.module';
+import { ReportItemsRestockComponent } from './pages/report-items-restock/report-items-restock.component';
 import { ReportProductStockComponent } from './pages/report-product-stock/report-product-stock.component';
 import { ReportProductRoutingModule } from './report-product-routing.module';
 import { ProductReportService } from './services/product-report.service';
@@ -20,7 +22,8 @@ import { ProductReportService } from './services/product-report.service';
 
 @NgModule({
 	declarations: [
-		ReportProductStockComponent
+		ReportProductStockComponent,
+		ReportItemsRestockComponent
 	],
 	imports: [
 		CommonModule,
@@ -36,7 +39,8 @@ import { ProductReportService } from './services/product-report.service';
 		SharedModule,
 		ToastModule,
 		ToolbarModule,
-		FormsModule
+		FormsModule,
+		TableModule
 	],
 	providers: [
 		ProductReportService
