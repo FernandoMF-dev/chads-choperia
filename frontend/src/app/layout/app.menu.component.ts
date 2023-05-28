@@ -109,7 +109,7 @@ export class AppMenuComponent implements OnInit {
 						icon: 'pi pi-fw pi-arrow-down-right',
 						routerLink: [RouteLinkUtils.PRODUCT, RouteLinkUtils.EXIT]
 					},
-					{ label: 'Self Service', icon: 'pi pi-fw pi-download', routerLink: [RouteLinkUtils.SELF_SERVICE] }
+					{ label: 'Notificação de Self Service', icon: 'pi pi-fw pi-bell', routerLink: [RouteLinkUtils.SELF_SERVICE] }
 				]
 			}
 		];
@@ -141,7 +141,7 @@ export class AppMenuComponent implements OnInit {
 			{
 				label: 'Menu do Fiscal de Self-service',
 				items: [
-					{ label: 'Notificar falta', icon: 'pi pi-fw pi-download', routerLink: [RouteLinkUtils.SELF_SERVICE] }
+					{ label: 'Notificar falta', icon: 'pi pi-fw pi-bell', routerLink: [RouteLinkUtils.SELF_SERVICE] }
 				]
 			}
 		];
@@ -154,12 +154,12 @@ export class AppMenuComponent implements OnInit {
 				items: [
 					{
 						label: 'Entrada de Estoque',
-						icon: 'pi pi-fw pi-arrow-up-right',
+						icon: 'pi pi-fw pi-box',
 						routerLink: [RouteLinkUtils.PRODUCT, RouteLinkUtils.ENTRANCE]
 					},
 					{
 						label: 'Entrada de Chope',
-						icon: 'pi pi-fw pi-arrow-up-right',
+						material: 'sports_bar',
 						routerLink: [RouteLinkUtils.BEER, RouteLinkUtils.ENTRANCE]
 					}
 				]

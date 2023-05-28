@@ -31,7 +31,7 @@ public class RestockNotificationController {
 	private final RestockNotificationService notificationService;
 
 	@GetMapping
-	@Secured({RolesUtil.COOK})
+	@Secured({RolesUtil.COOK, RolesUtil.FOOD_MONITOR})
 	public ResponseEntity<List<RestockNotificationDto>> findAllOpen() {
 		return ResponseEntity.ok(notificationService.findAllOpen());
 	}
@@ -42,7 +42,7 @@ public class RestockNotificationController {
 	}
 
 	@PostMapping
-	@Secured({RolesUtil.COOK})
+	@Secured({RolesUtil.FOOD_MONITOR})
 	public ResponseEntity<RestockNotificationDto> create(@NotEmpty(message = "restock_notification.item.not_empty")
 														 @Size(min = 3, message = "restock_notification.item.min_size")
 														 @Size(max = 50, message = "restock_notification.item.max_size")
