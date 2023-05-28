@@ -1,5 +1,8 @@
 package br.com.chadschoperia.configuration.security;
 
+import lombok.experimental.UtilityClass;
+
+@UtilityClass
 public class RolesUtil {
 
 	public static final String ADMIN = "ROLE_ADMINISTRADOR";

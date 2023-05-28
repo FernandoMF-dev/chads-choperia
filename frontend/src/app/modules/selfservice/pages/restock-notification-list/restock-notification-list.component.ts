@@ -1,7 +1,9 @@
 import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { interval, Subscription } from 'rxjs';
 import { finalize } from 'rxjs/operators';
+import { ActiveUserService } from '../../../../layout/service/auth/ActiveUserService';
 import { UtilsService } from '../../../../services/utils.service';
+import { RolesUtil } from '../../../../utils/RolesUtil';
 import { RestockNotification } from '../../models/restock-notification.model';
 import { RestockNotificationService } from '../../services/restock-notification.service';
 
@@ -17,16 +19,20 @@ export class RestockNotificationListComponent implements OnInit, OnDestroy {
 	 */
 	private static readonly AUTOLOAD_DELAY: number = 5000;
 
+	modes: RestockNotificationListComponentModes;
+
 	notifications: RestockNotification[] = [];
 	confirmRestock: number | null = null;
+	confirmCancel: number | null = null;
 	stopListenerDocumentClick: boolean = false;
 
 	viewNotificationForm: boolean = false;
 	newRequestCreated: boolean = false;
 
-
 	private autoFetch: Subscription;
 	private _isLoading = false;
+
+	private userService: ActiveUserService;
 
 	get isLoading(): boolean {
 		return this._isLoading;
@@ -40,7 +46,9 @@ export class RestockNotificationListComponent implements OnInit, OnDestroy {
 		private restockNotificationService: RestockNotificationService,
 		private utilsService: UtilsService
 	) {
+		this.userService = ActiveUserService.getInstance();
 		this.autoFetch = this.autoFetchNotifications();
+		this.modes = this.initiateComponentModes();
 	}
 
 	ngOnInit(): void {
@@ -57,6 +65,7 @@ export class RestockNotificationListComponent implements OnInit, OnDestroy {
 			this.stopListenerDocumentClick = false;
 		} else {
 			this.confirmRestock = null;
+			this.confirmCancel = null;
 		}
 	}
 
@@ -70,9 +79,28 @@ export class RestockNotificationListComponent implements OnInit, OnDestroy {
 			});
 	}
 
+	onCancelClick(notificationId: number) {
+		this.stopListenerDocumentClick = true;
+		this.confirmCancel = notificationId;
+		this.confirmRestock = null;
+	}
+
 	onRestockClick(notificationId: number) {
 		this.stopListenerDocumentClick = true;
+		this.confirmCancel = null;
 		this.confirmRestock = notificationId;
+	}
+
+	onConfirmCancel(): void {
+		const notificationId: number = this.confirmCancel!;
+
+		this.isLoading = true;
+		this.restockNotificationService.cancel(notificationId)
+			.pipe(finalize(() => this.isLoading = false))
+			.subscribe({
+				next: () => this.notifications = this.notifications.filter(value => value.id !== notificationId),
+				error: (err) => this.utilsService.showErrorMessage(err.error.detail)
+			});
 	}
 
 	onConfirmRestock(): void {
@@ -94,6 +122,14 @@ export class RestockNotificationListComponent implements OnInit, OnDestroy {
 		}
 	}
 
+	private initiateComponentModes(): RestockNotificationListComponentModes {
+		const user = this.userService.getUser()!;
+		return {
+			cooker: user.roleNames?.some(role => role === RolesUtil.COOK)!,
+			monitor: user.roleNames?.some(role => role === RolesUtil.FOOD_MONITOR)!
+		};
+	}
+
 	private autoFetchNotifications(): Subscription {
 		return interval(RestockNotificationListComponent.AUTOLOAD_DELAY)
 			.subscribe(() => {
@@ -107,4 +143,9 @@ export class RestockNotificationListComponent implements OnInit, OnDestroy {
 	private afterSuccessfulFetchNotifications(res: RestockNotification[]) {
 		this.notifications = res;
 	}
+}
+
+interface RestockNotificationListComponentModes {
+	cooker: boolean;
+	monitor: boolean;
 }

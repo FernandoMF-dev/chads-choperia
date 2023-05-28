@@ -5,8 +5,8 @@
 			<p-toolbar styleClass="mb-4">
 				<div class="p-toolbar-group-start">
 					<div class="my-2">
-						<button pButton pRipple label="Notificar Falta" icon="pi pi-plus" (click)="viewNotificationForm = true"
-								class="p-button-raised p-button-success mr-2"></button>
+						<button *ngIf="modes.monitor" pButton pRipple label="Notificar Falta" icon="pi pi-plus"
+								(click)="viewNotificationForm = true" class="p-button-raised p-button-success mr-2"></button>
 					</div>
 				</div>
 			</p-toolbar>
@@ -37,13 +37,25 @@
 						<td>
 							<span class="p-column-title">Ações</span>
 
-							<button pButton *ngIf="confirmRestock !== notification.id" (click)="onRestockClick(notification.id)"
-									icon="pi pi-fw pi-check" type="button" label="Confirmar Preparo"
-									class="p-button-raised p-button-info"></button>
+							<ng-template [ngIf]="modes.cooker">
+								<button pButton *ngIf="confirmRestock !== notification.id" (click)="onRestockClick(notification.id)"
+										icon="pi pi-fw pi-check" type="button" label="Confirmar Preparo"
+										class="p-button-raised p-button-info mr-2"></button>
 
-							<button pButton *ngIf="confirmRestock === notification.id" (click)="onConfirmRestock()"
-									icon="pi pi-fw pi-exclamation-triangle" type="button" label="Clique para Confirmar"
-									class="p-button-raised p-button-warning"></button>
+								<button pButton *ngIf="confirmRestock === notification.id" (click)="onConfirmRestock()"
+										icon="pi pi-fw pi-exclamation-triangle" type="button" label="Clique para Confirmar"
+										class="p-button-raised p-button-warning mr-2"></button>
+							</ng-template>
+
+							<ng-template [ngIf]="modes.monitor">
+								<button pButton *ngIf="confirmCancel !== notification.id" (click)="onCancelClick(notification.id)"
+										icon="pi pi-fw pi-times" type="button" label="Cancelar Notificação"
+										class="p-button-raised p-button-danger"></button>
+
+								<button pButton *ngIf="confirmCancel === notification.id" (click)="onConfirmCancel()"
+										icon="pi pi-fw pi-exclamation-triangle" type="button" label="Clique para Confirmar"
+										class="p-button-raised p-button-warning"></button>
+							</ng-template>
 						</td>
 					</tr>
 				</ng-template>

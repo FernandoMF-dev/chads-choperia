@@ -24,7 +24,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/self-service/restock-notification")
-@CrossOrigin(origins = "*", allowedHeaders = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE, RequestMethod.OPTIONS})
+@CrossOrigin(origins = "*", allowedHeaders = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.PATCH, RequestMethod.DELETE, RequestMethod.OPTIONS})
 @RequiredArgsConstructor
 public class RestockNotificationController {
 
@@ -58,6 +58,7 @@ public class RestockNotificationController {
 	}
 
 	@PatchMapping("/cancelar/{idNotification}")
+	@Secured({RolesUtil.FOOD_MONITOR})
 	public ResponseEntity<Void> cancel(@PathVariable Long idNotification) {
 		notificationService.closeNotification(idNotification, RestockNotificationStatusEnum.CANCELED);
 		return ResponseEntity.noContent().build();
