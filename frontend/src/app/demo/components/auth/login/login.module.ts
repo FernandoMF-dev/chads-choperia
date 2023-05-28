@@ -5,6 +5,8 @@ import { ButtonModule } from 'primeng/button';
 import { CheckboxModule } from 'primeng/checkbox';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
+import { RippleModule } from 'primeng/ripple';
+
 import { UserService } from '../../../../modules/user/services/user.service';
 import { LoginRoutingModule } from './login-routing.module';
 import { LoginComponent } from './login.component';
@@ -17,7 +19,8 @@ import { LoginComponent } from './login.component';
 		CheckboxModule,
 		InputTextModule,
 		FormsModule,
-		PasswordModule
+		PasswordModule,
+		RippleModule
 	],
 	declarations: [LoginComponent],
 	providers: [UserService]

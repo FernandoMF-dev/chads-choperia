@@ -7,14 +7,7 @@ import { UserService } from '../../../../modules/user/services/user.service';
 @Component({
 	selector: 'app-login',
 	templateUrl: './login.component.html',
-	styles: [`
-        :host ::ng-deep .pi-eye,
-        :host ::ng-deep .pi-eye-slash {
-            transform:scale(1.6);
-            margin-right: 1rem;
-            color: var(--primary-color) !important;
-        }
-    `]
+	styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
 
@@ -22,8 +15,9 @@ export class LoginComponent {
 
 	user: User = {};
 
-	constructor(private service: UserService,
-				private router: Router
+	constructor(
+		private service: UserService,
+		private router: Router
 	) {
 	}
 
