@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { finalize } from 'rxjs';
 import { UtilsService } from 'src/app/services/utils.service';
 import { ReportStockComponentUtils } from '../../../../utils/report-stock-component.utils';
-import { BeerReportService } from '../../../report-beer/services/beer-report.service';
 import { BeerConsumptionFilter } from '../../models/beer-consumption-filter.model';
 import { BeerConsumptionReport } from '../../models/beer-consumption.report';
+import { BeerReportService } from '../../services/beer-report.service';
 
 const _ = require('lodash');
 

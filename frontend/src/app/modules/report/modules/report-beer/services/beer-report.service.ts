@@ -4,9 +4,9 @@ import { Observable } from 'rxjs';
 import { environment } from '../../../../../../environments/environment';
 import { HttpRequestUtil } from '../../../../../utils/http-request.util';
 import { BaseStockReportFilter } from '../../../models/base-stock-report.filter';
+import { BeerConsumptionFilter } from '../models/beer-consumption-filter.model';
+import { BeerConsumptionReport } from '../models/beer-consumption.report';
 import { BeerStockReport } from '../models/beer-stock.report';
-import { BeerConsumptionFilter } from '../../report-beer-consumption/models/beer-consumption-filter.model';
-import { BeerConsumptionReport } from '../../report-beer-consumption/models/beer-consumption.report';
 
 @Injectable({
 	providedIn: 'root'

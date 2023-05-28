@@ -9,12 +9,12 @@ export class RouteLinkUtils {
 	public static readonly EXIT = 'saida';
 	public static readonly SETTING = 'configuracao';
 	public static readonly PAYMENT = 'pagamento';
-	public static readonly RESTOCK = 'restock';
+	public static readonly STOCK = 'estoque';
+	public static readonly RESTOCK = 'restoque';
 	public static readonly FOOD_WEIGHING = 'food-weighing';
 	public static readonly REPORT = 'relatorio';
 	public static readonly EMAIL = 'email';
 	public static readonly REVENUE_EXPENSE = 'receitas-despesas';
-	public static readonly BEER_CONSUMPTION = 'consumo-chope'
 
 	public static readonly NOT_FOUND = 'notfound';
 }

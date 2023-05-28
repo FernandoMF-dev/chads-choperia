@@ -28,14 +28,6 @@ const routes: Routes = [
 			{
 				path: RouteLinkUtils.CLIENTE,
 				loadChildren: () => import('./modules/report-client-expenses/report-client-expenses.module').then(m => m.ReportClientExpensesModule)
-			},
-			{
-				path: RouteLinkUtils.BEER_CONSUMPTION,
-				loadChildren: () => import('./modules/report-beer-consumption/report-beer-consumption.module').then(m => m.ReportBeerConsumptionModule)
-			},
-			{
-				path: RouteLinkUtils.RESTOCK,
-				loadChildren: () => import('./modules/report-items-restock/report-items-restock.module').then(m => m.ReportItemsRestockModule)
 			}
 		]
 	}
