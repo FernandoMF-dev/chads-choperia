@@ -45,9 +45,6 @@ export class ClientCardPaymentComponent {
 			return;
 		}
 
-		this.printPayment();
-		return;
-
 		this.isLoadingSubmit = true;
 		const payment: ClientCardPayment = Object.assign(new ClientCardPayment(), this.form.value);
 		this.clientCardService
@@ -58,6 +55,7 @@ export class ClientCardPaymentComponent {
 					this.utilsService.showSuccessMessage(
 						`Compra do cartão ${res.rfid} em nome de "${this.getClientName()}" fechada com sucesso.`
 					);
+					this.printPayment();
 					this.resetForm();
 				},
 				error: (err) => this.utilsService.showErrorMessage(err.error.detail),

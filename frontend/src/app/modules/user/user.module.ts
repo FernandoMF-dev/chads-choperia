@@ -22,11 +22,13 @@ import { UserService } from 'src/app/modules/user/services/user.service';
 import { UserCrudComponent } from './pages/user-crud/user-crud.component';
 
 import { UserRoutingModule } from './user-routing.module';
+import { UserFormComponent } from './components/user-form/user-form.component';
 
 
 @NgModule({
 	declarations: [
-		UserCrudComponent
+		UserCrudComponent,
+  UserFormComponent
 	],
 	imports: [
 		CommonModule,
