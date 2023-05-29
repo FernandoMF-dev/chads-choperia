@@ -28,7 +28,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnInit() {
-		this.printerService.getLocalStoragePrinterPersistence();
 		this.initChart();
 		this.productService.getProductsSmall().then(data => this.products = data);
 
@@ -104,10 +103,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
 	}
 
 	printTest(): void {
-		this.printerService.printHeader();
 	}
 
 	requestUsb(): void {
-		this.printerService.requestUsb();
 	}
 }

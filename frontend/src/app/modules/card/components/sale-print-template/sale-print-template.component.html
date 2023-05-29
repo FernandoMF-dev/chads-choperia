@@ -1,0 +1,39 @@
+<div class="ticket" style="font-size: 9px; width: 100%;">
+	<figure style="text-align: center;">
+		<img src="assets/layout/images/logo.svg" alt="logo" style="width: 25px;" />
+	</figure>
+	<p style="text-align: center;">
+		<strong>Chad's Choperia</strong><br>
+		{{ date | date:'dd/MM/yyyy HH:mm:ss' }}
+	</p>
+
+	<div class="payment-infos">
+		<p style="margin-bottom: 0.225rem;">Cliente: {{ cardPayment?.clientCard?.client?.name }}</p>
+		<p style="margin-bottom: 0.225rem;">Cartão: {{ cardPayment?.clientCard?.rfid }}</p>
+		<p style="margin-bottom: 0.225rem;">Método de Pagamento: {{ cardPayment?.paymentMethod }}</p>
+		<p style="margin-bottom: 0.225rem;">Total Venda: {{ cardPayment?.clientCard?.totalExpenses! | currency : "BRL" : "symbol" }}</p>
+		<p style="margin-bottom: 0.225rem;">Total pagamento: {{ cardPayment?.totalPaid | currency : "BRL" : "symbol" }}</p>
+		<p style="margin-bottom: 0.225rem;" *ngIf="cardPayment?.totalPaid! > cardPayment?.clientCard?.totalExpenses!">
+			Troco: {{ cardPayment?.totalPaid! - cardPayment?.clientCard?.totalExpenses! | currency : "BRL" : "symbol" }}
+		</p>
+	</div>
+	<table style="font-size: 9px;">
+		<thead>
+			<tr>
+				<th style="text-align: start;">Compra</th>
+				<th style="text-align: start;">R$</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor="let expense of cardPayment?.clientCard?.expenses">
+				<td>{{ expense.description }}</td>
+				<td>{{ expense.value | currency : "BRL" : "symbol" }}</td>
+			</tr>
+			<tr>
+				<td style="padding-top: 1rem;"><strong>Total</strong></td>
+				<td style="padding-top: 1rem;">{{ cardPayment?.clientCard?.totalExpenses! | currency : "BRL" : "symbol" }}</td>
+			</tr>
+		</tbody>
+	</table>
+	<p style="text-align: center;">Obrigado pela preferência! <br />chadschoperia.com.br</p>
+</div>

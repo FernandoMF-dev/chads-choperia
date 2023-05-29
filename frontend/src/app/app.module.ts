@@ -3,7 +3,6 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import localePt from '@angular/common/locales/pt';
 import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { ThermalPrintModule } from 'ng-thermal-print';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { RippleModule } from 'primeng/ripple';
@@ -31,7 +30,6 @@ registerLocaleData(localePt);
 		AppRoutingModule,
 		AppLayoutModule,
 		BrowserModule,
-		ThermalPrintModule,
 		ConfirmDialogModule,
 		RippleModule
 	],

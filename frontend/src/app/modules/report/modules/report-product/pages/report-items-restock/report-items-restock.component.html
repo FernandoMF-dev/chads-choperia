@@ -4,7 +4,7 @@
 			<p-toast></p-toast>
 			<p-toolbar styleClass="mb-4">
 				<div class="p-toolbar-group-start">
-					<button pButton pRipple label="Exportar PDF" (click)="generateReport()" [disabled]="!isLoading"
+					<button pButton pRipple label="Exportar PDF" (click)="generateReport()" [disabled]="isLoading"
 							icon="pi {{ isLoading ? 'pi-spin pi-spinner' : 'pi-file-pdf' }}"
 							class="margin-left p-button-raised p-button-danger"></button>
 				</div>
