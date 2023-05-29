@@ -25,6 +25,7 @@ public class SecurityConfiguration {
 				.authorizeHttpRequests()
 				.requestMatchers(HttpMethod.POST, "**/login").permitAll()
 				.requestMatchers(HttpMethod.GET, "**/chop/complete").permitAll()
+				.requestMatchers(HttpMethod.GET, "**/card/client/rfid").permitAll()
 				.requestMatchers(HttpMethod.PUT, "**/chop/pour").permitAll()
 				.requestMatchers(HttpMethod.POST, "**/self-service/purchase").permitAll()
 				.anyRequest().authenticated()
