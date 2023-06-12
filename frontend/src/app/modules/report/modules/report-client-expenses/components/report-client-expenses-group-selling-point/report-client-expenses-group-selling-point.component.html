@@ -1,0 +1,59 @@
+<p-accordion class="alternate-list">
+	<p-accordionTab *ngFor="let reportGroup of reportGroups" class="no-content-padding highlight-active">
+		<ng-template pTemplate="header">
+			<div class="report-accordion-header">
+				<p>
+					<strong>{{ reportGroup.name }}</strong>
+				</p>
+				<p>
+					{{reportGroup.reports.length}} Movimentações
+				</p>
+				<p>
+					<strong>TOTAL:</strong> {{reportGroup.value | currency:'BRL':'symbol'}}
+				</p>
+			</div>
+		</ng-template>
+
+		<ng-template pTemplate="content">
+			<p-table [value]="reportGroup.reports" [responsive]="true" class="report">
+				<ng-template pTemplate="header">
+					<tr>
+						<th id="report-client-list-header-name">Cliente</th>
+						<th id="report-client-list-header-contact">Contatos</th>
+						<th id="report-client-list-header-description" class="report-description">Descrição</th>
+						<th id="report-client-list-header-value">Valor</th>
+						<th id="report-client-list-header-date">Data &amp; Hora</th>
+					</tr>
+				</ng-template>
+
+				<ng-template pTemplate="body" let-report>
+					<tr>
+						<td>
+							{{ report.clientName }}
+						</td>
+						<td>
+							<a href="tel:55{{report.clientTelephone}}">{{ formatTelephone(report.clientTelephone) }}</a>
+							<br>
+							<a href="mailto:{{report.clientEmail}}">{{ report.clientEmail }}</a>
+						</td>
+						<td class="report-description">
+							{{ report.description }}
+						</td>
+						<td class="{{report.value < 0 ? 'negative' : 'positive'}}">
+							{{ report.value | currency : 'BRL':'symbol' }}
+						</td>
+						<td>
+							{{ report.dateTime | date:'dd/MM/yyyy HH:mm:ss' }}
+						</td>
+					</tr>
+				</ng-template>
+
+				<ng-template pTemplate="emptymessage">
+					<tr>
+						<td colspan="5">Nenhum registro encontrado...</td>
+					</tr>
+				</ng-template>
+			</p-table>
+		</ng-template>
+	</p-accordionTab>
+</p-accordion>

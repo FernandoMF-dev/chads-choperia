@@ -17,13 +17,15 @@ import { ClientCardCheckinComponent } from './pages/client-card-checkin/client-c
 import { ClientCardCheckoutComponent } from './pages/client-card-checkout/client-card-checkout.component';
 import { ClientCardPaymentComponent } from './pages/client-card-payment/client-card-payment.component';
 import { ClientCardService } from './services/client-card.service';
+import { SalePrintTemplateComponent } from './components/sale-print-template/sale-print-template.component';
 
 
 @NgModule({
 	declarations: [
 		ClientCardCheckinComponent,
 		ClientCardPaymentComponent,
-		ClientCardCheckoutComponent
+		ClientCardCheckoutComponent,
+  	SalePrintTemplateComponent
 	],
 	imports: [
 		CommonModule,

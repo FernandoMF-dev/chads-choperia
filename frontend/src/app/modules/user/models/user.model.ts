@@ -3,6 +3,6 @@ export interface User {
 	username?: string;
 	email?: string;
 	password?: string;
-	roleName?: string;
-	idRole?: number;
+	roleNames?: string[];
+	idsRole?: number[];
 }

@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { UtilsService } from 'src/app/services/utils.service';
-import { finalize } from 'rxjs';
-import { ViewBeer } from '../../models/view-beer.model';
-import { ManageStockBeer } from '../../models/manage-stock-beer.model';
-import { BeerService } from '../../services/beer.service';
 import { Location } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
 import { Table } from 'primeng/table';
+import { finalize } from 'rxjs';
+import { UtilsService } from 'src/app/services/utils.service';
+import { RouteLinkUtils } from '../../../../utils/route-link.utils';
+import { ManageStockBeer } from '../../models/manage-stock-beer.model';
+import { ViewBeer } from '../../models/view-beer.model';
+import { BeerService } from '../../services/beer.service';
 
 export interface BeerDialogProps {
 	isOpen: boolean;
@@ -15,12 +16,12 @@ export interface BeerDialogProps {
 }
 
 @Component({
-  selector: 'app-beer-manage-stock',
-  templateUrl: './beer-manage-stock.component.html',
-  styleUrls: ['./beer-manage-stock.component.scss']
+	selector: 'app-beer-manage-stock',
+	templateUrl: './beer-manage-stock.component.html',
+	styleUrls: ['./beer-manage-stock.component.scss']
 })
 
-export class BeerManageStockComponent implements OnInit{
+export class BeerManageStockComponent implements OnInit {
 
 	currentAction: 'entry' | 'removal' = 'entry';
 
@@ -76,7 +77,7 @@ export class BeerManageStockComponent implements OnInit{
 
 	private defineCurrentActionByRoute(): void {
 		const routePaths = this.location.path().split('/');
-		routePaths[routePaths.length - 1] === 'entrada' ? this.currentAction = 'entry' : this.currentAction = 'removal';
+		routePaths[routePaths.length - 1] === RouteLinkUtils.ENTRANCE ? this.currentAction = 'entry' : this.currentAction = 'removal';
 	}
 
 	private defineColumns(): void {

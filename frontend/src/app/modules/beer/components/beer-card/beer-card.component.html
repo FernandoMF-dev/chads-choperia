@@ -1,0 +1,10 @@
+<div class="grid col-12">
+	<div *ngFor="let beer of beers" class="col-3 ">
+		<div (click)="emitBeer(beer)" class="p-card card-beer col-12 grow overflow-hidden ">
+			<div class="div-card">
+				<p><strong>{{ beer.name }}</strong></p>
+				<p><strong>{{ beer.valuePerMug | currency : 'BRL':'symbol' }}</strong></p>
+			</div>
+		</div>
+	</div>
+</div>

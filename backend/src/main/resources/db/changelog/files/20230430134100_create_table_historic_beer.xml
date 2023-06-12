@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+		xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.17.xsd">
+
+	<changeSet id="20230430134100-1" author="Fernando Martins Ferreira">
+		<createTable tableName="historic_beer">
+			<column name="id" type="bigint">
+				<constraints nullable="false"/>
+			</column>
+
+			<column name="id_beer" type="bigint">
+				<constraints nullable="false"/>
+			</column>
+
+			<column name="action" type="varchar(50)">
+				<constraints nullable="false"/>
+			</column>
+
+			<column name="description" type="varchar(255)"/>
+
+			<column name="date_time" type="timestamp">
+				<constraints nullable="false"/>
+			</column>
+
+			<column name="stock" type="double"/>
+
+			<column name="total_stock" type="double">
+				<constraints nullable="false"/>
+			</column>
+		</createTable>
+
+		<rollback>
+			<dropTable tableName="historic_beer"/>
+		</rollback>
+	</changeSet>
+
+	<changeSet id="20230430134100-2" author="Fernando Martins Ferreira">
+		<addPrimaryKey tableName="historic_beer" columnNames="id" constraintName="pk_historic_beer"/>
+
+		<rollback>
+			<dropPrimaryKey tableName="historic_beer" constraintName="pk_historic_beer"/>
+		</rollback>
+	</changeSet>
+
+	<changeSet id="20230430134100-3" author="Fernando Martins Ferreira">
+		<addPrimaryKey tableName="beer" columnNames="id" constraintName="pk_beer"/>
+
+		<rollback>
+			<dropPrimaryKey tableName="beer" constraintName="pk_beer"/>
+		</rollback>
+	</changeSet>
+
+	<changeSet id="20230430134100-4" author="Fernando Martins Ferreira">
+		<addForeignKeyConstraint baseTableName="historic_beer" baseColumnNames="id_beer"
+								 referencedTableName="beer" referencedColumnNames="id"
+								 constraintName="fk_historic_beer_beer"/>
+
+		<rollback>
+			<dropAllForeignKeyConstraints baseTableName="historic_beer"/>
+		</rollback>
+	</changeSet>
+
+	<changeSet id="20230430134100-5" author="Fernando Martins Ferreira">
+		<createSequence sequenceName="sequence_historic_beer" dataType="bigint" startValue="1" incrementBy="1"/>
+
+		<rollback>
+			<dropSequence sequenceName="sequence_historic_beer"/>
+		</rollback>
+	</changeSet>
+</databaseChangeLog>

@@ -1,5 +1,6 @@
 package br.com.chadschoperia.service.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,6 +10,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class ViewUserDto implements Serializable {
 
 	private Long id;
@@ -17,12 +19,11 @@ public class ViewUserDto implements Serializable {
 
 	private String email;
 
-	private String roleName;
+	private String roleNames;
 
-	public ViewUserDto(Long id, String username, String email, String roleName) {
+	public ViewUserDto(Long id, String username, String email) {
 		this.id = id;
 		this.username = username;
 		this.email = email;
-		this.roleName = roleName;
 	}
 }

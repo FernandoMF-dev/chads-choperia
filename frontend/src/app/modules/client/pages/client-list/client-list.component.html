@@ -86,5 +86,5 @@
 	</div>
 </div>
 
-<app-client-form *ngIf="viewClientForm" [(visible)]="viewClientForm" [idClient]="selectedClient?.id"
+<app-client-form *ngIf="viewClientForm" [(visible)]="viewClientForm" [idClient]="selectedClient?.id!"
 				 (save)="fetchClients()"></app-client-form>

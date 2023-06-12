@@ -1,0 +1,51 @@
+<div class="grid">
+	<div class="col-12">
+		<form [formGroup]="form" (ngSubmit)="onSubmit()">
+			<div class="card px-6 py-6">
+				<p-toast></p-toast>
+				<p-toolbar styleClass="mb-4">
+					<div class="p-toolbar-group-start">
+						<h5>Configurações de Self-Service</h5>
+					</div>
+
+					<div class="p-toolbar-group-end">
+						<button pButton type="submit" label="Salvar Configurações" icon="pi pi-save"
+								[disabled]="!form.valid || !this.hasSettingBeenAltered || isLoading"
+								class="p-button-success p-button-raised"></button>
+
+						<button pButton type="button" label="Cancelar" icon="pi pi-times" (click)="resetForm()" [disabled]="isLoading"
+								class="p-button-secondary p-button-raised"></button>
+					</div>
+				</p-toolbar>
+
+				<div class="col-12 p-fluid p-formgrid grid">
+					<div class="xl:col-6 lg:col-6 sm:col-12 field">
+						<label htmlFor="price-per-kg">Preço por Kg</label>
+						<p-inputNumber id="price-per-kg" [showButtons]="true" [min]="0" [step]="0.25"
+									   mode="currency" currency="BRL" locale="pt-BR" formControlName="pricePerKg"
+									   [minFractionDigits]=2 [maxFractionDigits]=2 buttonLayout="horizontal"
+									   decrementButtonClass="p-button-danger" decrementButtonIcon="pi pi-minus"
+									   incrementButtonClass="p-button-success" incrementButtonIcon="pi pi-plus"
+									   [ngClass]="{'ng-invalid ng-dirty': !isFieldValid('pricePerKg')}"></p-inputNumber>
+						<small id="price-per-kg-help" class="p-error block" *ngIf="!isFieldValid('pricePerKg')">
+							Valor obrigatório igual ou maior a zero.
+						</small>
+					</div>
+
+					<div class="xl:col-6 lg:col-6 sm:col-12 field">
+						<label htmlFor="price-base">Preço Base</label>
+						<p-inputNumber id="price-base" [showButtons]="true" [min]="0" [step]="0.25"
+									   mode="currency" currency="BRL" locale="pt-BR" formControlName="priceBase"
+									   [minFractionDigits]=2 [maxFractionDigits]=2 buttonLayout="horizontal"
+									   decrementButtonClass="p-button-danger" decrementButtonIcon="pi pi-minus"
+									   incrementButtonClass="p-button-success" incrementButtonIcon="pi pi-plus"
+									   [ngClass]="{'ng-invalid ng-dirty': !isFieldValid('priceBase')}"></p-inputNumber>
+						<small id="price-base-help" class="p-error block" *ngIf="!isFieldValid('priceBase')">
+							Valor obrigatório igual ou maior a zero.
+						</small>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>

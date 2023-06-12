@@ -12,7 +12,15 @@ public class MessagePropertiesConfig {
 	@Bean
 	public MessageSource messageSource() {
 		ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
-		messageSource.setBasename("classpath:/localization/messages");
+		messageSource.setBasename("classpath:/messages/messages");
+		messageSource.setDefaultEncoding("UTF-8");
+		return messageSource;
+	}
+
+	@Bean
+	public MessageSource historicMessageSource() {
+		ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
+		messageSource.setBasename("classpath:/messages/historics/messages_historic");
 		messageSource.setDefaultEncoding("UTF-8");
 		return messageSource;
 	}

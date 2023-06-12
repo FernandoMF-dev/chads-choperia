@@ -1,0 +1,62 @@
+<div class="grid">
+	<div class="col-12">
+		<div class="card px-6 py-6">
+			<p-toast></p-toast>
+			<p-toolbar styleClass="mb-4">
+				<div class="p-toolbar-group-start">
+					<button pButton pRipple label="Exportar PDF" (click)="exportPdf()" [disabled]="isLoadingSearch"
+							icon="pi {{ isLoadingSearch ? 'pi-spin pi-spinner' : 'pi-file-pdf' }}"
+							class="margin-left p-button-raised p-button-danger"></button>
+				</div>
+
+				<div class="p-toolbar-group-end">
+					<button pButton pRipple label="Pesquisar" (click)="search()" [disabled]="isLoadingSearch"
+							icon="pi {{ isLoadingSearch ? 'pi-spin pi-spinner' : 'pi-search' }}"
+							class="p-button-raised p-button-success"></button>
+				</div>
+			</p-toolbar>
+
+			<div class="col-12 grid">
+				<div class="xl:col-4 lg:col-6 sm:col-12 field">
+					<label htmlFor="filter-min-date">Data inicial</label>
+					<p-calendar id="filter-min-date" [(ngModel)]="filter.minDate" [showIcon]="true" [showClear]="true"
+								[showTime]="true" [showButtonBar]="true"></p-calendar>
+				</div>
+
+				<div class="xl:col-4 lg:col-6 sm:col-12 field">
+					<label htmlFor="filter-max-date">Data final</label>
+					<p-calendar id="filter-max-date" [(ngModel)]="filter.maxDate" [showIcon]="true" [showClear]="true"
+								[showTime]="true" [showButtonBar]="true"></p-calendar>
+				</div>
+
+				<div class="xl:col-4 lg:col-6 sm:col-12 field">
+					<label htmlFor="selling-point">Ponto de Venda</label>
+					<p-multiSelect id="selling-point" [options]="sellingPointOptions" [(ngModel)]="filter.sellingPoints" display="chip"
+								   [disabled]="isLoadingSearch" defaultLabel="Selecione os pontos de venda"></p-multiSelect>
+				</div>
+
+				<div class="xl:col-4 lg:col-6 sm:col-12 field">
+					<label htmlFor="order">Ordem</label>
+					<p-dropdown id="order" [options]="orderOptions" [(ngModel)]="filter.order" [disabled]="isLoadingSearch"></p-dropdown>
+				</div>
+
+				<div class="xl:col-4 lg:col-6 sm:col-12 field">
+					<label htmlFor="group">Agrupar</label>
+					<p-dropdown id="group" [options]="groupOptions" [(ngModel)]="groupMode" [disabled]="isLoadingSearch"
+								(onChange)="loadGroupedReports()"></p-dropdown>
+				</div>
+			</div>
+
+			<div class="col-12">
+				<app-report-client-expenses-group-all *ngIf="groupMode === 'ALL'" [allReports]="allReports"
+													  [totalExpenses]="totalExpenses"></app-report-client-expenses-group-all>
+
+				<app-report-client-expenses-group-client *ngIf="groupMode === 'CLIENT' && selectedGroupView!.loaded"
+														 [reportGroups]="selectedGroupView!.groups"></app-report-client-expenses-group-client>
+
+				<app-report-client-expenses-group-selling-point *ngIf="groupMode === 'SELLING_POINT' && selectedGroupView!.loaded"
+																[reportGroups]="selectedGroupView!.groups"></app-report-client-expenses-group-selling-point>
+			</div>
+		</div>
+	</div>
+</div>

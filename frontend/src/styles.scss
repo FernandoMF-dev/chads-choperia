@@ -16,3 +16,56 @@ $gutter: 1rem; //for primeflex grid system
 /* System styles */
 @import "assets/styles/icons";
 @import "assets/styles/form-grid";
+@import "assets/styles/overwrite-prime-panel";
+
+h5 {
+	margin: 0;
+}
+
+.layout-topbar-logo {
+	display: flex;
+	align-items: center;
+	color: var(--surface-900);
+	font-size: 1.5rem;
+	font-weight: 500;
+	width: 300px;
+	border-radius: 12px;
+
+	img {
+		height: 2.5rem;
+		margin-right: .5rem;
+	}
+
+	&:focus {
+		@include focused();
+	}
+}
+
+p-table.report {
+	width: 100%;
+
+	tr:nth-child(2n) {
+		background-color: #f8f9fa;
+	}
+
+	th {
+		padding: 0.25em 0.75em;
+	}
+
+	th, td {
+		text-align: center !important;
+
+		&.report-description {
+			width: 40%;
+			text-align: start !important;
+		}
+	}
+
+	.positive {
+		color: lime;
+	}
+
+	.negative {
+		color: red;
+	}
+}

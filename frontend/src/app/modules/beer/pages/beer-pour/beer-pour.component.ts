@@ -3,7 +3,6 @@ import { finalize } from 'rxjs/operators';
 import { UtilsService } from '../../../../services/utils.service';
 import { Beer } from '../../models/beer.model';
 import { Pour } from '../../models/pour.model';
-import { Select } from '../../models/select.model';
 import { BeerService } from '../../services/beer.service';
 
 @Component({
@@ -13,22 +12,11 @@ import { BeerService } from '../../services/beer.service';
 })
 export class BeerPourComponent implements OnInit {
 
-	beers: Select[] = [];
-	selectedBeer?: Select = new Select(new Beer('dsadsad', 0, 0, 0, '0'));
-
-	viewBeerForm: boolean = false;
-
-	_isLoading = false;
+	beers: Beer[] = [];
 
 	selected: Pour = new Pour();
 
-	get isLoading(): boolean {
-		return this._isLoading;
-	}
-
-	set isLoading(value: boolean) {
-		this._isLoading = value;
-	}
+	visible: boolean = false;
 
 	constructor(
 		private beerService: BeerService,
@@ -41,43 +29,37 @@ export class BeerPourComponent implements OnInit {
 	}
 
 	fetchBeers(): void {
-		this.isLoading = true;
 		this.selected = new Pour();
-		this.beerService.getAllComplete()
-			.pipe(finalize(() => this.isLoading = false))
+		this.beerService.getAllComplete({ 'onStock': `${ true }` })
 			.subscribe({
-				next: (res) => this.updateBeers(res),
+				next: (res) => this.beers = res,
 				error: (err) => this.utilsService.showErrorMessage(err.error.detail)
 			});
 	}
 
-	private updateBeers(beers: Beer[]): void {
-		const beersAux: Select[] = [];
-		beers.forEach(beer => {
-			beersAux.push(new Select(beer));
-		});
-		this.beers = beersAux;
-		this.selected.beer = this.beers[0].value;
-	}
-
-	get price(): number {
-		if (!!this.selected.beer) {
-			return this.beers.filter(beer => beer.value === this.selected.beer)[0].price!;
-		}
-		return 0;
-	}
-
 	pourDrink() {
 		this.beerService.pourBeer(this.selected)
-			.pipe(finalize(() => this.selected.card = undefined))
+			.pipe(finalize(() => {
+				this.clearSelected();
+				this.fetchBeers();
+				this.visible = false;
+			}))
 			.subscribe({
 				next: () => this.utilsService.showSuccessMessage('Bebida debitada com sucesso'),
 				error: (err) => this.utilsService.showErrorMessage(err.error.detail)
 			});
 	}
 
+	openModal(beer: Beer) {
+		this.selected.beer = beer.id;
+		this.visible = true;
+	}
+
 	handleFocus() {
 		document.getElementById('inputCard')?.focus();
 	}
 
+	clearSelected() {
+		this.selected = new Pour();
+	}
 }

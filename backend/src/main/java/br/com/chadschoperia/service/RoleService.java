@@ -25,4 +25,8 @@ public class RoleService {
 				.orElseThrow(() -> new EntityNotFoundException("role.not_found"));
 	}
 
+	public boolean existsRoleByIds(List<Long> ids) {
+		return repository.existsRoleByIdInAndDeletedIsFalse(ids);
+	}
+
 }

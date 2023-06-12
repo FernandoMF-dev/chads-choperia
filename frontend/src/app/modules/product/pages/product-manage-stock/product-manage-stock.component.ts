@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Table } from 'primeng/table';
 import { finalize } from 'rxjs/operators';
 import { UtilsService } from 'src/app/services/utils.service';
+import { RouteLinkUtils } from '../../../../utils/route-link.utils';
 import { ManageStockProduct } from '../../models/manage-stock-product.model';
 import { Product } from '../../models/product.model';
 import { ProductService } from '../../services/product.service';
@@ -66,7 +67,7 @@ export class ProductManageStockComponent implements OnInit {
 
 	private defineCurrentActionByRoute(): void {
 		const routePaths = this.location.path().split('/');
-		routePaths[routePaths.length - 1] === 'entrada' ? this.currentAction = 'entry' : this.currentAction = 'removal';
+		routePaths[routePaths.length - 1] === RouteLinkUtils.ENTRANCE ? this.currentAction = 'entry' : this.currentAction = 'removal';
 	}
 
 	private defineColumns(): void {
@@ -144,7 +145,7 @@ export class ProductManageStockComponent implements OnInit {
 	}
 
 	handleSubmitData(): void {
-		this.productService.restockProducts(this.buildDataToSave())
+		this.productService.restockProducts(this.buildDataToSave(), this.currentAction)
 			.subscribe({
 				next: () => {
 					this.utilsService.showSuccessMessage('Movimentações cadastradas com sucesso');

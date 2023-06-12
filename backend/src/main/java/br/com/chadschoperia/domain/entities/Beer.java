@@ -1,6 +1,7 @@
 package br.com.chadschoperia.domain.entities;
 
 import br.com.chadschoperia.exceptions.OutOfStockException;
+import br.com.chadschoperia.service.BeerService;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -9,6 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
@@ -17,6 +19,7 @@ import java.io.Serializable;
 @Table(name = "beer")
 @Getter
 @Setter
+@NoArgsConstructor
 public class Beer implements Serializable {
 
 	@Id
@@ -43,6 +46,10 @@ public class Beer implements Serializable {
 	@Column(name = "deleted", nullable = false)
 	private Boolean deleted = Boolean.FALSE;
 
+	public Beer(Long id) {
+		this.id = id;
+	}
+
 	public void setStock(Double stock) {
 		if (stock < 0) {
 			throw new OutOfStockException("beer.out_of_stock");
@@ -52,5 +59,9 @@ public class Beer implements Serializable {
 
 	public void addStock(Double value) {
 		this.setStock(this.getStock() + value);
+	}
+
+	public double getTotalPurchasePrice(double liters) {
+		return liters / BeerService.POUR_QUANTITY * this.getPurchasePrice();
 	}
 }

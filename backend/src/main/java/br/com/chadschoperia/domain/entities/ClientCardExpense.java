@@ -1,7 +1,10 @@
 package br.com.chadschoperia.domain.entities;
 
+import br.com.chadschoperia.domain.enums.SellingPointEnum;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -38,4 +41,8 @@ public class ClientCardExpense {
 
 	@Column(name = "date_time", nullable = false)
 	private LocalDateTime dateTime;
+
+	@Column(name = "selling_point", nullable = false)
+	@Enumerated(EnumType.STRING)
+	private SellingPointEnum sellingPoint;
 }

@@ -1,0 +1,68 @@
+<div class="grid">
+	<div class="col-12">
+		<div class="card px-6 py-6">
+			<p-toast></p-toast>
+			<p-toolbar styleClass="mb-4">
+				<div class="p-toolbar-group-start">
+					<button pButton pRipple label="Exportar PDF" (click)="exportPdf()" [disabled]="!reportsDisplayLoaded"
+							icon="pi {{ isLoadingSearch ? 'pi-spin pi-spinner' : 'pi-file-pdf' }}"
+							class="margin-left p-button-raised p-button-danger"></button>
+				</div>
+
+				<div class="p-toolbar-group-end">
+					<button pButton pRipple label="Pesquisar" (click)="search()" [disabled]="isLoadingSearch || filter.targets.length === 0"
+							icon="pi {{ isLoadingSearch ? 'pi-spin pi-spinner' : 'pi-search' }}"
+							class="p-button-raised p-button-success"></button>
+				</div>
+			</p-toolbar>
+
+			<div class="col-12 grid">
+				<div class="xl:col-4 lg:col-6 sm:col-12 field">
+					<label htmlFor="filter-min-date">Data inicial</label>
+					<p-calendar id="filter-min-date" [(ngModel)]="filter.minDate" [showIcon]="true" [showClear]="true"
+								[showTime]="true" [showButtonBar]="true"></p-calendar>
+				</div>
+
+				<div class="xl:col-4 lg:col-6 sm:col-12 field">
+					<label htmlFor="filter-max-date">Data final</label>
+					<p-calendar id="filter-max-date" [(ngModel)]="filter.maxDate" [showIcon]="true" [showClear]="true"
+								[showTime]="true" [showButtonBar]="true"></p-calendar>
+				</div>
+
+				<div class="xl:col-4 lg:col-6 sm:col-12 field">
+					<label htmlFor="filter-products">Produtos</label>
+					<p-multiSelect id="filter-products" [options]="allProducts" [(ngModel)]="filter.targets"
+								   defaultLabel="Escolha o produto da cozinha" display="chip"
+								   [disabled]="isLoadingProducts" [dropdownIcon]="isLoadingProducts ? 'pi pi-spin pi-spinner' : ''"
+								   optionLabel="name" optionValue="id"></p-multiSelect>
+				</div>
+
+				<div class="xl:col-4 lg:col-6 sm:col-12 field">
+					<label htmlFor="view-mode">Visualização</label>
+					<p-dropdown id="view-mode" [options]="viewModeOptions" [(ngModel)]="viewMode" (onChange)="loadReportGroups()"
+								[disabled]="isLoadingProducts"></p-dropdown>
+				</div>
+			</div>
+
+			<div class="col-12 grid">
+				<p-accordion class="alternate-list">
+					<p-accordionTab *ngFor="let report of reportsDisplay" class="no-content-padding highlight-active">
+						<ng-template pTemplate="header">
+							<div class="report-accordion-header">
+								<p>{{ report.productName }} [{{ report.barcode }}]</p>
+								<p>{{ report.reports.length | number: '2.0-0' }} registros</p>
+							</div>
+						</ng-template>
+
+						<ng-template pTemplate="content">
+							<em *ngIf="!reportsDisplayLoaded" class="pi pi-spin pi-spinner"></em>
+
+							<app-report-stock-item-list *ngIf="reportsDisplayLoaded" [viewMode]="viewMode" [stockSufix]="getUnitSufix()"
+														[reports]="report.reports"></app-report-stock-item-list>
+						</ng-template>
+					</p-accordionTab>
+				</p-accordion>
+			</div>
+		</div>
+	</div>
+</div>

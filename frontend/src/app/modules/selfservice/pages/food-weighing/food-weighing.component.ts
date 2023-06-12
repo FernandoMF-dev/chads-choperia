@@ -1,20 +1,25 @@
-import { Component } from "@angular/core";
-import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { UtilsService } from "src/app/services/utils.service";
-import { foodWeighingService } from "../../services/food-weighing.service";
-import { ScaleService } from "src/app/services/scale.service";
+import { Component } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UtilsService } from 'src/app/services/utils.service';
+import { SelfserviceService } from '../../services/selfservice.service';
+import { ScaleService } from 'src/app/services/scale.service';
+
 @Component({
-	selector: "app-food-weighing",
-	templateUrl: "./food-weighing.component.html",
-	styleUrls: ["./food-weighing.component.scss"],
+	selector: 'app-food-weighing',
+	templateUrl: './food-weighing.component.html',
+	styleUrls: ['./food-weighing.component.scss']
 })
 export class FoodWeighingComponent {
 	form: FormGroup;
 
-	constructor(private utilsService: UtilsService, private foodWeighingService: foodWeighingService, private scaleService: ScaleService) {
+	constructor(
+		private utilsService: UtilsService,
+		private selfserviceService: SelfserviceService,
+		private scaleService: ScaleService
+	) {
 		this.form = new FormGroup({
-			cardId: new FormControl("", [Validators.required]),
-			weight: new FormControl("", [Validators.required]),
+			cardRfid: new FormControl('', [Validators.required]),
+			weight: new FormControl('', [Validators.required])
 		});
 
 		setInterval(() => {
@@ -33,14 +38,13 @@ export class FoodWeighingComponent {
 	}
 
 	onSubmit(): void {
-		this.foodWeighingService.create(this.form.value).subscribe({
-			next: () => {
-				this.utilsService.showSuccessMessage("Self-service cadastrado com sucesso");
-				this.form.reset();
-			},
-			error: () => {
-				this.utilsService.showErrorMessage("Erro ao cadastrar");
-			},
-		});
+		this.selfserviceService.createPurchase(this.form.value)
+			.subscribe({
+				next: () => {
+					this.utilsService.showSuccessMessage('Compra no self-service cadastrada com sucesso');
+					this.form.reset();
+				},
+				error: (err) => this.utilsService.showErrorMessage(err.error.detail)
+			});
 	}
 }

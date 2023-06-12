@@ -1,0 +1,99 @@
+<div class="grid">
+	<div class="col-12">
+		<div class="card px-6 py-6">
+			<p-toast></p-toast>
+			<p-toolbar styleClass="mb-4">
+				<div class="p-toolbar-group-start">
+					<button pButton pRipple label="Exportar PDF" (click)="exportPdf()" [disabled]="isLoadingSearch"
+							icon="pi {{ isLoadingSearch ? 'pi-spin pi-spinner' : 'pi-file-pdf' }}"
+							class="margin-left p-button-raised p-button-danger"></button>
+				</div>
+
+				<div class="p-toolbar-group-end">
+					<button pButton pRipple label="Pesquisar" (click)="search()" [disabled]="isLoadingSearch"
+							icon="pi {{ isLoadingSearch ? 'pi-spin pi-spinner' : 'pi-search' }}"
+							class="p-button-raised p-button-success"></button>
+				</div>
+			</p-toolbar>
+
+			<div class="col-12 grid">
+				<div class="xl:col-4 lg:col-6 sm:col-12 field">
+					<label htmlFor="filter-min-date">Data inicial</label>
+					<p-calendar id="filter-min-date" [(ngModel)]="filter.minDate" [showIcon]="true" [showClear]="true"
+								[showTime]="true" [showButtonBar]="true"></p-calendar>
+				</div>
+
+				<div class="xl:col-4 lg:col-6 sm:col-12 field">
+					<label htmlFor="filter-max-date">Data final</label>
+					<p-calendar id="filter-max-date" [(ngModel)]="filter.maxDate" [showIcon]="true" [showClear]="true"
+								[showTime]="true" [showButtonBar]="true"></p-calendar>
+				</div>
+
+				<div class="xl:col-4 lg:col-6 sm:col-12 field">
+					<label htmlFor="view-mode">Tipo</label>
+					<p-dropdown id="view-mode" [options]="typeOptions" [(ngModel)]="filter.type" [disabled]="isLoadingSearch"></p-dropdown>
+				</div>
+
+				<div class="xl:col-4 lg:col-6 sm:col-12 field">
+					<label htmlFor="selling-point">Ponto de Venda</label>
+					<p-multiSelect id="selling-point" [options]="sellingPointOptions" [(ngModel)]="filter.sellingPoints" display="chip"
+								   [disabled]="isLoadingSearch" defaultLabel="Selecione os pontos de venda"></p-multiSelect>
+				</div>
+			</div>
+
+			<div class="col-12">
+				<p-table [value]="allReports" [responsive]="true" class="report">
+					<ng-template pTemplate="caption">
+						<div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
+							<h5 class="m-0">Receita &times; Despesas</h5>
+
+							<span class="block mt-2 md:mt-0 p-input-icon-left">
+								<label>Total</label>
+								&nbsp;
+								<p-inputNumber [ngModel]="totalRevenue" [showButtons]="false" [readonly]="true"
+											   mode="currency" currency="BRL" locale="pt-BR" [minFractionDigits]=2
+											   [maxFractionDigits]=2></p-inputNumber>
+							</span>
+						</div>
+					</ng-template>
+
+					<ng-template pTemplate="header">
+						<tr>
+							<th id="report-revenue-list-header-type">Tipo</th>
+							<th id="report-revenue-list-header-description" class="report-description">Descrição</th>
+							<th id="report-revenue-list-header-value">Valor</th>
+							<th id="report-client-list-header-selling-point">Ponto de Venda</th>
+							<th id="report-revenue-list-header-date">Data &amp; Hora</th>
+						</tr>
+					</ng-template>
+
+					<ng-template pTemplate="body" let-report>
+						<tr>
+							<td>
+								{{ getTypeDisplayName(report) }}
+							</td>
+							<td class="report-description">
+								{{ report.description }}
+							</td>
+							<td class="{{report.value < 0 ? 'negative' : 'positive'}}">
+								{{ report.value | currency : 'BRL':'symbol' }}
+							</td>
+							<td>
+								{{ formatSellingPoint(report.sellingPoint) }}
+							</td>
+							<td>
+								{{ report.dateTime | date:'dd/MM/yyyy HH:mm:ss' }}
+							</td>
+						</tr>
+					</ng-template>
+
+					<ng-template pTemplate="emptymessage">
+						<tr>
+							<td colspan="5">Nenhum registro encontrado...</td>
+						</tr>
+					</ng-template>
+				</p-table>
+			</div>
+		</div>
+	</div>
+</div>

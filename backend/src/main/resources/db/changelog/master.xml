@@ -15,5 +15,20 @@
 	<include file="db/changelog/files/20230423142700_add_column_deleted_all.xml"/>
 	<include file="db/changelog/files/20230423154200_rename_table_products_and_users.xml"/>
 	<include file="db/changelog/files/20230424172310_create_table_self_service.xml"/>
+	<include file="db/changelog/files/20230428151730_rename_table_self_service_and_notification.xml"/>
+	<include file="/db/changelog/files/20230428152530_add_columns_restock_notification.xml"/>
+	<include file="/db/changelog/files/20230428153000_change_column_restock_notification.xml"/>
+	<include file="db/changelog/files/20230428164500_rename_sequence_notification_and_self_service.xml"/>
+	<include file="db/changelog/files/20230429164000_add_column_selfservice_settings.xml"/>
+	<include file="/db/changelog/files/20230430134100_create_table_historic_beer.xml"/>
+	<include file="/db/changelog/files/20230508100700_change_table_user.xml"/>
+	<include file="/db/changelog/files/20230508102000_change_table_role.xml"/>
+	<include file="/db/changelog/files/20230508103700_create_table_user_role.xml"/>
+	<include file="/db/changelog/files/20230507123100_create_table_historic_product.xml"/>
+	<include file="/db/changelog/files/20230507183000_change_column_product.xml"/>
+	<include file="/db/changelog/files/20230514130000_create_table_revenue_expense.xml"/>
+	<include file="/db/changelog/files/20230514151800_add_column_product.xml"/>
+	<include file="/db/changelog/files/20230520152330_add_column_revenue_expense.xml"/>
+	<include file="/db/changelog/files/20230520154230_add_column_client_card_expense.xml"/>
 
 </databaseChangeLog>

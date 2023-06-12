@@ -1,0 +1,64 @@
+<div class="grid">
+	<div class="col-12">
+		<div class="card px-6 py-6">
+			<h2 class="title-center">Envio de e-mail para clientes</h2>
+			<form [formGroup]="formGroup" (ngSubmit)="send()">
+				<div class="col-12 grid">
+					<div class="xl:col-4 lg:col-6 sm:col-12 field">
+						<label htmlFor="form-period-start-date">Data de início do período</label>
+
+						<p-calendar id="form-period-start-date" formControlName="periodStartDate" [showIcon]="true" [showClear]="true"
+									[showTime]="false" [showButtonBar]="true"></p-calendar>
+
+						<small id="period-start-date-help" class="p-error block" *ngIf="!isFieldValid('periodStartDate')">
+							Campo obrigatório.
+						</small>
+					</div>
+
+					<div class="xl:col-4 lg:col-6 sm:col-12 field">
+						<label htmlFor="form-period-end-date">Data de fim do período</label>
+
+						<p-calendar id="form-period-end-date" formControlName="periodEndDate" [showIcon]="true" [showClear]="true"
+									[showTime]="false" [showButtonBar]="true" (onSelect)="validateEndDate()"></p-calendar>
+
+						<small id="period-end-date-help" class="p-error block" *ngIf="!isFieldValid('periodEndDate')">
+							Campo obrigatório.
+						</small>
+					</div>
+				</div>
+
+				<div class="col-12 grid field">
+					<label htmlFor="form-subject">Assunto</label>
+
+					<input id="form-subject" type="text" pInputText formControlName="subject" class="width-100"/>
+
+					<small id="subject-help" class="p-error block" *ngIf="!isFieldValid('subject')">
+						Campo obrigatório.
+					</small>
+				</div>
+
+				<div class="col-12 grid field">
+					<label htmlFor="form-message">Mensagem</label>
+
+					<textarea id="form-message" rows="5" cols="160" pInputTextarea formControlName="message" class="width-100"></textarea>
+
+					<small id="message-help" class="p-error block" *ngIf="!isFieldValid('message')">
+						Campo obrigatório.
+					</small>
+				</div>
+
+				<div class="center-send-button">
+					<button pButton
+							pRipple
+							type="submit"
+							label="Enviar"
+							icon="pi pi-check-square"
+							class="p-button-raised p-button-success"
+							[disabled]="disableSendButton()"></button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<p-toast></p-toast>

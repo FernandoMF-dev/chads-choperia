@@ -1,8 +1,8 @@
 import { DatePipe, HashLocationStrategy, LocationStrategy, registerLocaleData } from '@angular/common';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import localePt from '@angular/common/locales/pt';
 import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { ThermalPrintModule } from 'ng-thermal-print';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { RippleModule } from 'primeng/ripple';
@@ -17,6 +17,7 @@ import { NodeService } from './demo/service/node.service';
 import { PhotoService } from './demo/service/photo.service';
 import { ProductService } from './demo/service/product.service';
 import { AppLayoutModule } from './layout/app.layout.module';
+import { BasicAuthInterceptor } from './layout/service/auth/BasicAuthInterceptor';
 import { UtilsService } from './services/utils.service';
 
 registerLocaleData(localePt);
@@ -29,11 +30,11 @@ registerLocaleData(localePt);
 		AppRoutingModule,
 		AppLayoutModule,
 		BrowserModule,
-		ThermalPrintModule,
 		ConfirmDialogModule,
 		RippleModule
 	],
 	providers: [
+		{ provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true },
 		{ provide: LocationStrategy, useClass: HashLocationStrategy },
 		{ provide: LOCALE_ID, useValue: 'pt-BR' },
 		CountryService,

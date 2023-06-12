@@ -2,11 +2,14 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { NotfoundComponent } from './demo/components/notfound/notfound.component';
 import { AppLayoutComponent } from './layout/app.layout.component';
+import { AuthGuard } from './layout/service/auth/AuthGuard';
+import { RolesUtil } from './utils/RolesUtil';
 import { RouteLinkUtils } from './utils/route-link.utils';
 
 const routes: Routes = [
 	{
-		path: '', component: AppLayoutComponent,
+		path: '',
+		component: AppLayoutComponent,
 		children: [
 			{
 				path: '',
@@ -34,7 +37,9 @@ const routes: Routes = [
 			},
 			{
 				path: RouteLinkUtils.USER,
-				loadChildren: () => import('./modules/user/user.module').then(m => m.UserModule)
+				loadChildren: () => import('./modules/user/user.module').then(m => m.UserModule),
+				canActivate: [AuthGuard],
+				data: {roles: [RolesUtil.ADMIN]}
 			},
 			{
 				path: RouteLinkUtils.PRODUCT,
@@ -46,7 +51,9 @@ const routes: Routes = [
 			},
 			{
 				path: RouteLinkUtils.CLIENTE,
-				loadChildren: () => import('./modules/client/client.module').then(m => m.ClientModule)
+				loadChildren: () => import('./modules/client/client.module').then(m => m.ClientModule),
+				data: {roles: [RolesUtil.COSTUMER_MONITOR]},
+				canActivate: [AuthGuard],
 			},
 			{
 				path: RouteLinkUtils.BEER,
@@ -55,6 +62,18 @@ const routes: Routes = [
 			{
 				path: RouteLinkUtils.CARD,
 				loadChildren: () => import('./modules/card/card.module').then(m => m.CardModule)
+			},
+			{
+				path: RouteLinkUtils.REPORT,
+				loadChildren: () => import('./modules/report/report.module').then(m => m.ReportModule),
+				data: {roles: [RolesUtil.ADMIN]},
+				canActivate: [AuthGuard],
+			},
+			{
+				path: RouteLinkUtils.EMAIL,
+				loadChildren: () => import('./modules/email/email.module').then(m => m.EmailModule),
+				data: {roles: [RolesUtil.ADMIN]},
+				canActivate: [AuthGuard],
 			}
 		]
 	},

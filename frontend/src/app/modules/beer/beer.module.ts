@@ -3,8 +3,10 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AutoFocusModule } from 'primeng/autofocus';
 import { ButtonModule } from 'primeng/button';
+import { CardModule } from 'primeng/card';
 import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
+import { InputMaskModule } from 'primeng/inputmask';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
 import { RippleModule } from 'primeng/ripple';
@@ -13,23 +15,24 @@ import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
 import { TooltipModule } from 'primeng/tooltip';
-import { InputMaskModule } from 'primeng/inputmask';
 
 
 import { BeerRoutingModule } from './beer-routing.module';
+import { BeerCardComponent } from './components/beer-card/beer-card.component';
 import { BeerFormComponent } from './components/beer-form/beer-form.component';
 import { BeerListComponent } from './pages/beer-list/beer-list.component';
+import { BeerManageStockComponent } from './pages/beer-manage-stock/beer-manage-stock.component';
 import { BeerPourComponent } from './pages/beer-pour/beer-pour.component';
 import { BeerService } from './services/beer.service';
-import { BeerManageStockComponent } from './pages/beer-manage-stock/beer-manage-stock.component';
 
 
 @NgModule({
 	declarations: [
 		BeerListComponent,
 		BeerFormComponent,
-  		BeerManageStockComponent,
-		BeerPourComponent
+		BeerManageStockComponent,
+		BeerPourComponent,
+		BeerCardComponent
 	],
 	imports: [
 		CommonModule,
@@ -48,7 +51,8 @@ import { BeerManageStockComponent } from './pages/beer-manage-stock/beer-manage-
 		InputNumberModule,
 		InputMaskModule,
 		FormsModule,
-		AutoFocusModule
+		AutoFocusModule,
+		CardModule
 	],
 	providers: [
 		BeerService

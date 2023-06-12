@@ -1,7 +1,7 @@
 export class Pour {
 	constructor(
 		public beer?: number,
-		public card?: number,
+		public card?: string
 	) {
 	}
 }
