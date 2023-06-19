@@ -23,14 +23,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/card/client")
-@CrossOrigin(origins = "*", allowedHeaders = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE, RequestMethod.OPTIONS})
+@CrossOrigin(origins = "*", allowedHeaders = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.PATCH, RequestMethod.DELETE, RequestMethod.OPTIONS})
 @RequiredArgsConstructor
 public class ClientCardController {
 
 	private final ClientCardService clientCardService;
 
 	@GetMapping("/rfid/{rfid}")
-	@Secured({RolesUtil.COSTUMER_MONITOR, RolesUtil.CASHIER})
 	public ResponseEntity<ClientCardDto> findOpenByRfid(@PathVariable String rfid, @RequestParam(required = false) boolean paid) {
 		if (paid) {
 			return ResponseEntity.ok(clientCardService.findPaidByRfid(rfid));

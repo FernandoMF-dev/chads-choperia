@@ -1,85 +1,85 @@
-<p-dialog
-	[(visible)]="dialogOpen"
-	[style]="{ maxWidth: 'auto' }"
-	header="Formulário de Usuário"
-	[modal]="true"
-	class="p-fluid"
-	(onShow)="verifyEditMode()"
-	(onHide)="hideDialog.emit()"
->
-	<ng-template pTemplate="content">
-		<form [formGroup]="userForm" autocomplete="off">
-			<fieldset class="p-fluid p-formgrid grid">
+<form [formGroup]="userForm" autocomplete="off">
+	<p-dialog
+			[(visible)]="dialogOpen"
+			[style]="{ width: '50vw' }"
+			header="Formulário de Usuário"
+			[modal]="true"
+			class="p-fluid"
+			(onShow)="verifyEditMode()"
+			(onHide)="hideDialog.emit()"
+	>
+		<ng-template pTemplate="content">
+			<div class="grid">
 				<div class="field col-12 md:col-6">
 					<label htmlFor="username">Nome</label>
 					<input
-						pInputText
-						id="username"
-						type="text"
-						aria-describedby="username-help"
-						required
-						autofocus
-						[ngClass]="{ 'ng-invalid ng-dirty': !isFieldValid('username') }"
-						formControlName="username"
+							pInputText
+							id="username"
+							type="text"
+							aria-describedby="username-help"
+							required
+							autofocus
+							[ngClass]="{ 'ng-invalid ng-dirty': !isFieldValid('username') }"
+							formControlName="username"
 					/>
 					<small id="username-help" class="p-error block" *ngIf="!isFieldValid('username')"> Nome de usuário inválido. </small>
 				</div>
 				<div class="field col-12 md:col-6">
 					<label htmlFor="role">Função</label>
 					<p-multiSelect
-						appendTo="body"
-						id="role"
-						[options]="roleOptions"
-						optionLabel="displayName"
-						optionValue="id"
-						optionDisabled="disabled"
-						formControlName="idsRole"
-						[ngClass]="{ 'ng-invalid ng-dirty': !isFieldValid('idsRole') }"
+							appendTo="body"
+							id="role"
+							[options]="roleOptions"
+							optionLabel="displayName"
+							optionValue="id"
+							optionDisabled="disabled"
+							formControlName="idsRole"
+							[ngClass]="{ 'ng-invalid ng-dirty': !isFieldValid('idsRole') }"
 					></p-multiSelect>
 				</div>
 				<div class="field col-12">
 					<label htmlFor="email">Email</label>
 					<input
-						pInputText
-						id="email"
-						type="email"
-						formControlName="email"
-						[ngClass]="{ 'ng-invalid ng-dirty': !isFieldValid('email') }"
+							pInputText
+							id="email"
+							type="email"
+							formControlName="email"
+							[ngClass]="{ 'ng-invalid ng-dirty': !isFieldValid('email') }"
 					/>
 					<small id="email-help" class="p-error block" *ngIf="!isFieldValid('email')"> Email inválido. </small>
 				</div>
 				<div *ngIf="isEditing()" class="field col-12">
 					<label htmlFor="password">Senha</label>
 					<input
-						pPassword
-						id="password"
-						type="password"
-						formControlName="password"
-						[ngClass]="{ 'ng-invalid ng-dirty': !isFieldValid('password') }"
+							pPassword
+							id="password"
+							type="password"
+							formControlName="password"
+							[ngClass]="{ 'ng-invalid ng-dirty': !isFieldValid('password') }"
 					/>
 					<small id="password-help" class="p-error block" *ngIf="!isFieldValid('password')"> Senha inválida. </small>
 				</div>
-			</fieldset>
-		</form>
-	</ng-template>
+			</div>
+		</ng-template>
 
-	<ng-template pTemplate="footer">
-		<button
-			pButton
-			pRipple
-			label="Cancelar"
-			icon="pi pi-times"
-			class="p-button-raised p-button-danger"
-			(click)="hideDialog.emit()"
-		></button>
-		<button
-			pButton
-			pRipple
-			label="Salvar"
-			icon="pi pi-check"
-			class="p-button-raised p-button-success"
-			[disabled]="userForm.invalid"
-			(click)="saveUser()"
-		></button>
-	</ng-template>
-</p-dialog>
+		<ng-template pTemplate="footer">
+			<button
+					pButton
+					pRipple
+					label="Cancelar"
+					icon="pi pi-times"
+					class="p-button-raised p-button-danger"
+					(click)="hideDialog.emit()"
+			></button>
+			<button
+					pButton
+					pRipple
+					label="Salvar"
+					icon="pi pi-check"
+					class="p-button-raised p-button-success"
+					[disabled]="userForm.invalid"
+					(click)="saveUser()"
+			></button>
+		</ng-template>
+	</p-dialog>
+</form>
