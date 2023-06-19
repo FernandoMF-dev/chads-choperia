@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UtilsService } from 'src/app/services/utils.service';
 import { SelfserviceService } from '../../services/selfservice.service';
+import { ScaleService } from 'src/app/services/scale.service';
 
 @Component({
 	selector: 'app-food-weighing',
@@ -13,11 +14,22 @@ export class FoodWeighingComponent {
 
 	constructor(
 		private utilsService: UtilsService,
-		private selfserviceService: SelfserviceService
+		private selfserviceService: SelfserviceService,
+		private scaleService: ScaleService
 	) {
 		this.form = new FormGroup({
 			cardRfid: new FormControl('', [Validators.required]),
 			weight: new FormControl('', [Validators.required])
+		});
+
+		setInterval(() => {
+			this.refreshWeight();
+		}, 1000)
+	}
+
+	private refreshWeight(): void {
+		this.scaleService.getWeight().subscribe((weight) => {
+			this.form.get('weight')?.setValue(weight.lastWeight);
 		});
 	}
 
