@@ -1,4 +1,5 @@
 import { createServer } from "net";
+import { resolve } from "path";
 
 const ESC = "\u001B";
 const CLEAR_SCREEN = `${ESC}[2J`;
@@ -31,39 +32,50 @@ const server = createServer((socket) => {
 	};
 
 	const formatToBrlCurrency = (number) => {
-		const options = {style: "currency", currency: "BRL"};
+		const options = { style: "currency", currency: "BRL" };
 		const formatNumber = new Intl.NumberFormat("pt-BR", options);
 
-		return formatNumber.format(number).replace(/\s/g, '');
+		return formatNumber.format(number).replace(/\s/g, "");
 	};
 
 	const deleteLastCaracter = () => {
 		inputString = inputString.slice(0, -1);
-	}
+	};
 
 	const clearInputString = () => {
 		inputString = "";
+	};
+
+	const fetchCardData = () => {
+		return new Promise(async (resolve) => {
+			try {
+				console.log(`http://localhost:8080/api/card/client/rfid/${inputString}`);
+				const response = await fetch(`http://localhost:8080/api/card/client/rfid/${inputString}`);
+				const card = await response.json();
+				inputString = `Total ${formatToBrlCurrency(Math.max(card.totalExpenses - card.payment, 0))}`;
+				resolve();
+			} catch {
+				inputString = "Cartao invalido";
+				resolve();
+			}
+		})
 	}
 
 	const handleSubmitCardNumber = async () => {
-		try {
-			// const cardValue = await fetch(`http://localhost:8080/cartao/cliente/rfid/${inputString}`);
-			// const data = await cardValue.json();
-			inputString = `Total ${formatToBrlCurrency(20)}`;
-		} catch {
-			inputString = "Cartao invalido";
-		}
 		pauseMicroterminal();
+		await fetchCardData();
+		writeOutput(inputString);
 		clearTerminalAfterTime();
-	}
+	};
 
 	const incrementCaracterOnInputString = () => {
 		const isNumeric = () => {
 			return /^\d+$/.test(lastInputCaracter);
-		}
+		};
 		if (!isNumeric()) return;
+		if (inputString.length >= 10) return;
 		inputString += lastInputCaracter;
-	}
+	};
 
 	const commands = {
 		8: deleteLastCaracter,
