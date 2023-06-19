@@ -13,6 +13,6 @@ export class ScaleService {
 	constructor(protected readonly http: HttpClient,) {}
 
 	getWeight(): Observable<WeightResponse> {
-    return this.http.get<WeightResponse>('http://192.168.195.170/peso');
+    return this.http.get<WeightResponse>('http://192.168.47.125/peso');
   }
 }
