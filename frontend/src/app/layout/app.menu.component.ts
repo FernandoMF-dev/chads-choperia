@@ -40,11 +40,11 @@ export class AppMenuComponent implements OnInit {
 		return new Map<RolesUtil, AppMenuitemType[]>([
 			[RolesUtil.ADMIN, [...this.getAdminMenu()]],
 			[RolesUtil.CASHIER, [...this.getCashierMenu()]],
-			[RolesUtil.COSTUMER, []],
+			[RolesUtil.COSTUMER, [...this.getPublicMenu()]],
 			[RolesUtil.COOK, [...this.getCookMenu()]],
 			[RolesUtil.COSTUMER_MONITOR, [...this.getCostumerMonitorMenu()]],
 			[RolesUtil.FOOD_MONITOR, [...this.getFoodMonitorMenu()]],
-			[RolesUtil.STOCK_MONITOR, [...this.getStockManagerMenu()]]
+			[RolesUtil.STOCK_MONITOR, [...this.getStockManagerMenu()]],
 		]);
 	}
 
@@ -53,12 +53,7 @@ export class AppMenuComponent implements OnInit {
 			{
 				label: 'Área do cliente',
 				items: [
-					{ label: 'Chopes', material: 'sports_bar', routerLink: [RouteLinkUtils.BEER, RouteLinkUtils.EXIT] },
-					{
-						label: 'Self-Service',
-						material: 'restaurant',
-						routerLink: [RouteLinkUtils.SELF_SERVICE, RouteLinkUtils.FOOD_WEIGHING]
-					}
+					{ label: 'Chopes', material: 'sports_bar', routerLink: [RouteLinkUtils.BEER, RouteLinkUtils.EXIT] }
 				]
 			}
 		];
@@ -141,7 +136,12 @@ export class AppMenuComponent implements OnInit {
 			{
 				label: 'Menu do Fiscal de Self-service',
 				items: [
-					{ label: 'Notificar falta', icon: 'pi pi-fw pi-bell', routerLink: [RouteLinkUtils.SELF_SERVICE] }
+					{ label: 'Notificar falta', icon: 'pi pi-fw pi-bell', routerLink: [RouteLinkUtils.SELF_SERVICE] },
+					{
+						label: 'Self-Service',
+						material: 'restaurant',
+						routerLink: [RouteLinkUtils.SELF_SERVICE, RouteLinkUtils.FOOD_WEIGHING]
+					}
 				]
 			}
 		];
