@@ -10,7 +10,7 @@
 	<div class="payment-infos">
 		<p style="margin-bottom: 0.225rem;">Cliente: {{ cardPayment?.clientCard?.client?.name }}</p>
 		<p style="margin-bottom: 0.225rem;">Cartão: {{ cardPayment?.clientCard?.rfid }}</p>
-		<p style="margin-bottom: 0.225rem;">Método de Pagamento: {{ cardPayment?.paymentMethod }}</p>
+		<p style="margin-bottom: 0.225rem;">Método de Pagamento: {{ formatPaymentMethod() }}</p>
 		<p style="margin-bottom: 0.225rem;">Total Venda: {{ cardPayment?.clientCard?.totalExpenses! | currency : "BRL" : "symbol" }}</p>
 		<p style="margin-bottom: 0.225rem;">Total pagamento: {{ cardPayment?.totalPaid | currency : "BRL" : "symbol" }}</p>
 		<p style="margin-bottom: 0.225rem;" *ngIf="cardPayment?.totalPaid! > cardPayment?.clientCard?.totalExpenses!">

@@ -22,8 +22,11 @@ export class PaymentMethod {
 	}
 
 	public static get allValues(): PaymentMethod[] {
-		return [this.CASH, this.CREDIT_CARD, this.DEBT_CARD, this.PIX, this.PICPAY,
-			this.OTHER];
+		return [this.CASH, this.CREDIT_CARD, this.DEBT_CARD, this.PIX, this.PICPAY, this.OTHER];
+	}
+
+	public static find(key: PaymentMethodEnum): PaymentMethod | undefined {
+		return this.allValues.find(value => value.key === key);
 	}
 
 }
