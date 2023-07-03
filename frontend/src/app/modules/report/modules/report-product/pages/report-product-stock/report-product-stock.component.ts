@@ -8,11 +8,16 @@ import { REPORT_STOCK_VIEW_MODE_SELECT, ReportStockViewMode } from '../../../../
 import { ReportStockComponentUtils } from '../../../../utils/report-stock-component.utils';
 import { ProductStockReport, ProductStockReportGroup } from '../../models/product-stock.report';
 import { ProductReportService } from '../../services/product-report.service';
+import { HeaderItem } from 'src/app/models/report.model';
+import * as moment from 'moment';
+import { ReportService } from 'src/app/services/report.service';
+import { CurrencyPipe } from '@angular/common';
 
 @Component({
 	selector: 'app-report-product-stock',
 	templateUrl: './report-product-stock.component.html',
-	styleUrls: ['./report-product-stock.component.scss']
+	styleUrls: ['./report-product-stock.component.scss'],
+	providers: [CurrencyPipe]
 })
 export class ReportProductStockComponent extends ReportStockComponentUtils<ProductStockReport, ProductStockReportGroup> implements OnInit {
 	allProducts: Product[] = [];
@@ -32,7 +37,9 @@ export class ReportProductStockComponent extends ReportStockComponentUtils<Produ
 	constructor(
 		private productService: ProductService,
 		private productReportService: ProductReportService,
-		private utilsService: UtilsService
+		private utilsService: UtilsService,
+		private reportService: ReportService,
+		private currencyPipe: CurrencyPipe
 	) {
 		super();
 	}
@@ -97,6 +104,26 @@ export class ReportProductStockComponent extends ReportStockComponentUtils<Produ
 
 
 	public exportPdf(){
-		ReportStockComponentUtils.groupedExportPdf(this.reportsDisplay, this.cols, 'Estoque de Chopes')
+		const headers: HeaderItem[] = [
+			{ title: "Descrição", style: { width: 110 } },
+			{ title: "Valor", style: { width: 20 } },
+			{ title: "Estoque", style: { width: 20 } },
+			{ title: "Data & Hora", style: { width: 20 } },
+		];
+
+		this.reportsDisplay.forEach((reportDisplay) => {
+			const items = reportDisplay.reports.map((productReport) => [
+				productReport.description + "\n",
+				`${productReport.value}un`,
+				`${productReport.totalStock}un`,
+				moment(productReport.dateTime).format("DD/MM/YYYY hh:MM:SS"),
+			]);
+			this.reportService.generateReport(
+				`Relatório Estoque ${reportDisplay.productName}`,
+				`relatorio-${String(reportDisplay.productName).toLowerCase().replace(/ /g, "-")}`,
+				headers,
+				items
+			);
+		});
 	}
 }

@@ -1,24 +1,29 @@
-import { Component } from '@angular/core';
-import { SelectItem } from 'primeng/api';
-import { finalize } from 'rxjs';
+import { Component } from "@angular/core";
+import { SelectItem } from "primeng/api";
+import { finalize } from "rxjs";
 import {
 	ClientExpensesReport,
-	ClientExpensesReportGroup
-} from 'src/app/modules/report/modules/report-client-expenses/models/client-expenses.report';
-import { ClientReportFilter } from 'src/app/modules/report/modules/report-client-expenses/models/client-report.filter';
-import { UtilsService } from 'src/app/services/utils.service';
-import { SELLING_POINT_FORMAT, SELLING_POINT_SELECT, SellingPointEnum } from '../../../../../../enums/selling-point.enum';
-import { FormatUtils } from '../../../../../../utils/format.utils';
-import { ReportStockComponentUtils } from '../../../../utils/report-stock-component.utils';
-import { CLIENT_EXPENSES_REPORT_GROUP_SELECT, ClientExpensesReportGroupEnum } from '../../enums/client-expenses-report-group.enum';
-import { CLIENT_EXPESES_REPORT_ORDER_SELECT, ClientExpensesReportOrderEnum } from '../../enums/client-expenses-report-order.enum';
-import { ClientExpensesReportService } from '../../services/client-expenses-report.service';
-const _ = require('lodash');
+	ClientExpensesReportGroup,
+} from "src/app/modules/report/modules/report-client-expenses/models/client-expenses.report";
+import { ClientReportFilter } from "src/app/modules/report/modules/report-client-expenses/models/client-report.filter";
+import { UtilsService } from "src/app/services/utils.service";
+import { SELLING_POINT_FORMAT, SELLING_POINT_SELECT, SellingPointEnum } from "../../../../../../enums/selling-point.enum";
+import { FormatUtils } from "../../../../../../utils/format.utils";
+import { ReportStockComponentUtils } from "../../../../utils/report-stock-component.utils";
+import { CLIENT_EXPENSES_REPORT_GROUP_SELECT, ClientExpensesReportGroupEnum } from "../../enums/client-expenses-report-group.enum";
+import { CLIENT_EXPESES_REPORT_ORDER_SELECT, ClientExpensesReportOrderEnum } from "../../enums/client-expenses-report-order.enum";
+import { ClientExpensesReportService } from "../../services/client-expenses-report.service";
+import { HeaderItem } from "src/app/models/report.model";
+import { CurrencyPipe } from "@angular/common";
+import { ReportService } from "src/app/services/report.service";
+import * as moment from "moment";
+const _ = require("lodash");
 
 @Component({
-	selector: 'app-report-client-expenses',
-	templateUrl: './report-client-expenses.component.html',
-	styleUrls: ['./report-client-expenses.component.scss']
+	selector: "app-report-client-expenses",
+	templateUrl: "./report-client-expenses.component.html",
+	styleUrls: ["./report-client-expenses.component.scss"],
+	providers: [CurrencyPipe],
 })
 export class ReportClientExpensesComponent {
 	isLoadingSearch: boolean = false;
@@ -34,41 +39,48 @@ export class ReportClientExpensesComponent {
 	private backupFilter: ClientReportFilter = Object.assign({}, this.filter);
 
 	cols = [
-		{ dataKey: 'clientName', title: 'Nome'},
-		{ dataKey: 'clientTelephone', title: 'Telefone'},
-		{ dataKey: 'clientEmail', title: 'Email'},
-		{ dataKey: 'description', title: 'Descrição'},
-		{ dataKey: 'value', title: 'Valor'},
-		{ dataKey: 'sellingPoint', title: 'Ponto de Venda'},
-		{ dataKey: 'dateTime', title: 'Data & Hora'},
-
+		{ dataKey: "clientName", title: "Nome" },
+		{ dataKey: "clientTelephone", title: "Telefone" },
+		{ dataKey: "clientEmail", title: "Email" },
+		{ dataKey: "description", title: "Descrição" },
+		{ dataKey: "value", title: "Valor" },
+		{ dataKey: "sellingPoint", title: "Ponto de Venda" },
+		{ dataKey: "dateTime", title: "Data & Hora" },
 	];
 
 	constructor(
 		private clientExpensesReportService: ClientExpensesReportService,
-		private utilsService: UtilsService
+		private utilsService: UtilsService,
+		private currencyPipe: CurrencyPipe,
+		private reportService: ReportService
 	) {
 		this.reportGroups = new Map<ClientExpensesReportGroupEnum, ReportGroupControl>([
-			[ClientExpensesReportGroupEnum.CLIENT, {
-				groups: [],
-				loaded: false,
-				formatKey: (report) => `${ report.clientId } - ${ report.clientName }`,
-				formatGroup: (group, first) => {
-					group.name = first.clientName;
-					group.telephone = first.clientTelephone;
-					group.email = first.clientEmail;
+			[
+				ClientExpensesReportGroupEnum.CLIENT,
+				{
+					groups: [],
+					loaded: false,
+					formatKey: (report) => `${report.clientId} - ${report.clientName}`,
+					formatGroup: (group, first) => {
+						group.name = first.clientName;
+						group.telephone = first.clientTelephone;
+						group.email = first.clientEmail;
+					},
+					compareGroup: (a, b) => this.compareGroupViewClient(a, b),
 				},
-				compareGroup: (a, b) => this.compareGroupViewClient(a, b)
-			}],
-			[ClientExpensesReportGroupEnum.SELLING_POINT, {
-				groups: [],
-				loaded: false,
-				formatKey: (report) => `${ report.sellingPoint }`,
-				formatGroup: (group, first) => {
-					group.name = SELLING_POINT_FORMAT.get(first.sellingPoint)!;
+			],
+			[
+				ClientExpensesReportGroupEnum.SELLING_POINT,
+				{
+					groups: [],
+					loaded: false,
+					formatKey: (report) => `${report.sellingPoint}`,
+					formatGroup: (group, first) => {
+						group.name = SELLING_POINT_FORMAT.get(first.sellingPoint)!;
+					},
+					compareGroup: (a, b) => this.compareGroupViewSellingPoint(a, b),
 				},
-				compareGroup: (a, b) => this.compareGroupViewSellingPoint(a, b)
-			}]
+			],
 		]);
 	}
 
@@ -78,11 +90,12 @@ export class ReportClientExpensesComponent {
 
 	search(): void {
 		this.isLoadingSearch = true;
-		this.clientExpensesReportService.reportClientExpenseOverTime(this.filter)
-			.pipe(finalize(() => this.isLoadingSearch = false))
+		this.clientExpensesReportService
+			.reportClientExpenseOverTime(this.filter)
+			.pipe(finalize(() => (this.isLoadingSearch = false)))
 			.subscribe({
 				next: (res) => this.updateReport(res),
-				error: (err) => this.utilsService.showErrorMessage(err.error.detail)
+				error: (err) => this.utilsService.showErrorMessage(err.error.detail),
 			});
 	}
 
@@ -101,14 +114,14 @@ export class ReportClientExpensesComponent {
 		this.allReports = res;
 		this.totalExpenses = 0;
 
-		this.reportGroups.forEach(control => {
+		this.reportGroups.forEach((control) => {
 			control.groups = [];
 			control.loaded = false;
 		});
 
-		this.allReports.forEach(report => {
+		this.allReports.forEach((report) => {
 			this.totalExpenses! += report.value;
-			return report.dateTime = new Date(report.dateTime);
+			return (report.dateTime = new Date(report.dateTime));
 		});
 	}
 
@@ -118,7 +131,7 @@ export class ReportClientExpensesComponent {
 		const formatGroup = control.formatGroup;
 		const aux: { [key: string]: ClientExpensesReport[] } = {};
 
-		this.allReports.forEach(report => {
+		this.allReports.forEach((report) => {
 			const key = formatKey(report);
 			if (aux[key] == null) {
 				aux[key] = [];
@@ -129,7 +142,7 @@ export class ReportClientExpensesComponent {
 		for (const key in aux) {
 			const group = new ClientExpensesReportGroup(aux[key]);
 			formatGroup(group, aux[key][0], aux[key]);
-			group.value = aux[key].map(report => report.value).reduce((previous, current) => previous + current);
+			group.value = aux[key].map((report) => report.value).reduce((previous, current) => previous + current);
 			control.groups.push(group);
 		}
 		control.loaded = true;
@@ -155,23 +168,51 @@ export class ReportClientExpensesComponent {
 		return 0;
 	}
 
-	public exportPdf(){
-		const fileName = 'Gastos de Clientes'
-		if(this.groupMode === 'ALL'){
+	public exportPdf() {
+		const fileName = "Gastos de Clientes";
+		if (this.groupMode === "ALL") {
 			const body: any[] = _.cloneDeep(this.allReports);
-			body.forEach(elem => {
+			body.forEach((elem) => {
 				elem.clientTelephone = FormatUtils.formatTelephone(elem.clientTelephone);
 				elem.sellingPoint = SELLING_POINT_FORMAT.get(elem.sellingPoint);
-			})
-			ReportStockComponentUtils.exportPdf(body,this.cols, fileName, this.totalExpenses)
-		}else {
-			if(this.selectedGroupView){
-				ReportStockComponentUtils.groupedExportPdfCostumer(this.selectedGroupView.groups, this.cols, fileName, this.groupMode === 'SELLING_POINT')
+			});
+
+			const headers: HeaderItem[] = [
+				{ title: "Nome", style: { width: 20 } },
+				{ title: "Telefone", style: { width: 30 } },
+				{ title: "Email", style: { width: 30 } },
+				{ title: "Descrição", style: { width: 30 } },
+				{ title: "Valor", style: { width: 15 } },
+				{ title: "Ponto de Venda", style: { width: 30 } },
+				{ title: "Data & Hora", style: { width: 15 } },
+			];
+
+			const items = body.map((clientExpenseReport: ClientExpensesReport) => [
+				clientExpenseReport.clientName,
+				clientExpenseReport.clientTelephone,
+				clientExpenseReport.clientEmail,
+				clientExpenseReport.description + "\n",
+				this.currencyPipe.transform(clientExpenseReport.value, "BRL"),
+				clientExpenseReport.sellingPoint,
+				moment(clientExpenseReport.dateTime).format("DD/MM/YYYY hh:MM:SS"),
+			]);
+			this.reportService.generateReport(
+				`Relatório Gastos de Cliente / Total: ${this.currencyPipe.transform(this.totalExpenses, "BRL")}`,
+				`relatorio-gastos-cliente`,
+				headers,
+				items
+			);
+		} else {
+			if (this.selectedGroupView) {
+				ReportStockComponentUtils.groupedExportPdfCostumer(
+					this.selectedGroupView.groups,
+					this.cols,
+					fileName,
+					this.groupMode === "SELLING_POINT"
+				);
 			}
 		}
-
 	}
-
 }
 
 interface ReportGroupControl {

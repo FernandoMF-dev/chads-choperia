@@ -18,7 +18,6 @@ export class ReportService {
 			name: reportName,
       otherInfo: `Data da Geração: ${this.datePipe.transform(new Date(), 'dd/MM/yyyy HH:mm:ss')}`
 		};
-    console.log(reportName)
     reportProps.invoice = {
       header: tableHeaders,
       table: tableItems,
