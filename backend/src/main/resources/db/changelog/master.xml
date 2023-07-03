@@ -30,5 +30,6 @@
 	<include file="/db/changelog/files/20230514151800_add_column_product.xml"/>
 	<include file="/db/changelog/files/20230520152330_add_column_revenue_expense.xml"/>
 	<include file="/db/changelog/files/20230520154230_add_column_client_card_expense.xml"/>
+	<include file="/db/changelog/files/20230703144200_add_column_client_card.xml"/>
 
 </databaseChangeLog>

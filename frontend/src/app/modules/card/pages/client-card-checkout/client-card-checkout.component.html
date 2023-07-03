@@ -8,14 +8,11 @@
 				</div>
 
 				<div class="p-toolbar-group-end">
-					<button *ngIf="situation !== 'invalid'" pButton type="button" label="Desvincular Cartão"
-							[disabled]="situation !== 'valid'" class="p-button-success p-button-raised" (click)="onSubmit()">
+					<button pButton type="button" label="Desvincular Cartão"
+							[disabled]="situation === 'undefined'" class="p-button-success p-button-raised" (click)="onSubmit()">
 						<em class="pi p-button-icon p-button-icon-left material-symbols-outlined on-data-content"
 							aria-hidden="true" data-material="credit_card_off"></em>
 					</button>
-
-					<button *ngIf="situation === 'invalid'" pButton type="button" label="Conta ainda não foi completamente paga"
-							class="p-button-danger p-button-raised" icon="pi pi-times"></button>
 				</div>
 			</p-toolbar>
 

@@ -44,7 +44,7 @@ export class AppMenuComponent implements OnInit {
 			[RolesUtil.COOK, [...this.getCookMenu()]],
 			[RolesUtil.COSTUMER_MONITOR, [...this.getCostumerMonitorMenu()]],
 			[RolesUtil.FOOD_MONITOR, [...this.getFoodMonitorMenu()]],
-			[RolesUtil.STOCK_MONITOR, [...this.getStockManagerMenu()]],
+			[RolesUtil.STOCK_MONITOR, [...this.getStockManagerMenu()]]
 		]);
 	}
 
@@ -65,6 +65,7 @@ export class AppMenuComponent implements OnInit {
 				label: 'Registros Administrativos',
 				items: [
 					{ label: 'Usuários', icon: 'pi pi-fw pi-user', routerLink: [RouteLinkUtils.USER] },
+					{ label: 'Clientes', icon: 'pi pi-fw pi-id-card', routerLink: [RouteLinkUtils.CLIENTE] },
 					{ label: 'Produtos', icon: 'pi pi-fw pi-box', routerLink: [RouteLinkUtils.PRODUCT] },
 					{ label: 'Chopes', material: 'sports_bar', routerLink: [RouteLinkUtils.BEER] },
 					{
@@ -99,12 +100,12 @@ export class AppMenuComponent implements OnInit {
 			{
 				label: 'Menu do Cozinheiro',
 				items: [
+					{ label: 'Notificação de Self Service', icon: 'pi pi-fw pi-bell', routerLink: [RouteLinkUtils.SELF_SERVICE] },
 					{
 						label: 'Saída de Estoque',
-						icon: 'pi pi-fw pi-arrow-down-right',
+						material: 'shopping_cart_checkout',
 						routerLink: [RouteLinkUtils.PRODUCT, RouteLinkUtils.EXIT]
-					},
-					{ label: 'Notificação de Self Service', icon: 'pi pi-fw pi-bell', routerLink: [RouteLinkUtils.SELF_SERVICE] }
+					}
 				]
 			}
 		];

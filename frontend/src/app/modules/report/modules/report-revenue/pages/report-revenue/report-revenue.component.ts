@@ -8,6 +8,7 @@ import { SELLING_POINT_FORMAT, SELLING_POINT_SELECT, SellingPointEnum } from '..
 import { ReportStockComponentUtils } from '../../../../utils/report-stock-component.utils';
 import { REVENUE_EXPENSE_TYPE_OPTIONS, RevenueExpenseTypeEnum } from '../../enums/revenue-expense-type.enum';
 import { RevenueExpenseReportService } from '../../services/revenue-report.service';
+
 const _ = require('lodash');
 
 @Component({
@@ -28,7 +29,6 @@ export class ReportRevenueComponent {
 		{ dataKey: 'type', title: 'Tipo'},
 		{ dataKey: 'description', title: 'Descrição'},
 		{ dataKey: 'value', title: 'Valor' },
-		{ dataKey: 'sellingPoint', title: 'Ponto de Venda' },
 		{ dataKey: 'dateTime', title: 'Data & Hora' },
 	];
 

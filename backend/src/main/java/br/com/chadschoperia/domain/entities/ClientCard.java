@@ -43,6 +43,9 @@ public class ClientCard {
 	@Column(name = "payment", nullable = false)
 	private Double payment = 0.0;
 
+	@Column(name = "change")
+	private Double change;
+
 	@Column(name = "payment_method")
 	@Enumerated(EnumType.STRING)
 	private PaymentMethodEnum paymentMethod;
@@ -64,9 +67,5 @@ public class ClientCard {
 		return this.getExpenses().stream()
 				.mapToDouble(ClientCardExpense::getValue)
 				.sum();
-	}
-
-	public Double getChange() {
-		return this.getPayment() - this.getTotalExpenses();
 	}
 }
