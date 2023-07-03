@@ -52,14 +52,14 @@ const server = createServer((socket) => {
 				console.log(`http://localhost:8080/api/card/client/rfid/${inputString}`);
 				const response = await fetch(`http://localhost:8080/api/card/client/rfid/${inputString}`);
 				const card = await response.json();
-				inputString = `Total ${formatToBrlCurrency(Math.max(card.totalExpenses - card.payment, 0))}`;
+				inputString = `Total ${formatToBrlCurrency(Math.max(card.totalExpenses || 0 - card.payment || 0, 0))}`;
 				resolve();
 			} catch {
 				inputString = "Cartao invalido";
 				resolve();
 			}
-		})
-	}
+		});
+	};
 
 	const handleSubmitCardNumber = async () => {
 		pauseMicroterminal();
