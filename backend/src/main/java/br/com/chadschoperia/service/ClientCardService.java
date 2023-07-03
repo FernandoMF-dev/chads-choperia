@@ -3,6 +3,7 @@ package br.com.chadschoperia.service;
 import br.com.chadschoperia.domain.entities.ClientCard;
 import br.com.chadschoperia.domain.entities.ClientCardExpense;
 import br.com.chadschoperia.domain.enums.ClientCardStatusEnum;
+import br.com.chadschoperia.domain.enums.SellingPointEnum;
 import br.com.chadschoperia.exceptions.BusinessException;
 import br.com.chadschoperia.exceptions.EntityNotFoundException;
 import br.com.chadschoperia.exceptions.ResourceInUseException;
@@ -11,13 +12,17 @@ import br.com.chadschoperia.service.dto.ClientCardDto;
 import br.com.chadschoperia.service.dto.ClientCardLinkDto;
 import br.com.chadschoperia.service.dto.ClientCardPaymentDto;
 import br.com.chadschoperia.service.dto.ClientDto;
+import br.com.chadschoperia.service.events.AddRevenueExpenseEvent;
 import br.com.chadschoperia.service.mapper.ClientCardMapper;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.ObjectUtils;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.text.NumberFormat;
 import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.Locale;
@@ -35,6 +40,8 @@ public class ClientCardService {
 	private final ClientService clientService;
 
 	private final MessageSource messageSource;
+	private final MessageSource historicMessageSource;
+	private final ApplicationEventPublisher applicationEventPublisher;
 
 	public ClientCardDto findOpenByRfid(String rfid) throws EntityNotFoundException {
 		ClientCard entity = repository.findByRfidAndStatus(rfid, ClientCardStatusEnum.OPEN)
@@ -67,9 +74,11 @@ public class ClientCardService {
 			ClientCardDto dto = findOpenByRfid(payment.getRfid());
 
 			dto.setPayment(payment.getPayment());
+			dto.setChange(payment.getChange());
 			dto.setPaymentMethod(payment.getPaymentMethod());
 			dto.setStatus(ClientCardStatusEnum.PAID);
 
+			publishCardPaymentEvent(dto);
 			return save(dto);
 		} catch (EntityNotFoundException e) {
 			throw new EntityNotFoundException(HttpStatus.BAD_REQUEST, e.getReason());
@@ -112,8 +121,20 @@ public class ClientCardService {
 	}
 
 	private void validateFullPayment(ClientCardDto dto) {
-		if (dto.getChange() < 0 || !Objects.equals(ClientCardStatusEnum.PAID, dto.getStatus())) {
+		if (!Objects.equals(ClientCardStatusEnum.PAID, dto.getStatus())) {
 			throw new BusinessException("client_card.not_paid");
 		}
+	}
+
+	private void publishCardPaymentEvent(ClientCardDto card) {
+		Locale locale = new Locale("pt", "BR");
+		NumberFormat formatter = NumberFormat.getCurrencyInstance(locale);
+		ClientDto client = card.getClient();
+		Double change = ObjectUtils.defaultIfNull(card.getChange(), 0.0);
+		String[] descParameters = new String[]{client.getName(), card.getRfid(), formatter.format(card.getPayment()), card.getPaymentMethod().getLabel(), formatter.format(change)};
+		String expenseDesc = historicMessageSource.getMessage("revenue.client_card.payment", descParameters, Locale.getDefault());
+		double value = card.getPayment() - Math.max(change, 0.0);
+
+		applicationEventPublisher.publishEvent(new AddRevenueExpenseEvent(value, expenseDesc, SellingPointEnum.SELF_SERVICE));
 	}
 }

@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
+import { CheckboxModule } from 'primeng/checkbox';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
@@ -13,11 +14,11 @@ import { ToolbarModule } from 'primeng/toolbar';
 import { TooltipModule } from 'primeng/tooltip';
 
 import { CardRoutingModule } from './card-routing.module';
+import { SalePrintTemplateComponent } from './components/sale-print-template/sale-print-template.component';
 import { ClientCardCheckinComponent } from './pages/client-card-checkin/client-card-checkin.component';
 import { ClientCardCheckoutComponent } from './pages/client-card-checkout/client-card-checkout.component';
 import { ClientCardPaymentComponent } from './pages/client-card-payment/client-card-payment.component';
 import { ClientCardService } from './services/client-card.service';
-import { SalePrintTemplateComponent } from './components/sale-print-template/sale-print-template.component';
 
 
 @NgModule({
@@ -25,7 +26,7 @@ import { SalePrintTemplateComponent } from './components/sale-print-template/sal
 		ClientCardCheckinComponent,
 		ClientCardPaymentComponent,
 		ClientCardCheckoutComponent,
-  	SalePrintTemplateComponent
+		SalePrintTemplateComponent
 	],
 	imports: [
 		CommonModule,
@@ -41,7 +42,8 @@ import { SalePrintTemplateComponent } from './components/sale-print-template/sal
 		TableModule,
 		TooltipModule,
 		SkeletonModule,
-		FormsModule
+		FormsModule,
+		CheckboxModule
 	],
 	providers: [
 		ClientCardService

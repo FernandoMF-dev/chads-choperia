@@ -19,7 +19,8 @@ export class ClientCardPaymentComponent {
 	form: FormGroup;
 	clientCard?: ClientCard;
 	cardPayment?: CardPayment;
-	paymentMethods = [{ key: null, description: 'Selecione um...' }, ...PaymentMethod.allValues];
+	paymentMethods = [{ key: null, label: 'Selecione um...' }, ...PaymentMethod.allValues];
+	hasChange: boolean = false;
 
 	isLoadingSubmit: boolean = false;
 	isLoadingRfid: boolean = false;
@@ -43,6 +44,10 @@ export class ClientCardPaymentComponent {
 	get isPaymentValid(): boolean {
 		return this.form.get('payment')?.value == null || this.clientCard == null
 			|| this.form.get('payment')?.value >= this.clientCard!.totalExpenses!;
+	}
+
+	updateChange(): void {
+		this.form.get('change')?.setValue(this.getChange());
 	}
 
 	onSubmit(): void {
@@ -96,7 +101,7 @@ export class ClientCardPaymentComponent {
 	}
 
 	getChange(): number | null {
-		if (this.clientCard == null || this.clientCard!.totalExpenses == null || this.form.get('payment')?.value == null) {
+		if (!this.hasChange || this.clientCard == null || this.clientCard!.totalExpenses == null || this.form.get('payment')?.value == null) {
 			return null;
 		}
 		return this.form.get('payment')?.value - this.clientCard!.totalExpenses!;
@@ -127,23 +132,28 @@ export class ClientCardPaymentComponent {
 
 	resetForm(card?: ClientCard): void {
 		if (card != null) {
+			this.hasChange = true;
 			this.form.reset(card);
 			this.clientCard = card;
 			this.form.get('payment')?.enable();
 			this.form.get('paymentMethod')?.enable();
 		} else {
+			this.hasChange = false;
 			this.form.reset();
 			this.clientCard = undefined;
 			this.form.get('payment')?.disable();
 			this.form.get('paymentMethod')?.disable();
 		}
+
+		this.updateChange();
 	}
 
 	private initializeForm(): FormGroup {
 		return this.formBuilder.group({
 			rfid: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
 			payment: [null, [Validators.required, Validators.min(0)]],
-			paymentMethod: ['', [Validators.required]]
+			paymentMethod: ['', [Validators.required]],
+			change: [null, []]
 		});
 	}
 }

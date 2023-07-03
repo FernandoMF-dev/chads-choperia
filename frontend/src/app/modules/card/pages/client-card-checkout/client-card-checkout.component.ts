@@ -50,7 +50,7 @@ export class ClientCardCheckoutComponent {
 	}
 
 	onSubmit(): void {
-		if (this.isLoading || this.situation !== 'valid') {
+		if (this.isLoading || this.situation === 'undefined') {
 			return;
 		}
 
