@@ -21,4 +21,6 @@ public class ClientCardPaymentDto {
 	@NotNull(message = "client_card.payment_method.not_null")
 	@NotEmpty(message = "client_card.payment_method.not_empty")
 	private PaymentMethodEnum paymentMethod;
+
+	private Double change;
 }

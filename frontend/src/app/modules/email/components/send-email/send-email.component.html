@@ -27,24 +27,29 @@
 					</div>
 				</div>
 
-				<div class="col-12 grid field">
-					<label htmlFor="form-subject">Assunto</label>
+				<div class="col-12 grid">
+					<div class="col-12 field">
+						<label htmlFor="form-subject">Assunto</label>
 
-					<input id="form-subject" type="text" pInputText formControlName="subject" class="width-100"/>
+						<input id="form-subject" type="text" pInputText formControlName="subject" class="width-100"/>
 
-					<small id="subject-help" class="p-error block" *ngIf="!isFieldValid('subject')">
-						Campo obrigatório.
-					</small>
+						<small id="subject-help" class="p-error block" *ngIf="!isFieldValid('subject')">
+							Campo obrigatório.
+						</small>
+					</div>
 				</div>
 
-				<div class="col-12 grid field">
-					<label htmlFor="form-message">Mensagem</label>
+				<div class="col-12 grid">
+					<div class="col-12 field">
+						<label htmlFor="form-message">Mensagem</label>
 
-					<textarea id="form-message" rows="5" cols="160" pInputTextarea formControlName="message" class="width-100"></textarea>
+						<textarea id="form-message" rows="5" cols="160" pInputTextarea formControlName="message"
+								  class="width-100"></textarea>
 
-					<small id="message-help" class="p-error block" *ngIf="!isFieldValid('message')">
-						Campo obrigatório.
-					</small>
+						<small id="message-help" class="p-error block" *ngIf="!isFieldValid('message')">
+							Campo obrigatório.
+						</small>
+					</div>
 				</div>
 
 				<div class="center-send-button">

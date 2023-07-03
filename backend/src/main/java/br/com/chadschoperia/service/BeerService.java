@@ -16,7 +16,6 @@ import br.com.chadschoperia.service.events.AddClientCardExpenseEvent;
 import br.com.chadschoperia.service.events.AddHistoricBeerEvent;
 import br.com.chadschoperia.service.events.AddListHistoricBeerEvent;
 import br.com.chadschoperia.service.events.AddListRevenueExpenseEvent;
-import br.com.chadschoperia.service.events.AddRevenueExpenseEvent;
 import br.com.chadschoperia.service.mapper.BeerMapper;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -120,11 +119,9 @@ public class BeerService {
 		BeerDto beer = findDtoById(dto.getBeer());
 		ClientCardDto card = clientCardService.findOpenByRfid(dto.getCard());
 		String historicDesc = historicMessageSource.getMessage(HistoricProductActionEnum.POUR.getMessage(), new String[]{card.getClient().getName(), card.getRfid()}, Locale.getDefault());
-		String revenueDesc = historicMessageSource.getMessage("revenue.beer.pour", new String[]{beer.getName(), card.getClient().getName(), card.getRfid()}, Locale.getDefault());
 
 		publishPourExpense(card, beer);
 		beer.subtractStock(POUR_QUANTITY);
-		publishRevenueExpense(beer.getValuePerMug(), revenueDesc);
 		publishHistoric(beer, HistoricProductActionEnum.POUR, -POUR_QUANTITY, historicDesc);
 		saveDto(beer);
 	}
@@ -169,10 +166,6 @@ public class BeerService {
 		} catch (EntityNotFoundException ex) {
 			throw new EntityNotFoundException(HttpStatus.BAD_REQUEST, ex.getReason());
 		}
-	}
-
-	private void publishRevenueExpense(Double value, String description) {
-		applicationEventPublisher.publishEvent(new AddRevenueExpenseEvent(value, description, SellingPointEnum.BEER));
 	}
 
 	private void publishRevenueExpense(List<Double> values, List<String> descriptions) {

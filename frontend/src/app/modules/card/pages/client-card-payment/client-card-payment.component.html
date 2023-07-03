@@ -21,13 +21,14 @@
 						<div class="xl:col-6 lg:col-6 sm:col-12 field">
 							<label htmlFor="payment">Pagameto</label>
 							<p-inputNumber id="payment" [showButtons]="true" [min]="0" [step]="0.25"
+										   (onInput)="updateChange()" (onBlur)="updateChange()" (onClear)="updateChange()"
 										   mode="currency" currency="BRL" locale="pt-BR" formControlName="payment"
 										   [minFractionDigits]=2 [maxFractionDigits]=2 buttonLayout="horizontal"
 										   decrementButtonClass="p-button-danger" decrementButtonIcon="pi pi-minus"
 										   incrementButtonClass="p-button-success" incrementButtonIcon="pi pi-plus"
 										   [ngClass]="{'ng-invalid ng-dirty': !isFieldValid('payment')}"></p-inputNumber>
 							<small id="payment-help" class="p-error block" *ngIf="!isFieldValid('payment')">
-								Valor obrigatório e maior ou igual à despesa total.
+								Valor obrigatório e maior ou igual à zero.
 							</small>
 						</div>
 
@@ -35,7 +36,7 @@
 							<label htmlFor="paymentMethod">Método de Pagamento</label>
 							<p-dropdown id="paymentMethod" formControlName="paymentMethod" [options]="paymentMethods"
 										emptyMessage="Nenhum registro encontrado" emptyFilterMessage="Nenhum registro encontrado"
-										optionLabel="description" optionValue="key"></p-dropdown>
+										optionLabel="label" optionValue="key"></p-dropdown>
 							<small id="paymentMethod-help" class="p-error block" *ngIf="!isFieldValid('paymentMethod')">
 								Valor obrigatório.
 							</small>
@@ -49,9 +50,16 @@
 
 						<div class="xl:col-3 sm:col-12 field">
 							<label htmlFor="change">Troco</label>
-							<p-inputNumber id="change" [showButtons]="false" [readonly]="true" mode="currency" currency="BRL"
-										   [minFractionDigits]=2 [maxFractionDigits]=2 [ngModel]="getChange()" locale="pt-BR"
-										   [ngModelOptions]="{ standalone: true }"></p-inputNumber>
+							<div class="p-inputgroup">
+								<span class="p-inputgroup-addon">
+									<p-checkbox [binary]="true" [(ngModel)]="hasChange" [readonly]="!clientCard" (onChange)="updateChange()"
+												[ngModelOptions]="{ standalone: true }"></p-checkbox>
+								</span>
+
+								<p-inputNumber id="change" formControlName="change" mode="currency" currency="BRL" locale="pt-BR"
+											   [minFractionDigits]=2 [maxFractionDigits]=2 [showButtons]="false"
+											   [readonly]="true"></p-inputNumber>
+							</div>
 						</div>
 
 						<div class="xl:col-2 sm:col-6 field">
@@ -63,8 +71,9 @@
 
 						<div class="xl:col-2 sm:col-6 field">
 							<label>&nbsp;</label>
-							<button pButton type="submit" label="Finalizar Compra" icon="pi pi-money-bill"
-									class="p-button-success p-button-raised" [disabled]="isLoading || !form.valid || !clientCard"></button>
+							<button pButton type="submit" label="Finalizar Compra" icon="pi pi-money-bill" class="p-button-raised"
+									[ngClass]="{'p-button-success': isPaymentValid, 'p-button-danger': !isPaymentValid}"
+									[disabled]="isLoading || !form.valid || !clientCard"></button>
 						</div>
 					</div>
 				</form>

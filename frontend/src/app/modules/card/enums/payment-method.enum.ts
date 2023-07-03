@@ -17,7 +17,7 @@ export class PaymentMethod {
 
 	constructor(
 		public key: PaymentMethodEnum,
-		public description: string
+		public label: string
 	) {
 	}
 

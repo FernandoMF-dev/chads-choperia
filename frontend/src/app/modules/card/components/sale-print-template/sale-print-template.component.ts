@@ -22,6 +22,6 @@ export class SalePrintTemplateComponent {
 		if (paymentMethod == null) {
 			return '';
 		}
-		return paymentMethod!.description;
+		return paymentMethod!.label;
 	}
 }
