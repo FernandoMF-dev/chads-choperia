@@ -32,31 +32,31 @@ public class ClientController {
 	private final ClientService clientService;
 
 	@GetMapping
-	@Secured({RolesUtil.COSTUMER_MONITOR})
+	@Secured({RolesUtil.COSTUMER_MONITOR, RolesUtil.ADMIN})
 	public ResponseEntity<List<ViewClientDto>> findAll(ViewClientFilterDto filter) {
 		return ResponseEntity.ok(clientService.findAllView(filter));
 	}
 
 	@GetMapping("/{idClient}")
-	@Secured({RolesUtil.COSTUMER_MONITOR})
+	@Secured({RolesUtil.COSTUMER_MONITOR, RolesUtil.ADMIN})
 	public ResponseEntity<ClientDto> findById(@PathVariable Long idClient) {
 		return ResponseEntity.ok(clientService.findDtoById(idClient));
 	}
 
 	@PostMapping
-	@Secured({RolesUtil.COSTUMER_MONITOR})
+	@Secured({RolesUtil.COSTUMER_MONITOR, RolesUtil.ADMIN})
 	public ResponseEntity<ClientDto> create(@Valid @RequestBody ClientDto clientDto) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(clientService.create(clientDto));
 	}
 
 	@PutMapping
-	@Secured({RolesUtil.COSTUMER_MONITOR})
+	@Secured({RolesUtil.COSTUMER_MONITOR, RolesUtil.ADMIN})
 	public ResponseEntity<ClientDto> update(@Valid @RequestBody ClientDto clientDto) {
 		return ResponseEntity.ok(clientService.update(clientDto));
 	}
 
 	@DeleteMapping("/{idClient}")
-	@Secured({RolesUtil.COSTUMER_MONITOR})
+	@Secured({RolesUtil.COSTUMER_MONITOR, RolesUtil.ADMIN})
 	public ResponseEntity<Void> deleteById(@PathVariable Long idClient) {
 		clientService.deleteById(idClient);
 		return ResponseEntity.noContent().build();
