@@ -66,8 +66,6 @@ public class ClientCardService {
 		try {
 			ClientCardDto dto = findOpenByRfid(payment.getRfid());
 
-			validatePayment(payment, dto);
-
 			dto.setPayment(payment.getPayment());
 			dto.setPaymentMethod(payment.getPaymentMethod());
 			dto.setStatus(ClientCardStatusEnum.PAID);
@@ -110,12 +108,6 @@ public class ClientCardService {
 		Optional<ClientCard> card = repository.findByClientAndStatus(idClient, ClientCardStatusEnum.OPEN, ClientCardStatusEnum.PAID);
 		if (card.isPresent()) {
 			throw new ResourceInUseException(messageSource.getMessage("client_card.client.already_with_card", new Object[]{card.get().getRfid()}, Locale.getDefault()));
-		}
-	}
-
-	private void validatePayment(ClientCardPaymentDto payment, ClientCardDto dto) throws BusinessException {
-		if (dto.getTotalExpenses() > payment.getPayment()) {
-			throw new BusinessException("client_card.total_expenses.less_than.payment");
 		}
 	}
 

@@ -27,7 +27,7 @@
 										   incrementButtonClass="p-button-success" incrementButtonIcon="pi pi-plus"
 										   [ngClass]="{'ng-invalid ng-dirty': !isFieldValid('payment')}"></p-inputNumber>
 							<small id="payment-help" class="p-error block" *ngIf="!isFieldValid('payment')">
-								Valor obrigatório e maior ou igual à despesa total.
+								Valor obrigatório e maior ou igual à zero.
 							</small>
 						</div>
 
@@ -63,8 +63,9 @@
 
 						<div class="xl:col-2 sm:col-6 field">
 							<label>&nbsp;</label>
-							<button pButton type="submit" label="Finalizar Compra" icon="pi pi-money-bill"
-									class="p-button-success p-button-raised" [disabled]="isLoading || !form.valid || !clientCard"></button>
+							<button pButton type="submit" label="Finalizar Compra" icon="pi pi-money-bill" class="p-button-raised"
+									[ngClass]="{'p-button-success': isPaymentValid, 'p-button-danger': !isPaymentValid}"
+									[disabled]="isLoading || !form.valid || !clientCard"></button>
 						</div>
 					</div>
 				</form>
